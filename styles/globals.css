@@ -6,3 +6,15 @@
 body {
   font-family: 'Open Sans', sans-serif;
 }
+
+.custom-swal-container, .custom-swal-popup {
+  background-color: #23262E;
+  color: #ACBBC7
+}
+
+.swal2-confirm:focus,.swal2-confirm {
+  box-shadow: none !important;
+  border: none !important;
+  outline: none !important;
+  color: #ACBBC7 !important;
+}
