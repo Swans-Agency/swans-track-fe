@@ -3,6 +3,26 @@
 @tailwind utilities;
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
 
+::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+}
+
+/* Change the color of the scrollbar track */
+::-webkit-scrollbar-track {
+  background-color: #23262E;
+}
+
+/* Change the color of the scrollbar thumb */
+::-webkit-scrollbar-thumb {
+  background-color: #2C333A;
+}
+
+/* Change the color of the scrollbar thumb when hovered */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #ACBBC7;
+}
+
 body {
   font-family: 'Open Sans', sans-serif;
 }
@@ -17,4 +37,38 @@ body {
   border: none !important;
   outline: none !important;
   color: #ACBBC7 !important;
+}
+
+.ant-btn-primary {
+  background-color: #23262E !important;
+  border-color: #23262E !important;
+  color: #ffffff !important;
+  box-shadow: none !important;
+}
+
+.ant-btn-primary:hover{
+  background-color: #2C333A !important;
+  border-color: #2C333A !important;
+  color: #ffffff !important;
+  box-shadow: none !important;
+}
+
+.ant-btn-default{
+  border-color: #ffffff !important;
+  color: #ffffff !important;
+}
+
+.ant-btn-default:hover{
+  background-color: #2C333A !important;
+    border-color: #2C333A !important;
+    color: #ffffff !important;
+}
+
+/* .ant-modal-content, .ant-modal-header, .ant-modal-title{
+  background-color: #1c2128 !important;
+  color: #ffffff !important;
+} */
+
+.ant-modal-close-icon{
+  color: #2C333A !important;
 }

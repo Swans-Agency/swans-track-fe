@@ -1,13 +1,13 @@
-import { useState, useContext } from 'react';
-import { CalendarOutlined, DownOutlined, DashboardOutlined, SwapOutlined, SnippetsOutlined, LoginOutlined, LogoutOutlined, DotChartOutlined, UserOutlined, TeamOutlined, FileTextOutlined, ReconciliationOutlined, MedicineBoxOutlined, ProfileOutlined, ExportOutlined } from '@ant-design/icons';
+import { useState, useContext, useEffect } from 'react';
+import { CalendarOutlined, DownOutlined, DashboardOutlined, SwapOutlined, SnippetsOutlined, LoginOutlined, LogoutOutlined, DotChartOutlined, UserOutlined, TeamOutlined, FileTextOutlined, ReconciliationOutlined, MedicineBoxOutlined, ProfileOutlined, ExportOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import Image from 'next/image';
 import { NavCollapse } from '@/context/NavContext';
 import { logout } from '@/functions/GeneralFunctions';
 import MenuItem from './MenuItem';
 
 
-export default function Navbar({userPermission}) {
-    const { collapsed, marginLeft, toggleCollapsed } = useContext(NavCollapse);
+export default function Navbar({ userPermission }) {
+    const { collapsed, marginLeft, navBarWidth, toggleCollapsed } = useContext(NavCollapse);
 
     const menuItems = [
         {
@@ -74,11 +74,11 @@ export default function Navbar({userPermission}) {
             label: 'Team Members',
             icon: <TeamOutlined />,
         },
-        userPermission == "Supervisor" ? {
+        userPermission == "Supervisor" && {
             key: 'company-preference',
             label: 'Company Preferences',
             icon: <ReconciliationOutlined />,
-        } : null,
+        },
         {
             key: 'profile',
             label: 'Profile',
@@ -93,25 +93,33 @@ export default function Navbar({userPermission}) {
     }
 
     return (
-        <div className='fixed border-r border-foreignBackground '>
-            <div className='bg-mainBackground h-[100vh] w-[256px] relative overflow-y-auto text-textIcons px-2 pt-2'>
-                <div className='pb-4'>
-                    <Image src="/logo.png" width={60} height={60} />
-                </div>
-                {
-                    menuItems.map((item, index) => {
-                        return (
-                            <MenuItem item={item} index={index} />
-                        )
-                    })
-                }
+        <div className='sticky top-0 left-0 !z-[10000]'>
+            <div className='absolute border-r border-foreignBackground !z-[1000]'>
                 <div
-                    className='fixed bottom-2 flex w-[240px]  justify-between gap-x-3 items-center text-[1rem] hover:bg-foreignBackground hover:cursor-pointer px-2 py-2 rounded-lg'
-                    onClick={() => logout()}
+                    className={`absolute top-0 ${!collapsed ? "left-[256px]" : "left-0"} bg-sidebar p-[0.6rem] flex items-center hover:cursor-pointer rounded-br-lg`}
+                    onClick={toggleCollapsed}
                 >
-                    <div className='flex gap-x-3 items-center'>
-                        {logOutButton?.icon}
-                        <p>{logOutButton?.label}</p>
+                    {!collapsed ? <MenuFoldOutlined className='text-textIcons' /> : <MenuUnfoldOutlined className='text-textIcons' />}
+                </div>
+                <div className={`bg-sidebar h-[100vh] ${collapsed ? "w-[20px] hidden" : "w-[256px]"} relative overflow-y-auto overflow-x-hidden text-textIcons px-2 pt-2`}>
+                    <div className='pb-4'>
+                        <Image src="/logo.png" width={60} height={60} />
+                    </div>
+                    {
+                        menuItems.map((item, index) => {
+                            return (
+                                <MenuItem item={item} index={index} />
+                            )
+                        })
+                    }
+                    <div
+                        className={`absolute bottom-2 flex ${collapsed ? "w-[20px] hidden" : "w-[256px]"} justify-between gap-x-3 items-center text-[1rem] hover:bg-mainBackground hover:cursor-pointer px-2 py-2 rounded-lg`}
+                        onClick={() => logout()}
+                    >
+                        <div className='flex gap-x-3 items-center'>
+                            {logOutButton?.icon}
+                            <p>{logOutButton?.label}</p>
+                        </div>
                     </div>
                 </div>
             </div>
