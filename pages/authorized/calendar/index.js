@@ -19,10 +19,7 @@ export const getServerSideProps = async (ctx) => {
     let isConnected = null
     try {
         if (accessToken) {
-            console.log("userPermission", userPermission)
-            console.log("accessToken", accessToken)
             isConnected = await getAxiosServer(`${process.env.DIGITALOCEAN}/tasks/check-google/`, accessToken, false)
-            console.log("isConnected", isConnected)
         } else {
             return {
                 redirect: {
