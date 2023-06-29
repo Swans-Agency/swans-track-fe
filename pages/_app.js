@@ -11,9 +11,7 @@ export default function App({ Component, pageProps }) {
       <NavShowWraper>
         <NavCollapseWraper>
           <Layout>
-            <div className='ml-[256px] px-16 py-6'>
-              <Component {...pageProps} />
-            </div>
+            <Component {...pageProps} />
           </Layout>
         </NavCollapseWraper>
       </NavShowWraper>
