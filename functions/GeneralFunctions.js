@@ -1,7 +1,9 @@
-import { remove } from "react-cookies"
+import cookie, { remove } from "react-cookies"
 import { postAxios } from "./ApiCalls"
 import { handleError } from "./ErrorHandling"
 import { useRouter } from 'next/router';
+import axios from "axios";
+import { NotificationLoading, NotificationSuccess } from "./Notifications";
 
 
 const timeZones = [
@@ -9,40 +11,43 @@ const timeZones = [
 ]
 
 const redirect = (url) => {
-    const router = useRouter();
-    router.push(url);
+    window.location.href = url;
 }
 
 const login = async(data) => {
-    try {
+    NotificationLoading()
         const URL = `${process.env.DIGITALOCEAN}/api/token/`
-        let res = await postAxios(URL, data, true, true, () => {})
-        cookie.save("AccessTokenSBS", res.access, {
-            path: "/",
-        });
-        cookie.save("RefreshTokenSBS", res.refresh, {
-            path: "/",
-        });
-        cookie.save("userPermission", res.permission, {
-            path: "/",
-        });
-        cookie.save("username", res.username, {
-            path: "/",
-        });
-        cookie.save("userId", res.id, {
-            path: "/",
-        });
-        return res
-    } catch (err) {
-        handleError(err)
-    }
+        axios.post(URL, data)
+        .then((res) => {
+            cookie.save("AccessTokenSBS", res?.data?.access, {
+                path: "/",
+            });
+            cookie.save("RefreshTokenSBS", res?.data?.refresh, {
+                path: "/",
+            });
+            cookie.save("userPermission", res?.data?.permission, {
+                path: "/",
+            });
+            cookie.save("username", res?.data?.username, {
+                path: "/",
+            });
+            cookie.save("userId", res?.data?.id, {
+                path: "/",
+            });
+            redirect('/authorized/dashboard')
+            NotificationSuccess()
+        })
+        .catch((err) => {
+            console.log(err)
+            handleError(err)
+        })
 }
 
 const signup = async(data) => {
     try {   
-        const URL = `${process.env.DIGITALOCEAN}/company/`
-        let res = await postAxios(URL, data, true, true, () => { })
-        return res
+        let res = await axios.post(`${process.env.DIGITALOCEAN}/company/`, data)
+        NotificationSuccess(res.data.success)
+        return res.data
     } catch (err) {
         handleError(err)
     }
