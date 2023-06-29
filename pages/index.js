@@ -1,9 +1,12 @@
+import React from 'react'
+import HeroSection from "@/components/LandingPage/HeroSection";
 
-export default function Home() {
-
+export default function index() {
   return (
     <main>
-dddd
+      <div className='overflow-hidden' >
+        <HeroSection />
+      </div>
     </main>
   )
 }
