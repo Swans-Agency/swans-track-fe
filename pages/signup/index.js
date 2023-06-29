@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { InfoCircleOutlined } from '@ant-design/icons';
-import { Button, Form, Input, Radio } from 'antd';
+import { Form, Input } from 'antd';
 import Link from 'next/link';
-import { signup } from '@/functions/Functions';
 import { useRouter } from 'next/navigation';
+import { signup } from '@/functions/GeneralFunctions';
 
 
 export default function index() {

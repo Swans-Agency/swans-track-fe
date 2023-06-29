@@ -3,7 +3,7 @@ import React from 'react';
 
 export default function index() {
   return (
-    <div className='px-[20rem] text-justify pt-10 pb-24'>
+    <div className='desktop:px-[20rem] tablet:px-[10rem] phone:px-5 text-left pt-10 pb-24 text-textIcons'>
       <h1 className='text-[2rem] font-black'>Privacy Policy</h1>
       <p className='text-sm'>Effective Date: June 19, 2023</p>
 
@@ -52,8 +52,6 @@ export default function index() {
 
       <h2 className='text-[1.5rem] font-bold pt-4'>8. Contact Us</h2>
       <p>If you have any questions, concerns, or requests regarding this Privacy Policy, please contact us at support@swanstrack.com.</p>
-        
     </div>
-
   );
 };

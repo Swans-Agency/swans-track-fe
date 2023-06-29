@@ -54,12 +54,12 @@ const signup = async(data) => {
 }
 
 const logout = async() => {
-    remove('username');
-    remove('userId');
-    remove('RefreshTokenSBS');
+    remove('username', { path: '/' });
+    remove('userId', { path: '/' });
+    remove('RefreshTokenSBS', { path: '/' });
+    remove('userPermission', { path: '/' });
+    remove('AccessTokenSBS', { path: '/' });
     redirect('/')
-    remove('userPermission');
-    remove('AccessTokenSBS');
 }
 
 const saveToLocal = (key, value) => {

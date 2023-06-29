@@ -6,7 +6,7 @@ import { NotificationLoading } from '@/functions/Notifications';
 import CardANTD from '../ANTD/CardANTD';
 import ChildrenContent from './ChildrenContent';
 export default function ReportComponent() {
-    const classNames = 'text-blue-400 flex gap-x-1 hover:text-blue-300 hover:cursor-pointer';
+    const classNames = 'text-linkColor hover:text-linkColorHover hover:cursor-pointer';
     const itemsOptions = ['this year', 'previous year', 'this month', 'previous month']
 
     const panels = [
@@ -66,7 +66,7 @@ export default function ReportComponent() {
     }
 
     return (
-        <div className='flex flex-wrap items-center desktop:justify-start phone:justify-center gap-4 '>
+        <div className='flex flex-wrap items-center desktop:justify-start phone:justify-center gap-4'>
             {panels?.map((content, index) => {
                 return (
                     <CardANTD
