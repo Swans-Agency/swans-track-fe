@@ -72,3 +72,27 @@ body {
 .ant-modal-close-icon{
   color: #2C333A !important;
 }
+
+.ant-collapse-expand-icon {
+  color: #ACBBC7 !important;
+}
+
+.ant-collapse-header-text {
+  color: #ACBBC7 !important;
+}
+
+.ant-collapse-content {
+  background-color: #23262E !important;
+}
+
+.ant-card {
+  background-color: #2C333A !important;
+  border: none !important;
+  color:#ACBBC7 !important;
+  width: 18rem;
+}
+
+.ant-card-head {
+  /* border-bottom: 1px #ACBBC7 !important; */
+  color: #ACBBC7 !important;
+}
