@@ -3,7 +3,7 @@ import { postAxios } from "./ApiCalls"
 import { handleError } from "./ErrorHandling"
 import { useRouter } from 'next/router';
 import axios from "axios";
-import { NotificationLoading, NotificationSuccess } from "./Notifications";
+import { NotificationError, NotificationLoading, NotificationSuccess } from "./Notifications";
 
 
 const timeZones = [
@@ -39,7 +39,8 @@ const login = async(data) => {
         })
         .catch((err) => {
             console.log(err)
-            handleError(err)
+            NotificationError(err)
+            // handleError(err)
         })
 }
 

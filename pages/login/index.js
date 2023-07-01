@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
 import { Button, Form, Input, Radio } from 'antd';
 import Link from 'next/link';
-
-import { useRouter } from 'next/navigation';
 import { login, redirect } from '@/functions/GeneralFunctions';
+import { useRouter } from 'next/router';
 
 
 export default function index() {
+    const router = useRouter()
 
-    const onFinish = async(values) => {
+    const onFinish = async (values) => {
+        values["username"] = values["username"].toLowerCase()
+        console.log({ values })
         let loggedIn = await login(values)
         if (loggedIn) {
-            redirect('/authorized/dashboard')
+            router.push('/authorized/dashboard')
         }
     }
 
@@ -36,7 +38,7 @@ export default function index() {
                             message: 'The input is not valid E-mail!',
                         },
                     ]} required tooltip="E-mail address used in the signing up process.">
-                        <Input className='rounded' placeholder="agency.swans@gmail.com" />
+                        <Input className='rounded' placeholder="support@swanstrack.com" />
                     </Form.Item>
                     <Form.Item
                         label="Password"
@@ -49,10 +51,15 @@ export default function index() {
                         <Input type='password' className='rounded' placeholder="password" />
                     </Form.Item>
                     <Form.Item>
-                        <button htmlType="submit" size="large" className='rounded w-[100%] bg-[#163757] hover:shadow-xl py-2 text-white flex gap-x-2 text-center justify-center'><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="white" className="w-6 h-6">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
-                        </svg>
-                            Login</button>
+                        <button htmlType="submit" size="large" className='rounded w-[100%] bg-[#163757] hover:shadow-xl py-2 text-white flex gap-x-2 text-center justify-center'>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="white" className="w-6 h-6">
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+                            </svg>
+                            Login
+                        </button>
                     </Form.Item>
                 </Form>
                 <div className='bg-[#163757]  py-5 mt-[5rem] text-center rounded-b-lg'>

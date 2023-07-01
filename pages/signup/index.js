@@ -9,6 +9,7 @@ import { signup } from '@/functions/GeneralFunctions';
 export default function index() {
     const router = useRouter()
     const onFinish = async (values) => {
+        values["email"] = values["email"].toLowerCase()
         let signedUp = await signup(values)
         if (signedUp) {
             router.push('/login')
