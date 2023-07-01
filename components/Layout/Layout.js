@@ -16,7 +16,7 @@ export default function Layout({ children, accessToken, }) {
                     <Navbar
                         userPermission={userPermission}
                     />
-                    <div className={`tablet:px-10 phone:px-5 py-5 bg-mainBackground min-h-[100vh]`}>
+                    <div className={`tablet:px-10 phone:px-5 py-5 bg-mainBackground min-h-[100vh] ${!collapsed ? "desktop:ml-[256px]" : ""}`}>
                         {children}
                     </div>
                 </> :

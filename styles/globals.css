@@ -27,6 +27,56 @@ body {
   font-family: 'Open Sans', sans-serif;
 }
 
+.custom-form input, 
+.custom-form .ant-picker, 
+.custom-form textarea, 
+.custom-form label, 
+.custom-form .ant-select-selector{
+  background-color: #23262E !important;
+  color: #ACBBC7 !important;
+  border-color: #ACBBC7 !important;
+}
+
+.custom-form input #dob, .custom-form span {
+  color: #ACBBC7;
+}
+
+.custom-form .ant-divider {
+  background-color: #2C333A !important;
+}
+
+.custom-date-picker .ant-picker-dropdown .ant-picker-panel-layout{
+  background-color: #2C333A !important;
+  color: #ACBBC7 !important;
+}
+
+.custom-date-picker .ant-picker-dropdown .ant-picker-panel-layout button, 
+.custom-date-picker .ant-picker-dropdown .ant-picker-panel-layout th,
+.custom-date-picker .ant-picker-dropdown .ant-picker-panel-layout td{
+  color: #ACBBC7 !important;
+}
+
+.custom-date-picker .ant-picker-dropdown .ant-picker-panel-layout td:hover {
+  background-color: #23262E !important;
+  border-radius: 5px !important;
+}
+
+.custom-select-picker .ant-select-dropdown,
+.custom-select-picker  {
+  background-color: #2C333A !important;
+  color: #ACBBC7 !important;
+}
+
+.custom-select-picker .ant-select-item-option-content {
+  color: #ACBBC7 !important;
+}
+
+.custom-select-picker .ant-select-item-option-selected,
+.custom-select-picker .ant-select-item-option:hover{
+  background-color: #23262E !important;
+  color: #ACBBC7 !important;
+}
+
 .custom-swal-container, .custom-swal-popup {
   background-color: #23262E;
   color: #ACBBC7

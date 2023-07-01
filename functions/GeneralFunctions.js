@@ -75,4 +75,4 @@ const getObjectsFromLocalStorage = (key) => {
 }
 
 
-export { redirect, login, signup, logout, saveToLocal, getObjectsFromLocalStorage }
+export { redirect, login, signup, logout, saveToLocal, getObjectsFromLocalStorage, timeZones }

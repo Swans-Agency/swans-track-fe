@@ -34,6 +34,7 @@ export default function index() {
                     <Form.Item rules={[
                         {
                             type: 'email',
+                            message: 'The input is not valid E-mail!',
                         },
                     ]} label="E-mail" name="email" required tooltip="You will use this for signing in." >
                         <Input className='rounded' placeholder="agency.swans@gmail.com" />
