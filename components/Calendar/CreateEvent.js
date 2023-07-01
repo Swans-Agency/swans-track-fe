@@ -12,7 +12,6 @@ export default function CreateEvent({ form, onFinish }) {
                 alignContent: "center",
                 maxWidth: 600,
             }}
-            className="custom-form"
             form={form}
             requiredMark={true}
         >

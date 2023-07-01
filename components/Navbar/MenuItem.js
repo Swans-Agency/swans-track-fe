@@ -1,13 +1,15 @@
 import { redirect } from '@/functions/GeneralFunctions';
+import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 
 
 export default function MenuItem({ item, index }) {
     const [showChildren, setShowChildren] = useState(false);
+    const router = useRouter();
 
     const handleClick = (item) => {
         if (item?.key) {
-            redirect(`/authorized/${item?.key}`)
+            router.push(`/authorized/${item?.key}`)
         } else {
             setShowChildren(!showChildren);
         }

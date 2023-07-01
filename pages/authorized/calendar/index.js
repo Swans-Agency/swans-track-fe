@@ -1,7 +1,8 @@
-
-import Calendar from '@/components/Calendar/Calendar';
-import { getAxiosServer } from '@/functions/ApiCalls';
 import React, { useEffect } from 'react';
+import { getAxiosServer } from '@/functions/ApiCalls';
+import dynamic from 'next/dynamic';
+import Loading from '@/components/Loading/Loading';
+const Calendar = dynamic(() => import('@/components/Calendar/Calendar'), { loading: () => <Loading />, });
 
 
 export default function index({ isConnected }) {
