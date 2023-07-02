@@ -27,17 +27,26 @@ body {
   font-family: 'Open Sans', sans-serif;
 }
 
-.custom-form input, 
-.custom-form .ant-picker, 
-.custom-form textarea, 
-.custom-form label, 
-.custom-form .ant-select-selector{
+.ant-drawer-wrapper-body {
+  background-color: #23262E !important;
+}
+
+.ant-drawer-title {
+  color: #ACBBC7 !important;
+}
+
+.custom-form input,
+.custom-form .ant-picker,
+.custom-form textarea,
+.custom-form label,
+.custom-form .ant-select-selector {
   background-color: #23262E !important;
   color: #ACBBC7 !important;
   border-color: #ACBBC7 !important;
 }
 
-.custom-form input #dob, .custom-form span {
+.custom-form input #dob,
+.custom-form span {
   color: #ACBBC7;
 }
 
@@ -45,14 +54,14 @@ body {
   background-color: #2C333A !important;
 }
 
-.custom-date-picker .ant-picker-dropdown .ant-picker-panel-layout{
+.custom-date-picker .ant-picker-dropdown .ant-picker-panel-layout {
   background-color: #2C333A !important;
   color: #ACBBC7 !important;
 }
 
-.custom-date-picker .ant-picker-dropdown .ant-picker-panel-layout button, 
+.custom-date-picker .ant-picker-dropdown .ant-picker-panel-layout button,
 .custom-date-picker .ant-picker-dropdown .ant-picker-panel-layout th,
-.custom-date-picker .ant-picker-dropdown .ant-picker-panel-layout td{
+.custom-date-picker .ant-picker-dropdown .ant-picker-panel-layout td {
   color: #ACBBC7 !important;
 }
 
@@ -62,7 +71,7 @@ body {
 }
 
 .custom-select-picker .ant-select-dropdown,
-.custom-select-picker  {
+.custom-select-picker {
   background-color: #2C333A !important;
   color: #ACBBC7 !important;
 }
@@ -72,17 +81,19 @@ body {
 }
 
 .custom-select-picker .ant-select-item-option-selected,
-.custom-select-picker .ant-select-item-option:hover{
+.custom-select-picker .ant-select-item-option:hover {
   background-color: #23262E !important;
   color: #ACBBC7 !important;
 }
 
-.custom-swal-container, .custom-swal-popup {
+.custom-swal-container,
+.custom-swal-popup {
   background-color: #23262E;
   color: #ACBBC7
 }
 
-.swal2-confirm:focus,.swal2-confirm {
+.swal2-confirm:focus,
+.swal2-confirm {
   box-shadow: none !important;
   border: none !important;
   outline: none !important;
@@ -96,30 +107,30 @@ body {
   box-shadow: none !important;
 }
 
-.ant-btn-primary:hover{
+.ant-btn-primary:hover {
   background-color: #2C333A !important;
   border-color: #2C333A !important;
   color: #ffffff !important;
   box-shadow: none !important;
 }
 
-.ant-btn-default{
+.ant-btn-default {
   border-color: #ffffff !important;
   color: #ffffff !important;
 }
 
-.ant-btn-default:hover{
+.ant-btn-default:hover {
   background-color: #2C333A !important;
-    border-color: #2C333A !important;
-    color: #ffffff !important;
+  border-color: #2C333A !important;
+  color: #ffffff !important;
 }
 
-/* .ant-modal-content, .ant-modal-header, .ant-modal-title{
+.ant-modal-content, .ant-modal-header, .ant-modal-title{
   background-color: #1c2128 !important;
   color: #ffffff !important;
-} */
+}
 
-.ant-modal-close-icon{
+.ant-modal-close-icon {
   color: #2C333A !important;
 }
 
@@ -138,11 +149,23 @@ body {
 .ant-card {
   background-color: #2C333A !important;
   border: none !important;
-  color:#ACBBC7 !important;
-  width: 15rem;
+  color: #ACBBC7 !important;
+  /* width: 15rem; */
+}
+.ant-card-actions{
+  background-color: #2C333A !important;
+
 }
 
 .ant-card-head {
   /* border-bottom: 1px #ACBBC7 !important; */
   color: #ACBBC7 !important;
+}
+
+.ant-table {
+  background-color: #2C333A !important;
+}
+
+.ant-table-header{
+  background-color: #2C333A !important;
 }
