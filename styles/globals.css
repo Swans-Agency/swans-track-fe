@@ -164,12 +164,6 @@ body {
   color: #ACBBC7 !important;
 }
 
-.custom-table th {
-  /* border: 1px solid #2C333A !important;
-  border-radius: 10px !important;
-  background-color: #2C333A !important; */
-}
-
 .custom-table .ant-table-cell {
   border: none !important;
   border-bottom: 1px solid #2C333A !important;
@@ -207,3 +201,26 @@ body {
 .custom-table th.ant-table-cell::before{
   height: 0px !important;
 } 
+
+.custom-drawer .ant-drawer-header,
+.custom-drawer .ant-drawer-title,
+.custom-drawer .ant-drawer-body {
+  background-color: #23262E !important;
+  color: #ACBBC7 !important;
+}
+
+.custom-drawer .ant-drawer-close,
+.custom-drawer .ant-drawer-close:hover {
+  color: #ACBBC7 !important;
+}
+
+.ant-popconfirm-buttons .ant-btn-default {
+  /* background-color: #23262E !important; */
+  border-color: #23262E !important;
+  color: #23262E !important;
+  box-shadow: none !important;
+}
+
+.ant-popconfirm-buttons .ant-btn-default:hover {
+  color: white !important;
+}
