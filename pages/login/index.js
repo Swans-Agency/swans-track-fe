@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Button, Form, Input, Radio } from 'antd';
 import Link from 'next/link';
-import { login, redirect } from '@/functions/GeneralFunctions';
 import { useRouter } from 'next/router';
+import { login } from '@/functions/GeneralFunctions';
 
 
 export default function index() {
