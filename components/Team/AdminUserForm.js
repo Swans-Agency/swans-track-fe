@@ -75,7 +75,7 @@ export default function AdminUserForm({ isModalOpenUpdate, setIsModalOpenUpdate,
     }
 
     return (
-        <Drawer width="600" placement="right" title="Update Member Profile" open={isModalOpenUpdate} onClose={handleCancel}>
+        <Drawer className='custom-drawer' width="600" placement="right" title="Update Member Profile" open={isModalOpenUpdate} onClose={handleCancel}>
             <Form
                 onFinish={onFinish}
                 layout="vertical"
@@ -137,7 +137,7 @@ export default function AdminUserForm({ isModalOpenUpdate, setIsModalOpenUpdate,
                 </Form.Item>
                 <div className='flex gap-x-5 w-full justify-end'>
                     <Form.Item>
-                        <button htmlType="submit" type='primary' className='bg-sidebarbg hover:bg-secondbg text-white rounded py-[0.4rem] px-3 hover:shadow-xl'>
+                        <button htmlType="submit" type='primary' className='hover:bg-foreignBackground text-textIcons rounded py-[0.4rem] px-3 hover:shadow-xl'>
                             Save
                         </button>
                     </Form.Item>

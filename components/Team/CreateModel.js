@@ -18,13 +18,13 @@ export default function CreateModal({ isModalOpen, setIsModalOpen, setReloadData
     const onFinish = async (data) => {
         console.log(data)
         const url = `${process.env.DIGITALOCEAN}/account/signup/`
-        await postAxios(url, data)
+        await postAxios(url, data, true, true)
         setReloadData({ "data": "dataq" })
     }
 
     return (
         <>
-            <Drawer width="600" placement="right" title="Create New Team Member" open={isModalOpen} onOk={handleOk} onClose={handleCancel} footer={null}>
+            <Drawer className='custom-drawer' width="600" placement="right" title="Create New Team Member" open={isModalOpen} onOk={handleOk} onClose={handleCancel} footer={null}>
                 <Form
                     onFinish={onFinish}
                     layout="vertical"
@@ -44,7 +44,8 @@ export default function CreateModal({ isModalOpen, setIsModalOpen, setReloadData
                             <Input className='rounded' />
                         </Form.Item>
                         <Form.Item label="Permission" name="permission" required className='w-full'>
-                            <Select options={[
+                            <Select 
+                            options={[
                                 {
                                     value: "Employee",
                                     label: "Employee",
@@ -56,14 +57,14 @@ export default function CreateModal({ isModalOpen, setIsModalOpen, setReloadData
                             ]} />
                         </Form.Item>
                     </div>
-                    <div className='text-xs font-light text-gray-500'>
+                    <div className='text-xs font-light tracking-wide text-textIcons'>
                         <p>* Employee | Restricted access, can't edit company and account settings.</p>
                         <p>* Supervisor | Full access, can edit company and account settings.</p>
                     </div>
 
                     <div className='flex gap-x-5 w-full justify-end'>
                         <Form.Item>
-                            <button htmlType="submit" type='primary' className='bg-sidebarbg hover:bg-secondbg text-white rounded py-[0.4rem] px-3 hover:shadow-xl'>
+                            <button htmlType="submit" type='primary' className='hover:bg-foreignBackground text-textIcons rounded py-[0.4rem] px-3 '>
                                 Save
                             </button>
                         </Form.Item>
