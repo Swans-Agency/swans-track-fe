@@ -14,10 +14,10 @@ const redirect = (url) => {
     window.location.href = url;
 }
 
-const login = async(data) => {
+const login = async (data) => {
     NotificationLoading()
-        const URL = `${process.env.DIGITALOCEAN}/api/token/`
-        axios.post(URL, data)
+    const URL = `${process.env.DIGITALOCEAN}/api/token/`
+    axios.post(URL, data)
         .then((res) => {
             cookie.save("AccessTokenSBS", res?.data?.access, {
                 path: "/",
@@ -44,8 +44,8 @@ const login = async(data) => {
         })
 }
 
-const signup = async(data) => {
-    try {   
+const signup = async (data) => {
+    try {
         let res = await axios.post(`${process.env.DIGITALOCEAN}/company/`, data)
         NotificationSuccess(res.data.success)
         return res.data
@@ -54,7 +54,7 @@ const signup = async(data) => {
     }
 }
 
-const logout = async() => {
+const logout = async () => {
     remove('username', { path: '/' });
     remove('userId', { path: '/' });
     remove('RefreshTokenSBS', { path: '/' });
