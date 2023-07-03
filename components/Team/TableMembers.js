@@ -12,48 +12,48 @@ export default function TableMembers({ deleteTeamMember, showModal }) {
             dataIndex: 'username',
             key: 'username',
             render: ((_, item) => (<div className='text-left'>{item?.username}</div>)),
-            // width: '20%'
+            width: '20%',
         },
         {
             title: 'First name',
             dataIndex: 'name',
             key: 'name',
             render: ((_, item) => (<div>{item?.userProfile?.firstName}</div>)),
-            // width: '10%'
+            width: '10%'
         },
         {
             title: 'Phone',
             dataIndex: 'phoneNumber',
             key: 'phoneNumber',
             render: ((_, item) => (<>{item?.userProfile?.phoneNumber}</>)),
-            // width: '10%'
+            width: '10%'
         },
         {
             title: 'DOB',
             dataIndex: 'dob',
             key: 'dob',
             render: ((_, item) => (<>{item?.userProfile?.dob}</>)),
-            // width: '10%'
+            width: '10%'
         },
         {
             title: 'Position',
             dataIndex: 'position',
             key: 'position',
             render: ((_, item) => (<>{item?.userProfile?.position}</>)),
-            // width: '20%'
+            width: '20%'
         },
         {
             title: 'Permission',
             dataIndex: 'permission',
             key: 'permission',
-            // width: '10%'
+            width: '10%'
         },
         {
             title: 'Join date',
             dataIndex: 'date_joined',
             key: 'date_joined',
             render: ((_, item) => (<>{moment.utc(item?.date_joined).local().format('MMMM DD, YYYY')}</>)),
-            // width: '10%'
+            width: '10%'
         },
         {
             title: <div className='flex justify-center'>Edit</div>,
@@ -66,6 +66,7 @@ export default function TableMembers({ deleteTeamMember, showModal }) {
                     </div>
                 )
             }),
+            width: '5%'
         },
         {
             title: <div className='flex justify-center'>Delete</div>,
@@ -94,6 +95,7 @@ export default function TableMembers({ deleteTeamMember, showModal }) {
                     </div>
                 )
             }),
+            width: '5%'
         },
     ];
 

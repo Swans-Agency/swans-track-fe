@@ -1,7 +1,7 @@
 import cookie, { remove } from "react-cookies";
 import axios from "axios";
 import { NotificationLoading, NotificationSuccess } from "./Notifications";
-import { handleError } from "./ErrorHandling";
+// import { handleError } from "./ErrorHandling";
 
 
 const getAxios = async (url, loading, success, callBack) => {
@@ -14,7 +14,7 @@ const getAxios = async (url, loading, success, callBack) => {
         if (success) { NotificationSuccess(res?.data) }
         return res?.data
     } catch (err) {
-        handleError(err)
+        // handleError(err)
     }
 }
 
@@ -30,7 +30,7 @@ const postAxios = async (url, data, loading, success, callBack) => {
         return res?.data
     } catch (err) {
         console.log("err", err)
-        handleError(err)
+        // handleError(err)
     }
 }
 
@@ -44,7 +44,7 @@ const putAxios = async (url, data, loading, success, callBack) => {
         if (success) { NotificationSuccess(res?.data) }
         return res?.data
     } catch (err) {
-        handleError(err)
+        // handleError(err)
     }
 }
 
@@ -58,7 +58,7 @@ const patchAxios = async (url, data, loading, success, callBack) => {
         if (success) { NotificationSuccess(res?.data) }
         return res?.data
     } catch (err) {
-        handleError(err)
+        // handleError(err)
     }
 }
 
@@ -72,7 +72,7 @@ const deleteAxios = async (url, loading, success, callBack) => {
         if (success) { NotificationSuccess(res?.data) }
         return res?.data
     } catch (err) {
-        handleError(err)
+        // handleError(err)
     }
 }
 
@@ -83,7 +83,7 @@ const getAxiosServer = async (url, accessToken, success) => {
         if (success) { NotificationSuccess(res?.data) }
         return res?.data
     } catch (err) {
-        handleError(err)
+        // handleError(err)
     }
 }
 
@@ -102,7 +102,7 @@ const postAxiosServer = async (url, data, accessToken, success) => {
         if (success) { NotificationSuccess(res?.data) }
         return res?.data
     } catch (err) {
-        handleError(err)
+        // handleError(err)
     }
 }
 

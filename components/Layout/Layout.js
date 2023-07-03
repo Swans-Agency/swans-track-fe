@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 
-import Navbar from '../Navbar/Navbar';
 import { NavShowContext } from '@/context/ShowNavContext';
 import { NavCollapse } from '@/context/NavContext';
+import Navbar from '../Navbar/NavBar';
 
 
 export default function Layout({ children, accessToken, }) {
