@@ -98,7 +98,7 @@ export default function TableRow({
         onDragStart={(event) => handleDragStart(event, item, index)}
         className={`relative border-l-4 ${
           colorTag[item?.taskStatus]
-        } w-[70%] hover:bg-gray-400`}
+        } w-[70%] hover:bg-gray-50`}
         onMouseEnter={handleShowCheckBox}
         onMouseLeave={handleHideCheckBox}
       >

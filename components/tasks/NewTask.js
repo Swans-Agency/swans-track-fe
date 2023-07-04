@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import { DatePicker, Divider, Form, Input, InputNumber, Radio, Select, Space, Switch, Upload } from 'antd';
-import { deleteAxios, getAxios, patchData, postAxios } from '@/functions/ApiCalls';
+import { deleteAxios, getAxios, patchAxios, patchData, postAxios } from '@/functions/ApiCalls';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import dayjs from 'dayjs';
@@ -19,7 +19,7 @@ export default function TaskForm({ handleNotifyTeam, selectedItem }) {
         const url = `${process.env.DIGITALOCEAN}/account/list-employees/`;
         const employeeData = await getAxios(url);
         console.log(employeeData, "employeeData");
-        const arrData = employeeData?.map((item) => ({
+        const arrData = employeeData?.results?.map((item) => ({
             value: item?.id,
             label: <>
                 <div className='flex items-center gap-x-2'>
@@ -68,7 +68,7 @@ export default function TaskForm({ handleNotifyTeam, selectedItem }) {
                 formData.append('assignee', assigneeValue);
             }
             const url = `${process.env.DIGITALOCEAN}/tasks/edit-task/${selectedItem?.id}/`
-            let res = await patchData(url, formData)
+            let res = await patchAxios(url, formData)
         } else {
             formData.append('assignee', assigneeValue);
             let res = await postAxios(url, formData)

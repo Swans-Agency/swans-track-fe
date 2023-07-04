@@ -27,55 +27,8 @@ body {
   font-family: 'Open Sans', sans-serif;
 }
 
-.custom-form input,
-.custom-form .ant-picker,
-.custom-form textarea,
-.custom-form label,
-.custom-form .ant-select-selector {
-  background-color: #23262E !important;
-  color: #ACBBC7 !important;
-  border-color: #ACBBC7 !important;
-}
-
-.custom-form input #dob,
-.custom-form span {
-  color: #ACBBC7;
-}
-
-.custom-form .ant-divider {
-  background-color: #2C333A !important;
-}
-
-.custom-date-picker .ant-picker-dropdown .ant-picker-panel-layout {
-  background-color: #2C333A !important;
-  color: #ACBBC7 !important;
-}
-
-.custom-date-picker .ant-picker-dropdown .ant-picker-panel-layout button,
-.custom-date-picker .ant-picker-dropdown .ant-picker-panel-layout th,
-.custom-date-picker .ant-picker-dropdown .ant-picker-panel-layout td {
-  color: #ACBBC7 !important;
-}
-
-.custom-date-picker .ant-picker-dropdown .ant-picker-panel-layout td:hover {
-  background-color: #23262E !important;
-  border-radius: 5px !important;
-}
-
-.custom-select-picker .ant-select-dropdown,
-.custom-select-picker {
-  background-color: #2C333A !important;
-  color: #ACBBC7 !important;
-}
-
-.custom-select-picker .ant-select-item-option-content {
-  color: #ACBBC7 !important;
-}
-
-.custom-select-picker .ant-select-item-option-selected,
-.custom-select-picker .ant-select-item-option:hover {
-  background-color: #23262E !important;
-  color: #ACBBC7 !important;
+.ant-divider {
+  background-color: #eeeeee !important;
 }
 
 .custom-swal-container,
@@ -117,11 +70,6 @@ body {
   color: #ffffff !important;
 }
 
-/* .ant-modal-content, .ant-modal-header, .ant-modal-title{
-  background-color: #1c2128 !important;
-  color: #ffffff !important;
-} */
-
 .ant-modal-close-icon {
   color: #2C333A !important;
 }
@@ -138,30 +86,8 @@ body {
   background-color: #23262E !important;
 }
 
-.ant-card {
-  background-color: #2C333A !important;
-  border: none !important;
-  color: #ACBBC7 !important;
-}
-
 .custom-card .ant-card {
   width: 15rem;
-  color: #ACBBC7 !important;
-}
-
-.custom-card .ant-card-head {
-  color: #ACBBC7 !important;
-}
-
-.custom-pagination .ant-pagination-item-link,
-.custom-pagination a {
-  color: #ACBBC7 !important;
-}
-
-.custom-pagination .ant-pagination-item-active {
-  background-color: #2C333A !important;
-  border-color: #2C333A !important;
-  color: #ACBBC7 !important;
 }
 
 .custom-table .ant-table-cell {

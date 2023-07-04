@@ -93,7 +93,7 @@ export default function CompanyPreferencesForm() {
     }
 
     return (
-        <div className='text-textIcons'>
+        <div className='text-black'>
             <h1 className='text-2xl font-bold text-maincl'>Company Preferences</h1>
             <Form
                 onFinish={onFinish}
@@ -102,7 +102,7 @@ export default function CompanyPreferencesForm() {
                     alignContent: "center",
                     
                 }}
-                className="custom-form desktop:max-w-[600px]"
+                className="desktop:max-w-[600px]"
                 form={form}
                 requiredMark={true}
             >
@@ -221,12 +221,6 @@ export default function CompanyPreferencesForm() {
                                 (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
                             }
                             options={timeZones}
-                            getPopupContainer={(trigger) => {
-                                const parent = trigger.parentElement;
-                                console.log(parent.classList);
-                                parent.classList.add("custom-select-picker");
-                                return parent;
-                            }}
                         />
                     </Form.Item>
                 </div>

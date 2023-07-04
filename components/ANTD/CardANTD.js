@@ -7,7 +7,8 @@ export default function CardANTD({ key, title, children }) {
         <Card
             key={key}
             title={title}
-            className='custom-card'
+            // className='custom-card'
+            bordered={true}
         >
             {children}
         </Card>

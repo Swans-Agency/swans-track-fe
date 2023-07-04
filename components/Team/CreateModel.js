@@ -2,6 +2,7 @@
 import { postAxios } from '@/functions/ApiCalls';
 import { Button, Form, Input, Modal, Select, Option, Drawer } from 'antd';
 import { useRouter } from 'next/router';
+import FormButtons from '../ANTD/FormButtons';
 
 
 export default function CreateModal({ isModalOpen, setIsModalOpen, setReloadData }) {
@@ -24,7 +25,7 @@ export default function CreateModal({ isModalOpen, setIsModalOpen, setReloadData
 
     return (
         <>
-            <Drawer className='custom-drawer' width="600" placement="right" title="Create New Team Member" open={isModalOpen} onOk={handleOk} onClose={handleCancel} footer={null}>
+            <Drawer  width="600" placement="right" title="Create New Team Member" open={isModalOpen} onOk={handleOk} onClose={handleCancel} footer={null}>
                 <Form
                     onFinish={onFinish}
                     layout="vertical"
@@ -32,7 +33,6 @@ export default function CreateModal({ isModalOpen, setIsModalOpen, setReloadData
                         alignContent: "center",
                         maxWidth: 600,
                     }}
-                    className="custom-form"
                     form={form}
                 >
                     <div className='flex gap-x-5 w-full'>
@@ -57,16 +57,14 @@ export default function CreateModal({ isModalOpen, setIsModalOpen, setReloadData
                             ]} />
                         </Form.Item>
                     </div>
-                    <div className='text-xs font-light tracking-wide text-textIcons'>
+                    <div className='text-xs font-light tracking-wide text-black'>
                         <p>* Employee | Restricted access, can't edit company and account settings.</p>
                         <p>* Supervisor | Full access, can edit company and account settings.</p>
                     </div>
 
                     <div className='flex gap-x-5 w-full justify-end'>
                         <Form.Item>
-                            <button htmlType="submit" type='primary' className='hover:bg-foreignBackground text-textIcons rounded py-[0.4rem] px-3 '>
-                                Save
-                            </button>
+                            <FormButtons content="Save" />
                         </Form.Item>
                     </div>
                 </Form>

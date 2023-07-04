@@ -16,6 +16,7 @@ module.exports = {
         sidebar: "#1c2128",
         mainBackground: "#23262E",
         foreignBackground: "#2C333A",
+        calendarBackground: "#6C737A",
         textIcons: "#ACBBC7",
         textButtons: "#ffffff",
         linkColor: "#2563eb",

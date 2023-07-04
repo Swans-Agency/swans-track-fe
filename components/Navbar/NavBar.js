@@ -96,14 +96,14 @@ export default function Navbar({ userPermission }) {
         <div className='sticky top-0 left-0 !z-[10000]'>
             <div className='absolute border-r border-foreignBackground !z-[1000]'>
                 <div
-                    className={`absolute top-0 ${!collapsed ? "left-[256px]" : "left-0"} bg-sidebar p-[0.6rem] flex items-center hover:cursor-pointer rounded-br-lg`}
+                    className={`absolute top-0 ${!collapsed ? "left-[256px]" : "left-0"} bg-sidebar pr-1 h-[100vh] flex items-center hover:cursor-pointer`}
                     onClick={toggleCollapsed}
                 >
                     {!collapsed ? <MenuFoldOutlined className='text-textIcons' /> : <MenuUnfoldOutlined className='text-textIcons' />}
                 </div>
                 <div className={`bg-sidebar h-[100vh] ${collapsed ? "w-[20px] hidden" : "w-[256px]"} relative overflow-y-auto overflow-x-hidden text-textIcons px-2 pt-2`}>
                     <div className='pb-4'>
-                        <Image src="/logo.png" width={60} height={60} />
+                        <Image src="/Logo.png" width={60} height={60} />
                     </div>
                     {
                         menuItems.map((item, index) => {
