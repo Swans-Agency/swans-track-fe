@@ -4,6 +4,7 @@ import { MoneyCollectOutlined, PlusOutlined } from '@ant-design/icons';
 import { DatePicker, Divider, Form, Input, InputNumber, Select, Upload } from 'antd';
 import { postAxios } from '@/functions/ApiCalls';
 import { getAxios } from '@/functions/ApiCalls';
+import FormButtons from '../ANTD/FormButtons';
 
 
 export default function IncomeForm({ setReloadData }) {
@@ -36,7 +37,7 @@ export default function IncomeForm({ setReloadData }) {
 
 
         const url = `${process.env.DIGITALOCEAN}/invoice/create-income/`
-        let res = await postAxios(url, formData)
+        let res = await postAxios(url, formData, true, true, setReloadData)
         setReloadData(res)
     }
 
@@ -99,7 +100,6 @@ export default function IncomeForm({ setReloadData }) {
                         width: "100%",
                     }}
                     onChange={(e) => {
-                        console.log(e, "<<<<<<<<<<<<<<<<");
                         form.setFieldValue('invoice', e);
                     }}
                     allowClear={true}
@@ -130,9 +130,7 @@ export default function IncomeForm({ setReloadData }) {
             <Divider />
             <div className='flex gap-x-5 w-full justify-end'>
                 <Form.Item>
-                    <button htmlType="submit" type='primary' className='bg-sidebarbg hover:bg-secondbg text-white rounded py-[0.4rem] px-3 hover:shadow-xl'>
-                        Save
-                    </button>
+                    <FormButtons content="Save" />
                 </Form.Item>
             </div>
         </Form>

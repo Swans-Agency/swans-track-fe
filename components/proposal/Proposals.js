@@ -7,13 +7,12 @@ import {
 } from "@ant-design/icons";
 import { Button, Input, Popconfirm, Space, Table } from "antd";
 import {
-  NotificationLoading,
-  NotificationPermission,
   deleteAxios,
   getAxios,
 } from "@/functions/ApiCalls";
 import Highlighter from "react-highlight-words";
 import TableANTD from "../ANTD/TableANTD";
+import { NotificationLoading, NotificationPermission } from "@/functions/Notifications";
 
 export default function Proposals({
   showModal,
