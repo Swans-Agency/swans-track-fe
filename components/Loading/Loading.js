@@ -13,8 +13,8 @@ export default function Loading() {
     );
     return (
         <div className='w-full flex flex-col items-center justify-center align-middle mt-[15rem]'>
-            <h1 className='text-3xl font-light mb-4 text-textIcons'>Content Loading...</h1>
-            <Spin indicator={antIcon} style={{ color: "#ACBBC7" }} />
+            <h1 className='text-3xl font-light mb-4 text-black'>Content Loading...</h1>
+            <Spin indicator={antIcon} style={{ color: "black" }} />
         </div>
     );
 };

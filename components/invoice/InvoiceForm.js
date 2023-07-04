@@ -17,6 +17,7 @@ import {
   Space,
 } from "antd";
 import { getAxios, postAxios } from "@/functions/ApiCalls";
+import FormButtons from "../ANTD/FormButtons";
 
 export default function InvoiceForm({ setReloadData }) {
   const [disabledSelectCurrency, setDisabledCurrency] = useState(false);
@@ -341,13 +342,7 @@ export default function InvoiceForm({ setReloadData }) {
       <Divider />
       <div className="flex gap-x-5 w-full justify-end">
         <Form.Item>
-          <button
-            htmlType="submit"
-            type="primary"
-            className="bg-sidebarbg hover:bg-secondbg text-white rounded py-[0.4rem] px-3 hover:shadow-xl"
-          >
-            Save
-          </button>
+          <FormButtons content="Save" />
         </Form.Item>
       </div>
     </Form>

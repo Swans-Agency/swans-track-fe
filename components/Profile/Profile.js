@@ -64,7 +64,7 @@ export default function Profile() {
     }
 
     return (
-        <div className='text-textIcons'>
+        <div className='text-black'>
             <h1 className='text-2xl font-bold text-maincl'>Profile</h1>
             <Form
                 onFinish={onFinish}
@@ -73,7 +73,7 @@ export default function Profile() {
                     alignContent: "center",
                     // maxWidth: 600,
                 }}
-                className="custom-form  desktop:max-w-[600px]"
+                className="desktop:max-w-[600px]"
                 form={form}
             >
                 <Form.Item label="Profile picture" className='mt-4' name={"pfp"}>
@@ -83,9 +83,9 @@ export default function Profile() {
                         defaultFileList={initialPicList}
                     >
                         <div>
-                            <PlusOutlined className='text-textIcons' />
+                            <PlusOutlined className='text-black' />
                             <div
-                                className='text-textIcons'
+                                className='text-black'
                                 style={{
                                     marginTop: 8,
                                 }}
@@ -126,7 +126,7 @@ export default function Profile() {
                 <Form.Item label="Position" name="position" className='w-full'>
                     <Input className='rounded' disabled />
                 </Form.Item>
-                <p className='text-textIcons'>This account was created on {userCreateDate}</p>
+                <p className='text-foreignBackground'>This account was created on {userCreateDate}</p>
                 <Divider />
                 <div className='flex gap-x-5 w-full justify-end'>
                     <Form.Item>
@@ -143,7 +143,7 @@ export default function Profile() {
                     alignContent: "center",
                     // maxWidth: 600,
                 }}
-                className="custom-form desktop:max-w-[600px]"
+                className="desktop:max-w-[600px]"
                 form={passwordForm}
             >
                 <Form.Item label="New password" name="password" className='w-full mt-4'>

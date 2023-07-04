@@ -35,18 +35,18 @@ export default function TableANTD({ columns, url, reloadData }) {
         <>
             {data?.count ? <div>
                 <Table
-                    className='w-full custom-table'
+                    className='w-full '
                     columns={columns}
                     dataSource={data?.results}
                     pagination={false}
-                    size="middle"
+                    size='middle'
                     style={{
                         overflowX: 'auto',
                     }}
                 />
                 <div className='flex justify-end'>
                     <Pagination
-                        className='mt-2 custom-pagination'
+                        className='mt-2 '
                         current={pagination.current}
                         pageSize={pagination.pageSize}
                         total={pagination.total}
@@ -54,7 +54,7 @@ export default function TableANTD({ columns, url, reloadData }) {
                     />
                 </div>
             </div> :
-                <NoTableData />
+                <Empty />
             }
         </>
     );

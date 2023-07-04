@@ -3,6 +3,7 @@ import moment from 'moment';
 import { MoneyCollectOutlined, PlusOutlined } from '@ant-design/icons';
 import { DatePicker, Divider, Form, Input, InputNumber, Select, Upload } from 'antd';
 import { postAxios } from '@/functions/ApiCalls';
+import FormButtons from '../ANTD/FormButtons';
 
 
 export default function ExoenseForm({ setReloadData }) {
@@ -22,14 +23,12 @@ export default function ExoenseForm({ setReloadData }) {
         formData.append('category', data?.category);
         formData.append('date', moment(new Date(data?.date)).format("YYYY-MM-DD"));
 
-
         if (data.attachement && data.attachement.file) {
             formData.append('attachement', data.attachement.file.originFileObj);
         }
 
-
         const url = `${process.env.DIGITALOCEAN}/company/company-expenses/`
-        let res = await postAxios(url, formData)
+        let res = await postAxios(url, formData, true, true, setReloadData)
         setReloadData(res)
     }
 
@@ -128,9 +127,7 @@ export default function ExoenseForm({ setReloadData }) {
             <Divider />
             <div className='flex gap-x-5 w-full justify-end'>
                 <Form.Item>
-                    <button htmlType="submit" type='primary' className='bg-sidebarbg hover:bg-secondbg text-white rounded py-[0.4rem] px-3 hover:shadow-xl'>
-                        Save
-                    </button>
+                    <FormButtons content="Save" />
                 </Form.Item>
             </div>
         </Form>

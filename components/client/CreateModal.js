@@ -1,6 +1,7 @@
 import { postAxios } from "@/functions/ApiCalls";
 import { Form, Input, Select, Drawer, DatePicker } from "antd";
 import moment from "moment";
+import FormButtons from "../ANTD/FormButtons";
 
 export default function CreateModal({
   isModalOpen,
@@ -22,7 +23,7 @@ export default function CreateModal({
       "YYYY-MM-DD"
     );
     const url = `${process.env.DIGITALOCEAN}/client/get-clients/`;
-    let res = await postAxios(url, data);
+    let res = await postAxios(url, data, true, true, setReloadData);
     setReloadData(res);
   };
 
@@ -142,16 +143,9 @@ export default function CreateModal({
           <Form.Item label="Acquire Date" name="createdAt">
             <DatePicker className="rounded w-full" placeholder="" />
           </Form.Item>
-
           <div className="flex gap-x-5 w-full justify-end">
             <Form.Item>
-              <button
-                htmlType="submit"
-                type="primary"
-                className="bg-sidebarbg hover:bg-secondbg text-white rounded py-[0.4rem] px-3 hover:shadow-xl"
-              >
-                Save
-              </button>
+              <FormButtons content="Save" />
             </Form.Item>
           </div>
         </Form>

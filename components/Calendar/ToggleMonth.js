@@ -6,7 +6,7 @@ export default function ToggleMonth({ setSelectedDate, selectedDate }) {
     return (
         <div className='flex gap-x-2 items-center'>
             <div
-                className='w-[2rem] text-textIcons text-center hover:bg-foreignBackground hover:cursor-pointer rounded-full'
+                className='w-[2rem] text-black hover:text-white text-center hover:bg-foreignBackground hover:cursor-pointer rounded-full'
                 onClick={() => setSelectedDate(prev => new Date(prev.getFullYear(), prev.getMonth() - 1, 1))}
             >
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-full h-full p-1 ">
@@ -15,7 +15,7 @@ export default function ToggleMonth({ setSelectedDate, selectedDate }) {
 
             </div>
             <div
-                className='w-[2rem] text-textIcons text-center hover:bg-foreignBackground hover:cursor-pointer rounded-full'
+                className='w-[2rem] text-black hover:text-white text-center hover:bg-foreignBackground hover:cursor-pointer rounded-full'
                 onClick={() => setSelectedDate(prev => new Date(prev.getFullYear(), prev.getMonth() + 1, 1))}
             >
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-full h-full p-1 ">
@@ -23,7 +23,7 @@ export default function ToggleMonth({ setSelectedDate, selectedDate }) {
                 </svg>
 
             </div>
-            <p className='text-lg items-start text-textIcons text-center justify-center '>{format(new Date(selectedDate), 'MMM yyyy')}</p>
+            <p className='text-lg items-start text-black  text-center justify-center '>{format(new Date(selectedDate), 'MMM yyyy')}</p>
         </div>
     );
 };

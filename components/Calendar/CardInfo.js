@@ -6,7 +6,7 @@ import Events from './Events';
 
 export default function CardInfo({ date, monthEvents, isConnected }) {
     return (
-        <div key={date} className='h-[10rem] relative grid text-center bg-foreignBackground overflow-hidden hover:overflow-auto'>
+        <div key={date} className='h-[10rem] relative grid text-center bg-gray-100 overflow-hidden hover:overflow-auto'>
             <div>
                 <DayHeader
                     date={date}

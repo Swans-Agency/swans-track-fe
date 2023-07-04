@@ -2,11 +2,12 @@ import React, { useEffect, useState, useRef } from 'react';
 import { ref, set, onValue } from "firebase/database";
 import dynamic from 'next/dynamic'
 import database from '@/components/firebaseNotify/Firebase';
-import { deleteAxios, getAxios, patchDataWithout, postAxios } from '@/functions/ApiCalls';
+import { deleteAxios, getAxios, patchAxios, patchDataWithout, postAxios } from '@/functions/ApiCalls';
 import { Drawer, Modal } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import Image from 'next/image';
 import Loading from '@/components/Loading/Loading';
+import NoTableData from '@/components/ANTD/NoTableData';
 
 
 
@@ -169,7 +170,7 @@ export default function index({ accessToken, userPermission, userId }) {
             const data = {
                 "taskStatus": destinationTable == "toDo" ? "To Do" : destinationTable == "idle" ? "Idle" : destinationTable == "completed" ? "Completed" : destinationTable == "inProgress" ? "In Progress" : item?.taskStatus
             }
-            await patchDataWithout(updateURL, data)
+            await patchAxios(updateURL, data)
             handleNotifyTeam(item.assignee, `The Task ${item?.taskName} was moved to On Going`)
         }
 
@@ -200,7 +201,7 @@ export default function index({ accessToken, userPermission, userId }) {
             <div>
                 <h1 className='text-2xl font-bold text-maincl mb-3'>Company Tasks</h1>
                 <div className='flex  justify-end mb-3'>
-                    <button onClick={() => showDrawer()} className='flex gap-x-2 bg-sidebarbg hover:bg-secondbg text-white rounded py-[0.4rem] px-3 hover:shadow-xl '><PlusOutlined className=' pt-1' />Add Task</button>
+                    <button onClick={() => showDrawer()} className='flex gap-x-2 bg-sidebarbg hover:bg-foreignBackground hover:text-white rounded py-[0.4rem] px-3 mb-3'><PlusOutlined className=' pt-1' />Add Task</button>
                 </div>
                 <TasksTable itemsToDelete={itemsToDelete} setItemsToDelete={setItemsToDelete} showModal={showModal} id="toDo" handleDragOver={handleDragOver} handleDrop={handleDrop} handleDragStart={handleDragStart} bgColor={"bg-slate-700"} tableType={"To Do"} data={tasks} />
                 <TasksTable itemsToDelete={itemsToDelete} setItemsToDelete={setItemsToDelete} showModal={showModal} id="inProgress" handleDragOver={handleDragOver} handleDrop={handleDrop} handleDragStart={handleDragStart} bgColor={"bg-blue-700"} tableType={"In Progress"} marginTop={"mt-10"} data={inProgressTasks} />
@@ -209,8 +210,7 @@ export default function index({ accessToken, userPermission, userId }) {
                 {
                     inProgressTasks.length == 0 && tasks.length == 0 && doneTasks.length == 0 && idleTasks.length == 0 && 
                     <div className='flex flex-col justify-center items-center'>
-                            <Image src="/noTask.jpg" width={512} height={512} alt="Empty" />
-                            {/* <iframe src="https://giphy.com/embed/Hohj18Y43HIr3mMNM4" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe> */}
+                            <NoTableData />
                     </div>
                 }
                 {showDelete && <div title="Drop to delete!" onDrop={(event) => handleDrop(event, "delete")} onDragOver={(event) => handleDragOver(event)} className='animate-jump fixed bottom-2 left-[58%] -translate-x-1/2 w-[50%] p-4 border rounded-xl border-dashed border-red-600 bg-red-50 opacity-75'>

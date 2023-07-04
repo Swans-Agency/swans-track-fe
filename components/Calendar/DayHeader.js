@@ -38,13 +38,13 @@ export default function DayHeader({ date, isConnected }) {
         <>
             <div onClick={showModal} className='sticky top-0 left-0 w-full hover:cursor-pointer'>
                 {format(new Date(), 'dd/MM/yyyy') == format(new Date(date), 'dd/MM/yyyy') ?
-                    <div className='sticky top-0 left-0 w-full bg-foreignBackground'>
+                    <div className='sticky top-0 left-0 w-full bg-gray-100'>
                         <p className='text-blue-500 font-bold'>{format(date, 'dd')}</p>
-                        <p className='text-textIcons text-xs font-light'>{format(date, 'EEE')}</p>
+                        <p className='text-black text-xs font-light'>{format(date, 'EEE')}</p>
                     </div> :
-                    <div className=' bg-foreignBackground'>
-                        <p className="text-textIcons">{format(date, 'dd')}</p>
-                        <p className='text-textIcons text-xs font-light'>{format(date, 'EEE')}</p>
+                    <div className=' bg-gray-100'>
+                        <p className="text-black">{format(date, 'dd')}</p>
+                        <p className='text-black text-xs font-light'>{format(date, 'EEE')}</p>
                     </div>
                 }
             </div>

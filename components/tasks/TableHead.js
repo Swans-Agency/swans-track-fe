@@ -15,7 +15,7 @@ export default function TableHead({ handleShowList, hideList, bgColor, tableType
                       </svg>
                   }
               </div>
-              <p className={` ${bgColor} text-white w-[100px] py-1 px-3 rounded-t`}>{tableType}</p>
+              <p className={` ${bgColor} text-white w-[150px] py-1 px-3 rounded-t`}>{tableType}</p>
               {hideList == "hidden" ? <p className='text-[0.6rem] text-slate-500'>{numberTasks} {numberTasks > 1 ? "Tasks" : numberTasks == 1 ? "Task" : "Tasks"}</p> : ""}
           </th>
           <th scope="col" className="px-6 py-1">

@@ -17,6 +17,8 @@ import {
   Space,
 } from "antd";
 import { getAxios, postAxios } from "@/functions/ApiCalls";
+import FormButtons from "../ANTD/FormButtons";
+import { set } from "date-fns";
 
 export default function ProposalForm({ setReloadData }) {
   const [disabledSelectCurrency, setDisabledCurrency] = useState(false);
@@ -91,7 +93,7 @@ export default function ProposalForm({ setReloadData }) {
     );
 
     const url = `${process.env.DIGITALOCEAN}/invoice/create-proposal/`;
-    let res = await postAxios(url, data);
+    let res = await postAxios(url, data, true, true, setReloadData);
     setReloadData(res);
   };
   return (
@@ -311,13 +313,7 @@ export default function ProposalForm({ setReloadData }) {
       <Divider />
       <div className="flex gap-x-5 w-full justify-end">
         <Form.Item>
-          <button
-            htmlType="submit"
-            type="primary"
-            className="bg-sidebarbg hover:bg-secondbg text-white rounded py-[0.4rem] px-3 hover:shadow-xl"
-          >
-            Save
-          </button>
+          <FormButtons content="Save" />
         </Form.Item>
       </div>
     </Form>

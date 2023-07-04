@@ -1,8 +1,9 @@
-import { patchData } from "@/functions/ApiCalls";
+import { patchAxios, patchData } from "@/functions/ApiCalls";
 import { Form, Input, Modal, Select, DatePicker } from "antd";
 import dayjs from "dayjs";
 import moment from "moment";
 import { useEffect, useState } from "react";
+import FormButtons from "../ANTD/FormButtons";
 
 export default function UpdateModal({
   isModalOpen,
@@ -35,7 +36,7 @@ export default function UpdateModal({
       "YYYY-MM-DD"
     );
     const url = `${process.env.DIGITALOCEAN}/client/edit-client/${clientId}`;
-    let res = await patchData(url, data);
+    let res = await patchAxios(url, data, true, true);
     setReloadData(res);
   };
 
@@ -55,7 +56,6 @@ export default function UpdateModal({
             alignContent: "center",
             maxWidth: 600,
           }}
-          className="custom-form"
           form={form}
         >
           <div className="flex gap-x-5 w-full">
@@ -160,13 +160,14 @@ export default function UpdateModal({
           </div>
           <div className="flex gap-x-5 w-full justify-end">
             <Form.Item>
-              <button
+              {/* <button
                 htmlType="submit"
                 type="primary"
                 className="bg-sidebarbg hover:bg-secondbg text-white rounded py-[0.4rem] px-3 hover:shadow-xl"
               >
                 Save
-              </button>
+              </button> */}
+              <FormButtons content="Save" />
             </Form.Item>
           </div>
         </Form>
