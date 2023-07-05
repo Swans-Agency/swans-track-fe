@@ -18,7 +18,6 @@ import {
 } from "antd";
 import { getAxios, postAxios } from "@/functions/ApiCalls";
 import FormButtons from "../ANTD/FormButtons";
-import { set } from "date-fns";
 
 export default function ProposalForm({ setReloadData }) {
   const [disabledSelectCurrency, setDisabledCurrency] = useState(false);
@@ -156,9 +155,6 @@ export default function ProposalForm({ setReloadData }) {
       </div>
 
       <div className="flex gap-x-5 w-full mt-0">
-        {/* <Form.Item label="Proposal no" name="proposalNo" className='w-full' required>
-                    <Input className='rounded' />
-                </Form.Item> */}
         <Form.Item
           label="Proposal date"
           name="proposalDate"
@@ -176,19 +172,7 @@ export default function ProposalForm({ setReloadData }) {
       >
         <Input.TextArea className="rounded" />
       </Form.Item>
-      {/* <Form.Item label="Terms conditions" name="termsConditions" className='w-full' required>
-                <Input.TextArea className='rounded' />
-            </Form.Item> */}
-      {/* <div className='flex gap-x-5 w-full'>
-          <Form.Item label="Discount Type" name="DiscountType" className='w-full' required>
-            <Switch label="Discount Type" className='bg-gray-400' onChange={percentageSwitch} checkedChildren="Percentage" unCheckedChildren="Value" defaultChecked />
-          </Form.Item>
 
-              {discountPercentage ? <Form.Item label="Discount percentage" name="discountPercentage" className='w-full' required>
-                  <Input className='rounded' addonAfter={<PercentageOutlined className='pb-1' />} />
-          </Form.Item> :
-        //   }
-          </div> */}
       <div className="flex gap-x-5 w-full mt-0">
         <Form.Item
           label="Discount value"
@@ -225,11 +209,7 @@ export default function ProposalForm({ setReloadData }) {
           {(fields, { add, remove }) => (
             <>
               {fields.map(({ key, name, ...restField }) => (
-                <Space
-                  key={key}
-                  //   align="baseline"
-                  className="grid w-full"
-                >
+                <Space key={key} className="grid w-full">
                   <Form.Item
                     {...restField}
                     name={[name, "itemName"]}
@@ -242,18 +222,7 @@ export default function ProposalForm({ setReloadData }) {
                   >
                     <Input placeholder="Item name" />
                   </Form.Item>
-                  {/* <Form.Item
-                                        {...restField}
-                                        name={[name, 'itemDescription']}
-                                        rules={[
-                                            {
-                                                required: true,
-                                                message: 'Missing item description',
-                                            },
-                                        ]}
-                                    >
-                                        <Input.TextArea placeholder="Item description" />
-                                    </Form.Item> */}
+
                   <div className="flex gap-x-5 w-full">
                     <Form.Item
                       {...restField}

@@ -5,9 +5,13 @@ import CreateModal from "./CreateModal";
 import UpdateModal from "./UpdateModal";
 import TableANTD from "../ANTD/TableANTD";
 import { Button, Input, Popconfirm, Space } from "antd";
-import { EditOutlined,UserDeleteOutlined,QuestionCircleOutlined, SearchOutlined } from "@ant-design/icons";
+import {
+  EditOutlined,
+  UserDeleteOutlined,
+  QuestionCircleOutlined,
+  SearchOutlined,
+} from "@ant-design/icons";
 import Highlighter from "react-highlight-words";
-
 
 export default function ClientView({ userPermission }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -198,12 +202,12 @@ export default function ClientView({ userPermission }) {
       dataIndex: "edit",
       key: "edit",
       render: (_, item) => (
-        <div className = "text-center">
-        <EditOutlined
-          key="edit"
-          style={{ color: "#3b82f6" }}
-          onClick={() => showModalUpdate(item)}
-        />
+        <div className="text-center">
+          <EditOutlined
+            key="edit"
+            style={{ color: "#3b82f6" }}
+            onClick={() => showModalUpdate(item)}
+          />
         </div>
       ),
       width: "5%",

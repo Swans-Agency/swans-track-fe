@@ -1,32 +1,31 @@
-
-import React from 'react';
-import Loading from '@/components/Loading/Loading';
-import dynamic from 'next/dynamic';
-const CompanyPreferencesForm = dynamic(() => import('@/components/CompanyPreference/CompanyPreferencesForm'), { loading: () => <Loading />, });
+import React from "react";
+import Loading from "@/components/Loading/Loading";
+import dynamic from "next/dynamic";
+const CompanyPreferencesForm = dynamic(
+  () => import("@/components/CompanyPreference/CompanyPreferencesForm"),
+  { loading: () => <Loading /> }
+);
 
 export default function index() {
-    return (
-        <CompanyPreferencesForm />
-    );
-};
+  return <CompanyPreferencesForm />;
+}
 
 export const getServerSideProps = async (ctx) => {
-    let accessToken = ctx.req.cookies["AccessTokenSBS"]
-    let userPermission = ctx.req.cookies["userPermission"]
-    let isConnected = null
-    try {
-        if (accessToken) {
-
-        } else {
-            return {
-                redirect: {
-                    destination: '/401',
-                    permanent: false,
-                }
-            }
-        }
-    } catch (e) {
-        console.log({ e });
+  let accessToken = ctx.req.cookies["AccessTokenSBS"];
+  let userPermission = ctx.req.cookies["userPermission"];
+  let isConnected = null;
+  try {
+    if (accessToken) {
+    } else {
+      return {
+        redirect: {
+          destination: "/401",
+          permanent: false,
+        },
+      };
     }
-    return { props: { accessToken, userPermission, isConnected } };
+  } catch (e) {
+    console.log({ e });
+  }
+  return { props: { accessToken, userPermission, isConnected } };
 };

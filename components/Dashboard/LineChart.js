@@ -2,15 +2,14 @@ import React from "react";
 import {
   Chart,
   LinearScale,
-  CategoryScale ,
+  CategoryScale,
   ArcElement,
   Legend,
   Title,
   Tooltip,
 } from "chart.js";
-Chart.register(ArcElement,LinearScale,CategoryScale , Legend, Title, Tooltip);
+Chart.register(ArcElement, LinearScale, CategoryScale, Legend, Title, Tooltip);
 import { Line } from "react-chartjs-2";
-
 
 export default function LineChart({ expenseAlltime, incomeAlltime }) {
   const data = {
@@ -50,7 +49,7 @@ export default function LineChart({ expenseAlltime, incomeAlltime }) {
     data: data,
     options: {
       responsive: true,
-      // radius: '100%',
+      // radius: '10%',
       plugins: {
         legend: {
           display: true,
@@ -71,9 +70,5 @@ export default function LineChart({ expenseAlltime, incomeAlltime }) {
     },
   };
 
-  return (
-    <>
-      <Line data={data} options={config.options} />
-    </>
-  );
+  return <Line data={data} options={config.options} />;
 }
