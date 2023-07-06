@@ -5,7 +5,7 @@ import {
   QuestionCircleOutlined,
   CloudDownloadOutlined,
 } from "@ant-design/icons";
-import { Button, Input, Popconfirm, Space, Table } from "antd";
+import { Button, Input, Popconfirm, Space } from "antd";
 import {
   NotificationLoading,
   NotificationPermission,
@@ -223,7 +223,6 @@ export default function Invoices({
       title: "Ref. No",
       dataIndex: "proposalNo",
       key: "proposalNo",
-      // render: ((_, item) => (<>{Number(item?.invoiceTotal).toFixed(2)}</>)),
       width: "9%",
     },
     {
@@ -261,11 +260,11 @@ export default function Invoices({
                   onConfirm={
                     userPermission == "Supervisor"
                       ? async () => {
-                        await deleteAxios(
-                          `${process.env.DIGITALOCEAN}/invoice/delete-invoices/${item?.id}`
-                        );
-                        setReloadData({});
-                      }
+                          await deleteAxios(
+                            `${process.env.DIGITALOCEAN}/invoice/delete-invoices/${item?.id}`
+                          );
+                          setReloadData({});
+                        }
                       : () => NotificationPermission()
                   }
                   icon={

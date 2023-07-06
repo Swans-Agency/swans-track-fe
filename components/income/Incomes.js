@@ -4,7 +4,7 @@ import {
   SearchOutlined,
   QuestionCircleOutlined,
 } from "@ant-design/icons";
-import { Popconfirm, Table, Button, Input, Space } from "antd";
+import { Popconfirm, Button, Input, Space } from "antd";
 import {
   NotificationPermission,
   deleteAxios,
@@ -234,11 +234,11 @@ export default function Incomes({
                   onConfirm={
                     userPermission == "Supervisor"
                       ? async () => {
-                        await deleteAxios(
-                          `${process.env.DIGITALOCEAN}/invoice/delete-income/${item?.id}`
-                        );
-                        setReloadData({});
-                      }
+                          await deleteAxios(
+                            `${process.env.DIGITALOCEAN}/invoice/delete-income/${item?.id}`
+                          );
+                          setReloadData({});
+                        }
                       : () => NotificationPermission()
                   }
                   icon={

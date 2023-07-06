@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import dynamic from "next/dynamic";
 import Loading from "@/components/Loading/Loading";
 const TeamView = dynamic(() => import("@/components/Team/TeamView"), {

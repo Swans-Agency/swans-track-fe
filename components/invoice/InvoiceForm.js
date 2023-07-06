@@ -21,7 +21,6 @@ import FormButtons from "../ANTD/FormButtons";
 
 export default function InvoiceForm({ setReloadData }) {
   const [disabledSelectCurrency, setDisabledCurrency] = useState(false);
-  const [discountPercentage, setDiscountPercentage] = useState(true);
   const [clientData, setClientData] = useState([]);
   const [proposalData, setProposalData] = useState([]);
   const [form] = Form.useForm();
@@ -91,11 +90,6 @@ export default function InvoiceForm({ setReloadData }) {
     );
     form.setFieldValue("toCompanyLocation", clientData?.lastName);
     form.setFieldValue("toCompanyEmail", clientData?.email);
-  };
-
-  const percentageSwitch = (checked) => {
-    console.log(checked);
-    setDiscountPercentage(checked);
   };
 
   const onFinish = async (data) => {

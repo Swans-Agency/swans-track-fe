@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import { Chart, ArcElement, Legend, Title, Tooltip } from "chart.js";
 Chart.register(ArcElement, Legend, Title, Tooltip);
 import { Pie } from "react-chartjs-2";
@@ -59,7 +59,6 @@ export default function DoughnutChart({ expensesCategory }) {
     options: {
       responsive: true,
       radius: "100%",
-      // cutout: "50%",
       plugins: {
         legend: {
           display: true,

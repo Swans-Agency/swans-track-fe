@@ -21,7 +21,6 @@ import FormButtons from "../ANTD/FormButtons";
 
 export default function ProposalForm({ setReloadData }) {
   const [disabledSelectCurrency, setDisabledCurrency] = useState(false);
-  const [discountPercentage, setDiscountPercentage] = useState(true);
   const [clientData, setClientData] = useState([]);
   const [form] = Form.useForm();
   let logoPicList = [];
@@ -78,11 +77,6 @@ export default function ProposalForm({ setReloadData }) {
     );
     form.setFieldValue("toCompanyLocation", clientData?.lastName);
     form.setFieldValue("toCompanyEmail", clientData?.email);
-  };
-
-  const percentageSwitch = (checked) => {
-    console.log(checked);
-    setDiscountPercentage(checked);
   };
 
   const onFinish = async (data) => {

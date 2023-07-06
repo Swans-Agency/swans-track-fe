@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import { Drawer } from "antd";
 import dynamic from "next/dynamic";
 import Loading from "@/components/Loading/Loading";
 import IncomeForm from "@/components/income/IncomeForm";
+import DrawerANTD from "@/components/ANTD/DrawerANTD";
 const Incomes = dynamic(() => import("@/components/income/Incomes"), {
   loading: () => <Loading />,
 });
 
-export default function index({ accessToken, userPermission }) {
+export default function index({ userPermission }) {
   const [reloadData, setReloadData] = useState();
   const [open, setOpen] = useState(false);
 
@@ -28,15 +28,12 @@ export default function index({ accessToken, userPermission }) {
           setReloadData={setReloadData}
         />
       </div>
-      <Drawer
-        width="600"
-        placement="right"
+      <DrawerANTD
         title="Add New Income"
         onClose={onClose}
         open={open}
-      >
-        <IncomeForm setReloadData={setReloadData} />
-      </Drawer>
+        children={<IncomeForm setReloadData={setReloadData} />}
+      />
     </>
   );
 }
