@@ -3,6 +3,7 @@ import { Drawer } from 'antd';
 import dynamic from 'next/dynamic';
 import InvoiceForm from '@/components/invoice/InvoiceForm';
 import Loading from '@/components/Loading/Loading';
+import DrawerANTD from '@/components/ANTD/DrawerANTD';
 const Invoices = dynamic(() => import('@/components/invoice/Invoices'), {
     loading: () => <Loading />,
 });
@@ -21,13 +22,13 @@ export default function index({ accessToken, userPermission }) {
 
     return (
         <>
-            <div>
-                <Invoices showModal={showDrawer} userPermission={userPermission} reloadData={reloadData} setReloadData={setReloadData} />
-            </div>
-            <Drawer width="600" placement="right" title="Create New Invoice" onClose={onClose} open={open}>
-                <InvoiceForm setReloadData={setReloadData} />
-            </Drawer>
-
+            <Invoices showModal={showDrawer} userPermission={userPermission} reloadData={reloadData} setReloadData={setReloadData} />
+            <DrawerANTD
+                title="Create New Invoice"
+                onClose={onClose}
+                open={open}
+                children={<InvoiceForm setReloadData={setReloadData} />}
+            />
         </>
     );
 };
