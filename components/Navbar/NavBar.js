@@ -74,7 +74,7 @@ export default function Navbar({ userPermission }) {
             label: 'Team Members',
             icon: <TeamOutlined />,
         },
-        userPermission == "Supervisor" && {
+        {
             key: 'company-preference',
             label: 'Company Preferences',
             icon: <ReconciliationOutlined />,
@@ -108,7 +108,7 @@ export default function Navbar({ userPermission }) {
                     {
                         menuItems.map((item, index) => {
                             return (
-                                <MenuItem item={item} index={index} />
+                                <MenuItem item={item} index={index} userPermission={userPermission} />
                             )
                         })
                     }

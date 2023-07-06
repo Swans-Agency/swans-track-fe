@@ -1,6 +1,7 @@
 import { postAxios } from "@/functions/ApiCalls";
 import { Form, Input, Select, Drawer } from "antd";
 import FormButtons from "../ANTD/FormButtons";
+import DrawerANTD from "../ANTD/DrawerANTD";
 
 export default function CreateModal({
   isModalOpen,
@@ -26,8 +27,6 @@ export default function CreateModal({
   return (
     <>
       <Drawer
-        width="600"
-        placement="right"
         title="Create New Team Member"
         open={isModalOpen}
         onOk={handleOk}

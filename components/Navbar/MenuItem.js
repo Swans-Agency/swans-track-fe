@@ -1,10 +1,11 @@
 import { redirect } from '@/functions/GeneralFunctions';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 
-export default function MenuItem({ item, index }) {
+export default function MenuItem({ item, index, userPermission }) {
     const [showChildren, setShowChildren] = useState(false);
+    const [hide, setHide] = useState("");
     const router = useRouter();
 
     const handleClick = (item) => {
@@ -15,8 +16,16 @@ export default function MenuItem({ item, index }) {
         }
     }
 
+    useEffect(() => {
+        if (userPermission !== "Supervisor" && item?.key === "company-preference") {
+            setHide("hidden")
+        } else {
+            setHide("")
+        }
+    }, [userPermission])
+
     return (
-        <div key={index}>
+        <div key={index} className={`${hide}`}>
             <div
                 className='flex justify-between gap-x-3 items-center text-[1rem] hover:bg-mainBackground hover:cursor-pointer px-2 py-2 rounded-lg'
                 onClick={() => handleClick(item)}

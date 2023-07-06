@@ -6,8 +6,8 @@ export default function List({ title, cards, listId }) {
         <Droppable droppableId={listId}>
             {(provided) => (
                 <div
+                {...provided.droppableProps}
                     ref={provided.innerRef}
-                    {...provided.droppableProps}
                 >
                     {cards.map((card, index) => (
                         <Card key={card.id} card={card} index={index} />
