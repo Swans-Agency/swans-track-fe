@@ -5,14 +5,14 @@ import {
   QuestionCircleOutlined,
   SearchOutlined,
 } from "@ant-design/icons";
-import { Button, Input, Popconfirm, Space, Table } from "antd";
-import {
-  deleteAxios,
-  getAxios,
-} from "@/functions/ApiCalls";
+import { Button, Input, Popconfirm, Space } from "antd";
+import { deleteAxios, getAxios } from "@/functions/ApiCalls";
 import Highlighter from "react-highlight-words";
 import TableANTD from "../ANTD/TableANTD";
-import { NotificationLoading, NotificationPermission } from "@/functions/Notifications";
+import {
+  NotificationLoading,
+  NotificationPermission,
+} from "@/functions/Notifications";
 
 export default function Proposals({
   showModal,
@@ -195,7 +195,6 @@ export default function Proposals({
       title: "Client Email",
       dataIndex: "toCompanyEmail",
       key: "toCompanyEmail",
-      // render: ((_, item) => {console.log(item, "fffffff"); return <>{item?.client?.email}</>}),
       width: "20%",
     },
     {
@@ -248,11 +247,11 @@ export default function Proposals({
                   onConfirm={
                     userPermission == "Supervisor"
                       ? async () => {
-                        await deleteAxios(
-                          `${process.env.DIGITALOCEAN}/invoice/delete-proposals/${item?.id}`
-                        );
-                        setReloadData({});
-                      }
+                          await deleteAxios(
+                            `${process.env.DIGITALOCEAN}/invoice/delete-proposals/${item?.id}`
+                          );
+                          setReloadData({});
+                        }
                       : () => NotificationPermission()
                   }
                   icon={

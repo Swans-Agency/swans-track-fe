@@ -1,17 +1,14 @@
-import React from 'react';
-import TableANTD from '../ANTD/TableANTD';
-
+import React from "react";
+import TableANTD from "../ANTD/TableANTD";
 
 export default function TableMembers({ columns, reloadData }) {
-    
-    return (
-        <div className='mt-2'>
-            <TableANTD
-                columns={columns}
-                url={`${process.env.DIGITALOCEAN}/account/list-employees/`}
-                reloadData={reloadData}
-            />
-        </div>
-
-    );
-};
+  return (
+    <div className="mt-2">
+      <TableANTD
+        columns={columns}
+        url={`${process.env.DIGITALOCEAN}/account/list-employees/`}
+        reloadData={reloadData}
+      />
+    </div>
+  );
+}

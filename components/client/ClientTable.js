@@ -194,13 +194,6 @@ export default function ClientTable({
       },
       ...getColumnSearchProps("referralSource"),
     },
-    // {
-    //     title: 'Status',
-    //     dataIndex: 'sold',
-    //     key: 'sold',
-    //     width: '13.4%',
-    //     render: ((_, item) => (<>{item.sold ? "Closed" : "Open"}</>))
-    // },
     {
       title: "Edit",
       dataIndex: "edit",
