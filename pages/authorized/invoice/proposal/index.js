@@ -1,15 +1,13 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import dynamic from "next/dynamic";
-import { Drawer } from "antd";
 import ProposalForm from "@/components/proposal/ProposalForm";
-import { NavCollapse } from "@/context/NavContext";
 import Loading from "@/components/Loading/Loading";
+import DrawerANTD from "@/components/ANTD/DrawerANTD";
 const Proposals = dynamic(() => import("@/components/proposal/Proposals"), {
   loading: () => <Loading />,
 });
 
 export default function index({ userPermission }) {
-  const { collapsed } = useContext(NavCollapse);
   const [reloadData, setReloadData] = useState();
   const [open, setOpen] = useState(false);
 
@@ -22,9 +20,7 @@ export default function index({ userPermission }) {
 
   return (
     <>
-      <div
-        
-      >
+      <div>
         <Proposals
           showModal={showDrawer}
           userPermission={userPermission}
@@ -32,15 +28,12 @@ export default function index({ userPermission }) {
           setReloadData={setReloadData}
         />
       </div>
-      <Drawer
-        width="600"
-        placement="right"
+      <DrawerANTD
         title="Create New Proposal"
         onClose={onClose}
         open={open}
-      >
-        <ProposalForm setReloadData={setReloadData} />
-      </Drawer>
+        children={<ProposalForm setReloadData={setReloadData} />}
+      />
     </>
   );
 }

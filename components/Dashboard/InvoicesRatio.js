@@ -1,9 +1,5 @@
 import React from "react";
-import {
-  FileSearchOutlined,
-  CaretDownOutlined,
-  CaretUpOutlined,
-} from "@ant-design/icons";
+import { CaretDownOutlined, CaretUpOutlined } from "@ant-design/icons";
 export default function InvoicesRatio({ title, main, percChange, icon }) {
   const formatNumber = (number) => {
     if (number >= 1000 && number < 1000000) {
@@ -63,7 +59,6 @@ export default function InvoicesRatio({ title, main, percChange, icon }) {
           </div>
         </div>
       )}
-         
     </div>
   );
 }

@@ -1,7 +1,7 @@
-import React, {useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import Loading from "@/components/Loading/Loading";
-import { Form, Modal, Input } from "antd";
+import { Form } from "antd";
 import { postAxios } from "@/functions/ApiCalls";
 import { getAxios } from "@/functions/ApiCalls";
 import Feedback from "@/components/Dashboard/Feedback";

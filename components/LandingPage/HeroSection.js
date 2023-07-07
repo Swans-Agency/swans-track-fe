@@ -1,24 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { PlayCircleFilled } from '@ant-design/icons';
+import React from "react";
 
-import { useRouter } from 'next/router';
-import Image from 'next/image';
-import HeroPhone from './HeroPhone';
-
+import HeroPhone from "./HeroPhone";
 
 export default function HeroSection() {
-    return (
-        <section
-            id="hero-section"
-            className='relative w-full h-[100vh] overflow-hidden grid desktop:grid-cols-2 gap-0 phone:grid-cols-1'
-        >
-            <div className='desktop:block'>
-                <HeroPhone />
-            </div>
-            <div className='desktop:block phone:hidden'>
-                <img src="/landingPic.png" />
-            </div>
-        </section>
-
-    );
-};
+  return (
+    <section
+      id="hero-section"
+      className="relative w-full h-[100vh] overflow-hidden grid desktop:grid-cols-2 gap-0 phone:grid-cols-1"
+    >
+      <div className="desktop:block">
+        <HeroPhone />
+      </div>
+      <div className="desktop:block phone:hidden">
+        <img src="/landingPic.png" />
+      </div>
+    </section>
+  );
+}
