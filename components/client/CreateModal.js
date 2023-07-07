@@ -1,7 +1,6 @@
 import { postAxios } from "@/functions/ApiCalls";
-import { Form, Input, Select, Drawer, DatePicker } from "antd";
+import { Form } from "antd";
 import moment from "moment";
-import FormButtons from "../ANTD/FormButtons";
 import DrawerANTD from "../ANTD/DrawerANTD";
 import ClientForm from "./ClientForm";
 
@@ -11,10 +10,6 @@ export default function CreateModal({
   setReloadData,
 }) {
   const [form] = Form.useForm();
-
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
 
   const handleCancel = () => {
     setIsModalOpen(false);
@@ -35,12 +30,7 @@ export default function CreateModal({
       title={"Create New Client"}
       onClose={handleCancel}
       open={isModalOpen}
-      children={
-        <ClientForm
-          form={form}
-          onFinish={onFinish}
-        />
-      }
+      children={<ClientForm form={form} onFinish={onFinish} />}
     />
   );
 }

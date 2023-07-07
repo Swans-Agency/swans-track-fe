@@ -10,7 +10,6 @@ export default function Tasks({ columns, tasks }) {
           dataSource={tasks}
           id="custom-table"
           className="w-[100%]"
-          // pagination={false}
           scroll={{
             y: 390,
           }}

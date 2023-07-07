@@ -49,7 +49,6 @@ export default function LineChart({ expenseAlltime, incomeAlltime }) {
     data: data,
     options: {
       responsive: true,
-      // radius: '10%',
       plugins: {
         legend: {
           display: true,

@@ -1,5 +1,5 @@
-import { Droppable } from 'react-beautiful-dnd';
-import Card from './Card';
+import { Droppable } from "react-beautiful-dnd";
+import Card from "./Card";
 
 export default function List({ title, cards, listId }) {
     return (
@@ -20,5 +20,3 @@ export default function List({ title, cards, listId }) {
         </Droppable>
     );
 }
-
-

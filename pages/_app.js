@@ -1,9 +1,8 @@
-import '@/styles/globals.css'
-import AuthWrapper from '@/components/Auth/Auth'
-import Layout from '@/components/Layout/Layout'
-import { NavCollapseWraper } from '@/context/NavContext'
-import { NavShowWraper } from '@/context/ShowNavContext'
-
+import "@/styles/globals.css";
+import AuthWrapper from "@/components/Auth/Auth";
+import Layout from "@/components/Layout/Layout";
+import { NavCollapseWraper } from "@/context/NavContext";
+import { NavShowWraper } from "@/context/ShowNavContext";
 
 export default function App({ Component, pageProps }) {
   return (
@@ -16,5 +15,5 @@ export default function App({ Component, pageProps }) {
         </NavCollapseWraper>
       </NavShowWraper>
     </AuthWrapper>
-  )
+  );
 }

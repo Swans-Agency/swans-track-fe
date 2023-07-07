@@ -7,11 +7,9 @@ const ClientView = dynamic(() => import("@/components/client/ClientView"), {
 
 export default function index({ accessToken, userPermission }) {
   return (
-    <>
-      <div>
-        <ClientView userPermission={userPermission} />
-      </div>
-    </>
+    <div>
+      <ClientView userPermission={userPermission} />
+    </div>
   );
 }
 

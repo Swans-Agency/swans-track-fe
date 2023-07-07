@@ -1,96 +1,113 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { CalendarOutlined, DownOutlined, DashboardOutlined, SwapOutlined, SnippetsOutlined, LoginOutlined, LogoutOutlined, DotChartOutlined, UserOutlined, TeamOutlined, FileTextOutlined, ReconciliationOutlined, MedicineBoxOutlined, ProfileOutlined, ExportOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
-import Image from 'next/image';
-import { NavCollapse } from '@/context/NavContext';
-import { logout } from '@/functions/GeneralFunctions';
-import MenuItem from './MenuItem';
-
+import React, { useContext } from "react";
+import {
+  CalendarOutlined,
+  DownOutlined,
+  DashboardOutlined,
+  SwapOutlined,
+  SnippetsOutlined,
+  LoginOutlined,
+  LogoutOutlined,
+  DotChartOutlined,
+  UserOutlined,
+  TeamOutlined,
+  FileTextOutlined,
+  ReconciliationOutlined,
+  MedicineBoxOutlined,
+  ProfileOutlined,
+  ExportOutlined,
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+} from "@ant-design/icons";
+import Image from "next/image";
+import { NavCollapse } from "@/context/NavContext";
+import { logout } from "@/functions/GeneralFunctions";
+import MenuItem from "./MenuItem";
 
 export default function Navbar({ userPermission }) {
-    const { collapsed, marginLeft, navBarWidth, toggleCollapsed } = useContext(NavCollapse);
+  const { collapsed, toggleCollapsed } = useContext(NavCollapse);
 
-    const menuItems = [
+  const menuItems = [
+    {
+      key: "dashboard",
+      label: "Dashboard",
+      icon: <DashboardOutlined />,
+    },
+    {
+      label: "Ins & Outs",
+      icon: <SwapOutlined />,
+      arrow: <DownOutlined />,
+      children: [
         {
-            key: 'dashboard',
-            label: 'Dashboard',
-            icon: <DashboardOutlined />,
+          key: "ins-out/income",
+          label: "Incomes",
+          icon: <LoginOutlined />,
         },
         {
-            label: 'Ins & Outs',
-            icon: <SwapOutlined />,
-            arrow: <DownOutlined />,
-            children: [
-                {
-                    key: 'ins-out/income',
-                    label: 'Incomes',
-                    icon: <LoginOutlined />,
-                },
-                {
-                    key: 'ins-out/expenses',
-                    label: 'Expenses',
-                    icon: <LogoutOutlined />,
-                },
-            ],
+          key: "ins-out/expenses",
+          label: "Expenses",
+          icon: <LogoutOutlined />,
+        },
+      ],
+    },
+    {
+      key: "reports",
+      label: "Reports",
+      icon: <DotChartOutlined />,
+    },
+    {
+      label: "Proposals & Invoices",
+      icon: <FileTextOutlined />,
+      arrow: <DownOutlined />,
+      children: [
+        {
+          key: "invoice/proposal",
+          label: "Proposals",
+          icon: <ReconciliationOutlined />,
         },
         {
-            key: 'reports',
-            label: 'Reports',
-            icon: <DotChartOutlined />,
+          key: "invoice",
+          label: "Invoices",
+          icon: <MedicineBoxOutlined />,
         },
-        {
-            label: 'Proposals & Invoices',
-            icon: <FileTextOutlined />,
-            arrow: <DownOutlined />,
-            children: [
-                {
-                    key: 'invoice/proposal',
-                    label: 'Proposals',
-                    icon: <ReconciliationOutlined />,
-                },
-                {
-                    key: 'invoice',
-                    label: 'Invoices',
-                    icon: <MedicineBoxOutlined />,
-                },
-            ],
-        },
-        {
-            key: 'calendar',
-            label: 'Calendar',
-            icon: <CalendarOutlined />,
-        },
-        {
-            key: 'tasks',
-            label: 'Tasks',
-            icon: <SnippetsOutlined />,
-        },
-        {
-            key: 'client',
-            label: 'Clients List',
-            icon: <ProfileOutlined />,
-        },
-        {
-            key: 'team',
-            label: 'Team Members',
-            icon: <TeamOutlined />,
-        },
-        {
-            key: 'company-preference',
-            label: 'Company Preferences',
-            icon: <ReconciliationOutlined />,
-        },
-        {
-            key: 'profile',
-            label: 'Profile',
-            icon: <UserOutlined />,
-        },
-    ]
+      ],
+    },
+    {
+      key: "calendar",
+      label: "Calendar",
+      icon: <CalendarOutlined />,
+    },
+    {
+      key: "tasks",
+      label: "Tasks",
+      icon: <SnippetsOutlined />,
+    },
+    {
+      key: "client",
+      label: "Clients List",
+      icon: <ProfileOutlined />,
+    },
+    {
+      key: "team",
+      label: "Team Members",
+      icon: <TeamOutlined />,
+    },
+    {
+      key: "company-preference",
+      label: "Company Preferences",
+      icon: <ReconciliationOutlined />,
+    },
+    {
+      key: "profile",
+      label: "Profile",
+      icon: <UserOutlined />,
+    },
+  ];
 
-    const logOutButton = {
-        key: 'logout',
-        label: 'Logout',
-        icon: <ExportOutlined />,
-    }
+  const logOutButton = {
+    key: "logout",
+    label: "Logout",
+    icon: <ExportOutlined />,
+  };
 
     return (
         <div className='sticky top-0 left-0 !z-[10000]'>
@@ -123,6 +140,9 @@ export default function Navbar({ userPermission }) {
                     </div>
                 </div>
             </div>
+          </div>
         </div>
-    );
-};
+      </div>
+    </div>
+  );
+}

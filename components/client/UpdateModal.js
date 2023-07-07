@@ -1,4 +1,4 @@
-import { patchAxios, patchData } from "@/functions/ApiCalls";
+import { patchAxios } from "@/functions/ApiCalls";
 import { Form, Input, Modal, Select, DatePicker } from "antd";
 import dayjs from "dayjs";
 import moment from "moment";
@@ -160,7 +160,6 @@ export default function UpdateModal({
           </div>
           <div className="flex gap-x-5 w-full justify-end">
             <Form.Item>
-
               <FormButtons content="Save" />
             </Form.Item>
           </div>

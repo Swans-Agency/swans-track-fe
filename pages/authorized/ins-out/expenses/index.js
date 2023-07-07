@@ -1,13 +1,13 @@
-import React, { useContext, useState } from "react";
-import { Drawer } from "antd";
+import React, { useState } from "react";
 import dynamic from "next/dynamic";
 import ExoenseForm from "@/components/expenses/ExpenseForm";
 import Loading from "@/components/Loading/Loading";
+import DrawerANTD from "@/components/ANTD/DrawerANTD";
 const Expenses = dynamic(() => import("@/components/expenses/Expenses"), {
   loading: () => <Loading />,
 });
 
-export default function index({ accessToken, userPermission }) {
+export default function index({ userPermission }) {
   const [reloadData, setReloadData] = useState();
   const [open, setOpen] = useState(false);
 
@@ -28,15 +28,12 @@ export default function index({ accessToken, userPermission }) {
           setReloadData={setReloadData}
         />
       </div>
-      <Drawer
-        width="600"
-        placement="right"
+      <DrawerANTD
         title="Add New Expense"
         onClose={onClose}
         open={open}
-      >
-        <ExoenseForm setReloadData={setReloadData} />
-      </Drawer>
+        children={<ExoenseForm setReloadData={setReloadData} />}
+      />
     </>
   );
 }

@@ -1,5 +1,5 @@
-import React from 'react';
-import { Draggable } from 'react-beautiful-dnd';
+import React from "react";
+import { Draggable } from "react-beautiful-dnd";
 
 export default function Card({ card, index }) {
     return (
@@ -19,4 +19,3 @@ export default function Card({ card, index }) {
         </Draggable>
     );
 }
-
