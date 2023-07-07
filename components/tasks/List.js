@@ -4,10 +4,12 @@ import Card from './Card';
 export default function List({ title, cards, listId }) {
     return (
         <Droppable droppableId={listId}>
-            {(provided) => (
+            {(provided, snapshot) => (
                 <div
-                {...provided.droppableProps}
+                    {...provided.droppableProps}
                     ref={provided.innerRef}
+                    isDraggingOver={snapshot.isDraggingOver}
+                    className='flex flex-col gap-y-2'
                 >
                     {cards.map((card, index) => (
                         <Card key={card.id} card={card} index={index} />

@@ -105,7 +105,7 @@ export default function TasksComponent() {
             "column-1": {
                 id: "column-1",
                 title: "To do",
-                taskIds: ["task-1", "task-2", "task-3", "task-4", "task-5", "task-6", "task-7", "task-8", "task-9", "task-10", "task-11"],
+                taskIds: ["task-1", "task-2", "task-3", "task-4", "task-5", "task-6", "task-7", "task-8", "task-9", "task-10", "task-11", "task-12"],
             }
         },
         columnOrder: ["column-1"],
@@ -119,15 +119,17 @@ export default function TasksComponent() {
                     let columns = initialData?.columns?.[value];
                     let tasks = columns?.taskIds?.map((value) => initialData?.tasks?.[value]);
                     return (
-                        <div className='rounded-xl bg-gray-200 px-4 py-3 min-w-[250px] w-[300px] max-h-[90vh] overflow-auto'>
-                            <h2 className='text-lg font-bold border-b mb-2 border-gray-100 sticky inset-0 bg-gray-200'>{columns.title}</h2>
-                            <List
-                                key={key}
-                                title={columns.title}
-                                cards={tasks}
-                                listId={value}
-                            />
-                            <div className='pl-2 mt-4 hover:text-gray-600 text-black hover:cursor-pointer flex justify-start items-center gap-x-1'><PlusOutlined /> Add new task</div>
+                        <div className=' rounded-xl relative bg-gray-200 pl-4 pr-2  min-w-[250px] w-[300px] max-h-[85vh]'>
+                            <h2 className='text-lg font-bold border-b py-2 sticky inset-0 bg-gray-200'>{columns.title}</h2>
+                            <div className='custom-scroll max-h-[70vh] overflow-y-scroll'>
+                                <List
+                                    key={key}
+                                    title={columns.title}
+                                    cards={tasks}
+                                    listId={value}
+                                />
+                            </div>
+                            <div className='pl-2 py-4 sticky bottom-0 left-0 bg-gray-200 hover:text-gray-600 text-black hover:cursor-pointer flex justify-start items-center gap-x-1'><PlusOutlined /> Add new task</div>
                         </div>
                     );
                 })}

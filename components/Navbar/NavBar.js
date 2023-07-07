@@ -113,7 +113,7 @@ export default function Navbar({ userPermission }) {
                         })
                     }
                     <div
-                        className={`absolute bottom-2 flex ${collapsed ? "w-[20px] hidden" : "w-[240px]"} justify-between gap-x-3 items-center text-[1rem] hover:bg-mainBackground hover:cursor-pointer px-2 py-2 rounded-lg`}
+                        className={`absolute bottom-2 flex ${collapsed ? "w-[20px] hidden" : "w-[240px]"} justify-between gap-x-3 items-center bg-sidebar text-[1rem] hover:bg-mainBackground hover:cursor-pointer px-2 py-2 rounded-lg`}
                         onClick={() => logout()}
                     >
                         <div className='flex gap-x-3 items-center'>
