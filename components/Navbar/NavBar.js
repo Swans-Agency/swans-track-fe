@@ -109,47 +109,36 @@ export default function Navbar({ userPermission }) {
     icon: <ExportOutlined />,
   };
 
-  return (
-    <div className="sticky top-0 left-0 !z-[10000]">
-      <div className="absolute border-r border-foreignBackground !z-[1000]">
-        <div
-          className={`absolute top-0 ${
-            !collapsed ? "left-[256px]" : "left-0"
-          } bg-sidebar pr-1 h-[100vh] flex items-center hover:cursor-pointer`}
-          onClick={toggleCollapsed}
-        >
-          {!collapsed ? (
-            <MenuFoldOutlined className="text-textIcons" />
-          ) : (
-            <MenuUnfoldOutlined className="text-textIcons" />
-          )}
-        </div>
-        <div
-          className={`bg-sidebar h-[100vh] ${
-            collapsed ? "w-[20px] hidden" : "w-[256px]"
-          } relative overflow-y-auto overflow-x-hidden text-textIcons px-2 pt-2`}
-        >
-          <div className="pb-4">
-            <Image src="/Logo.png" width={60} height={60} />
-          </div>
-          {menuItems.map((item, index) => {
-            return (
-              <MenuItem
-                item={item}
-                index={index}
-                userPermission={userPermission}
-              />
-            );
-          })}
-          <div
-            className={`absolute bottom-2 flex ${
-              collapsed ? "w-[20px] hidden" : "w-[240px]"
-            } justify-between gap-x-3 items-center text-[1rem] hover:bg-mainBackground hover:cursor-pointer px-2 py-2 rounded-lg`}
-            onClick={() => logout()}
-          >
-            <div className="flex gap-x-3 items-center">
-              {logOutButton?.icon}
-              <p>{logOutButton?.label}</p>
+    return (
+        <div className='sticky top-0 left-0 !z-[10000]'>
+            <div className='absolute border-r border-foreignBackground !z-[1000]'>
+                <div
+                    className={`absolute top-0 ${!collapsed ? "left-[256px]" : "left-0"} bg-sidebar pr-1 h-[100vh] flex items-center hover:cursor-pointer`}
+                    onClick={toggleCollapsed}
+                >
+                    {!collapsed ? <MenuFoldOutlined className='text-textIcons' /> : <MenuUnfoldOutlined className='text-textIcons' />}
+                </div>
+                <div className={`bg-sidebar h-[100vh] ${collapsed ? "w-[20px] hidden" : "w-[256px]"} relative overflow-y-auto overflow-x-hidden text-textIcons px-2 pt-2`}>
+                    <div className='pb-4'>
+                        <Image src="/Logo.png" width={60} height={60} />
+                    </div>
+                    {
+                        menuItems.map((item, index) => {
+                            return (
+                                <MenuItem item={item} index={index} userPermission={userPermission} />
+                            )
+                        })
+                    }
+                    <div
+                        className={`absolute bottom-2 flex ${collapsed ? "w-[20px] hidden" : "w-[240px]"} justify-between gap-x-3 items-center bg-sidebar text-[1rem] hover:bg-mainBackground hover:cursor-pointer px-2 py-2 rounded-lg`}
+                        onClick={() => logout()}
+                    >
+                        <div className='flex gap-x-3 items-center'>
+                            {logOutButton?.icon}
+                            <p>{logOutButton?.label}</p>
+                        </div>
+                    </div>
+                </div>
             </div>
           </div>
         </div>
