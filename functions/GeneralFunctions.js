@@ -485,7 +485,7 @@ const login = async (data) => {
     .catch((err) => {
       console.log(err);
       NotificationError(err);
-      // handleError(err)
+      handleError(err)
     });
 };
 

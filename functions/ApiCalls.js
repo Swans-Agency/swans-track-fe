@@ -1,6 +1,7 @@
 import cookie from "react-cookies";
 import axios from "axios";
 import { NotificationLoading, NotificationSuccess } from "./Notifications";
+import { handleError } from "./ErrorHandling";
 
 const getAxios = async (url, loading, success, callBack) => {
   try {
@@ -18,7 +19,7 @@ const getAxios = async (url, loading, success, callBack) => {
     }
     return res?.data;
   } catch (err) {
-    // handleError(err)
+    handleError(err)
   }
 };
 
@@ -29,7 +30,6 @@ const postAxios = async (url, data, loading, success, callBack) => {
     }
     let accessToken = cookie.load("AccessTokenSBS", { path: "/" });
     let auth = { headers: { Authorization: `Bearer ${accessToken}` } };
-    console.log("res", auth);
     let res = await axios.post(url, data, auth);
     if (success) {
       NotificationSuccess(res?.data);
@@ -38,7 +38,7 @@ const postAxios = async (url, data, loading, success, callBack) => {
     return res?.data;
   } catch (err) {
     console.log("err", err);
-    // handleError(err)
+    handleError(err)
   }
 };
 
@@ -58,7 +58,7 @@ const putAxios = async (url, data, loading, success, callBack) => {
     }
     return res?.data;
   } catch (err) {
-    // handleError(err)
+    handleError(err)
   }
 };
 
@@ -78,7 +78,7 @@ const patchAxios = async (url, data, loading, success, callBack) => {
     }
     return res?.data;
   } catch (err) {
-    // handleError(err)
+    handleError(err)
   }
 };
 
@@ -89,7 +89,7 @@ const deleteAxios = async (url, loading, success, callBack) => {
     }
     let accessToken = cookie.load("AccessTokenSBS", { path: "/" });
     let auth = { headers: { Authorization: `Bearer ${accessToken}` } };
-    let res = await axios.delete(url, auth);
+    let res = await axios.delete(url, auth);handleError(err)
     if (callBack) {
       callBack(res?.data);
     }
@@ -98,7 +98,7 @@ const deleteAxios = async (url, loading, success, callBack) => {
     }
     return res?.data;
   } catch (err) {
-    // handleError(err)
+    handleError(err)
   }
 };
 
@@ -111,7 +111,7 @@ const getAxiosServer = async (url, accessToken, success) => {
     }
     return res?.data;
   } catch (err) {
-    // handleError(err)
+    handleError(err)
   }
 };
 
@@ -132,7 +132,7 @@ const postAxiosServer = async (url, data, accessToken, success) => {
     }
     return res?.data;
   } catch (err) {
-    // handleError(err)
+    handleError(err)
   }
 };
 

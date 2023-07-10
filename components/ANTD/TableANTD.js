@@ -18,7 +18,6 @@ export default function TableANTD({ columns, url, reloadData }) {
         false,
         () => {}
       );
-      console.log({ response });
       setData(response);
       setPagination({
         current: page,

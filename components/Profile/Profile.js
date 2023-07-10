@@ -64,7 +64,7 @@ export default function Profile() {
 
   return (
     <div className="text-black">
-      <h1 className="text-2xl font-bold text-maincl">Profile</h1>
+      <h1 className="text-3xl font-light tracking-tight text-black">Profile</h1>
       <Form
         onFinish={onFinish}
         layout="vertical"

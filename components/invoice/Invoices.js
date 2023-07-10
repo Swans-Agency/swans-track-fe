@@ -196,7 +196,6 @@ export default function Invoices({
       dataIndex: "client",
       key: "client",
       render: (_, item) => {
-        console.log(item, "lllllllllllllll");
         return <>{item?.client?.email || item?.toCompanyEmail}</>;
       },
       width: "20%",
@@ -215,7 +214,6 @@ export default function Invoices({
       sorter: (a, b) => a.invoiceTotal - b.invoiceTotal,
       ...getColumnSearchProps("invoiceDate"),
       render: (_, item) => {
-        console.log("fff", Number(item?.invoiceTotal).toFixed(2));
         return Number(item?.invoiceTotal).toFixed(2);
       },
     },
@@ -245,7 +243,7 @@ export default function Invoices({
       dataIndex: "delete",
       key: "delete",
       render: (_, item) => {
-        console.log(item);
+
         return (
           <>
             {userPermission === "Supervisor" ? (
@@ -260,11 +258,11 @@ export default function Invoices({
                   onConfirm={
                     userPermission == "Supervisor"
                       ? async () => {
-                          await deleteAxios(
-                            `${process.env.DIGITALOCEAN}/invoice/delete-invoices/${item?.id}`
-                          );
-                          setReloadData({});
-                        }
+                        await deleteAxios(
+                          `${process.env.DIGITALOCEAN}/invoice/delete-invoices/${item?.id}`
+                        );
+                        setReloadData({});
+                      }
                       : () => NotificationPermission()
                   }
                   icon={
@@ -329,7 +327,7 @@ export default function Invoices({
 
   return (
     <>
-      <h1 className="text-2xl font-bold text-maincl mb-3">Company Invoices</h1>
+      <h1 className="text-3xl font-light tracking-tight text-black mb-3">Company Invoices</h1>
       <div className="flex  justify-end mb-3">
         <button
           onClick={showModal}

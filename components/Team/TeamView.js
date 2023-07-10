@@ -139,7 +139,7 @@ export default function TeamView() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-black mb-3">Team Members</h1>
+      <h1 className="text-3xl font-light tracking-tight text-black mb-3">Team Members</h1>
       <ViewButtons showModal={showModal} />
       <TableMembers columns={columns} reloadData={reloadData} />
       <CreateModal

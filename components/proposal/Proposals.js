@@ -47,7 +47,6 @@ export default function Proposals({
   };
 
   const downloadPdf = async (id) => {
-    console.log(id);
     NotificationLoading();
     let response = await getAxios(
       `${process.env.DIGITALOCEAN}/invoice/download-proposal/${id}`
@@ -232,7 +231,7 @@ export default function Proposals({
       dataIndex: "delete",
       key: "delete",
       render: (_, item) => {
-        console.log(item);
+
         return (
           <>
             {userPermission === "Supervisor" ? (
@@ -247,11 +246,11 @@ export default function Proposals({
                   onConfirm={
                     userPermission == "Supervisor"
                       ? async () => {
-                          await deleteAxios(
-                            `${process.env.DIGITALOCEAN}/invoice/delete-proposals/${item?.id}`
-                          );
-                          setReloadData({});
-                        }
+                        await deleteAxios(
+                          `${process.env.DIGITALOCEAN}/invoice/delete-proposals/${item?.id}`
+                        );
+                        setReloadData({});
+                      }
                       : () => NotificationPermission()
                   }
                   icon={
@@ -316,7 +315,7 @@ export default function Proposals({
 
   return (
     <>
-      <h1 className="text-2xl font-bold text-maincl mb-3">Company Proposals</h1>
+      <h1 className="text-3xl font-light tracking-tight text-black mb-3">Company Proposals</h1>
       <div className="flex  justify-end mb-3">
         <button
           onClick={showModal}

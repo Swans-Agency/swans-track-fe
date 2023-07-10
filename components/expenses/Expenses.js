@@ -180,7 +180,7 @@ export default function Expenses({
       dataIndex: "attachement",
       key: "attachement",
       render: (_, item) => {
-        console.log(item);
+
         return (
           <>
             {item?.attachement ? (
@@ -213,7 +213,7 @@ export default function Expenses({
       dataIndex: "delete",
       key: "delete",
       render: (_, item) => {
-        console.log(item);
+
         return (
           <>
             {userPermission === "Supervisor" ? (
@@ -228,11 +228,11 @@ export default function Expenses({
                   onConfirm={
                     userPermission == "Supervisor"
                       ? async () => {
-                          await deleteAxios(
-                            `${process.env.DIGITALOCEAN}/company/delete-expenses/${item?.id}`
-                          );
-                          setReloadData({});
-                        }
+                        await deleteAxios(
+                          `${process.env.DIGITALOCEAN}/company/delete-expenses/${item?.id}`
+                        );
+                        setReloadData({});
+                      }
                       : () => NotificationPermission()
                   }
                   icon={
@@ -297,7 +297,7 @@ export default function Expenses({
 
   return (
     <>
-      <h1 className="text-2xl font-bold text-maincl mb-3">Company Expenses</h1>
+      <h1 className="text-3xl font-light tracking-tight text-black mb-3">Company Expenses</h1>
       <div className="flex  justify-end mb-3">
         <button
           onClick={showModal}
