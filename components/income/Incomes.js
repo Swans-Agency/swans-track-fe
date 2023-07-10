@@ -186,7 +186,7 @@ export default function Incomes({
       dataIndex: "attachment",
       key: "attacement",
       render: (_, item) => {
-        console.log(item);
+
         return (
           <>
             {item?.attachment ? (
@@ -219,7 +219,7 @@ export default function Incomes({
       dataIndex: "delete",
       key: "delete",
       render: (_, item) => {
-        console.log(item);
+
         return (
           <>
             {userPermission === "Supervisor" ? (
@@ -234,11 +234,11 @@ export default function Incomes({
                   onConfirm={
                     userPermission == "Supervisor"
                       ? async () => {
-                          await deleteAxios(
-                            `${process.env.DIGITALOCEAN}/invoice/delete-income/${item?.id}`
-                          );
-                          setReloadData({});
-                        }
+                        await deleteAxios(
+                          `${process.env.DIGITALOCEAN}/invoice/delete-income/${item?.id}`
+                        );
+                        setReloadData({});
+                      }
                       : () => NotificationPermission()
                   }
                   icon={
@@ -303,7 +303,7 @@ export default function Incomes({
 
   return (
     <>
-      <h1 className="text-2xl font-bold text-maincl mb-3">Company Income</h1>
+      <h1 className="text-3xl font-light tracking-tight text-black mb-3">Company Income</h1>
       <div className="flex justify-end mb-3">
         <button
           onClick={showModal}

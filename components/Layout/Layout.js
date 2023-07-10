@@ -34,7 +34,6 @@ export const getServerSideProps = async (ctx) => {
   let userPermission = ctx.req.cookies["userPermission"];
   try {
     if (accessToken) {
-      console.log("userPermission", userPermission);
     } else {
       return {
         redirect: {

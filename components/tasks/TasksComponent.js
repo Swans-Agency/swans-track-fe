@@ -2,149 +2,222 @@ import React, { useEffect, useRef, useState } from "react";
 import { ref, set, onValue } from "firebase/database";
 import database from "@/components/firebaseNotify/Firebase";
 import { DragDropContext } from "react-beautiful-dnd";
-import { getAxios } from "@/functions/ApiCalls";
+import { getAxios, postAxios } from "@/functions/ApiCalls";
 import { PlusOutlined } from "@ant-design/icons";
 import List from "./List";
+import DrawerANTD from "../ANTD/DrawerANTD";
+import TaskForm from "./NewTask";
 
-export default function TasksComponent() {
+export default function TasksComponent({ companyTasks, initialData }) {
   const dbRef = useRef(null);
-  const [tasks, setTasks] = useState([]);
-  const [doneTasks, setDoneTasks] = useState([]);
-  const [idleTasks, setIdleTasks] = useState([]);
-  const [inProgressTasks, setInProgressTasks] = useState([]);
-  const [notifyData, setNotifyData] = useState({});
+  const [open, setOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
+  const [allData, setAllData] = useState(companyTasks);
+  const [data, setData] = useState(initialData);
+  const [getData, setGetData] = useState({});
+  const [showTag, setShowTag] = useState(false);
+
+  const columnNames = {
+    "To Do": "toDo",
+    "In Progress": "inProgress",
+    "Completed": "completed",
+    "Idle": "idle",
+  }
+
+  let columns = {
+    "toDo": {
+      id: "toDo",
+      title: "To do",
+      taskIds: [],
+    },
+    "inProgress": {
+      id: "inProgress",
+      title: "In Progress",
+      taskIds: [],
+    },
+    "completed": {
+      id: "completed",
+      title: "Completed",
+      taskIds: [],
+    },
+    "idle": {
+      id: "idle",
+      title: "Idle",
+      taskIds: [],
+    },
+  }
+
+  const onClose = () => {
+    setOpen(false);
+  };
 
   useEffect(() => {
-    getTasks();
-    getDoneTasks();
-    getIdleTasks();
-    getInProgressTasks();
-  }, []);
+    allData?.forEach((value) => {
+      setData((data) => (
+        {
+          ...data,
+          tasks: {
+            ...data.tasks,
+            [value.id]: {
+              id: value.id,
+              taskName: value.taskName,
+              taskDescription: value.taskDescription,
+              assignee: value.assignee,
+              taskStatus: value.taskStatus,
+              priority: value.priority,
+              createdAt: value.createdAt,
+              dueDate: value.dueDate,
+            }
+          }
+        }
+      ))
+    })
 
-  const getTasks = async () => {
-    let url = `${process.env.DIGITALOCEAN}/tasks/create-task/`;
-    let data = await getAxios(url, false, false);
-    setTasks(data);
-  };
+    allData?.forEach((value) => {
+      let status = columnNames[value.taskStatus]
+      columns[status]?.taskIds?.push(value?.id)
+    })
 
-  const getDoneTasks = async () => {
-    let url = `${process.env.DIGITALOCEAN}/tasks/done-tasks/`;
-    let data = await getAxios(url, false, false);
-    setDoneTasks(data);
-  };
+    setData((data) => ({
+      ...data,
+      columns: columns
+    }))
+  }, [allData]);
 
-  const getIdleTasks = async () => {
-    let url = `${process.env.DIGITALOCEAN}/tasks/idle-tasks/`;
-    let data = await getAxios(url, false, false);
-    setIdleTasks(data);
-  };
-
-  const getInProgressTasks = async () => {
-    let url = `${process.env.DIGITALOCEAN}/tasks/inprogress-tasks/`;
-    let data = await getAxios(url, false, false);
-    setInProgressTasks(data);
-  };
-
-  const handleNotifyTeam = (assignee, taskName) => {
-    setNotifyData({
-      assignee: assignee,
-      taskName: taskName,
-    });
+  const handleNotifyTeam = async () => {
     set(dbRef.current, true);
+
   };
+
+  const getAllTasksNew = async () => {
+    let newData = await getAxios(`${process.env.DIGITALOCEAN}/tasks/active-tasks/`, false, false, () => { })
+    setAllData(newData)
+  }
 
   useEffect(() => {
     dbRef.current = ref(database, "notify");
-
     set(dbRef.current, false);
 
     onValue(dbRef.current, (snapshot) => {
-      const data = snapshot.val();
-      if (data === true) {
-        getTasks();
-        getDoneTasks();
-        getIdleTasks();
-        getInProgressTasks();
-        set(dbRef.current, false);
+      const dataNot = snapshot.val();
+      if (dataNot === true) {
+        getAllTasksNew()
+        set(dbRef.current, false)
+        setSelectedItem(null)
+      }
+    })
 
-        onValue(dbRef.current, (snapshot) => {
-            const data = snapshot.val();
-            if (data === true) {
-                getTasks()
-                getDoneTasks()
-                getIdleTasks()
-                getInProgressTasks()
-                set(dbRef.current, false)
-                setSelectedItem(null)
-            }
-        })
-
-    }, []);
+  }, []);
 
 
-    const handleDragEnd = (result) => {
-        // TODO: Implement logic to handle the dragged card
-    };
-    const handleDragStart = (result) => { }
+  const handleDragEnd = (result) => {
 
-    const handleDragUpdate = (result) => { }
+    console.log({ result });
+    const { destination, source, draggableId } = result;
+    if (!destination) {
+      return;
+    }
 
+    if (
+      destination?.droppableId === source?.droppableId &&
+      destination?.index === source?.index
+    ) {
+      return;
+    }
 
-
-
-    const initialData = {
-        tasks: {
-            "task-1": { id: "task-1", content: "Take out the garbage" },
-            "task-2": { id: "task-2", content: "Watch my favorite show" },
-            "task-3": { id: "task-3", content: "Charge my phone" },
-            "task-4": { id: "task-4", content: "Cook dinner" },
-            "task-5": { id: "task-5", content: "Cook dinner1" },
-            "task-6": { id: "task-6", content: "Cook dinner2" },
-            "task-7": { id: "task-7", content: "Cook dinner3" },
-            "task-8": { id: "task-8", content: "Cook dinner4" },
-            "task-9": { id: "task-9", content: "Cook dinner5" },
-            "task-10": { id: "task-10", content: "Cook dinner6" },
-            "task-11": { id: "task-11", content: "Cook dinner7" },
-            "task-12": { id: "task-12", content: "Cook dinner8" },
-
-        },
+    if (destination?.droppableId === source?.droppableId) {
+      let ourColumn = data?.columns?.[source?.droppableId]; 
+      let newTasksIds = Array.from(ourColumn?.taskIds);
+      newTasksIds.splice(source?.index, 1);
+      newTasksIds.splice(destination?.index, 0, draggableId);
+  
+      let newColumn = {
+        ...ourColumn,
+        taskIds: newTasksIds,
+      }
+  
+      setData((data) => ({
+        ...data,
         columns: {
-            "column-1": {
-                id: "column-1",
-                title: "To do",
-                taskIds: ["task-1", "task-2", "task-3", "task-4", "task-5", "task-6", "task-7", "task-8", "task-9", "task-10", "task-11", "task-12"],
-            }
-        },
-        columnOrder: ["column-1"],
-    };
+          ...data?.columns,
+          [newColumn?.id]: newColumn,
+        }
+      }))
+      reorderList(result, "reorder-samelist/")
+    } else {
+      let sourceColumn = data?.columns?.[source?.droppableId];
+      let newSourceTaskIds = Array.from(sourceColumn?.taskIds);
+      newSourceTaskIds.splice(source?.index, 1);
+      let newSourceColumn = {
+        ...sourceColumn,
+        taskIds: newSourceTaskIds,
+      }
+      let destinationColumn = data?.columns?.[destination?.droppableId];
+      let newDestinationTaskIds = Array.from(destinationColumn?.taskIds);
+      newDestinationTaskIds.splice(destination?.index, 0, draggableId);
+      let newDestinationColumn = {
+        ...destinationColumn,
+        taskIds: newDestinationTaskIds,
+      }
 
+      setData((data) => ({
+        ...data,
+        columns: {
+          ...data?.columns,
+          [newSourceColumn?.id]: newSourceColumn,
+          [newDestinationColumn?.id]: newDestinationColumn,
+        }
+      }))
+      reorderList(result, "move-item/")
+    }
+  };
 
-    return (
-        <DragDropContext onDragEnd={handleDragEnd}>
-            <div className='flex flex-wrap justify-start gap-5'>
-                {initialData.columnOrder.map((value, key) => {
-                    let columns = initialData?.columns?.[value];
-                    let tasks = columns?.taskIds?.map((value) => initialData?.tasks?.[value]);
-                    return (
-                        <div className=' rounded-xl relative bg-gray-200 pl-4 pr-2  min-w-[250px] w-[300px] max-h-[85vh]'>
-                            <h2 className='text-lg font-bold border-b py-2 sticky inset-0 bg-gray-200'>{columns.title}</h2>
-                            <div className='custom-scroll max-h-[70vh] overflow-y-scroll'>
-                                <List
-                                    key={key}
-                                    title={columns.title}
-                                    cards={tasks}
-                                    listId={value}
-                                />
-                            </div>
-                            <div className='pl-2 py-4 sticky bottom-0 left-0 bg-gray-200 hover:text-gray-600 text-black hover:cursor-pointer flex justify-start items-center gap-x-1'><PlusOutlined /> Add new task</div>
-                        </div>
-                    );
-                })}
-            </div>
-          );
-        })}
-      </div>
-    </DragDropContext>
+  const reorderList = async (result, url) => {
+    await postAxios(`${process.env.DIGITALOCEAN}/tasks/${url}`, result, false, false, () => { })
+    handleNotifyTeam()
+  }
+
+  const handleDragStart = (result) => { }
+
+  const handleDragUpdate = (result) => { }
+
+  return (
+    <>
+      <DragDropContext onDragEnd={handleDragEnd}>
+        <div className='flex justify-start gap-5 overflow-auto'>
+          {data?.columnOrder?.map((value, key) => {
+            let columns = data?.columns?.[value];
+            let tasks = columns?.taskIds?.map((value) => data?.tasks?.[value]);
+            return (
+              <div className=' rounded-xl relative bg-gray-200 pl-4 pr-2  min-w-[250px] w-[300px] max-h-[85vh] mb-4 h-fit overflow-hidden'>
+                <h2 className='text-lg font-bold py-2 sticky inset-0 bg-gray-200 text-black'>{columns?.title}</h2>
+                <div className='custom-scroll max-h-[70vh] overflow-y-auto '>
+                  <List
+                    key={key}
+                    cards={tasks}
+                    listId={value}
+                    showTag={showTag}
+                    setShowTag={setShowTag}
+                  />
+                </div>
+                <div
+                  className='pl-2 my-2 mb-3 py-2 sticky mr-2 rounded-lg bottom-0 left-0 text-sm bg-gray-200 hover:bg-gray-300 text-black hover:cursor-pointer flex justify-start items-center gap-x-1'
+                  onClick={() => setOpen(true)}
+                >
+                  <PlusOutlined />
+                  <p>Add new task</p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </DragDropContext>
+      <DrawerANTD
+        title="Add New Task"
+        onClose={onClose}
+        open={open}
+        children={<TaskForm handleNotifyTeam={handleNotifyTeam} />}
+      />
+    </>
   );
 }

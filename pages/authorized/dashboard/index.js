@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import Loading from "@/components/Loading/Loading";
 import { Form } from "antd";
-import { postAxios } from "@/functions/ApiCalls";
+import { getAxiosServer, postAxios } from "@/functions/ApiCalls";
 import { getAxios } from "@/functions/ApiCalls";
 import Feedback from "@/components/Dashboard/Feedback";
 
@@ -41,7 +41,6 @@ export default function index() {
   const checkTestimonials = async () => {
     const url = `${process.env.DIGITALOCEAN}/account/check-testimonials/`;
     let res = await getAxios(url);
-    console.log(res, "ssssss");
     setIsModalOpen(res?.result);
   };
 
@@ -132,9 +131,18 @@ export default function index() {
 export const getServerSideProps = async (ctx) => {
   let accessToken = ctx.req.cookies["AccessTokenSBS"];
   let userPermission = ctx.req.cookies["userPermission"];
-  let isConnected = null;
+  let authorized = null;
   try {
     if (accessToken) {
+      authorized = await getAxiosServer(
+        `${process.env.DIGITALOCEAN}/validateToken/`,
+        accessToken,
+        false
+      );
+      if (authorized.status === 200) {
+      } else {
+        accessToken = null;
+      }
     } else {
       return {
         redirect: {
@@ -146,5 +154,5 @@ export const getServerSideProps = async (ctx) => {
   } catch (e) {
     console.log({ e });
   }
-  return { props: { accessToken, userPermission, isConnected } };
+  return { props: { accessToken, userPermission } };
 };

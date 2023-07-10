@@ -9,8 +9,9 @@ import {
 } from "@/functions/ApiCalls";
 import Image from "next/image";
 import dayjs from "dayjs";
+import FormButtons from "../ANTD/FormButtons";
 
-export default function TaskForm({ handleNotifyTeam, selectedItem }) {
+export default function TaskForm({ handleNotifyTeam }) {
   const [form] = Form.useForm();
   const [employees, setEmployees] = useState([]);
   const [editTask, setEditTask] = useState({});
@@ -20,7 +21,6 @@ export default function TaskForm({ handleNotifyTeam, selectedItem }) {
   const getAllEmployees = async () => {
     const url = `${process.env.DIGITALOCEAN}/account/list-employees/`;
     const employeeData = await getAxios(url);
-    console.log(employeeData, "employeeData");
     const arrData = employeeData?.results?.map((item) => ({
       value: item?.id,
       label: (
@@ -44,37 +44,13 @@ export default function TaskForm({ handleNotifyTeam, selectedItem }) {
 
   useEffect(() => {
     getAllEmployees();
-    form.setFieldValue("taskName", selectedItem?.taskName);
-    form.setFieldValue("taskDescription", selectedItem?.taskDescription);
-    form.setFieldValue("taskStatus", selectedItem?.taskStatus);
-    form.setFieldValue("priority", selectedItem?.priority);
-    form.setFieldValue(
-      "dueDate",
-      selectedItem?.dueDate
-        ? dayjs(new Date(selectedItem?.dueDate))
-        : dayjs(new Date())
-    );
-    form.setFieldValue("assignee", {
-      value: selectedItem?.assignee?.id,
-      label: (
-        <>
-          <div className="flex items-center gap-x-2">
-            <Image
-              src={selectedItem?.assignee?.pfp?.split("?")[0]}
-              width={30}
-              height={30}
-              className="rounded-full"
-            />
-            <span>{selectedItem?.assignee?.name}</span>
-          </div>
-        </>
-      ),
-    });
+    
   }, []);
 
   const onFinish = async (data) => {
     const formData = new FormData();
     formData.append("taskName", data?.taskName);
+    formData.append("status", true);
     formData.append("taskDescription", data?.taskDescription);
     formData.append("taskStatus", data?.taskStatus);
     formData.append("priority", data?.priority);
@@ -84,20 +60,10 @@ export default function TaskForm({ handleNotifyTeam, selectedItem }) {
     );
     const assigneeValue = data?.assignee;
     const url = `${process.env.DIGITALOCEAN}/tasks/create-task/`;
-    if (selectedItem) {
-      if (Number.isNaN(Number(assigneeValue))) {
-        formData.append("assignee", selectedItem?.assignee?.id);
-      } else {
-        formData.append("assignee", assigneeValue);
-      }
-      const url = `${process.env.DIGITALOCEAN}/tasks/edit-task/${selectedItem?.id}/`;
-      let res = await patchAxios(url, formData);
-    } else {
-      formData.append("assignee", assigneeValue);
-      let res = await postAxios(url, formData);
-    }
+    formData.append("assignee", assigneeValue);
+    let res = await postAxios(url, formData, true, true, () => {});
 
-    handleNotifyTeam(data?.assignee, data?.taskName);
+    handleNotifyTeam();
   };
 
   return (
@@ -199,7 +165,6 @@ export default function TaskForm({ handleNotifyTeam, selectedItem }) {
                   width: "100%",
                 }}
                 onChange={(e) => {
-                  console.log(e, "<<<<<<<<<<<<<<<<");
                   form.setFieldValue("assignee", e);
                 }}
                 allowClear={true}
@@ -212,32 +177,11 @@ export default function TaskForm({ handleNotifyTeam, selectedItem }) {
           <Divider />
           <div className="flex gap-x-5 w-full justify-end">
             <Form.Item>
-              <button
-                htmlType="submit"
-                type="primary"
-                className="bg-sidebarbg hover:bg-secondbg text-white rounded py-[0.4rem] px-3 hover:shadow-xl"
-              >
-                {selectedItem ? "Re-Assign" : "Assign"}
-              </button>
+              <FormButtons content= "Assign" />
             </Form.Item>
           </div>
         </Form>
       )}
-      <div className="flex justify-end">
-        <button
-          onClick={async () => {
-            const url = `${process.env.DIGITALOCEAN}/tasks/create-task/${selectedItem?.id}/`;
-            let res = await deleteAxios(url);
-            handleNotifyTeam("", "");
-          }}
-          type="primary"
-          className={` bg-red-600 h-fit hover:bg-red-500 text-white rounded py-[0.4rem] px-3 hover:shadow-xl ${
-            selectedItem ? "" : "hidden"
-          }`}
-        >
-          {selectedItem ? "Delete" : ""}
-        </button>
-      </div>
     </>
   );
 }

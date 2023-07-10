@@ -23,7 +23,6 @@ export default function DayHeader({ date, isConnected }) {
   };
 
   const onFinish = async (values) => {
-    console.log(values);
     values.startTime =
       moment(date).format("YYYY-MM-DD") +
       moment(values.startTime).format("[T]HH:mm:ss");
@@ -33,7 +32,6 @@ export default function DayHeader({ date, isConnected }) {
     values.recurrenceTo = moment(values.recurrenceTo).format(
       "YYYY-MM-DD[T]HH:mm:ss"
     );
-    console.log(values);
     let url = `${process.env.DIGITALOCEAN}/tasks/create-event/`;
     let res = await postAxios(url, values, false, false, () => {});
     router.reload();

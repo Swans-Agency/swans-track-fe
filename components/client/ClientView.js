@@ -296,7 +296,7 @@ export default function ClientView({ userPermission }) {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-maincl mb-3">Clients List</h1>
+      <h1 className="text-3xl font-light tracking-tight text-black mb-3">Clients List</h1>
       <div className="flex justify-end">
         <button
           onClick={showModal}

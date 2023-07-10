@@ -23,7 +23,7 @@ export default function CompanyPreferencesForm() {
   const getUserInitialData = async () => {
     const url = `${process.env.DIGITALOCEAN}/company/company-preferences/`;
     let data = await getAxios(url);
-    console.log(data);
+    ;
     if (data) {
       if (data[0]) {
         data[0].logo = data[0]?.logo?.split("?")[0];
@@ -62,7 +62,6 @@ export default function CompanyPreferencesForm() {
   };
 
   const onFinish = async (data) => {
-    console.log(data);
     const formData = new FormData();
     formData.append("bankIban", data.bankIban);
     formData.append("item.timeZone", data.timeZone);
@@ -90,7 +89,7 @@ export default function CompanyPreferencesForm() {
 
   return (
     <div className="text-black">
-      <h1 className="text-2xl font-bold text-maincl">Company Preferences</h1>
+      <h1 className="text-3xl font-light tracking-tight text-black">Company Preferences</h1>
       <Form
         onFinish={onFinish}
         layout="vertical"

@@ -95,7 +95,6 @@ export default function CreateEvent({ form, onFinish }) {
         <Checkbox
           onChange={(e) => {
             form.setFieldValue("meeting", e.target.checked);
-            console.log(e.target.checked);
           }}
         >
           Add Google Meet video conferencing

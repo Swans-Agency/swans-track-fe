@@ -18,7 +18,7 @@ export default function CreateModal({
   };
 
   const onFinish = async (data) => {
-    console.log(data);
+    ;
     const url = `${process.env.DIGITALOCEAN}/account/signup/`;
     await postAxios(url, data, true, true);
     setReloadData({ data: "dataq" });

@@ -31,7 +31,6 @@ export default function UpdateModal({
   }, []);
 
   const onFinish = async (data) => {
-    console.log(data);
     data["createdAt"] = moment(new Date(data["createdAt"])).format(
       "YYYY-MM-DD"
     );

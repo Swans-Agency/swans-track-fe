@@ -34,7 +34,7 @@ export default function InvoiceForm({ setReloadData }) {
   const getUserInitialData = async () => {
     const url = `${process.env.DIGITALOCEAN}/company/company-preferences/`;
     let data = await getAxios(url);
-    console.log(data);
+    ;
     if (data[0]) {
       data[0].logo = data[0]?.logo?.split("?")[0];
       if (logoPicList?.length < 1) {
@@ -74,9 +74,8 @@ export default function InvoiceForm({ setReloadData }) {
     const proposalSearchData = await getAxios(url);
     const arrData = proposalSearchData?.map((item) => ({
       value: item.id,
-      label: `${item?.proposalNo} | ${item?.toCompanyName} | ${
-        item?.proposalDate
-      } | ${Number(item?.proposalTotal).toFixed(2)} JD`,
+      label: `${item?.proposalNo} | ${item?.toCompanyName} | ${item?.proposalDate
+        } | ${Number(item?.proposalTotal).toFixed(2)} JD`,
     }));
     setProposalData(arrData);
   };
@@ -93,7 +92,7 @@ export default function InvoiceForm({ setReloadData }) {
   };
 
   const onFinish = async (data) => {
-    console.log(data);
+    ;
     data["invoiceDate"] = moment(new Date(data["invoiceDate"])).format(
       "YYYY-MM-DD"
     );
@@ -123,7 +122,6 @@ export default function InvoiceForm({ setReloadData }) {
               width: "100%",
             }}
             onChange={(e) => {
-              console.log(e, "<<<<<<<<<<<<<<<<");
               form.setFieldValue("client", e);
               getSelectedClient(e);
             }}
@@ -173,7 +171,6 @@ export default function InvoiceForm({ setReloadData }) {
             width: "100%",
           }}
           onChange={(e) => {
-            console.log(e, "<<<<<<<<<<<<<<<<");
             form.setFieldValue("proposalNo", e);
           }}
           allowClear={true}

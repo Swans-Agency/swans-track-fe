@@ -1,7 +1,9 @@
 import { Droppable } from "react-beautiful-dnd";
 import Card from "./Card";
+import { useState } from "react";
 
-export default function List({ title, cards, listId }) {
+export default function List({ cards, listId, showTag, setShowTag }) {
+    
     return (
         <Droppable droppableId={listId}>
             {(provided, snapshot) => (
@@ -9,11 +11,11 @@ export default function List({ title, cards, listId }) {
                     {...provided.droppableProps}
                     ref={provided.innerRef}
                     isDraggingOver={snapshot.isDraggingOver}
-                    className='flex flex-col gap-y-2'
+                    className={`flex flex-col gap-y-2 ${snapshot.isDraggingOver && "drag-over"} min-h-[5px] mb-1`}
                 >
-                    {cards.map((card, index) => (
-                        <Card key={card.id} card={card} index={index} />
-                    ))}
+                    {cards?.map((card, index) => (
+                        <Card key={card?.id} card={card} index={index} showTag={showTag} setShowTag={setShowTag} />
+                    ))} 
                     {provided.placeholder}
                 </div>
             )}

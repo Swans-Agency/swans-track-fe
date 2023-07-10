@@ -13,14 +13,24 @@ export default function index({ isConnected }) {
 export const getServerSideProps = async (ctx) => {
   let accessToken = ctx.req.cookies["AccessTokenSBS"];
   let userPermission = ctx.req.cookies["userPermission"];
+  let authorized = null;
   let isConnected = null;
   try {
     if (accessToken) {
-      isConnected = await getAxiosServer(
-        `${process.env.DIGITALOCEAN}/tasks/check-google/`,
+      authorized = await getAxiosServer(
+        `${process.env.DIGITALOCEAN}/validateToken/`,
         accessToken,
         false
       );
+      if (authorized.status === 200) {
+        isConnected = await getAxiosServer(
+          `${process.env.DIGITALOCEAN}/tasks/check-google/`,
+          accessToken,
+          false
+        );
+      } else {
+        accessToken = null;
+      }
     } else {
       return {
         redirect: {

@@ -9,7 +9,6 @@ export default function Events({ date, monthEvents }) {
 
   const showModal = (item) => {
     setSelectedItem(item);
-    console.log(item);
     setIsModalOpen(true);
   };
   const handleOk = () => {

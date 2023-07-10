@@ -33,7 +33,7 @@ export default function ProposalForm({ setReloadData }) {
   const getUserInitialData = async () => {
     const url = `${process.env.DIGITALOCEAN}/company/company-preferences/`;
     let data = await getAxios(url);
-    console.log(data);
+    ;
     if (data[0]) {
       data[0].logo = data[0]?.logo?.split("?")[0];
       if (logoPicList?.length < 1) {
@@ -80,7 +80,7 @@ export default function ProposalForm({ setReloadData }) {
   };
 
   const onFinish = async (data) => {
-    console.log(data);
+    ;
     data["proposalDate"] = moment(new Date(data["proposalDate"])).format(
       "YYYY-MM-DD"
     );
@@ -110,7 +110,6 @@ export default function ProposalForm({ setReloadData }) {
               width: "100%",
             }}
             onChange={(e) => {
-              console.log(e, "<<<<<<<<<<<<<<<<");
               form.setFieldValue("client", e);
               getSelectedClient(e);
             }}
