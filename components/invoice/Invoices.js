@@ -7,13 +7,12 @@ import {
 } from "@ant-design/icons";
 import { Button, Input, Popconfirm, Space } from "antd";
 import {
-  NotificationLoading,
-  NotificationPermission,
   getAxios,
   deleteAxios,
 } from "@/functions/ApiCalls";
 import Highlighter from "react-highlight-words";
 import TableANTD from "../ANTD/TableANTD";
+import { NotificationLoading, NotificationPermission } from "@/functions/Notifications";
 
 export default function Invoices({
   showModal,
@@ -52,13 +51,14 @@ export default function Invoices({
     let response = await getAxios(
       `${process.env.DIGITALOCEAN}/invoice/download-invoice/${id}`
     );
-    let base64Data = response.invoice;
-    const byteString = atob(base64Data.split(",")[1]);
-    const mimeString = base64Data.split(",")[0].split(":")[1].split(";")[0];
-    const arrayBuffer = new ArrayBuffer(byteString.length);
+    console.log({response});
+    let base64Data = response?.invoice;
+    const byteString = atob(base64Data?.split(",")[1]);
+    const mimeString = base64Data?.split(",")[0]?.split(":")[1]?.split(";")[0];
+    const arrayBuffer = new ArrayBuffer(byteString?.length);
     const uint8Array = new Uint8Array(arrayBuffer);
-    for (let i = 0; i < byteString.length; i++) {
-      uint8Array[i] = byteString.charCodeAt(i);
+    for (let i = 0; i < byteString?.length; i++) {
+      uint8Array[i] = byteString?.charCodeAt(i);
     }
     const blob = new Blob([arrayBuffer], { type: mimeString });
     const url = URL.createObjectURL(blob);
