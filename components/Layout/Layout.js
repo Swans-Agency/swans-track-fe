@@ -3,6 +3,7 @@ import React, { useContext } from "react";
 import { NavShowContext } from "@/context/ShowNavContext";
 import { NavCollapse } from "@/context/NavContext";
 import Navbar from "../Navbar/NavBar";
+import Progress from "../progressBar/Progress";
 
 export default function Layout({ children, accessToken }) {
   const { showNav, userPermission } = useContext(NavShowContext);
@@ -15,15 +16,18 @@ export default function Layout({ children, accessToken }) {
         <>
           <Navbar userPermission={userPermission} />
           <div
-            className={`tablet:px-10 phone:px-5 py-5  min-h-[100vh] ${
-              !collapsed ? "desktop:ml-[256px]" : "phone:ml-[25px]"
-            }`}
+            className={`tablet:px-10 phone:px-5 py-5  min-h-[100vh] ${!collapsed ? "desktop:ml-[256px]" : "phone:ml-[25px]"
+              }`}
           >
+            <Progress />
             {children}
           </div>
         </>
       ) : (
-        <div className=" min-h-[100vh]">{children}</div>
+        <div className=" min-h-[100vh]">
+          <Progress />
+          {children}
+        </div>
       )}
     </>
   );

@@ -22,19 +22,9 @@ export const getServerSideProps = async (ctx) => {
   let userPermission = ctx.req.cookies["userPermission"];
   let userId = ctx.req.cookies["userId"];
   let companyTasks = [];
-  let authorized = null;
   try {
     if (accessToken) {
-      authorized = await getAxiosServer(
-        `${process.env.DIGITALOCEAN}/validateToken/`,
-        accessToken,
-        false
-      );
       companyTasks = await getAxiosServer(`${process.env.DIGITALOCEAN}/tasks/active-tasks/`, accessToken, false)
-      if (authorized.status === 200) {
-      } else {
-        accessToken = null;
-      }
     } else {
       return {
         redirect: {
