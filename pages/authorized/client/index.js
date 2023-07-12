@@ -17,18 +17,8 @@ export default function index({ accessToken, userPermission }) {
 export const getServerSideProps = async (ctx) => {
   let accessToken = ctx.req.cookies["AccessTokenSBS"];
   let userPermission = ctx.req.cookies["userPermission"];
-  let authorized = null;
   try {
     if (accessToken) {
-      authorized = await getAxiosServer(
-        `${process.env.DIGITALOCEAN}/validateToken/`,
-        accessToken,
-        false
-      );
-      if (authorized.status === 200) {
-      } else {
-        accessToken = null;
-      }
     } else {
       return {
         redirect: {
