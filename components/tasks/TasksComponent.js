@@ -14,7 +14,6 @@ export default function TasksComponent({ companyTasks, initialData }) {
   const [selectedItem, setSelectedItem] = useState(null);
   const [allData, setAllData] = useState(companyTasks);
   const [data, setData] = useState(initialData);
-  const [getData, setGetData] = useState({});
   const [showTag, setShowTag] = useState(false);
 
   const columnNames = {
@@ -177,9 +176,10 @@ export default function TasksComponent({ companyTasks, initialData }) {
     handleNotifyTeam()
   }
 
-  const handleDragStart = (result) => { }
-
-  const handleDragUpdate = (result) => { }
+  const handleopenNewTask = () => {
+    setSelectedItem(null)
+    setOpen(true)
+  }
 
   return (
     <>
@@ -198,11 +198,13 @@ export default function TasksComponent({ companyTasks, initialData }) {
                     listId={value}
                     showTag={showTag}
                     setShowTag={setShowTag}
+                    setSelectedItem={setSelectedItem}
+                    setOpen={setOpen}
                   />
                 </div>
                 <div
                   className='pl-2 my-2 mb-3 py-2 sticky mr-2 rounded-lg bottom-0 left-0 text-sm bg-gray-200 hover:bg-gray-300 text-black hover:cursor-pointer flex justify-start items-center gap-x-1'
-                  onClick={() => setOpen(true)}
+                  onClick={() => handleopenNewTask()}
                 >
                   <PlusOutlined />
                   <p>Add new task</p>
@@ -213,10 +215,10 @@ export default function TasksComponent({ companyTasks, initialData }) {
         </div>
       </DragDropContext>
       <DrawerANTD
-        title="Add New Task"
+        title={selectedItem ? `Edit Task ${selectedItem?.taskName}` : "Add New Task"}
         onClose={onClose}
         open={open}
-        children={<TaskForm handleNotifyTeam={handleNotifyTeam} />}
+        children={<TaskForm handleNotifyTeam={handleNotifyTeam} selectedItem={selectedItem} />}
       />
     </>
   );

@@ -7,7 +7,10 @@ const Calendar = dynamic(() => import("@/components/Calendar/Calendar"), {
 });
 
 export default function index({ isConnected }) {
-  useEffect(() => { console.log({isConnected})},[isConnected]) 
+  useEffect(() => {
+    console.log("index")
+    console.log({ isConnected })
+  }, [isConnected])
   return <Calendar isConnected={isConnected} />;
 }
 

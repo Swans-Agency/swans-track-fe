@@ -81,12 +81,17 @@ export default function index() {
             </button>
           </Form.Item>
         </Form>
-        <div className="bg-[#163757]  py-5 mt-[5rem] text-center rounded-b-lg">
+        <div className="bg-[#163757]  py-5 mt-[5rem] text-center rounded-b">
           <Link href="/signup" className="text-white">
             Don't have an account?
           </Link>
         </div>
       </div>
+      <a
+        className="w-full absolute bottom-3 mt-4 text-white text-center font-light text-sm hover:cursor-pointer underline hover:text-blue-400"
+        href="/forget-password"
+      >
+        Forget password!</a>
     </div>
   );
 }

@@ -102,7 +102,7 @@ export default function index() {
           </p>
         </div>
 
-        <div className="bg-[#163757] py-5 mt-[5rem] text-center rounded-b-lg">
+        <div className="bg-[#163757] py-5 mt-[5rem] text-center rounded-b">
           <Link href="/login" className="text-white">
             Already a user?
           </Link>
