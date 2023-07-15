@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { startOfMonth, endOfMonth, eachDayOfInterval } from "date-fns";
+import { startOfMonth, endOfMonth, eachDayOfInterval, set } from "date-fns";
 import CalendarHeader from "./CalendarHeader";
 import moment from "moment";
 import { getAxios, postAxios } from "@/functions/ApiCalls";
@@ -27,7 +27,7 @@ export default function Calendar({ isConnected }) {
       endMonth: moment(moment(selectedDate).endOf("month") + 1).format("YYYY-MM-DD[T00:00:00Z]"),
     };
     let url = `${process.env.DIGITALOCEAN}/tasks/authenticate-google/`;
-    let res = await postAxios(url, bodyData, false, false, () => { });
+    let res = await postAxios(url, bodyData, false, false, () => { }, false);
     console.log({ res });
     if (res?.redirectUrl) {
       const newTab = window.open(res?.url, "_blank");
@@ -46,7 +46,7 @@ export default function Calendar({ isConnected }) {
 
 
   const handleAuthorize = async (url, bodyData) => {
-    await postAxios(url, bodyData, false, false, () => { });
+    await postAxios(url, bodyData, false, false, () => { }, false);
   };
 
 
@@ -60,6 +60,9 @@ export default function Calendar({ isConnected }) {
       let url = `${process.env.DIGITALOCEAN}/tasks/exchange-code/`;
       handleAuthorize(url, bodyData);
       setAuthorizedNow(true);
+      setTimeout(() => {
+        router.reload();
+      } , 1000)
     }
   }, []);
 
