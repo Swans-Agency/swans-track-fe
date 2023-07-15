@@ -33,7 +33,7 @@ export default function DayHeader({ date, isConnected }) {
       "YYYY-MM-DD[T]HH:mm:ss"
     );
     let url = `${process.env.DIGITALOCEAN}/tasks/create-event/`;
-    let res = await postAxios(url, values, false, false, () => {});
+    let res = await postAxios(url, values, true, true, () => {});
     router.reload();
   };
 

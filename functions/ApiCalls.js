@@ -23,7 +23,7 @@ const getAxios = async (url, loading, success, callBack) => {
   }
 };
 
-const postAxios = async (url, data, loading, success, callBack) => {
+const postAxios = async (url, data, loading, success, callBack, fail=true) => {
   try {
     if (loading) {
       NotificationLoading();
@@ -38,7 +38,9 @@ const postAxios = async (url, data, loading, success, callBack) => {
     return res?.data;
   } catch (err) {
     console.log("err", err);
-    handleError(err)
+    if (fail) {
+      handleError(err)
+    }
   }
 };
 
@@ -89,7 +91,7 @@ const deleteAxios = async (url, loading, success, callBack) => {
     }
     let accessToken = cookie.load("AccessTokenSBS", { path: "/" });
     let auth = { headers: { Authorization: `Bearer ${accessToken}` } };
-    let res = await axios.delete(url, auth);handleError(err)
+    let res = await axios.delete(url, auth);
     if (callBack) {
       callBack(res?.data);
     }

@@ -2,6 +2,7 @@ import { deleteAxios } from "@/functions/ApiCalls";
 import React from "react";
 import ModalANTD from "../ANTD/ModalANTD";
 import EventModalContent from "./EventModalContent";
+import { useRouter } from "next/router";
 
 export default function EventModal({
   isModalOpen,
@@ -9,6 +10,7 @@ export default function EventModal({
   handleCancel,
   selectedItem,
 }) {
+  const router = useRouter();
   const copyText = async (link) => {
     await navigator.clipboard.writeText(link);
     alert("Link copied to clipboard");
