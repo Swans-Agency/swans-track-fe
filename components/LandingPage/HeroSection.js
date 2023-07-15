@@ -8,7 +8,7 @@ export default function HeroSection() {
       id="hero-section"
       className="relative w-full h-[100vh] overflow-hidden grid desktop:grid-cols-2 gap-0 phone:grid-cols-1"
     >
-      <div className="desktop:block">
+      <div className="desktop:block mt-2">
         <HeroPhone />
       </div>
       <div className="desktop:block phone:hidden">

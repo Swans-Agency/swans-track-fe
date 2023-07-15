@@ -8,16 +8,8 @@ export default function CalendarHeader({
   selectedDate,
   setSelectedDate,
   isConnected,
+  handleConnectGoogleCalendar
 }) {
-  const handleConnectGoogleCalendar = async () => {
-    NotificationLoading();
-    let url = `${process.env.DIGITALOCEAN}/tasks/authenticate-google/`;
-    let redirectURI = await getAxios(url, false, false, () => {});
-    if (redirectURI?.url) {
-      const newTab = window.open(redirectURI.url, "_blank");
-      newTab.focus();
-    }
-  };
 
   return (
     <div className="flex justify-between items-center mb-4">

@@ -2,18 +2,30 @@ import React, { useState } from "react";
 import { AlignLeftOutlined } from "@ant-design/icons";
 import { Draggable } from "react-beautiful-dnd";
 
-export default function Card({ card, index, showTag, setShowTag }) {
+export default function Card({ card, index, showTag, setShowTag, setSelectedItem, setOpen }) {
 
     const priorityColor = {
         "Low": "bg-green-600",
         "Normal": "bg-blue-600",
         "Urgent": "bg-red-600",
     }
+
+    const handleUpdate = (card) => {
+        setSelectedItem(card)
+        setOpen(true);
+    }
+
+    const handleShowTag = () => {
+        setShowTag(!showTag)
+        setOpen(false);
+    }
+
     return (
         <Draggable draggableId={`${card.id}`} index={index} key={index} isDragDisabled={false}>
             {(provided, snapshot) => (
                 <div
                     className='rounded-md p-2 bg-white hover:bg-gray-100 mr-2 shadow'
+                    onClick={() => handleUpdate(card)}
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
                     ref={provided.innerRef}
@@ -23,7 +35,7 @@ export default function Card({ card, index, showTag, setShowTag }) {
                     <div
                         className={`${showTag ? "w-fit" : "w-[15%] h-[6px]"} hover:cursor-pointer ${priorityColor[card?.priority]} text-white px-3 text-xs font-light rounded-full`}
                         title={card?.priority}
-                        onClick={() => setShowTag(!showTag)}
+                        onClick={() => handleShowTag()}
                     >
                         {showTag ? card?.priority : ""}
                     </div>

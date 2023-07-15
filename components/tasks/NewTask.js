@@ -11,7 +11,7 @@ import Image from "next/image";
 import dayjs from "dayjs";
 import FormButtons from "../ANTD/FormButtons";
 
-export default function TaskForm({ handleNotifyTeam }) {
+export default function TaskForm({ handleNotifyTeam, selectedItem }) {
   const [form] = Form.useForm();
   const [employees, setEmployees] = useState([]);
   const [editTask, setEditTask] = useState({});
@@ -19,21 +19,21 @@ export default function TaskForm({ handleNotifyTeam }) {
   const { TextArea } = Input;
 
   const getAllEmployees = async () => {
-    const url = `${process.env.DIGITALOCEAN}/account/list-employees/`;
+    const url = `${process.env.DIGITALOCEAN}/account/list-employees-no-pagination/`;
     const employeeData = await getAxios(url);
-    const arrData = employeeData?.results?.map((item) => ({
+    const arrData = employeeData?.map((item) => ({
       value: item?.id,
       label: (
         <>
           <div className="flex items-center gap-x-2">
             <Image
-              src={item?.userProfile?.pfp?.split("?")[0]}
-              width={30}
-              height={30}
+              src={item?.userProfile?.pfp?.split("?")[0] || "https://swansagencymain.fra1.digitaloceanspaces.com/SBSFILES/defaultPics/user.png"}
+              width={20}
+              height={20}
               className="rounded-full"
             />
             <span>
-              {item?.userProfile?.firstName} {item?.userProfile?.lastName}
+              {item?.userProfile?.firstName || item?.username} {item?.userProfile?.lastName || ""}
             </span>
           </div>
         </>
@@ -44,8 +44,29 @@ export default function TaskForm({ handleNotifyTeam }) {
 
   useEffect(() => {
     getAllEmployees();
-    
+
   }, []);
+
+  useEffect(() => { handleInitialValues() }, [selectedItem]);
+
+  const handleInitialValues = () => {
+    if (selectedItem) {
+      form.setFieldValue("taskName", selectedItem?.taskName);
+      form.setFieldValue("taskDescription", selectedItem?.taskDescription);
+      form.setFieldValue("taskStatus", selectedItem?.taskStatus);
+      form.setFieldValue("priority", selectedItem?.priority);
+      form.setFieldValue("dueDate", dayjs(new Date(selectedItem?.dueDate ? selectedItem?.dueDate : null)));
+      form.setFieldValue("assignee", {
+        value: selectedItem?.assignee?.id,
+        label: <>
+          <div className='flex items-center gap-x-2'>
+            <Image src={selectedItem?.assignee?.pfp?.split("?")[0] } width={20} height={20} className='rounded-full' />
+            <span>{selectedItem?.assignee?.name}</span>
+          </div>
+        </>,
+      })
+    }
+  }
 
   const onFinish = async (data) => {
     const formData = new FormData();
@@ -60,128 +81,143 @@ export default function TaskForm({ handleNotifyTeam }) {
     );
     const assigneeValue = data?.assignee;
     const url = `${process.env.DIGITALOCEAN}/tasks/create-task/`;
-    formData.append("assignee", assigneeValue);
-    let res = await postAxios(url, formData, true, true, () => {});
+    // formData.append("assignee", assigneeValue);
+    // let res = await postAxios(url, formData, true, true, () => { });
+
+
+    if (selectedItem) {
+      // console.log(Number(formData.get("assignee")) , selectedItem?.assignee?.id)
+      if (Number.isNaN(Number(assigneeValue))) {
+        formData.append('assignee', selectedItem?.assignee?.id);
+      } else {
+        formData.append('assignee', assigneeValue);
+      }
+      const url = `${process.env.DIGITALOCEAN}/tasks/edit-task/${selectedItem?.id}/`
+      let res = await patchAxios(url, formData, true, true, () => {})
+    } else {
+      formData.append('assignee', assigneeValue);
+      let res = await postAxios(url, formData, true, true, () => { })
+    }
+
+
 
     handleNotifyTeam();
   };
 
   return (
     <>
-      {editTask && (
-        <Form
-          onFinish={onFinish}
-          layout="vertical"
-          style={{
-            alignContent: "center",
-            maxWidth: 600,
-          }}
-          className="custom-form"
-          form={form}
-          requiredMark={true}
-          initialValues={editTask}
+      <Form
+        onFinish={onFinish}
+        layout="vertical"
+        style={{
+          alignContent: "center",
+          maxWidth: 600,
+        }}
+        className="custom-form"
+        form={form}
+        requiredMark={true}
+        initialValues={form}
+      >
+        <Form.Item label="Task" name="taskName" className="w-full" required>
+          <Input className="rounded" />
+        </Form.Item>
+        <Form.Item
+          label="Description"
+          name="taskDescription"
+          className="w-full"
         >
-          <Form.Item label="Task" name="taskName" className="w-full" required>
-            <Input className="rounded" />
+          <TextArea className="rounded w-full" />
+        </Form.Item>
+        <div className="flex gap-x-5 w-full mt-0">
+          <Form.Item
+            label="Task Status"
+            name="taskStatus"
+            className="w-full"
+            required
+          >
+            <Select
+              showSearch
+              defaultValue=""
+              style={{
+                width: "100%",
+              }}
+              onChange={(e) => {
+                form.setFieldValue("taskStatus", e);
+              }}
+              allowClear={true}
+              filterOption={true}
+              options={[
+                { label: "To Do", value: "To Do" },
+                { label: "In Progress", value: "In Progress" },
+                { label: "Idle", value: "Idle" },
+                { label: "Completed", value: "Completed" },
+              ]}
+            />
           </Form.Item>
           <Form.Item
-            label="Description"
-            name="taskDescription"
+            label="Task Priority"
+            name="priority"
             className="w-full"
+            required
           >
-            <TextArea className="rounded w-full" />
+            <Select
+              showSearch
+              defaultValue=""
+              style={{
+                width: "100%",
+              }}
+              onChange={(e) => {
+                form.setFieldValue("priority", e);
+              }}
+              allowClear={true}
+              filterOption={true}
+              options={[
+                { label: "Low", value: "Low" },
+                { label: "Normal", value: "Normal" },
+                { label: "Urgent", value: "Urgent" },
+              ]}
+            />
           </Form.Item>
-          <div className="flex gap-x-5 w-full mt-0">
-            <Form.Item
-              label="Task Status"
-              name="taskStatus"
-              className="w-full"
-              required
-            >
-              <Select
-                showSearch
-                defaultValue=""
-                style={{
-                  width: "100%",
-                }}
-                onChange={(e) => {
-                  form.setFieldValue("taskStatus", e);
-                }}
-                allowClear={true}
-                filterOption={true}
-                options={[
-                  { label: "To Do", value: "To Do" },
-                  { label: "In Progress", value: "In Progress" },
-                  { label: "Idle", value: "Idle" },
-                  { label: "Completed", value: "Completed" },
-                ]}
-              />
-            </Form.Item>
-            <Form.Item
-              label="Task Priority"
-              name="priority"
-              className="w-full"
-              required
-            >
-              <Select
-                showSearch
-                defaultValue=""
-                style={{
-                  width: "100%",
-                }}
-                onChange={(e) => {
-                  form.setFieldValue("priority", e);
-                }}
-                allowClear={true}
-                filterOption={true}
-                options={[
-                  { label: "Low", value: "Low" },
-                  { label: "Normal", value: "Normal" },
-                  { label: "Urgent", value: "Urgent" },
-                ]}
-              />
-            </Form.Item>
-          </div>
-          <div className="flex gap-x-5 w-full mt-0">
-            <Form.Item
-              label="Due Date"
-              name="dueDate"
-              className="w-full"
-              required
-            >
-              <DatePicker className="rounded w-full" placeholder="" />
-            </Form.Item>
+        </div>
+        <div className="flex gap-x-5 w-full mt-0">
+          <Form.Item
+            label="Due Date"
+            name="dueDate"
+            className="w-full"
+            required
+          >
+            <DatePicker className="rounded w-full" placeholder="" />
+          </Form.Item>
 
-            <Form.Item
-              label="Assigne To"
-              name="assignee"
-              className="w-full"
-              required
-            >
-              <Select
-                showSearch
-                defaultValue=""
-                style={{
-                  width: "100%",
-                }}
-                onChange={(e) => {
-                  form.setFieldValue("assignee", e);
-                }}
-                allowClear={true}
-                filterOption={true}
-                options={employees}
-              />
-            </Form.Item>
-          </div>
+          <Form.Item
+            label="Assigne To"
+            name="assignee"
+            className="w-full"
+            required
+          >
+            <Select
+              showSearch
+              defaultValue=""
+              style={{
+                width: "100%",
+              }}
+              onChange={(e) => {
+                form.setFieldValue("assignee", e);
+              }}
+              allowClear={true}
+              filterOption={true}
+              options={employees}
+            />
+          </Form.Item>
+        </div>
 
-          <Divider />
-          <div className="flex gap-x-5 w-full justify-end">
-            <Form.Item>
-              <FormButtons content= "Assign" />
-            </Form.Item>
-          </div>
-        </Form>
-      )}
+        <Divider />
+        <div className="flex gap-x-5 w-full justify-end">
+          <Form.Item>
+            <FormButtons content={selectedItem ? "Re-assign" : "Assign"} />
+          </Form.Item>
+        </div>
+      </Form>
     </>
   );
 }
