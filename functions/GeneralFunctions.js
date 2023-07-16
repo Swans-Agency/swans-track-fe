@@ -491,6 +491,7 @@ const login = async (data) => {
 
 const signup = async (data) => {
   try {
+    NotificationLoading();
     let res = await axios.post(`${process.env.DIGITALOCEAN}/company/`, data);
     NotificationSuccess(res.data.success);
     return res.data;
