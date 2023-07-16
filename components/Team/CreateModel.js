@@ -2,6 +2,7 @@ import { postAxios } from "@/functions/ApiCalls";
 import { Form } from "antd";
 import DrawerANTD from "../ANTD/DrawerANTD";
 import CreateForm from "./CreateForm";
+import { NotificationError } from "@/functions/Notifications";
 
 export default function CreateModal({
   isModalOpen,
@@ -18,9 +19,11 @@ export default function CreateModal({
   };
 
   const onFinish = async (data) => {
-    ;
     const url = `${process.env.DIGITALOCEAN}/account/signup/`;
-    await postAxios(url, data, true, true);
+    let res = await postAxios(url, data, true, true, () => { }, false);
+    if (!res) {
+      NotificationError({ detail: "User either already exists or you have reached the maximum number of users allowed."})
+    }
     setReloadData({ data: "dataq" });
   };
 

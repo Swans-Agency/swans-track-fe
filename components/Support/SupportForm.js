@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Form, Input, InputNumber } from "antd";
-import { NotificationSuccess } from "@/functions/Notifications";
+import { postAxios } from "@/functions/ApiCalls";
 
 /* eslint-disable no-template-curly-in-string */
 const validateMessages = {
@@ -15,9 +15,10 @@ const validateMessages = {
 };
 /* eslint-enable no-template-curly-in-string */
 
-const onFinish = (values) => {
+const onFinish = async(values) => {
   console.log(values);
-  NotificationSuccess();
+  const url = `${process.env.DIGITALOCEAN}/company/support/`;
+  let response = await postAxios(url, values, true, true, () => {}, true);
 };
 
 export default function SupportForm(props) {
@@ -38,7 +39,7 @@ export default function SupportForm(props) {
         validateMessages={validateMessages}
       >
         <Form.Item
-          name={["user", "name"]}
+          name={"name"}
           label="Name"
           rules={[
             {
@@ -49,7 +50,7 @@ export default function SupportForm(props) {
           <Input />
         </Form.Item>
         <Form.Item
-          name={["user", "email"]}
+          name={"email"}
           label="Email"
           rules={[
             {
@@ -62,7 +63,7 @@ export default function SupportForm(props) {
           <Input />
         </Form.Item>
         <Form.Item
-          name={["user", "phone"]}
+          name={"phone"}
           label="Phone Number"
           rules={[
             { required: true, message: "Please input your phone number!" },
@@ -72,8 +73,8 @@ export default function SupportForm(props) {
         </Form.Item>
 
         <Form.Item
-          name={["user", "Description"]}
-          label="Description"
+          name={"message"}
+          label="Message"
           rules={[
             { required: true, message: "Please input your Description!" },
           ]}
