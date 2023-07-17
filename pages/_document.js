@@ -5,17 +5,7 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-EQF1MDFZBL"
-          dangerouslySetInnerHTML={{
-            __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '{{ GA_TRACKING_ID }}');
-          `,
-          }}
-        />
+        <link rel="icon" href="/Logo.png" />
       </Head>
       <body>
         <Main />
