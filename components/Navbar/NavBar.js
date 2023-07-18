@@ -18,6 +18,7 @@ import {
   ExportOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
+  SettingOutlined
 } from "@ant-design/icons";
 import Image from "next/image";
 import { NavCollapse } from "@/context/NavContext";
@@ -98,26 +99,32 @@ export default function Navbar({ userPermission }) {
       key: "company-preference",
       label: "Company Preferences",
       icon: <ReconciliationOutlined />,
+      permissions: ["Admin", "Supervisor"],
     },
     {
       key: "profile",
       label: "Profile",
       icon: <UserOutlined />,
+      divider: true,
     },
-  ];
-
-  const BottomButtons = [
-      {
-        key: "support",
-        label: "Support",
-        icon: <CustomerServiceOutlined />,
-      },
+    {
+      key: "settings",
+      label: "Settings",
+      icon: <SettingOutlined />,
+      permissions: ["Admin"],
+    },
+    {
+      key: "support",
+      label: "Support",
+      icon: <CustomerServiceOutlined />,
+    },
     {
       key: "logout",
       label: "Logout",
       icon: <ExportOutlined />,
     },
   ];
+
 
   const Routing = (key) => {
     if (key === "logout") {
@@ -131,11 +138,10 @@ export default function Navbar({ userPermission }) {
     <div className="sticky top-0 left-0 !z-[10000]">
       <div className="absolute border-r border-foreignBackground !z-[1000]">
         <div
-          className={`absolute  ${
-            !collapsed
+          className={`absolute  ${!collapsed
               ? "left-[200px] top-5 border border-foreignBackground hover:shadow shadow-foreignBackground rounded p-3 z-[1000]"
               : "left-0 h-[100vh] top-0"
-          }  p-1 bg-sidebar flex items-center hover:cursor-pointer`}
+            }  p-1 bg-sidebar flex items-center hover:cursor-pointer`}
           onClick={toggleCollapsed}
           title={collapsed ? "Expand Sidebar" : "Collapse Sidebar"}
         >
@@ -147,9 +153,8 @@ export default function Navbar({ userPermission }) {
         </div>
 
         <div
-          className={`bg-sidebar h-[100vh] ${
-            collapsed ? "w-[20px] hidden" : "w-[256px]"
-          } relative overflow-y-auto overflow-x-hidden text-textIcons px-2 pt-2`}
+          className={`bg-sidebar h-[100vh] ${collapsed ? "w-[20px] hidden" : "w-[256px]"
+            } relative overflow-y-auto overflow-x-hidden text-textIcons px-2 pt-2`}
         >
           <div className="pb-4">
             <Image src="/Logo.png" width={60} height={60} />
@@ -164,21 +169,10 @@ export default function Navbar({ userPermission }) {
             );
           })}
           <div
-            className={`absolute bottom-2 ${
-              collapsed ? "w-[20px] hidden" : "w-[240px]"
-            } `}
-            
+            className={`absolute bottom-2 ${collapsed ? "w-[20px] hidden" : "w-[240px]"
+              } `}
+
           >
-            {BottomButtons.map((item, index) => {
-              return (
-                <div className="flex gap-x-3 items-center bg-sidebar text-[1rem] hover:bg-mainBackground hover:cursor-pointer px-2 py-2 rounded-lg"
-                onClick={()=>Routing(item?.key)}
-                >
-                  {item?.icon}
-                  <p>{item?.label}</p>
-                </div>
-              );
-            })}
           </div>
         </div>
       </div>
