@@ -131,9 +131,9 @@ export default function Dashboard({
 
       <CardPercent
         title="Monthly Expenses"
-        main={expenses?.percentChange}
-        percent={expenses?.percentChange}
-        number={<>{expenses?.currentMonthExpenses}</>}
+        main={expenses?.percentChange * -1}
+        percent={expenses?.percentChange * -1}
+        number={<>{expenses?.currentMonthExpenses }</>}
         color={"bg-[#730000]"}
         icon={
           <svg

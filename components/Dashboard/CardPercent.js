@@ -9,9 +9,9 @@ export default function CardPercent({
   number,
 }) {
   const formatNumber = (number) => {
-    if (number >= 1000 && number < 1000000) {
+    if (Math.abs(number) >= 1000 && Math.abs(number) < 1000000) {
       return (number / 1000).toFixed(1) + "k";
-    } else if (number >= 1000000) {
+    } else if (Math.abs(number) >= 1000000) {
       return (number / 1000000).toFixed(1) + "m";
     }
     return number?.toString();

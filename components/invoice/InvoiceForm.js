@@ -23,6 +23,7 @@ export default function InvoiceForm({ setReloadData }) {
   const [disabledSelectCurrency, setDisabledCurrency] = useState(false);
   const [clientData, setClientData] = useState([]);
   const [proposalData, setProposalData] = useState([]);
+  const [numberofItems, setNumberofItems] = useState(0);
   const [form] = Form.useForm();
   let logoPicList = [];
   let signaturePicList = [];
@@ -98,7 +99,7 @@ export default function InvoiceForm({ setReloadData }) {
     );
 
     const url = `${process.env.DIGITALOCEAN}/invoice/create-invoice/`;
-    let res = await postAxios(url, data);
+    let res = await postAxios(url, data, true, true, () => { });
     setReloadData(res);
   };
   return (
@@ -181,9 +182,6 @@ export default function InvoiceForm({ setReloadData }) {
       </Form.Item>
 
       <div className="flex gap-x-5 w-full mt-0">
-        {/* <Form.Item label="Invoice no" name="invoiceNo" className='w-full' required>
-                    <Input className='rounded' />
-                </Form.Item> */}
         <Form.Item
           label="Invoice date"
           name="invoiceDate"
@@ -193,22 +191,6 @@ export default function InvoiceForm({ setReloadData }) {
           <DatePicker className="rounded w-full" placeholder="" />
         </Form.Item>
       </div>
-      {/* <Form.Item label="Invoice description" name="projectDescription" className='w-full' required>
-                <Input.TextArea className='rounded' />
-            </Form.Item> */}
-      {/* <Form.Item label="Terms conditions" name="termsConditions" className='w-full' required>
-                <Input.TextArea className='rounded' />
-            </Form.Item> */}
-      {/* <div className='flex gap-x-5 w-full'>
-          <Form.Item label="Discount Type" name="DiscountType" className='w-full' required>
-            <Switch label="Discount Type" className='bg-gray-400' onChange={percentageSwitch} checkedChildren="Percentage" unCheckedChildren="Value" defaultChecked />
-          </Form.Item>
-
-              {discountPercentage ? <Form.Item label="Discount percentage" name="discountPercentage" className='w-full' required>
-                  <Input className='rounded' addonAfter={<PercentageOutlined className='pb-1' />} />
-          </Form.Item> :
-        //   }
-          </div> */}
       <div className="flex gap-x-5 w-full mt-0">
         <Form.Item
           label="Discount value"
@@ -241,7 +223,7 @@ export default function InvoiceForm({ setReloadData }) {
         className="w-full"
         required
       >
-        <Form.List name="invoiceItems">
+        <Form.List name="invoiceItems" >
           {(fields, { add, remove }) => (
             <>
               {fields.map(({ key, name, ...restField }) => (
@@ -262,18 +244,7 @@ export default function InvoiceForm({ setReloadData }) {
                   >
                     <Input placeholder="Item name" />
                   </Form.Item>
-                  {/* <Form.Item
-                                        {...restField}
-                                        name={[name, 'itemDescription']}
-                                        rules={[
-                                            {
-                                                required: true,
-                                                message: 'Missing item description',
-                                            },
-                                        ]}
-                                    >
-                                        <Input.TextArea placeholder="Item description" />
-                                    </Form.Item> */}
+
                   <div className="flex gap-x-5 w-full">
                     <Form.Item
                       {...restField}
@@ -312,20 +283,34 @@ export default function InvoiceForm({ setReloadData }) {
                   </div>
                   <MinusCircleOutlined
                     className="mb-4"
-                    onClick={() => remove(name)}
+                    onClick={() => {
+                      return (
+                        <>
+                          {remove(name)}
+                          {setNumberofItems(numberofItems - 1)}
+                        </>
+                      )
+                    }}
                   />
                 </Space>
               ))}
-              <Form.Item>
+              {numberofItems < 12 && <Form.Item>
                 <Button
                   type="dashed"
-                  onClick={() => add()}
+                  onClick={() => {
+                    return (
+                      <>
+                        {add()}
+                        {setNumberofItems(numberofItems + 1)}
+                      </>
+                    )
+                  }}
                   block
                   icon={<PlusOutlined />}
                 >
                   Add field
                 </Button>
-              </Form.Item>
+              </Form.Item>}
             </>
           )}
         </Form.List>
