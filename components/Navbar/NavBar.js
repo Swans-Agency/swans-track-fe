@@ -18,7 +18,8 @@ import {
   ExportOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-  SettingOutlined
+  SettingOutlined,
+  ShopOutlined
 } from "@ant-design/icons";
 import Image from "next/image";
 import { NavCollapse } from "@/context/NavContext";
@@ -109,8 +110,8 @@ export default function Navbar({ userPermission }) {
     },
     {
       key: "settings",
-      label: "Settings",
-      icon: <SettingOutlined />,
+      label: "Billing & Plans",
+      icon: <ShopOutlined />,
       permissions: ["Admin"],
     },
     {
