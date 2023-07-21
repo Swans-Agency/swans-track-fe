@@ -9,13 +9,6 @@ import { getAxios } from "@/functions/ApiCalls";
 
 export default function App({ Component, pageProps }) {
 
-  const handleCheckSubscribe = async () => {
-    let response = await getAxios(`${process.env.DIGITALOCEAN}/company/subscription/`, false, false, () => { })
-
-    if (response.subscribed === false) {
-      window.location.href = "/authorized/settings"
-    }
-  }
 
   return (
     <>
