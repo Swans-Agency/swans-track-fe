@@ -10,11 +10,12 @@ export default function index({ plans, paymentId }) {
     const [trialPeriod, setTrialPeriod] = useState(null)
 
     useEffect(() => {
+        console.log({ "dddddddddddddddd" : "sss" })
         console.log({ paymentId })
-        if ((paymentId?.hasPaymentMethod && paymentId?.subscriptionEnded) || (paymentId?.hasPaymentMethod && paymentId?.trialMode)) {
-            setAction("Upgrade Plan")
+        if (paymentId?.subscriptionEnded) {
+            setAction("")
         } else {
-            setAction("Update Payment Method")
+            setAction("disabled")
         }
 
         if (paymentId?.trialMode) {
@@ -27,11 +28,9 @@ export default function index({ plans, paymentId }) {
     useEffect(() => { console.log(action) }, [action])
 
     const handleUpgrade = async (plan) => {
-        if (action === "Upgrade Plan") {
-            let subscription = await getAxios(`${process.env.DIGITALOCEAN}/company/subscription/${plan}`, true, true, () => { })
-            router.reload()
-        } else {
-            router.push("/authorized/settings/checkout")
+        let subscription = await getAxios(`${process.env.DIGITALOCEAN}/company/subscription/${plan}`, true, true, () => { })
+        if (subscription?.url) {
+            router.push(subscription?.url)
         }
     }
 
@@ -56,12 +55,12 @@ export default function index({ plans, paymentId }) {
                                 )
                             })}
                         </ul>
-                        <button
-                            className='w-full border rounded-lg mt-3 py-1 shadow font-bold hover:shadow-green-200'
+                        {action  && <button
+                            className={`w-full border rounded-lg mt-3 py-1 shadow font-bold hover:shadow-green-200 ${action}`}
                             onClick={() => handleUpgrade(item?.stripeId)}
                         >
-                            {action}
-                        </button>
+                            Subscribe
+                        </button>}
                         <div className='text-xs font-light text-gray-700 mt-2 text-justify'>
                             By placing this order, you agree to Swans Track's <a href="/terms-conditions" target='_blank' className='text-blue-500 hover:cursor-pointer hover:underline hover:underline-offset-2'>Terms of Service</a> and <a href="/swans-privacy-policy" target='_blank' className='text-blue-500 hover:cursor-pointer hover:underline hover:underline-offset-2'>Privacy Policy</a>. Your card will be charges $ {item?.price} each month. Subscription automatically renews uless subscription is canceled. A redirect link will be available to manage your subscription once the transaction is completed.
                         </div>

@@ -26,7 +26,7 @@ export default function AuthWrapper({ children }) {
 
   const handleCheckSubscribe = async () => {
     const token = cookie.load("AccessTokenSBS", { path: "/" });
-    if (token) {
+    if (token && router.pathname.includes('authorized')) {
       let response = await getAxios(`${process.env.DIGITALOCEAN}/company/company/subscription/`, false, false, () => { })
       console.log({ response })
       if (response.subscribed === false) {
