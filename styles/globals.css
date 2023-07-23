@@ -216,3 +216,12 @@ body {
 .ant-popconfirm-buttons .ant-btn-default:hover {
   color: white !important;
 }
+
+.Button{
+  background-color: #3659D4 !important;
+  border: none;
+}
+.Button:hover{
+  background-color: #3659D4 !important;
+  border: none;
+}
