@@ -19,7 +19,7 @@ import {
 import { getAxios, postAxios } from "@/functions/ApiCalls";
 import FormButtons from "../ANTD/FormButtons";
 
-export default function InvoiceForm({ setReloadData }) {
+export default function InvoiceForm({ setReload, onClose }) {
   const [disabledSelectCurrency, setDisabledCurrency] = useState(false);
   const [clientData, setClientData] = useState([]);
   const [proposalData, setProposalData] = useState([]);
@@ -100,7 +100,8 @@ export default function InvoiceForm({ setReloadData }) {
 
     const url = `${process.env.DIGITALOCEAN}/invoice/create-invoice/`;
     let res = await postAxios(url, data, true, true, () => { });
-    setReloadData(res);
+    setReload(res)
+    onClose()
   };
   return (
     <Form

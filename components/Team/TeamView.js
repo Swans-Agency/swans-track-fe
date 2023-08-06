@@ -1,22 +1,16 @@
-import React, { useState } from "react";
-import ViewButtons from "./ViewButtons";
-import TableMembers from "./TableMembers";
-import CreateModal from "./CreateModel";
-import AdminUserForm from "./AdminUserForm";
-import { deleteAxios } from "@/functions/ApiCalls";
+import React, { useEffect, useState } from "react";
 import moment from "moment";
-import { Popconfirm } from "antd";
 import {
   EditOutlined,
-  UserDeleteOutlined,
-  QuestionCircleOutlined,
 } from "@ant-design/icons";
+import TableANTD from "../ANTD/TableANTD";
+import CreateForm from "./CreateForm";
+import TeamForm from "./TeamForm";
 
-export default function TeamView() {
-  const [reloadData, setReloadData] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+export default function TeamView({ userPermission }) {
   const [isModalOpenUpdate, setIsModalOpenUpdate] = useState(false);
   const [updateItem, setUpdateItem] = useState();
+
 
   const columns = [
     {
@@ -24,41 +18,35 @@ export default function TeamView() {
       dataIndex: "username",
       key: "username",
       render: (_, item) => <div className="text-left">{item?.username}</div>,
-      width: "20%",
     },
     {
       title: "First name",
       dataIndex: "name",
       key: "name",
       render: (_, item) => <div>{item?.userProfile?.firstName}</div>,
-      width: "10%",
     },
     {
       title: "Phone",
       dataIndex: "phoneNumber",
       key: "phoneNumber",
       render: (_, item) => <>{item?.userProfile?.phoneNumber}</>,
-      width: "10%",
     },
     {
       title: "DOB",
       dataIndex: "dob",
       key: "dob",
       render: (_, item) => <>{item?.userProfile?.dob}</>,
-      width: "10%",
     },
     {
       title: "Position",
       dataIndex: "position",
       key: "position",
       render: (_, item) => <>{item?.userProfile?.position}</>,
-      width: "20%",
     },
     {
       title: "Permission",
       dataIndex: "permission",
       key: "permission",
-      width: "10%",
     },
     {
       title: "Join date",
@@ -67,7 +55,6 @@ export default function TeamView() {
       render: (_, item) => (
         <>{moment.utc(item?.date_joined).local().format("MMMM DD, YYYY")}</>
       ),
-      width: "10%",
     },
     {
       title: <div className="flex justify-center">Edit</div>,
@@ -84,41 +71,6 @@ export default function TeamView() {
           </div>
         );
       },
-      width: "5%",
-    },
-    {
-      title: <div className="flex justify-center">Delete</div>,
-      dataIndex: "delete",
-      key: "delete",
-      render: (_, item) => {
-        return (
-          <div className="flex items-center justify-center">
-            <Popconfirm
-              className="custom-popconfirm"
-              title="Delete"
-              description={`Are you sure you want to delete ${item?.userProfile?.firstName}?`}
-              onConfirm={() => deleteTeamMember(item)}
-              icon={
-                <QuestionCircleOutlined
-                  style={{
-                    color: "red",
-                  }}
-                />
-              }
-              okButtonProps={{
-                danger: true,
-              }}
-            >
-              <UserDeleteOutlined
-                key="delete"
-                style={{ color: "red" }}
-                className="hover:cursor-pointer"
-              />
-            </Popconfirm>
-          </div>
-        );
-      },
-      width: "5%",
     },
   ];
 
@@ -127,36 +79,36 @@ export default function TeamView() {
     setIsModalOpenUpdate(true);
   };
 
-  const showModal = () => {
-    setIsModalOpen(true);
+  const handleOk = () => {
+    setIsModalOpenUpdate(false);
+    setUpdateItem(null)
   };
-
-  const deleteTeamMember = async (data) => {
-    const url = `${process.env.DIGITALOCEAN}/account/signup/${data.id}`;
-    await deleteAxios(url);
-    setReloadData(true);
+  const handleCancel = () => {
+    setIsModalOpenUpdate(false);
+    setUpdateItem(null)
   };
 
   return (
     <div>
       <h1 className="text-3xl font-light tracking-tight text-black mb-3">Team Members</h1>
-      <ViewButtons showModal={showModal} />
-      <TableMembers columns={columns} reloadData={reloadData} />
-      <CreateModal
-        isModalOpen={isModalOpen}
-        setIsModalOpen={setIsModalOpen}
-        setReloadData={setReloadData}
+      <TableANTD
+        columns={columns}
+        getUrl={`${process.env.DIGITALOCEAN}/account/list-employees/`}
+        multiDeleteUrl={`${process.env.DIGITALOCEAN}/account/delete-multi-employees/`}
+        addButton={true}
+        buttonTitle="Add Member"
+        addDrawer={true}
+        drawerTitle="Add New Member"
+        drawerContent={(setReload, onClose) => <CreateForm setReload={setReload} onClose={onClose} />}
+        updateModal={true}
+        updateTitle="Update Member"
+        updateFooter={null}
+        handleOkUpdate={handleOk}
+        handleCancelUpdate={handleCancel}
+        isModalOpenUpdate={isModalOpenUpdate}
+        passedItem={updateItem}
+        modalContent={(setReload) => <TeamForm updateItem={updateItem} setUpdateItem={setUpdateItem} handleOk={handleOk} setReload={setReload} />}
       />
-      {updateItem && (
-        <AdminUserForm
-          isModalOpenUpdate={isModalOpenUpdate}
-          setIsModalOpenUpdate={setIsModalOpenUpdate}
-          updateItem={updateItem}
-          setUpdateItem={setUpdateItem}
-          setReloadData={setReloadData}
-          reloadData={reloadData}
-        />
-      )}
     </div>
   );
 }

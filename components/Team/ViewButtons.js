@@ -6,9 +6,9 @@ export default function ViewButtons({ showModal }) {
     <div className="flex justify-end mb-3">
       <button
         onClick={showModal}
-        className="flex gap-x-2 hover:bg-foreignBackground text-black hover:text-white rounded py-[0.4rem] px-3"
+        className="flex justify-center items-center gap-x-2 hover:bg-foreignBackground hover:text-white rounded py-[0.35rem] px-2"
       >
-        <UserAddOutlined className=" pt-1" />
+        <UserAddOutlined/>
         Add member
       </button>
     </div>

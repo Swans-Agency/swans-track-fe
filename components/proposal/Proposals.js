@@ -5,22 +5,14 @@ import {
   QuestionCircleOutlined,
   SearchOutlined,
 } from "@ant-design/icons";
-import { Button, Input, Popconfirm, Space } from "antd";
-import { deleteAxios, getAxios } from "@/functions/ApiCalls";
+import { Button, Input, Space } from "antd";
+import { getAxios } from "@/functions/ApiCalls";
 import Highlighter from "react-highlight-words";
 import TableANTD from "../ANTD/TableANTD";
-import {
-  NotificationLoading,
-  NotificationPermission,
-} from "@/functions/Notifications";
+import {NotificationLoading} from "@/functions/Notifications";
+import ProposalForm from "./ProposalForm";
 
-export default function Proposals({
-  showModal,
-  userPermission,
-  reloadData,
-  setReloadData,
-}) {
-  const [allProposals, setAllProposals] = useState([]);
+export default function Proposals() {
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef(null);
@@ -34,16 +26,6 @@ export default function Proposals({
   const handleReset = (clearFilters) => {
     clearFilters();
     setSearchText("");
-  };
-
-  useEffect(() => {
-    getAllProposals();
-  }, [reloadData]);
-
-  const getAllProposals = async () => {
-    const url = `${process.env.DIGITALOCEAN}/invoice/get-proposals/`;
-    let data = await getAxios(url);
-    setAllProposals(data);
   };
 
   const downloadPdf = async (id) => {
@@ -226,112 +208,22 @@ export default function Proposals({
         </div>
       ),
     },
-    {
-      title: <div className="text-center">Delete</div>,
-      dataIndex: "delete",
-      key: "delete",
-      render: (_, item) => {
-
-        return (
-          <>
-            {userPermission === "Supervisor" ? (
-              <div className="flex justify-center">
-                <Popconfirm
-                  title="Delete"
-                  description={
-                    userPermission == "Supervisor"
-                      ? `Are you sure you want to delete ${item?.proposalNo}?`
-                      : "You don't have the permission to delete"
-                  }
-                  onConfirm={
-                    userPermission == "Supervisor"
-                      ? async () => {
-                        await deleteAxios(
-                          `${process.env.DIGITALOCEAN}/invoice/delete-proposals/${item?.id}`
-                        );
-                        setReloadData({});
-                      }
-                      : () => NotificationPermission()
-                  }
-                  icon={
-                    <QuestionCircleOutlined
-                      style={{
-                        color: "red",
-                      }}
-                    />
-                  }
-                  okButtonProps={{
-                    danger: true,
-                  }}
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke={userPermission === "Supervisor" ? "red" : "gray"}
-                    className={
-                      userPermission === "Supervisor"
-                        ? "w-5 h-5 hover:cursor-pointer"
-                        : "w-5 h-5 hover:cursor-not-allowed"
-                    }
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5m6 4.125l2.25 2.25m0 0l2.25 2.25M12 13.875l2.25-2.25M12 13.875l-2.25 2.25M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"
-                    />
-                  </svg>
-                </Popconfirm>
-              </div>
-            ) : (
-              <>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke={userPermission === "Supervisor" ? "red" : "gray"}
-                  className={
-                    userPermission === "Supervisor"
-                      ? "w-5 h-5 hover:cursor-pointer"
-                      : "w-5 h-5 hover:cursor-not-allowed"
-                  }
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5m6 4.125l2.25 2.25m0 0l2.25 2.25M12 13.875l2.25-2.25M12 13.875l-2.25 2.25M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"
-                  />
-                </svg>
-              </>
-            )}
-          </>
-        );
-      },
-      width: "10%",
-    },
   ];
 
   return (
     <>
       <h1 className="text-3xl font-light tracking-tight text-black mb-3">Company Proposals</h1>
-      <div className="flex  justify-end mb-3">
-        <button
-          onClick={showModal}
-          className="flex gap-x-2 hover:bg-foreignBackground hover:bg-secondbg hover:text-white text-black rounded py-[0.4rem] px-3 mb-3"
-        >
-          <PlusOutlined className=" pt-1" />
-          New Proposal
-        </button>
-      </div>
-      <div className="mt-2">
-        <TableANTD
-          columns={columns}
-          url={`${process.env.DIGITALOCEAN}/invoice/get-proposals/`}
-          reloadData={reloadData}
-        />
-      </div>
+      <TableANTD
+        columns={columns}
+        getUrl={`${process.env.DIGITALOCEAN}/invoice/get-proposals/`}
+        multiDeleteUrl={`${process.env.DIGITALOCEAN}/invoice/delete-multi-proposals/`}
+        addButton={true}
+        buttonTitle="New Proposal"
+        addDrawer={true}
+        drawerTitle="Add New Proposal"
+        drawerContent={(setReload, onClose) => <ProposalForm setReload={setReload} onClose={onClose} />}
+
+      />
     </>
   );
 }

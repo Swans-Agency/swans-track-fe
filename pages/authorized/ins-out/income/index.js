@@ -8,34 +8,10 @@ const Incomes = dynamic(() => import("@/components/income/Incomes"), {
   loading: () => <Loading />,
 });
 
-export default function index({ userPermission }) {
-  const [reloadData, setReloadData] = useState();
-  const [open, setOpen] = useState(false);
-
-  const showDrawer = () => {
-    setOpen(true);
-  };
-  const onClose = () => {
-    setOpen(false);
-  };
+export default function index() {
 
   return (
-    <>
-      <div>
-        <Incomes
-          showModal={showDrawer}
-          userPermission={userPermission}
-          reloadData={reloadData}
-          setReloadData={setReloadData}
-        />
-      </div>
-      <DrawerANTD
-        title="Add New Income"
-        onClose={onClose}
-        open={open}
-        children={<IncomeForm setReloadData={setReloadData} />}
-      />
-    </>
+    <Incomes />
   );
 }
 

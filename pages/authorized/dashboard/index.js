@@ -46,7 +46,8 @@ export default function index() {
 
   const onFinish = async (values) => {
     const url = `${process.env.DIGITALOCEAN}/account/create-testimonials/`;
-    let res = await postAxios(url, values);
+    let res = await postAxios(url, values, true, true);
+    setIsModalOpen(false);
   };
 
   const getDashboardData = async () => {

@@ -120,6 +120,11 @@ export default function Navbar({ userPermission }) {
       icon: <CustomerServiceOutlined />,
     },
     {
+      key: "collapse",
+      label: "Collapse Sidebar",
+      icon: <MenuFoldOutlined />,
+    },
+    {
       key: "logout",
       label: "Logout",
       icon: <ExportOutlined />,
@@ -140,7 +145,7 @@ export default function Navbar({ userPermission }) {
       <div className="absolute border-r border-foreignBackground !z-[1000]">
         <div
           className={`absolute  ${!collapsed
-              ? "left-[200px] top-5 border border-foreignBackground hover:shadow shadow-foreignBackground rounded p-3 z-[1000]"
+              ? "hidden"
               : "left-0 h-[100vh] top-0"
             }  p-1 bg-sidebar flex items-center hover:cursor-pointer`}
           onClick={toggleCollapsed}
@@ -155,10 +160,10 @@ export default function Navbar({ userPermission }) {
 
         <div
           className={`bg-sidebar h-[100vh] ${collapsed ? "w-[20px] hidden" : "w-[256px]"
-            } relative overflow-y-auto overflow-x-hidden text-textIcons px-2 pt-2`}
+            } relative overflow-y-auto overflow-x-hidden text-textIcons font-extralight text-md px-2 pt-2`}
         >
-          <div className="pb-4">
-            <Image src="/Logo.png" width={60} height={60} />
+          <div className="w-full flex justify-center pb-2">
+            <Image src="/Light Logo.svg" width={80} height={80} />
           </div>
           {menuItems.map((item, index) => {
             return (
@@ -166,13 +171,13 @@ export default function Navbar({ userPermission }) {
                 item={item}
                 index={index}
                 userPermission={userPermission}
+                toggleCollapsed={toggleCollapsed}
               />
             );
           })}
           <div
             className={`absolute bottom-2 ${collapsed ? "w-[20px] hidden" : "w-[240px]"
               } `}
-
           >
           </div>
         </div>

@@ -7,17 +7,16 @@ import TableANTD from "../ANTD/TableANTD";
 import { Button, Input, Popconfirm, Space } from "antd";
 import {
   EditOutlined,
-  UserDeleteOutlined,
-  QuestionCircleOutlined,
   SearchOutlined,
 } from "@ant-design/icons";
 import Highlighter from "react-highlight-words";
+import ClientForm from "./ClientForm";
 
-export default function ClientView({ userPermission }) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+export default function ClientView() {
   const [isModalOpenUpdate, setIsModalOpenUpdate] = useState(false);
+
+
   const [updateClient, setUpdateClient] = useState();
-  const [reloadData, setReloadData] = useState();
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef(null);
@@ -144,7 +143,6 @@ export default function ClientView({ userPermission }) {
       title: "E-mail",
       dataIndex: "email",
       key: "email",
-      width: "20%",
       ...getColumnSearchProps("email"),
     },
     {
@@ -157,27 +155,23 @@ export default function ClientView({ userPermission }) {
           {item?.firstName} {item?.lastName}
         </>
       ),
-      width: "20%",
     },
     {
       title: "Phone number",
       dataIndex: "phoneNumber",
       key: "phoneNumber",
-      width: "15%",
       ...getColumnSearchProps("phoneNumber"),
     },
     {
       title: "Interest Level",
       dataIndex: "interestLevel",
       key: "interestLevel",
-      width: "15%",
       ...getColumnSearchProps("interestLevel"),
     },
     {
       title: "Referral Source",
       dataIndex: "referralSource",
       key: "referralSource",
-      width: "15%",
       render: (_, item) => {
         if (item.referralSource == "Friends&Family") {
           return <>Friends & Family</>;
@@ -210,121 +204,45 @@ export default function ClientView({ userPermission }) {
           />
         </div>
       ),
-      width: "5%",
-    },
-    {
-      title: <div className="text-center">Delete</div>,
-      dataIndex: "delete",
-      key: "delete",
-      render: (_, item) => (
-        <div className="text-center">
-          {userPermission == "Supervisor" ? (
-            <Popconfirm
-              title="Delete"
-              description={
-                userPermission == "Supervisor"
-                  ? `Are you sure you want to delete ${item?.firstName}?`
-                  : "You don't have the permission to delete"
-              }
-              onConfirm={
-                userPermission == "Supervisor"
-                  ? () => deleteTeamMember(item)
-                  : () => NotificationPermission()
-              }
-              icon={
-                <QuestionCircleOutlined
-                  style={{
-                    color: "red",
-                  }}
-                />
-              }
-              okButtonProps={{
-                danger: true,
-              }}
-            >
-              <UserDeleteOutlined
-                key="delete"
-                style={
-                  userPermission === "Supervisor"
-                    ? { color: "red" }
-                    : { color: "gray" }
-                }
-                className={
-                  userPermission === "Supervisor"
-                    ? "hover:cursor-pointer"
-                    : "hover:cursor-not-allowed"
-                }
-              />
-            </Popconfirm>
-          ) : (
-            <>
-              <UserDeleteOutlined
-                key="delete"
-                style={
-                  userPermission === "Supervisor"
-                    ? { color: "red" }
-                    : { color: "gray" }
-                }
-                className={
-                  userPermission === "Supervisor"
-                    ? "hover:cursor-pointer"
-                    : "hover:cursor-not-allowed"
-                }
-              />
-            </>
-          )}
-        </div>
-      ),
-      width: "5%",
     },
   ];
-
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
 
   const showModalUpdate = (item) => {
     setTimeout(() => setUpdateClient(item), 100);
     setIsModalOpenUpdate(true);
+    console.log("item", item);
   };
 
-  const deleteTeamMember = async (data) => {
-    const url = `${process.env.DIGITALOCEAN}/client/edit-client/${data.id}`;
-    await deleteAxios(url, true, true);
-    setReloadData({});
+  const handleOk = () => {
+    setIsModalOpenUpdate(false);
+    setUpdateClient(null)
+  };
+  const handleCancel = () => {
+    setIsModalOpenUpdate(false);
+    setUpdateClient(null)
   };
 
   return (
     <div>
       <h1 className="text-3xl font-light tracking-tight text-black mb-3">Clients List</h1>
-      <div className="flex justify-end">
-        <button
-          onClick={showModal}
-          className="flex gap-x-2 hover:bg-mainBackground hover:text-white text-black rounded py-[0.4rem] px-3  mb-3"
-        >
-          <UserAddOutlined className=" pt-1" />
-          Add client
-        </button>
-      </div>
       <TableANTD
         columns={columns}
-        url={`${process.env.DIGITALOCEAN}/client/get-paginated-clients/`}
-        reloadData={reloadData}
+        getUrl={`${process.env.DIGITALOCEAN}/client/get-paginated-clients/`}
+        multiDeleteUrl={`${process.env.DIGITALOCEAN}/client/multi-delete-clients/`}
+        addButton={true}
+        buttonTitle="Add Client"
+        addDrawer={true}
+        drawerTitle="Add New Client"
+        drawerContent={(setReload, onClose) => <ClientForm setReload={setReload} onClose={onClose} />}
+        updateModal={true}
+        updateTitle="Update Client"
+        updateFooter={null}
+        handleOkUpdate={handleOk}
+        handleCancelUpdate={handleCancel}
+        isModalOpenUpdate={isModalOpenUpdate}
+        passedItem={updateClient}
+        modalContent={(setReload) => <UpdateModal updateClient={updateClient} handleOk={handleOk} setUpdateClient={setUpdateClient} setReload={setReload} />}
       />
-      <CreateModal
-        isModalOpen={isModalOpen}
-        setIsModalOpen={setIsModalOpen}
-        setReloadData={setReloadData}
-      />
-      {updateClient && (
-        <UpdateModal
-          isModalOpen={isModalOpenUpdate}
-          setIsModalOpen={setIsModalOpenUpdate}
-          updateClient={updateClient}
-          setUpdateClient={setUpdateClient}
-          setReloadData={setReloadData}
-        />
-      )}
     </div>
   );
 }

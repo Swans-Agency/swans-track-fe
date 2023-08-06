@@ -6,23 +6,12 @@ import { useEffect, useState } from "react";
 import FormButtons from "../ANTD/FormButtons";
 
 export default function UpdateModal({
-  isModalOpen,
-  setIsModalOpen,
   updateClient,
-  setUpdateClient,
-  setReloadData,
+  setReload,
+  handleOk
 }) {
   const [clientId, setClientId] = useState();
   const [form] = Form.useForm();
-
-  const handleOk = () => {
-    setIsModalOpen(false);
-    setUpdateClient(null);
-  };
-  const handleCancel = () => {
-    setIsModalOpen(false);
-    setUpdateClient(null);
-  };
 
   useEffect(() => {
     updateClient["createdAt"] = dayjs(new Date(updateClient["createdAt"]));
@@ -36,18 +25,11 @@ export default function UpdateModal({
     );
     const url = `${process.env.DIGITALOCEAN}/client/edit-client/${clientId}`;
     let res = await patchAxios(url, data, true, true);
-    setReloadData(res);
+    setReload(res);
+    handleOk()
   };
 
   return (
-    <>
-      <Modal
-        title="Edit Client"
-        open={isModalOpen}
-        onOk={handleOk}
-        onCancel={handleCancel}
-        footer={null}
-      >
         <Form
           onFinish={onFinish}
           layout="vertical"
@@ -163,7 +145,5 @@ export default function UpdateModal({
             </Form.Item>
           </div>
         </Form>
-      </Modal>
-    </>
   );
 }

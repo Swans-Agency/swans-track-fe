@@ -13,7 +13,7 @@ import {
 import { postAxios } from "@/functions/ApiCalls";
 import FormButtons from "../ANTD/FormButtons";
 
-export default function ExoenseForm({ setReloadData }) {
+export default function ExoenseForm({ setReload, onClose }) {
   const [form] = Form.useForm();
 
   const onFinish = async (data) => {
@@ -34,8 +34,9 @@ export default function ExoenseForm({ setReloadData }) {
     }
 
     const url = `${process.env.DIGITALOCEAN}/company/company-expenses/`;
-    let res = await postAxios(url, formData, true, true, setReloadData);
-    setReloadData(res);
+    let res = await postAxios(url, formData, true, true, ()=>{});
+    setReload(res);
+    onClose()
   };
 
   return (

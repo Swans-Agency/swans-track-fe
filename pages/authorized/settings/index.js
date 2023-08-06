@@ -56,7 +56,7 @@ export default function index({ plans, paymentId }) {
   };
 
   return (
-    <div className="overflow-hidden ">
+    <div className="overflow-hidden">
       <div className="text-3xl font-light tracking-tight text-black my-[3rem] text-center">
         <h1>Unleash your productivity</h1>
         <h1>Join the Swans</h1>
@@ -145,7 +145,6 @@ export default function index({ plans, paymentId }) {
         </Carousel>
       </div>
  
-
       {/* <div className="bg-foreignBackground w-full absolute flex flex-col py-2 pl-[200px] text-white justify-center items-center gap-x-10 bottom-0 left-0">
         <p className="text-center text-white">
           {trialPeriod

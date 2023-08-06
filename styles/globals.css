@@ -28,13 +28,13 @@
 }
 
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
 }
 
 /* Change the color of the scrollbar track */
 ::-webkit-scrollbar-track {
-  background-color: #1c212800;
+  background-color: #1c212821;
 }
 
 /* Change the color of the scrollbar thumb */

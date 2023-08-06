@@ -1,8 +1,24 @@
 import React from "react";
 import { Form, Input, Select } from "antd";
 import FormButtons from "../ANTD/FormButtons";
+import { postAxios } from "@/functions/ApiCalls";
+import { NotificationError } from "@/functions/Notifications";
 
-export default function CreateForm({ form, onFinish }) {
+export default function CreateForm({ setReload, onClose }) {
+
+  const [form] = Form.useForm();
+
+
+  const onFinish = async (data) => {
+    const url = `${process.env.DIGITALOCEAN}/account/signup/`;
+    let res = await postAxios(url, data, true, true, () => { }, false);
+    if (!res) {
+      NotificationError({ detail: "User either already exists or you have reached the maximum number of users allowed." })
+    }
+    setReload({ data: "dataq" });
+    onClose()
+  };
+
   return (
     <Form
       onFinish={onFinish}
@@ -19,6 +35,7 @@ export default function CreateForm({ form, onFinish }) {
           name="username"
           rules={[
             {
+              required: true,
               type: "email",
             },
           ]}
@@ -31,6 +48,11 @@ export default function CreateForm({ form, onFinish }) {
           label="Permission"
           name="permission"
           required
+          rules={[
+            {
+              required: true,
+            },
+          ]}
           className="w-full"
         >
           <Select

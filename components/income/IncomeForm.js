@@ -14,7 +14,7 @@ import { postAxios } from "@/functions/ApiCalls";
 import { getAxios } from "@/functions/ApiCalls";
 import FormButtons from "../ANTD/FormButtons";
 
-export default function IncomeForm({ setReloadData }) {
+export default function IncomeForm({ setReload, onClose }) {
   const [form] = Form.useForm();
   const [proposalData, setProposalData] = useState([]);
 
@@ -43,8 +43,9 @@ export default function IncomeForm({ setReloadData }) {
     }
 
     const url = `${process.env.DIGITALOCEAN}/invoice/create-income/`;
-    let res = await postAxios(url, formData, true, true, setReloadData);
-    setReloadData(res);
+    let res = await postAxios(url, formData, true, true, () =>{});
+    setReload(res);
+    onClose()
   };
 
   return (

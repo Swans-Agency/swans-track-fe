@@ -5,7 +5,6 @@ import moment from "moment";
 import { getAxios, postAxios } from "@/functions/ApiCalls";
 import { useRouter } from "next/router";
 import CardInfo from "./CardInfo";
-import { NotificationLoading } from "@/functions/Notifications";
 
 export default function Calendar({ isConnected }) {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -19,40 +18,40 @@ export default function Calendar({ isConnected }) {
     end: endOfMonth(selectedDate),
   });
 
-  // Send request to get the events of the month, if returend url, then open it in a new tab.
-  const handleGetEvents = async () => {
-    console.log("A7AAAAA")
-    let bodyData = {
-      StartMonth: moment(moment(selectedDate).startOf("month") - 1).format("YYYY-MM-DD[T00:00:00Z]"),
-      endMonth: moment(moment(selectedDate).endOf("month") + 1).format("YYYY-MM-DD[T00:00:00Z]"),
+  
+    const handleGoolgeAuthorize = async() => {
+      let res = await getAxios(`${process.env.DIGITALOCEAN}/tasks/authenticate-google/`, true, false, () => { }, false);
+      window.open(res?.redirectUrl, "_blank");
+    }
+  
+    const handleGetEvents = async () => {
+      let bodyData = {
+        StartMonth: moment(moment(selectedDate).startOf("month") - 1).format("YYYY-MM-DD[T00:00:00Z]"),
+        endMonth: moment(moment(selectedDate).endOf("month") + 1).format("YYYY-MM-DD[T00:00:00Z]"),
+      };
+      let url = `${process.env.DIGITALOCEAN}/tasks/authenticate-google/`;
+      let res = await postAxios(url, bodyData, false, false, () => { }, false);
+      console.log({ res });
+      if (res?.redirectUrl) {
+        console.log("reeeeeeeeeeeeeeees", { res })
+        const newTab = window.open(res?.redirectUrl, "_blank");
+        // newTab.focus();
+      } else {
+        setMonthEvents(res);
+      }
     };
-    let url = `${process.env.DIGITALOCEAN}/tasks/authenticate-google/`;
-    let res = await postAxios(url, bodyData, false, false, () => { }, false);
-    console.log({ res });
-    if (res?.redirectUrl) {
-      const newTab = window.open(res?.url, "_blank");
-      newTab.focus();
-    } else {
-      setMonthEvents(res);
-    }
-  };
-
-  // If the user has credentials file in the DB, then get the events.
-  useEffect(() => {
-    if (isConnected?.details) {
-      handleGetEvents();
-    }
-  }, [isConnected, selectedDate, authorizedNow]);
-
 
   const handleAuthorize = async (url, bodyData) => {
     await postAxios(url, bodyData, false, false, () => { }, false);
   };
-
+  
+  useEffect(() => {
+    handleGetEvents();
+  }, [selectedDate, isConnected, authorizedNow])
 
   useEffect(() => {
     const { state, code } = router.query;
-    if (!isConnected?.details && state && code) {
+    if (state && code) {
       let bodyData = {
         state: state,
         authorizationCode: code,
@@ -62,16 +61,16 @@ export default function Calendar({ isConnected }) {
       setAuthorizedNow(true);
       setTimeout(() => {
         router.reload();
+        window.history.replaceState({}, document.title, window.location.pathname);
       } , 1000)
     }
   }, []);
 
   const handleConnectGoogleCalendar = async () => {
-    NotificationLoading();
     let url = `${process.env.DIGITALOCEAN}/tasks/authenticate-google/`;
-    let redirectURI = await getAxios(url, false, false, () => { });
-    if (redirectURI?.url) {
-      const newTab = window.open(redirectURI.url, "_blank");
+    let redirectURI = await getAxios(url, true, false, () => { });
+    if (redirectURI?.redirectUrl) {
+      const newTab = window.open(redirectURI.redirectUrl, "_blank");
       newTab.focus();
     }
   };
