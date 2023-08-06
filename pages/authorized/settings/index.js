@@ -61,13 +61,13 @@ export default function index({ plans, paymentId }) {
         <h1>Unleash your productivity</h1>
         <h1>Join the Swans</h1>
       </div>
-      <div className="max-w-[20rem] w-[95%] m-auto">
+      <div className="max-w-[20rem] m-auto">
         <Carousel autoplay dots="true">
           {plans?.map((item, index) => {
             return (
               <div className="border rounded-lg  w-1/4 p-2">
-                <Badge.Ribbon text="Flash discount">
-                  <div className="px-6 py-10 shadow">
+                <Badge.Ribbon text="Flash discount" className="Button">
+                  <div className="px-6 py-10">
                     <h1 className="text-2xl font-semibold text-center">
                       {item.name}
                     </h1>
@@ -98,11 +98,9 @@ export default function index({ plans, paymentId }) {
                         );
                       })}
                     </ul>
-                    <Button type="primary" size="larg" className="w-full mt-[20%] mb-2">
-                      Update Payment Method
-                    </Button>
+               
 
-                    {action && (
+                    {action ? (
                         
                       <button
                         className={`w-full border rounded-lg mt-3 py-1 shadow font-bold hover:shadow-green-200 ${action}`}
@@ -110,7 +108,13 @@ export default function index({ plans, paymentId }) {
                       >
                         Subscribe
                       </button>
+                    ):(
+                      <Button onClick={handleCreateCustomerPortal} type="primary" size="larg" className="w-full mt-[20%] mb-2 Button">
+                      Update Payment Method
+                    </Button>
                     )}
+
+                     
                     <div className="text-xs font-light text-gray-700 mt-2 text-justify">
                       By placing this order, you agree to Swans Track's{" "}
                       <a
@@ -140,32 +144,8 @@ export default function index({ plans, paymentId }) {
           })}
         </Carousel>
       </div>
-      {/* <div className="max-w-[20rem] w-[95%] m-auto">
-    <Carousel autoplay>
-        <div className="border">
-          <h1>fdghdfghfgh</h1>
-        </div>
-        <div className="border">
-          <h1>fdghdfghfgh</h1>
-        </div>
-        <div className="border">
-          <h1>fdghdfghfgh</h1>
-        </div>
-      </Carousel>
-      </div> */}
-      {/* <Carousel autoplay>
-        <div className="border">
-          <h1>fdghdfghfgh</h1>
-        </div>
-        <div className="border">
-          <h1>fdghdfghfgh</h1>
-        </div>
-        <div className="border">
-          <h1>fdghdfghfgh</h1>
-        </div>
-      </Carousel> */}
-
-      <div className="bg-foreignBackground w-full sticky flex flex-col py-2 pl-[200px] text-white justify-center items-center gap-x-10 bottom-0 left-0">
+ 
+      {/* <div className="bg-foreignBackground w-full absolute flex flex-col py-2 pl-[200px] text-white justify-center items-center gap-x-10 bottom-0 left-0">
         <p className="text-center text-white">
           {trialPeriod
             ? `You are currently in trial mode, your trial ends in ${Math.round(
@@ -186,7 +166,7 @@ export default function index({ plans, paymentId }) {
             </span>
           </div>
         )}
-      </div>
+      </div> */}
     </div>
   );
 }

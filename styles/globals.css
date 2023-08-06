@@ -217,3 +217,11 @@ body {
   color: white !important;
 }
 
+.Button{
+  background-color: #3659D4 !important;
+  border: none;
+}
+.Button:hover{
+  background-color: #3659D4 !important;
+  border: none;
+}
