@@ -6,7 +6,7 @@ export default function Quote({ quotes }) {
     <Card
       bordered={false}
       hoverable={false}
-      className="grid rounded-lg laptop:col-span-3 tablet:col-span-2 items-center text-center bg-gray-100"
+      className="grid rounded laptop:col-span-3 tablet:col-span-2 items-center text-center bg-gray-100"
     >
       <div className="w-[100%] py-4 px-3 ">
         <svg

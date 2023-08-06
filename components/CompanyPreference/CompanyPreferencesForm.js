@@ -64,8 +64,8 @@ export default function CompanyPreferencesForm() {
   const onFinish = async (data) => {
     const formData = new FormData();
     formData.append("bankIban", data.bankIban);
-    formData.append("item.timeZone", data.timeZone);
-    formData.append("item.currency", data.currency);
+    formData.append("timeZone", data.timeZone);
+    formData.append("currency", data.currency);
     formData.append("position", data.position);
     formData.append("companyName", data.companyName);
     formData.append("companyLocation", data.companyLocation);
@@ -82,7 +82,7 @@ export default function CompanyPreferencesForm() {
       formData.append("signature", data.signature.file.originFileObj);
     }
     const url = `${process.env.DIGITALOCEAN}/company/company-preferences/`;
-    let companyPrefernceSavedData = await postAxios(url, formData);
+    let companyPrefernceSavedData = await postAxios(url, formData, true, true, ()=>{});
     saveToLocal("companyPreferences", companyPrefernceSavedData);
     setReloadData({});
   };
@@ -194,7 +194,7 @@ export default function CompanyPreferencesForm() {
             <Select
               disabled={disabledSelectCurrency}
               showSearch
-              defaultValue=""
+              // defaultValue=""
               style={{
                 width: "100%",
               }}

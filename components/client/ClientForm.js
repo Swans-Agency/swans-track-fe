@@ -1,8 +1,23 @@
 import React from "react";
 import { DatePicker, Form, Input, Select } from "antd";
+import moment from "moment";
 import FormButtons from "../ANTD/FormButtons";
+import { postAxios } from "@/functions/ApiCalls";
 
-export default function ClientForm({ form, onFinish }) {
+export default function ClientForm({ setReload, onClose }) {
+
+  const [form] = Form.useForm();
+
+  const onFinish = async (data) => {
+    data["createdAt"] = moment(new Date(data["createdAt"])).format(
+      "YYYY-MM-DD"
+    );
+    const url = `${process.env.DIGITALOCEAN}/client/get-clients/`;
+    let res = await postAxios(url, data, true, true);
+    setReload(res) 
+    onClose()
+  };
+
   return (
     <Form
       onFinish={onFinish}
@@ -15,35 +30,60 @@ export default function ClientForm({ form, onFinish }) {
       form={form}
     >
       <div className="flex gap-x-5 w-full">
-        <Form.Item label="First name" name="firstName" className="w-full">
+        <Form.Item 
+        rules={[
+          {
+            required: true
+          }
+        ]} label="First name" name="firstName" className="w-full">
           <Input className="rounded" />
         </Form.Item>
-        <Form.Item label="Last name" name="lastName" className="w-full">
+        <Form.Item 
+        rules={[
+          {
+            required: true
+          }
+        ]} label="Last name" name="lastName" className="w-full">
           <Input className="rounded" />
         </Form.Item>
       </div>
-      <Form.Item label="Client address" name="clientAddress" className="w-full">
+      <Form.Item 
+      rules={[
+        {
+          required: true
+        }
+      ]} label="Client address" name="clientAddress" className="w-full">
         <Input className="rounded" />
       </Form.Item>
       <div className="flex gap-x-5 w-full">
-        <Form.Item
+        <Form.Item 
+        rules={[
+          {
+            required: true
+          }
+        ]}
           label="E-mail"
           name="email"
-          rules={[
-            {
-              type: "email",
-            },
-          ]}
           className="w-full"
         >
           <Input className="rounded" />
         </Form.Item>
-        <Form.Item label="Phone number" name="phoneNumber" className="w-full">
+        <Form.Item 
+        rules={[
+          {
+            required: true
+          }
+        ]} label="Phone number" name="phoneNumber" className="w-full">
           <Input className="rounded" />
         </Form.Item>
       </div>
       <div className="flex gap-x-5 w-full">
-        <Form.Item
+        <Form.Item 
+        rules={[
+          {
+            required: true
+          }
+        ]}
           label="Ineterest level"
           name="interestLevel"
           className="w-full"
@@ -65,7 +105,12 @@ export default function ClientForm({ form, onFinish }) {
             ]}
           />
         </Form.Item>
-        <Form.Item
+        <Form.Item 
+        rules={[
+          {
+            required: true
+          }
+        ]}
           label="Referral source"
           name="referralSource"
           className="w-full"
@@ -100,11 +145,21 @@ export default function ClientForm({ form, onFinish }) {
           />
         </Form.Item>
       </div>
-      <Form.Item label="Acquire Date" name="createdAt">
+      <Form.Item 
+      rules={[
+        {
+          required: true
+        }
+      ]} label="Acquire Date" name="createdAt">
         <DatePicker className="rounded w-full" placeholder="" />
       </Form.Item>
       <div className="flex gap-x-5 w-full justify-end">
-        <Form.Item>
+        <Form.Item 
+        rules={[
+          {
+            required: true
+          }
+        ]}>
           <FormButtons content="Save" />
         </Form.Item>
       </div>

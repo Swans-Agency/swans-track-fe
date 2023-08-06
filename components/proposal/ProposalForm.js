@@ -19,9 +19,10 @@ import {
 import { getAxios, postAxios } from "@/functions/ApiCalls";
 import FormButtons from "../ANTD/FormButtons";
 
-export default function ProposalForm({ setReloadData }) {
+export default function ProposalForm({ setReload, onClose }) {
   const [disabledSelectCurrency, setDisabledCurrency] = useState(false);
   const [clientData, setClientData] = useState([]);
+  const [numberofItems, setNumberofItems] = useState(0);
   const [form] = Form.useForm();
   let logoPicList = [];
   let signaturePicList = [];
@@ -86,8 +87,9 @@ export default function ProposalForm({ setReloadData }) {
     );
 
     const url = `${process.env.DIGITALOCEAN}/invoice/create-proposal/`;
-    let res = await postAxios(url, data, true, true, setReloadData);
-    setReloadData(res);
+    let res = await postAxios(url, data, true, true, ()=>{});
+    setReload(res);
+    onClose()
   };
   return (
     <Form
@@ -254,20 +256,34 @@ export default function ProposalForm({ setReloadData }) {
                   </div>
                   <MinusCircleOutlined
                     className="mb-4"
-                    onClick={() => remove(name)}
+                    onClick={() => {
+                      return (
+                        <>
+                          {remove(name)}
+                          {setNumberofItems(numberofItems - 1)}
+                        </>
+                      )
+                    }}
                   />
                 </Space>
               ))}
-              <Form.Item>
+              {numberofItems < 12 && <Form.Item>
                 <Button
                   type="dashed"
-                  onClick={() => add()}
+                  onClick={() => {
+                    return (
+                      <>
+                        {add()}
+                        {setNumberofItems(numberofItems + 1)}
+                      </>
+                    )
+                  }}
                   block
                   icon={<PlusOutlined />}
                 >
                   Add field
                 </Button>
-              </Form.Item>
+              </Form.Item>}
             </>
           )}
         </Form.List>

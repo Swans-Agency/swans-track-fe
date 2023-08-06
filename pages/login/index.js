@@ -58,6 +58,8 @@ export default function index() {
             <Input type="password" className="rounded" placeholder="password" />
           </Form.Item>
           <Form.Item>
+            <div className="relative">
+
             <button
               htmlType="submit"
               size="large"
@@ -79,6 +81,13 @@ export default function index() {
               </svg>
               Login
             </button>
+            <a
+              className="absolute left-1/2 -translate-x-1/2 mt-2 text-blue-600 text-center font-light text-sm hover:cursor-pointer hover:text-blue-500"
+              href="/forget-password"
+            >
+              Forget password!
+            </a>
+            </div>
           </Form.Item>
         </Form>
         <div className="bg-[#163757]  py-5 mt-[5rem] text-center rounded-b">
@@ -87,11 +96,6 @@ export default function index() {
           </Link>
         </div>
       </div>
-      <a
-        className="w-full absolute bottom-3 mt-4 text-white text-center font-light text-sm hover:cursor-pointer underline hover:text-blue-400"
-        href="/forget-password"
-      >
-        Forget password!</a>
     </div>
   );
 }

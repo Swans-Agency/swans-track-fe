@@ -74,7 +74,6 @@ export default function Dashboard({
         }
         color={"bg-[#00736C]"}
       />
-
       <CardPercent
         title="Proposals Invoices Ratio"
         main={successRatio?.successRatio}
@@ -103,7 +102,6 @@ export default function Dashboard({
           </svg>
         }
       />
-
       <CardPercent
         title="Customer Aquisition"
         main={clients?.percentChange}
@@ -128,7 +126,6 @@ export default function Dashboard({
           </svg>
         }
       />
-
       <CardPercent
         title="Monthly Expenses"
         main={expenses?.percentChange * -1}
@@ -153,7 +150,6 @@ export default function Dashboard({
           </svg>
         }
       />
-
       <CardPercent
         title="Monthly Income"
         main={income?.percentChange}

@@ -6,8 +6,10 @@ const TeamView = dynamic(() => import("@/components/Team/TeamView"), {
   loading: () => <Loading />,
 });
 
-export default function index() {
-  return <TeamView />;
+export default function index({ userPermission }) {
+  return <TeamView 
+    userPermission={userPermission}
+  />;
 }
 
 export const getServerSideProps = async (ctx) => {

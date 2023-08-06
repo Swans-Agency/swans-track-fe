@@ -7,34 +7,10 @@ const Proposals = dynamic(() => import("@/components/proposal/Proposals"), {
   loading: () => <Loading />,
 });
 
-export default function index({ userPermission }) {
-  const [reloadData, setReloadData] = useState();
-  const [open, setOpen] = useState(false);
-
-  const showDrawer = () => {
-    setOpen(true);
-  };
-  const onClose = () => {
-    setOpen(false);
-  };
+export default function index() {
 
   return (
-    <>
-      <div>
-        <Proposals
-          showModal={showDrawer}
-          userPermission={userPermission}
-          reloadData={reloadData}
-          setReloadData={setReloadData}
-        />
-      </div>
-      <DrawerANTD
-        title="Create New Proposal"
-        onClose={onClose}
-        open={open}
-        children={<ProposalForm setReloadData={setReloadData} />}
-      />
-    </>
+    <Proposals />
   );
 }
 

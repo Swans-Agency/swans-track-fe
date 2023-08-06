@@ -6,7 +6,7 @@ export default function TableMembers({ columns, reloadData }) {
     <div className="mt-2">
       <TableANTD
         columns={columns}
-        url={`${process.env.DIGITALOCEAN}/account/list-employees/`}
+        getUrl={`${process.env.DIGITALOCEAN}/account/list-employees/`}
         reloadData={reloadData}
       />
     </div>

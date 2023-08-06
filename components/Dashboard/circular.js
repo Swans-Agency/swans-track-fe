@@ -5,7 +5,7 @@ export default function Circular({ title, chart }) {
   return (
     <Card
       bordered={false}
-      hoverable={true}
+      hoverable={false}
       className="grid tablet:col-span-2 laptop:col-span-1 rounded-lg bg-gray-100"
     >
       <p className="text-lg font-semibold mb-2">{title}</p>

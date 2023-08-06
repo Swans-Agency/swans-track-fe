@@ -1,9 +1,37 @@
 import React, { useEffect, useState } from "react";
-import { getAxios } from "@/functions/ApiCalls";
+import cookie from "react-cookies";
+import { getAxios, postAxios } from "@/functions/ApiCalls";
 import { Empty, Pagination, Table } from "antd";
+import {
+  PlusOutlined,
+} from "@ant-design/icons";
+import DrawerANTD from "./DrawerANTD";
+import ModalANTD from "./ModalANTD";
 
-export default function TableANTD({ columns, url, reloadData }) {
+
+export default function TableANTD({ 
+  columns, 
+  getUrl, 
+  multiDeleteUrl, 
+  addButton, 
+  buttonTitle, 
+  addDrawer, 
+  drawerTitle, 
+  drawerContent,
+  updateModal,
+  updateTitle,
+  updateFooter,
+  isModalOpenUpdate,
+  handleOkUpdate,
+  handleCancelUpdate,
+  modalContent,
+  passedItem
+}) {
+    
   const [data, setData] = useState({});
+  const [reload, setReload] = useState(false);
+  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+  const [open, setOpen] = useState(false);
   const [pagination, setPagination] = useState({
     current: 1,
     pageSize: 10,
@@ -13,11 +41,15 @@ export default function TableANTD({ columns, url, reloadData }) {
   const fetchData = async (page = 1, pageSize = 10) => {
     try {
       const response = await getAxios(
-        `${url}?page=${page}`,
+        `${getUrl}?page=${page}`,
         false,
         false,
-        () => {}
+        () => { }
       );
+      const keyData = response?.results?.map((item) => {
+        return { ...item, key: item.id };
+      });
+      response.results = keyData;
       setData(response);
       setPagination({
         current: page,
@@ -31,22 +63,74 @@ export default function TableANTD({ columns, url, reloadData }) {
 
   useEffect(() => {
     fetchData();
-  }, [reloadData]);
+  }, [reload]);
 
   const handlePaginationChange = (page, pageSize) => {
     fetchData(page, pageSize);
   };
 
+  const onSelectChange = (newSelectedRowKeys) => {
+    console.log('selectedRowKeys changed: ', newSelectedRowKeys);
+    setSelectedRowKeys(newSelectedRowKeys);
+  };
+
+  const rowSelection = {
+    selectedRowKeys,
+    onChange: onSelectChange,
+    getCheckboxProps: (record) => ({
+      disabled: record?.permission === 'Admin',
+      // Column configuration not to be checked
+      name: record?.permission,
+    }),
+  };
+
+  const handleMultDelete = async (arr) => {
+    console.log({ arr });
+    let deleted = await postAxios(multiDeleteUrl, { ids: arr }, true, true, (res) => { setReload(res) }, true)
+    setReload({"dd": deleted})
+    setSelectedRowKeys([])
+  }
+
+  const showDrawer = () => {
+    setOpen(true);
+  };
+
+  const onClose = () => {
+    setOpen(false);
+  };
+
   return (
-    <>
+    <div className="mt-2">
+      {
+        addButton &&
+        <div className="flex justify-end mb-3">
+          <button
+            onClick={showDrawer}
+            className="flex justify-center items-center gap-x-2 hover:bg-foreignBackground hover:text-white rounded py-[0.35rem] px-2"
+          >
+            <PlusOutlined />
+            {buttonTitle}
+          </button>
+        </div>
+      }
       {data?.count ? (
-        <div>
+        <>
+          {
+            (selectedRowKeys.length > 0) && (multiDeleteUrl) &&
+            <div
+              className="w-full bg-red-700 hover:bg-red-800 text-white px-2 py-2 rounded mb-3 text-center cursor-pointer"
+              onClick={() => handleMultDelete(selectedRowKeys)}
+            >
+              Delete {selectedRowKeys.length} {selectedRowKeys.length > 1 ? "items" : "item"}
+            </div>
+          }
           <Table
-            className="w-full "
+            className="w-full"
             columns={columns}
             dataSource={data?.results}
             pagination={false}
-            size="middle"
+            size="small"
+            rowSelection={((cookie.load("userPermission", { path: "/" }) !== "Employee") && multiDeleteUrl) ? rowSelection : null}
             style={{
               overflowX: "auto",
             }}
@@ -60,10 +144,30 @@ export default function TableANTD({ columns, url, reloadData }) {
               onChange={handlePaginationChange}
             />
           </div>
-        </div>
+        </>
       ) : (
         <Empty />
       )}
-    </>
+      {
+        addDrawer &&
+        <DrawerANTD
+          title={drawerTitle}
+          onClose={onClose}
+          open={open}
+          children={drawerContent(setReload, onClose)}
+        />
+      }
+      {
+        updateModal && passedItem &&
+        <ModalANTD 
+          title={updateTitle}
+          footer={updateFooter}
+          isModalOpen={isModalOpenUpdate}
+          handleOk={handleOkUpdate}
+          handleCancel={handleCancelUpdate}
+          renderComponent={modalContent(setReload)}
+        />
+      }
+    </div>
   );
 }

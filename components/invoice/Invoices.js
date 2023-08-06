@@ -13,14 +13,10 @@ import {
 import Highlighter from "react-highlight-words";
 import TableANTD from "../ANTD/TableANTD";
 import { NotificationLoading, NotificationPermission } from "@/functions/Notifications";
+import InvoiceForm from "./InvoiceForm";
 
-export default function Invoices({
-  showModal,
-  userPermission,
-  setReloadData,
-  reloadData,
-}) {
-  const [allProposals, setAllProposals] = useState([]);
+export default function Invoices() {
+  // const [allProposals, setAllProposals] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef(null);
@@ -36,15 +32,15 @@ export default function Invoices({
     setSearchText("");
   };
 
-  useEffect(() => {
-    getAllProposals();
-  }, [reloadData]);
+  // useEffect(() => {
+  //   getAllProposals();
+  // }, [reloadData]);
 
-  const getAllProposals = async () => {
-    const url = `${process.env.DIGITALOCEAN}/invoice/get-invoices/`;
-    let data = await getAxios(url);
-    setAllProposals(data);
-  };
+  // const getAllProposals = async () => {
+  //   const url = `${process.env.DIGITALOCEAN}/invoice/get-invoices/`;
+  //   let data = await getAxios(url);
+  //   setAllProposals(data);
+  // };
 
   const downloadPdf = async (id) => {
     NotificationLoading();
@@ -181,14 +177,12 @@ export default function Invoices({
       title: "Invoice No",
       dataIndex: "invoiceNo",
       key: "invoiceNo",
-      width: "20%",
       ...getColumnSearchProps("invoiceNo"),
     },
     {
       title: "Client Name",
       dataIndex: "toCompanyName",
       key: "toCompanyName",
-      width: "15%",
       ...getColumnSearchProps("toCompanyName"),
     },
     {
@@ -198,19 +192,16 @@ export default function Invoices({
       render: (_, item) => {
         return <>{item?.client?.email || item?.toCompanyEmail}</>;
       },
-      width: "20%",
     },
     {
       title: "Date",
       dataIndex: "invoiceDate",
       key: "invoiceDate",
-      width: "10%",
     },
     {
       title: "Invoice Total",
       dataIndex: "invoiceTotal",
       key: "invoiceTotal",
-      width: "13%",
       sorter: (a, b) => a.invoiceTotal - b.invoiceTotal,
       ...getColumnSearchProps("invoiceDate"),
       render: (_, item) => {
@@ -221,7 +212,6 @@ export default function Invoices({
       title: "Ref. No",
       dataIndex: "proposalNo",
       key: "proposalNo",
-      width: "9%",
     },
     {
       title: <div className="text-center">Download</div>,
@@ -236,114 +226,22 @@ export default function Invoices({
           />
         </div>
       ),
-      width: "9%",
-    },
-    {
-      title: <div className="text-center">Delete</div>,
-      dataIndex: "delete",
-      key: "delete",
-      render: (_, item) => {
-
-        return (
-          <>
-            {userPermission === "Supervisor" ? (
-              <div className="flex justify-center">
-                <Popconfirm
-                  title="Delete"
-                  description={
-                    userPermission == "Supervisor"
-                      ? `Are you sure you want to delete ${item?.invoiceNo}?`
-                      : "You don't have the permission to delete"
-                  }
-                  onConfirm={
-                    userPermission == "Supervisor"
-                      ? async () => {
-                        await deleteAxios(
-                          `${process.env.DIGITALOCEAN}/invoice/delete-invoices/${item?.id}`
-                        );
-                        setReloadData({});
-                      }
-                      : () => NotificationPermission()
-                  }
-                  icon={
-                    <QuestionCircleOutlined
-                      style={{
-                        color: "red",
-                      }}
-                    />
-                  }
-                  okButtonProps={{
-                    danger: true,
-                  }}
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke={userPermission === "Supervisor" ? "red" : "gray"}
-                    className={
-                      userPermission === "Supervisor"
-                        ? "w-5 h-5 hover:cursor-pointer"
-                        : "w-5 h-5 hover:cursor-not-allowed"
-                    }
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5m6 4.125l2.25 2.25m0 0l2.25 2.25M12 13.875l2.25-2.25M12 13.875l-2.25 2.25M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"
-                    />
-                  </svg>
-                </Popconfirm>
-              </div>
-            ) : (
-              <div className="flex justify-center">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke={userPermission === "Supervisor" ? "red" : "gray"}
-                  className={
-                    userPermission === "Supervisor"
-                      ? "w-5 h-5 hover:cursor-pointer"
-                      : "w-5 h-5 hover:cursor-not-allowed"
-                  }
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5m6 4.125l2.25 2.25m0 0l2.25 2.25M12 13.875l2.25-2.25M12 13.875l-2.25 2.25M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"
-                  />
-                </svg>
-              </div>
-            )}
-          </>
-        );
-      },
-      width: "7%",
     },
   ];
 
   return (
     <>
       <h1 className="text-3xl font-light tracking-tight text-black mb-3">Company Invoices</h1>
-      <div className="flex  justify-end mb-3">
-        <button
-          onClick={showModal}
-          className="flex gap-x-2 bg-sidebarbg hover:bg-foreignBackground hover:text-white text-black rounded py-[0.4rem] px-3 mb-3"
-        >
-          <PlusOutlined className=" pt-1" />
-          New Invoice
-        </button>
-      </div>
-      <div className="mt-2">
         <TableANTD
           columns={columns}
-          url={`${process.env.DIGITALOCEAN}/invoice/get-invoices/`}
-          reloadData={reloadData}
+          getUrl={`${process.env.DIGITALOCEAN}/invoice/get-invoices/`}
+        multiDeleteUrl={`${process.env.DIGITALOCEAN}/invoice/delete-multi-invoices/`}
+          addButton={true}
+          buttonTitle="Add Invoice"
+          addDrawer={true}
+          drawerTitle="Add New Invoice"
+        drawerContent={(setReload, onClose) => <InvoiceForm setReload={setReload} onClose={onClose} />}
         />
-      </div>
     </>
   );
 }

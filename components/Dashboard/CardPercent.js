@@ -20,7 +20,7 @@ export default function CardPercent({
   return (
     <div>
       {main > 0 ? (
-         <div className="grid rounded-lg bg-gray-100 hover:shadow-lg hover:shadow-gray-300 px-5 py-5">
+         <div className="grid rounded bg-gray-100  hover:shadow-gray-300 px-5 py-5">
          <div className="space-y-1">
            <div className="grid justify-items-stretch">
              <div
@@ -51,7 +51,7 @@ export default function CardPercent({
       ) : (
     
 
-        <div className="grid rounded-lg bg-gray-100 hover:shadow-lg hover:shadow-gray-300 px-5 py-5">
+        <div className="grid rounded bg-gray-100  hover:shadow-gray-300 px-5 py-5">
           <div className="space-y-1">
             <div className="grid justify-items-stretch">
               <div

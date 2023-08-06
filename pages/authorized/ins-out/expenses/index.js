@@ -22,19 +22,8 @@ export default function index({ userPermission }) {
   return (
     <>
       <div>
-        <Expenses
-          showModal={showDrawer}
-          userPermission={userPermission}
-          reloadData={reloadData}
-          setReloadData={setReloadData}
-        />
+        <Expenses />
       </div>
-      <DrawerANTD
-        title="Add New Expense"
-        onClose={onClose}
-        open={open}
-        children={<ExoenseForm setReloadData={setReloadData} />}
-      />
     </>
   );
 }

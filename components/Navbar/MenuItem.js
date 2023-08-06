@@ -3,13 +3,15 @@ import { Divider } from "antd";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
-export default function MenuItem({ item, index, userPermission }) {
+export default function MenuItem({ item, index, userPermission, toggleCollapsed }) {
   const [showChildren, setShowChildren] = useState(false);
   const [hide, setHide] = useState("");
   const router = useRouter();
 
   const handleClick = (item) => {
-    if (item?.key === "logout") {
+    if (item.key === "collapse") {
+      toggleCollapsed()
+    } else if (item?.key === "logout") {
       logout();
     } else if (item?.key) {
       router.push(`/authorized/${item?.key}`);

@@ -1,9 +1,70 @@
 import { DatePicker, Form, Input, InputNumber, Upload } from "antd";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import FormButtons from "../ANTD/FormButtons";
 import { PlusOutlined } from "@ant-design/icons";
+import dayjs from "dayjs";
+import moment from "moment";
+import { patchAxios } from "@/functions/ApiCalls";
 
-export default function TeamForm({ form, onFinish, initialPicList }) {
+export default function TeamForm({ updateItem, setUpdateItem, setReload }) {
+  const [form] = Form.useForm();
+  const [userData, setUserData] = useState();
+  let initialPicList = [];
+
+  useEffect(() => {
+    getUserInitialData();
+  }, []);
+
+  const getUserInitialData = () => {
+    if (updateItem) {
+      console.log({updateItem})
+      let initialData = {
+        firstName: updateItem.userProfile.firstName,
+        lastName: updateItem?.userProfile?.lastName,
+        phoneNumber: updateItem?.userProfile?.phoneNumber,
+        position: updateItem?.userProfile?.position,
+        bio: updateItem?.userProfile?.bio,
+        salary: updateItem?.userProfile?.salary,
+        socialSecurityNumber: updateItem?.userProfile?.socialSecurityNumber,
+        dob: updateItem?.userProfile?.dob 
+          ? dayjs(new Date(updateItem?.userProfile?.dob))
+          : dayjs("1998-01-01"),
+        pfp: updateItem?.userProfile?.pfp
+          ? updateItem?.userProfile?.pfp.split("?")[0]
+          : "",
+      };
+      if (initialPicList.length < 1) {
+        initialPicList.push({
+          uid: "-1",
+          name: "image.png",
+          status: "done",
+          url: initialData?.pfp,
+        });
+      }
+      form.setFieldsValue(initialData);
+      setUserData(updateItem?.userProfile?.id);
+    }
+  };
+
+  const onFinish = async (data) => {
+    const formData = new FormData();
+    formData.append("firstName", data?.firstName);
+    formData.append("lastName", data?.lastName);
+    formData.append("bio", data?.bio);
+    formData.append("phoneNumber", data?.phoneNumber);
+    formData.append("salary", data?.salary);
+    formData.append("socialSecurityNumber", data?.socialSecurityNumber);
+    formData.append("dob", moment(new Date(data?.dob)).format("YYYY-MM-DD"));
+    formData.append("position", data?.position);
+    if (data.pfp && data?.pfp?.file) {
+      formData.append("pfp", data?.pfp?.file?.originFileObj);
+    }
+    const url = `${process.env.DIGITALOCEAN}/account/user-profile/${userData}`;
+    await patchAxios(url, formData, true, true, () => { });
+    setUpdateItem(null);
+    setReload({});
+  };
+
   return (
     <Form
       onFinish={onFinish}

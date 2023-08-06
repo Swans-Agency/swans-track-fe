@@ -1,25 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
-import {
-  PlusOutlined,
-  SearchOutlined,
-  QuestionCircleOutlined,
-} from "@ant-design/icons";
-import { Button, Input, Popconfirm, Space } from "antd";
-import {
-  NotificationPermission,
-  deleteAxios,
-  getAxios,
-} from "@/functions/ApiCalls";
+import {SearchOutlined} from "@ant-design/icons";
+import { Button, Input, Space } from "antd";
 import Highlighter from "react-highlight-words";
 import TableANTD from "../ANTD/TableANTD";
+import ExoenseForm from "./ExpenseForm";
 
-export default function Expenses({
-  showModal,
-  userPermission,
-  reloadData,
-  setReloadData,
-}) {
-  const [allProposals, setAllProposals] = useState([]);
+export default function Expenses() {
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef(null);
@@ -33,16 +19,6 @@ export default function Expenses({
   const handleReset = (clearFilters) => {
     clearFilters();
     setSearchText("");
-  };
-
-  useEffect(() => {
-    getAllProposals();
-  }, [reloadData]);
-
-  const getAllProposals = async () => {
-    const url = `${process.env.DIGITALOCEAN}/company/company-expenses/`;
-    let data = await getAxios(url);
-    setAllProposals(data);
   };
 
   const getColumnSearchProps = (dataIndex) => ({
@@ -153,24 +129,22 @@ export default function Expenses({
 
   const columns = [
     {
-      title: "Category",
-      dataIndex: "category",
-      key: "category",
-      width: "25%",
-      ...getColumnSearchProps("category"),
-    },
-    {
       title: "Description",
       dataIndex: "description",
       key: "description",
-      width: "23%",
+      // width: "25%",
       ...getColumnSearchProps("description"),
+    },
+    {
+      title: "Category",
+      dataIndex: "category",
+      key: "category",
+      ...getColumnSearchProps("category"),
     },
     {
       title: "Amount",
       dataIndex: "amount",
       key: "amount",
-      width: "15%",
       sorter: (a, b) => a.amount - b.amount,
       ...getColumnSearchProps("amount"),
       render: (_, item) => <>{Number(item?.amount).toFixed(2)}</>,
@@ -180,7 +154,6 @@ export default function Expenses({
       dataIndex: "attachement",
       key: "attachement",
       render: (_, item) => {
-
         return (
           <>
             {item?.attachement ? (
@@ -200,120 +173,28 @@ export default function Expenses({
           </>
         );
       },
-      width: "15%",
     },
     {
       title: "Date",
       dataIndex: "date",
       key: "date",
-      width: "15%",
-    },
-    {
-      title: <div className="text-center">Delete</div>,
-      dataIndex: "delete",
-      key: "delete",
-      render: (_, item) => {
-
-        return (
-          <>
-            {userPermission === "Supervisor" ? (
-              <div className="flex justify-center">
-                <Popconfirm
-                  title="Delete"
-                  description={
-                    userPermission == "Supervisor"
-                      ? `Are you sure you want to delete?`
-                      : "You don't have the permission to delete"
-                  }
-                  onConfirm={
-                    userPermission == "Supervisor"
-                      ? async () => {
-                        await deleteAxios(
-                          `${process.env.DIGITALOCEAN}/company/delete-expenses/${item?.id}`
-                        );
-                        setReloadData({});
-                      }
-                      : () => NotificationPermission()
-                  }
-                  icon={
-                    <QuestionCircleOutlined
-                      style={{
-                        color: "red",
-                      }}
-                    />
-                  }
-                  okButtonProps={{
-                    danger: true,
-                  }}
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke={userPermission === "Supervisor" ? "red" : "gray"}
-                    className={
-                      userPermission === "Supervisor"
-                        ? "w-5 h-5 hover:cursor-pointer"
-                        : "w-5 h-5 hover:cursor-not-allowed"
-                    }
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5m6 4.125l2.25 2.25m0 0l2.25 2.25M12 13.875l2.25-2.25M12 13.875l-2.25 2.25M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"
-                    />
-                  </svg>
-                </Popconfirm>
-              </div>
-            ) : (
-              <div className="flex justify-center">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke={userPermission === "Supervisor" ? "red" : "gray"}
-                  className={
-                    userPermission === "Supervisor"
-                      ? "w-5 h-5 hover:cursor-pointer"
-                      : "w-5 h-5 hover:cursor-not-allowed"
-                  }
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5m6 4.125l2.25 2.25m0 0l2.25 2.25M12 13.875l2.25-2.25M12 13.875l-2.25 2.25M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"
-                  />
-                </svg>
-              </div>
-            )}
-          </>
-        );
-      },
-      width: "7%",
+      ...getColumnSearchProps("date"),
     },
   ];
 
   return (
     <>
       <h1 className="text-3xl font-light tracking-tight text-black mb-3">Company Expenses</h1>
-      <div className="flex  justify-end mb-3">
-        <button
-          onClick={showModal}
-          className="flex gap-x-2 bg-sidebarbg hover:bg-foreignBackground hover:text-white rounded py-[0.4rem] px-3 mb-3"
-        >
-          <PlusOutlined className=" pt-1" />
-          Add Expense
-        </button>
-      </div>
-      <div className="mt-2">
         <TableANTD
           columns={columns}
-          url={`${process.env.DIGITALOCEAN}/company/company-paginated-expenses/`}
-          reloadData={reloadData}
+          getUrl={`${process.env.DIGITALOCEAN}/company/company-paginated-expenses/`}
+          multiDeleteUrl={`${process.env.DIGITALOCEAN}/company/delete-multi-expenses/`}
+          addButton={true}
+          buttonTitle="Add Expense"
+          addDrawer={true}
+          drawerTitle="Add New Expense"
+          drawerContent={(setReload, onClose) => <ExoenseForm setReload={setReload} onClose={onClose} />}
         />
-      </div>
     </>
   );
 }
