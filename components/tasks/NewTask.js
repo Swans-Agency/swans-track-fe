@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
-import { DatePicker, Divider, Form, Input, Select } from "antd";
+import { Button, DatePicker, Divider, Form, Input, Select, notification } from "antd";
 import {
   deleteAxios,
   getAxios,
@@ -33,7 +33,7 @@ export default function TaskForm({ handleNotifyTeam, selectedItem }) {
               className="rounded-full"
             />
             <span>
-              {item?.userProfile?.firstName || item?.username} {item?.userProfile?.lastName || ""}
+              {item?.username}
             </span>
           </div>
         </>
@@ -50,9 +50,10 @@ export default function TaskForm({ handleNotifyTeam, selectedItem }) {
   useEffect(() => { handleInitialValues() }, [selectedItem]);
 
   const handleInitialValues = () => {
+    console.log({ selectedItem })
     if (selectedItem) {
       form.setFieldValue("taskName", selectedItem?.taskName);
-      form.setFieldValue("taskDescription", selectedItem?.taskDescription);
+      form.setFieldValue("taskDescription", selectedItem?.taskDescription !== "undefined" ? selectedItem?.taskDescription : "");
       form.setFieldValue("taskStatus", selectedItem?.taskStatus);
       form.setFieldValue("priority", selectedItem?.priority);
       form.setFieldValue("dueDate", dayjs(new Date(selectedItem?.dueDate ? selectedItem?.dueDate : null)));
@@ -60,7 +61,7 @@ export default function TaskForm({ handleNotifyTeam, selectedItem }) {
         value: selectedItem?.assignee?.id,
         label: <>
           <div className='flex items-center gap-x-2'>
-            <Image src={selectedItem?.assignee?.pfp?.split("?")[0] } width={20} height={20} className='rounded-full' />
+            <Image src={selectedItem?.assignee?.pfp?.split("?")[0]} width={20} height={20} className='rounded-full' />
             <span>{selectedItem?.assignee?.name}</span>
           </div>
         </>,
@@ -93,16 +94,45 @@ export default function TaskForm({ handleNotifyTeam, selectedItem }) {
         formData.append('assignee', assigneeValue);
       }
       const url = `${process.env.DIGITALOCEAN}/tasks/edit-task/${selectedItem?.id}/`
-      let res = await patchAxios(url, formData, true, true, () => {})
+      let res = await patchAxios(url, formData, true, true, () => { })
     } else {
       formData.append('assignee', assigneeValue);
       let res = await postAxios(url, formData, true, true, () => { })
     }
 
 
-
+    form.resetFields();
     handleNotifyTeam();
   };
+
+  const revertArchive = async (id) => {
+    const url = `${process.env.DIGITALOCEAN}/tasks/unarchive-task/${id}/`
+    await getAxios(url, true, true, () => { })
+    handleNotifyTeam()
+  }
+
+  const NotificationCustom = (id) => {
+    notification.info({
+      message: "Revert Action!",
+      description: <div>
+        <p>You archived a task successfully! </p>
+        <button
+          onClick={() => revertArchive(id)}
+          className="bg-green-500 hover:bg-green-600 hover:cursor-pointer text-white px-2 py-1 rounded"
+        >Revert Action</button>
+      </div>,
+      key: "api",
+    })
+  }
+
+  const onArchive = async () => {
+    const url = `${process.env.DIGITALOCEAN}/tasks/archive-task/${selectedItem?.id}/`
+    let res = await getAxios(url, true, false, () => { })
+    if (res) {
+      NotificationCustom(selectedItem?.id)
+      handleNotifyTeam();
+    }
+  }
 
   return (
     <>
@@ -118,7 +148,12 @@ export default function TaskForm({ handleNotifyTeam, selectedItem }) {
         requiredMark={true}
         initialValues={form}
       >
-        <Form.Item label="Task" name="taskName" className="w-full" required>
+        <Form.Item label="Task" name="taskName" className="w-full" required
+          rules={[
+            {
+              required: true
+            }
+          ]}>
           <Input className="rounded" />
         </Form.Item>
         <Form.Item
@@ -134,6 +169,11 @@ export default function TaskForm({ handleNotifyTeam, selectedItem }) {
             name="taskStatus"
             className="w-full"
             required
+            rules={[
+              {
+                required: true
+              }
+            ]}
           >
             <Select
               showSearch
@@ -159,6 +199,11 @@ export default function TaskForm({ handleNotifyTeam, selectedItem }) {
             name="priority"
             className="w-full"
             required
+            rules={[
+              {
+                required: true
+              }
+            ]}
           >
             <Select
               showSearch
@@ -185,6 +230,11 @@ export default function TaskForm({ handleNotifyTeam, selectedItem }) {
             name="dueDate"
             className="w-full"
             required
+            rules={[
+              {
+                required: true
+              }
+            ]}
           >
             <DatePicker className="rounded w-full" placeholder="" />
           </Form.Item>
@@ -194,6 +244,11 @@ export default function TaskForm({ handleNotifyTeam, selectedItem }) {
             name="assignee"
             className="w-full"
             required
+            rules={[
+              {
+                required: true
+              }
+            ]}
           >
             <Select
               showSearch
@@ -212,10 +267,20 @@ export default function TaskForm({ handleNotifyTeam, selectedItem }) {
         </div>
 
         <Divider />
-        <div className="flex gap-x-5 w-full justify-end">
-          <Form.Item>
-            <FormButtons content={selectedItem ? "Re-assign" : "Assign"} />
-          </Form.Item>
+        <div className="flex gap-x-5 w-full justify-between">
+          {selectedItem  && <div>
+            <Form.Item>
+              <button 
+              className="bg-red-600 hover:bg-red-700 text-textButtons rounded py-[0.4rem] px-3"
+                onClick={onArchive}
+              >Archive</button>
+            </Form.Item>
+          </div>}
+          <div className={`${!selectedItem ? "w-full flex justify-end" : ""}`}>
+            <Form.Item>
+              <FormButtons content={selectedItem ? "Re-assign" : "Assign"} />
+            </Form.Item>
+          </div>
         </div>
       </Form>
     </>

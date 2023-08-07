@@ -7,6 +7,7 @@ import { PlusOutlined } from "@ant-design/icons";
 import List from "./List";
 import DrawerANTD from "../ANTD/DrawerANTD";
 import TaskForm from "./NewTask";
+import ModalANTD from "../ANTD/ModalANTD";
 
 export default function TasksComponent({ companyTasks, initialData }) {
   const dbRef = useRef(null);
@@ -15,6 +16,7 @@ export default function TasksComponent({ companyTasks, initialData }) {
   const [allData, setAllData] = useState(companyTasks);
   const [data, setData] = useState(initialData);
   const [showTag, setShowTag] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const columnNames = {
     "To Do": "toDo",
@@ -85,7 +87,8 @@ export default function TasksComponent({ companyTasks, initialData }) {
 
   const handleNotifyTeam = async () => {
     set(dbRef.current, true);
-
+    setIsModalOpen(false);
+    setOpen(false)
   };
 
   const getAllTasksNew = async () => {
@@ -111,7 +114,6 @@ export default function TasksComponent({ companyTasks, initialData }) {
 
   const handleDragEnd = (result) => {
 
-    console.log({ result });
     const { destination, source, draggableId } = result;
     if (!destination) {
       return;
@@ -180,6 +182,20 @@ export default function TasksComponent({ companyTasks, initialData }) {
     setSelectedItem(null)
     setOpen(true)
   }
+  
+  const handleOkModal = () => {
+    setSelectedItem(null)
+    setIsModalOpen(false)
+  }
+  
+  const handleCancelModal = () => {
+    setSelectedItem(null)
+    setIsModalOpen(false)
+  }
+  
+  const openModalUpdate = () => {
+    setIsModalOpen(true)
+  }
 
   return (
     <>
@@ -189,7 +205,7 @@ export default function TasksComponent({ companyTasks, initialData }) {
             let columns = data?.columns?.[value];
             let tasks = columns?.taskIds?.map((value) => data?.tasks?.[value]);
             return (
-              <div className=' rounded-xl relative bg-gray-200 pl-4 pr-2  min-w-[250px] w-[300px] max-h-[85vh] mb-4 h-fit overflow-hidden'>
+              <div className=' rounded-lg relative bg-gray-200 pl-4 pr-2  min-w-[250px] w-[300px] max-h-[85vh] mb-4 h-fit overflow-hidden'>
                 <h2 className='text-lg font-bold py-2 sticky inset-0 bg-gray-200 text-black'>{columns?.title}</h2>
                 <div className='custom-scroll max-h-[70vh] overflow-y-auto '>
                   <List
@@ -199,7 +215,7 @@ export default function TasksComponent({ companyTasks, initialData }) {
                     showTag={showTag}
                     setShowTag={setShowTag}
                     setSelectedItem={setSelectedItem}
-                    setOpen={setOpen}
+                    setOpen={openModalUpdate}
                   />
                 </div>
                 <div
@@ -215,11 +231,19 @@ export default function TasksComponent({ companyTasks, initialData }) {
         </div>
       </DragDropContext>
       <DrawerANTD
-        title={selectedItem ? `Edit Task ${selectedItem?.taskName}` : "Add New Task"}
+        title={"Add New Task"}
         onClose={onClose}
         open={open}
-        children={<TaskForm handleNotifyTeam={handleNotifyTeam} selectedItem={selectedItem} />}
+        children={<TaskForm handleNotifyTeam={handleNotifyTeam} />}
       />
+      {selectedItem && <ModalANTD 
+        title={"Task Details"}
+        footer={null}
+        isModalOpen={isModalOpen}
+        handleOk={handleOkModal}
+        handleCancel={handleCancelModal}
+        renderComponent={<TaskForm handleNotifyTeam={handleNotifyTeam} selectedItem={selectedItem} />}
+      />}
     </>
   );
 }
