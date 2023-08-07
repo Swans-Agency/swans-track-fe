@@ -36,6 +36,7 @@ export default function ExoenseForm({ setReload, onClose }) {
     const url = `${process.env.DIGITALOCEAN}/company/company-expenses/`;
     let res = await postAxios(url, formData, true, true, ()=>{});
     setReload(res);
+    form.resetFields();
     onClose()
   };
 

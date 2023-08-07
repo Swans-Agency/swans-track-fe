@@ -1,20 +1,13 @@
-import React, { useEffect, useRef, useState } from "react";
-import {
-  PlusOutlined,
-  SearchOutlined,
-  QuestionCircleOutlined,
-} from "@ant-design/icons";
-import { Popconfirm, Button, Input, Space } from "antd";
-import {
-  NotificationPermission,
-  deleteAxios,
-} from "@/functions/ApiCalls";
+import React, { useRef, useState } from "react";
+import { SearchOutlined } from "@ant-design/icons";
+import { Button, Input, Space } from "antd";
+
 import Highlighter from "react-highlight-words";
 import { useRouter } from "next/router";
 import TableANTD from "../ANTD/TableANTD";
 import IncomeForm from "./IncomeForm";
 
-export default function Incomes({showModal}) {
+export default function Incomes({ showModal }) {
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef(null);
@@ -169,7 +162,6 @@ export default function Incomes({showModal}) {
       dataIndex: "attachment",
       key: "attacement",
       render: (_, item) => {
-
         return (
           <>
             {item?.attachment ? (
@@ -200,18 +192,21 @@ export default function Incomes({showModal}) {
 
   return (
     <>
-      <h1 className="text-3xl font-light tracking-tight text-black mb-3">Company Income</h1>
-        <TableANTD
-          columns={columns}
-          getUrl={`${process.env.DIGITALOCEAN}/invoice/get-income/`}
-          multiDeleteUrl={`${process.env.DIGITALOCEAN}/invoice/multi-income-delete/`}
-          addButton={true}
-          buttonTitle="Add Income"
-          addDrawer={true}
-          drawerTitle="Add New Income"
-          drawerContent={(setReload, onClose) => <IncomeForm setReload={setReload} onClose={onClose} />}
-
-        />
+      <h1 className="text-3xl font-light tracking-tight text-black mb-3">
+        Company Income
+      </h1>
+      <TableANTD
+        columns={columns}
+        getUrl={`${process.env.DIGITALOCEAN}/invoice/get-income/`}
+        multiDeleteUrl={`${process.env.DIGITALOCEAN}/invoice/multi-income-delete/`}
+        addButton={true}
+        buttonTitle="Add Income"
+        addDrawer={true}
+        drawerTitle="Add New Income"
+        drawerContent={(setReload, onClose) => (
+          <IncomeForm setReload={setReload} onClose={onClose} />
+        )}
+      />
     </>
   );
 }
