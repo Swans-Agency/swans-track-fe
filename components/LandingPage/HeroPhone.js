@@ -7,18 +7,18 @@ export default function HeroPhone() {
   return (
     <div className="px-3 flex flex-col items-center text-center w-[100%] tablet:px-10">
       <Image
-        src="/Mid Logo.svg"
-        width={100}
-        height={100}
+        src="/Dark Logo (1).png"
+        width={110}
+        height={110}
         className="opacity-100"
       />
       <h1 className="text-[2.4rem] my-[15px] font-light text-black">
         Create. Manage. Succeed Effortlessly
       </h1>
       <iframe
-        title="YouTube video player"
+        title="SwanS Track Promo"
         
-        src="https://www.youtube.com/embed/MIK4ZRDI3ok/?rel=0&autoplay=1"
+        src="https://www.youtube.com/embed/MIK4ZRDI3ok"
         allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         width="100%"
         height="350"

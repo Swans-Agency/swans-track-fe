@@ -30,7 +30,7 @@ export default function Dashboard({
         title="Monthly Proposals"
         main={proposals?.percentChange}
         percent={proposals?.percentChange}
-        number={<>{proposals?.currentMonthProposals}</>}
+        number={<>{proposals?.currentMonthProposals || 0}</>}
         color={"bg-[#947404]"}
         icon={
           <svg
@@ -54,7 +54,7 @@ export default function Dashboard({
         title="Monthly Invoice"
         main={invoices?.percentChange}
         percent={invoices?.percentChange}
-        number={<>{invoices?.currentMonthInvoices}</>}
+        number={<>{invoices?.currentMonthInvoices || 0}</>}
         icon={
           <svg
             width="32"
@@ -80,7 +80,7 @@ export default function Dashboard({
         percent={successRatio?.successRatio}
         number={
           <>
-            {successRatio?.invoices}/{successRatio?.proposals}
+            {successRatio?.invoices || 0}/{successRatio?.proposals || 0}
           </>
         }
         color={"bg-[#630073]"}
@@ -106,7 +106,7 @@ export default function Dashboard({
         title="Customer Aquisition"
         main={clients?.percentChange}
         percent={clients?.percentChange}
-        number={<>{clients?.currentMonthClients}</>}
+        number={<>{clients?.currentMonthClients || 0}</>}
         color={"bg-[#002073]"}
         icon={
           <svg
@@ -128,9 +128,9 @@ export default function Dashboard({
       />
       <CardPercent
         title="Monthly Expenses"
-        main={expenses?.percentChange * -1}
-        percent={expenses?.percentChange * -1}
-        number={<>{expenses?.currentMonthExpenses }</>}
+        main={expenses?.percentChange || 0}
+        percent={expenses?.percentChange || 0}
+        number={<>{expenses?.currentMonthExpenses || 0}</>}
         color={"bg-[#730000]"}
         icon={
           <svg
@@ -154,7 +154,7 @@ export default function Dashboard({
         title="Monthly Income"
         main={income?.percentChange}
         percent={income?.percentChange}
-        number={<>{income?.currentMonthIncome}</>}
+        number={<>{income?.currentMonthIncome || 0}</>}
         color={"bg-[#00732E]"}
         icon={
           <svg
