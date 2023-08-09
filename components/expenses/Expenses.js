@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
-import {SearchOutlined} from "@ant-design/icons";
+import React, { useRef, useState } from "react";
+import { SearchOutlined } from "@ant-design/icons";
 import { Button, Input, Space } from "antd";
 import Highlighter from "react-highlight-words";
 import TableANTD from "../ANTD/TableANTD";
@@ -132,7 +132,6 @@ export default function Expenses() {
       title: "Description",
       dataIndex: "description",
       key: "description",
-      // width: "25%",
       ...getColumnSearchProps("description"),
     },
     {
@@ -184,17 +183,21 @@ export default function Expenses() {
 
   return (
     <>
-      <h1 className="text-3xl font-light tracking-tight text-black mb-3">Company Expenses</h1>
-        <TableANTD
-          columns={columns}
-          getUrl={`${process.env.DIGITALOCEAN}/company/company-paginated-expenses/`}
-          multiDeleteUrl={`${process.env.DIGITALOCEAN}/company/delete-multi-expenses/`}
-          addButton={true}
-          buttonTitle="Add Expense"
-          addDrawer={true}
-          drawerTitle="Add New Expense"
-          drawerContent={(setReload, onClose) => <ExoenseForm setReload={setReload} onClose={onClose} />}
-        />
+      <h1 className="text-3xl font-light tracking-tight text-black mb-3">
+        Company Expenses
+      </h1>
+      <TableANTD
+        columns={columns}
+        getUrl={`${process.env.DIGITALOCEAN}/company/company-paginated-expenses/`}
+        multiDeleteUrl={`${process.env.DIGITALOCEAN}/company/delete-multi-expenses/`}
+        addButton={true}
+        buttonTitle="Add Expense"
+        addDrawer={true}
+        drawerTitle="Add New Expense"
+        drawerContent={(setReload, onClose) => (
+          <ExoenseForm setReload={setReload} onClose={onClose} />
+        )}
+      />
     </>
   );
 }

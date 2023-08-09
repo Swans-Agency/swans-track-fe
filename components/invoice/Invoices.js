@@ -1,22 +1,13 @@
-import React, { useEffect, useRef, useState } from "react";
-import {
-  PlusOutlined,
-  SearchOutlined,
-  QuestionCircleOutlined,
-  CloudDownloadOutlined,
-} from "@ant-design/icons";
+import React, { useRef, useState } from "react";
+import { SearchOutlined, CloudDownloadOutlined } from "@ant-design/icons";
 import { Button, Input, Popconfirm, Space } from "antd";
-import {
-  getAxios,
-  deleteAxios,
-} from "@/functions/ApiCalls";
+import { getAxios, deleteAxios } from "@/functions/ApiCalls";
 import Highlighter from "react-highlight-words";
 import TableANTD from "../ANTD/TableANTD";
-import { NotificationLoading, NotificationPermission } from "@/functions/Notifications";
+import { NotificationLoading } from "@/functions/Notifications";
 import InvoiceForm from "./InvoiceForm";
 
 export default function Invoices() {
-  // const [allProposals, setAllProposals] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef(null);
@@ -32,22 +23,12 @@ export default function Invoices() {
     setSearchText("");
   };
 
-  // useEffect(() => {
-  //   getAllProposals();
-  // }, [reloadData]);
-
-  // const getAllProposals = async () => {
-  //   const url = `${process.env.DIGITALOCEAN}/invoice/get-invoices/`;
-  //   let data = await getAxios(url);
-  //   setAllProposals(data);
-  // };
-
   const downloadPdf = async (id) => {
     NotificationLoading();
     let response = await getAxios(
       `${process.env.DIGITALOCEAN}/invoice/download-invoice/${id}`
     );
-    console.log({response});
+    console.log({ response });
     let base64Data = response?.invoice;
     const byteString = atob(base64Data?.split(",")[1]);
     const mimeString = base64Data?.split(",")[0]?.split(":")[1]?.split(";")[0];
@@ -231,17 +212,21 @@ export default function Invoices() {
 
   return (
     <>
-      <h1 className="text-3xl font-light tracking-tight text-black mb-3">Company Invoices</h1>
-        <TableANTD
-          columns={columns}
-          getUrl={`${process.env.DIGITALOCEAN}/invoice/get-invoices/`}
+      <h1 className="text-3xl font-light tracking-tight text-black mb-3">
+        Company Invoices
+      </h1>
+      <TableANTD
+        columns={columns}
+        getUrl={`${process.env.DIGITALOCEAN}/invoice/get-invoices/`}
         multiDeleteUrl={`${process.env.DIGITALOCEAN}/invoice/delete-multi-invoices/`}
-          addButton={true}
-          buttonTitle="Add Invoice"
-          addDrawer={true}
-          drawerTitle="Add New Invoice"
-        drawerContent={(setReload, onClose) => <InvoiceForm setReload={setReload} onClose={onClose} />}
-        />
+        addButton={true}
+        buttonTitle="Add Invoice"
+        addDrawer={true}
+        drawerTitle="Add New Invoice"
+        drawerContent={(setReload, onClose) => (
+          <InvoiceForm setReload={setReload} onClose={onClose} />
+        )}
+      />
     </>
   );
 }

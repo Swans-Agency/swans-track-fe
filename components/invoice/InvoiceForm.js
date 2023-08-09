@@ -5,6 +5,7 @@ import {
   MoneyCollectOutlined,
   PlusOutlined,
   MinusCircleOutlined,
+  ArrowLeftOutlined,
 } from "@ant-design/icons";
 import {
   Button,
@@ -18,9 +19,12 @@ import {
 } from "antd";
 import { getAxios, postAxios } from "@/functions/ApiCalls";
 import FormButtons from "../ANTD/FormButtons";
+import ProposalForm from "../proposal/ProposalForm";
 
 export default function InvoiceForm({ setReload, onClose }) {
   const [disabledSelectCurrency, setDisabledCurrency] = useState(false);
+  const [open1, setOpen1] = useState(false);
+
   const [clientData, setClientData] = useState([]);
   const [proposalData, setProposalData] = useState([]);
   const [numberofItems, setNumberofItems] = useState(0);
@@ -35,7 +39,6 @@ export default function InvoiceForm({ setReload, onClose }) {
   const getUserInitialData = async () => {
     const url = `${process.env.DIGITALOCEAN}/company/company-preferences/`;
     let data = await getAxios(url);
-    ;
     if (data[0]) {
       data[0].logo = data[0]?.logo?.split("?")[0];
       if (logoPicList?.length < 1) {
@@ -75,8 +78,9 @@ export default function InvoiceForm({ setReload, onClose }) {
     const proposalSearchData = await getAxios(url);
     const arrData = proposalSearchData?.map((item) => ({
       value: item.id,
-      label: `${item?.proposalNo} | ${item?.toCompanyName} | ${item?.proposalDate
-        } | ${Number(item?.proposalTotal).toFixed(2)} JD`,
+      label: `${item?.proposalNo} | ${item?.toCompanyName} | ${
+        item?.proposalDate
+      } | ${Number(item?.proposalTotal).toFixed(2)} JD`,
     }));
     setProposalData(arrData);
   };
@@ -93,235 +97,266 @@ export default function InvoiceForm({ setReload, onClose }) {
   };
 
   const onFinish = async (data) => {
-    ;
     data["invoiceDate"] = moment(new Date(data["invoiceDate"])).format(
       "YYYY-MM-DD"
     );
 
     const url = `${process.env.DIGITALOCEAN}/invoice/create-invoice/`;
-    let res = await postAxios(url, data, true, true, () => { });
-    setReload(res)
-    onClose()
+    let res = await postAxios(url, data, true, true, () => {});
+    setReload(res);
+    onClose();
   };
   return (
-    <Form
-      onFinish={onFinish}
-      layout="vertical"
-      style={{
-        alignContent: "center",
-        maxWidth: 600,
-      }}
-      className="custom-form"
-      form={form}
-      requiredMark={true}
-    >
-      <div className="flex gap-x-5 w-full mt-0">
-        <Form.Item label="Client" name="client" className="w-full" required>
-          <Select
-            showSearch
-            defaultValue=""
-            style={{
-              width: "100%",
+    <>
+      {open1 ? (
+        <div>
+          <button
+            onClick={() => {
+              setOpen1(false);
             }}
-            onChange={(e) => {
-              form.setFieldValue("client", e);
-              getSelectedClient(e);
+            className="flex gap-3 items-center mb-5 bg-foreignBackground hover:bg-mainBackground text-white px-2 py-1 rounded"
+          >
+            <ArrowLeftOutlined />
+            Back To Invoice Form
+          </button>
+          <ProposalForm
+            setReload={setReload}
+            onClose={() => {
+              setOpen1(false);
             }}
-            filterOption={false}
-            onSearch={searchClient}
-            options={clientData}
           />
-        </Form.Item>
-        <Form.Item
-          label="Client email"
-          name="toCompanyEmail"
-          className="w-full"
-          required
-        >
-          <Input className="rounded" />
-        </Form.Item>
-      </div>
-
-      <div className="flex gap-x-5 w-full mt-0">
-        <Form.Item
-          label="Client name"
-          name="toCompanyName"
-          className="w-full"
-          required
-        >
-          <Input className="rounded" />
-        </Form.Item>
-        <Form.Item
-          label="Client address"
-          name="toCompanyLocation"
-          className="w-full"
-          required
-        >
-          <Input className="rounded" />
-        </Form.Item>
-      </div>
-
-      <Form.Item
-        label="Link to existing proposal"
-        name="proposalNo"
-        className="w-full"
-      >
-        <Select
-          showSearch
-          defaultValue=""
+        </div>
+      ) : (
+        <Form
+          onFinish={onFinish}
+          layout="vertical"
           style={{
-            width: "100%",
+            alignContent: "center",
+            maxWidth: 600,
           }}
-          onChange={(e) => {
-            form.setFieldValue("proposalNo", e);
-          }}
-          allowClear={true}
-          filterOption={false}
-          onSearch={searchProposal}
-          options={proposalData}
-        />
-      </Form.Item>
+          className="custom-form"
+          form={form}
+          requiredMark={true}
+        >
+          <div className="flex gap-x-5 w-full mt-0">
+            <Form.Item label="Client" name="client" className="w-full" required>
+              <Select
+                showSearch
+                defaultValue=""
+                style={{
+                  width: "100%",
+                }}
+                onChange={(e) => {
+                  form.setFieldValue("client", e);
+                  getSelectedClient(e);
+                }}
+                filterOption={false}
+                onSearch={searchClient}
+                options={clientData}
+              />
+            </Form.Item>
+            <Form.Item
+              label="Client email"
+              name="toCompanyEmail"
+              className="w-full"
+              required
+            >
+              <Input className="rounded" />
+            </Form.Item>
+          </div>
 
-      <div className="flex gap-x-5 w-full mt-0">
-        <Form.Item
-          label="Invoice date"
-          name="invoiceDate"
-          className="w-full"
-          required
-        >
-          <DatePicker className="rounded w-full" placeholder="" />
-        </Form.Item>
-      </div>
-      <div className="flex gap-x-5 w-full mt-0">
-        <Form.Item
-          label="Discount value"
-          name="discountAmount"
-          className="w-full"
-          required
-        >
-          <InputNumber
-            min={0}
-            className="rounded w-full"
-            addonAfter={<MoneyCollectOutlined className="pb-1" />}
-          />
-        </Form.Item>
-        <Form.Item
-          label="Tax percentage"
-          name="taxPercentage"
-          className="w-full"
-          required
-        >
-          <InputNumber
-            min={0}
-            className="rounded w-full"
-            addonAfter={<PercentageOutlined className="pb-1" />}
-          />
-        </Form.Item>
-      </div>
-      <Form.Item
-        label="Invoice items"
-        name="invoiceItems"
-        className="w-full"
-        required
-      >
-        <Form.List name="invoiceItems" >
-          {(fields, { add, remove }) => (
-            <>
-              {fields.map(({ key, name, ...restField }) => (
-                <Space
-                  key={key}
-                  //   align="baseline"
-                  className="grid w-full"
-                >
-                  <Form.Item
-                    {...restField}
-                    name={[name, "itemName"]}
-                    rules={[
-                      {
-                        required: true,
-                        message: "Missing item name",
-                      },
-                    ]}
-                  >
-                    <Input placeholder="Item name" />
-                  </Form.Item>
+          <div className="flex gap-x-5 w-full mt-0">
+            <Form.Item
+              label="Client name"
+              name="toCompanyName"
+              className="w-full"
+              required
+            >
+              <Input className="rounded" />
+            </Form.Item>
+            <Form.Item
+              label="Client address"
+              name="toCompanyLocation"
+              className="w-full"
+              required
+            >
+              <Input className="rounded" />
+            </Form.Item>
+          </div>
 
-                  <div className="flex gap-x-5 w-full">
-                    <Form.Item
-                      {...restField}
-                      name={[name, "itemQuantity"]}
-                      rules={[
-                        {
-                          required: true,
-                          message: "Missing item quantity",
-                        },
-                      ]}
-                      className="w-full"
-                    >
-                      <InputNumber
-                        min={0}
-                        placeholder="Item quantity"
-                        className="w-full"
-                      />
-                    </Form.Item>
-                    <Form.Item
-                      {...restField}
-                      name={[name, "itemRate"]}
-                      rules={[
-                        {
-                          required: true,
-                          message: "Missing item rate",
-                        },
-                      ]}
-                      className="w-full"
-                    >
-                      <InputNumber
-                        min={0}
-                        className="w-full"
-                        placeholder="Item rate"
-                      />
-                    </Form.Item>
-                  </div>
-                  <MinusCircleOutlined
-                    className="mb-4"
-                    onClick={() => {
-                      return (
-                        <>
-                          {remove(name)}
-                          {setNumberofItems(numberofItems - 1)}
-                        </>
-                      )
-                    }}
-                  />
-                </Space>
-              ))}
-              {numberofItems < 12 && <Form.Item>
-                <Button
-                  type="dashed"
+          <Form.Item
+            label={
+              <div className="flex justify-between items-center gap-4">
+                <p>Link to existing proposal</p>
+
+                <button
+                  className="font-bold p-1 flex rounded-full items-center hover:bg-mainBackground hover:text-white "
                   onClick={() => {
-                    return (
-                      <>
-                        {add()}
-                        {setNumberofItems(numberofItems + 1)}
-                      </>
-                    )
-                  }}
-                  block
-                  icon={<PlusOutlined />}
+                    setOpen1(true)}}
                 >
-                  Add field
-                </Button>
-              </Form.Item>}
-            </>
-          )}
-        </Form.List>
-      </Form.Item>
-      <Divider />
-      <div className="flex gap-x-5 w-full justify-end">
-        <Form.Item>
-          <FormButtons content="Save" />
-        </Form.Item>
-      </div>
-    </Form>
+                  <PlusOutlined />
+                </button>
+              </div>
+            }
+            name="proposalNo"
+            className="w-full"
+          >
+            <Select
+              showSearch
+              defaultValue=""
+              style={{
+                width: "100%",
+              }}
+              onChange={(e) => {
+                form.setFieldValue("proposalNo", e);
+              }}
+              allowClear={true}
+              filterOption={false}
+              onSearch={searchProposal}
+              options={proposalData}
+            />
+          </Form.Item>
+
+          <div className="flex gap-x-5 w-full mt-0">
+            <Form.Item
+              label="Invoice date"
+              name="invoiceDate"
+              className="w-full"
+              required
+            >
+              <DatePicker className="rounded w-full" placeholder="" />
+            </Form.Item>
+          </div>
+          <div className="flex gap-x-5 w-full mt-0">
+            <Form.Item
+              label="Discount value"
+              name="discountAmount"
+              className="w-full"
+              required
+            >
+              <InputNumber
+                min={0}
+                className="rounded w-full"
+                addonAfter={<MoneyCollectOutlined className="pb-1" />}
+              />
+            </Form.Item>
+            <Form.Item
+              label="Tax percentage"
+              name="taxPercentage"
+              className="w-full"
+              required
+            >
+              <InputNumber
+                min={0}
+                className="rounded w-full"
+                addonAfter={<PercentageOutlined className="pb-1" />}
+              />
+            </Form.Item>
+          </div>
+          <Form.Item
+            label="Invoice items"
+            name="invoiceItems"
+            className="w-full"
+            required
+          >
+            <Form.List name="invoiceItems">
+              {(fields, { add, remove }) => (
+                <>
+                  {fields.map(({ key, name, ...restField }) => (
+                    <Space key={key} className="grid w-full">
+                      <Form.Item
+                        {...restField}
+                        name={[name, "itemName"]}
+                        rules={[
+                          {
+                            required: true,
+                            message: "Missing item name",
+                          },
+                        ]}
+                      >
+                        <Input placeholder="Item name" />
+                      </Form.Item>
+
+                      <div className="flex gap-x-5 w-full">
+                        <Form.Item
+                          {...restField}
+                          name={[name, "itemQuantity"]}
+                          rules={[
+                            {
+                              required: true,
+                              message: "Missing item quantity",
+                            },
+                          ]}
+                          className="w-full"
+                        >
+                          <InputNumber
+                            min={0}
+                            placeholder="Item quantity"
+                            className="w-full"
+                          />
+                        </Form.Item>
+                        <Form.Item
+                          {...restField}
+                          name={[name, "itemRate"]}
+                          rules={[
+                            {
+                              required: true,
+                              message: "Missing item rate",
+                            },
+                          ]}
+                          className="w-full"
+                        >
+                          <InputNumber
+                            min={0}
+                            className="w-full"
+                            placeholder="Item rate"
+                          />
+                        </Form.Item>
+                      </div>
+                      <MinusCircleOutlined
+                        className="mb-4"
+                        onClick={() => {
+                          return (
+                            <>
+                              {remove(name)}
+                              {setNumberofItems(numberofItems - 1)}
+                            </>
+                          );
+                        }}
+                      />
+                    </Space>
+                  ))}
+                  {numberofItems < 12 && (
+                    <Form.Item>
+                      <Button
+                        type="dashed"
+                        onClick={() => {
+                          return (
+                            <>
+                              {add()}
+                              {setNumberofItems(numberofItems + 1)}
+                            </>
+                          );
+                        }}
+                        block
+                        icon={<PlusOutlined />}
+                      >
+                        Add field
+                      </Button>
+                    </Form.Item>
+                  )}
+                </>
+              )}
+            </Form.List>
+          </Form.Item>
+          <Divider />
+          <div className="flex gap-x-5 w-full justify-end">
+            <Form.Item>
+              <FormButtons content="Save" />
+            </Form.Item>
+          </div>
+        </Form>
+      )}
+    </>
   );
 }
