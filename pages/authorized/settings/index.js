@@ -13,13 +13,15 @@ export default function index({ plans, paymentId }) {
     background: "#364d79",
   };
   const router = useRouter();
-  const [action, setAction] = useState(null);
+  const [action, setAction] = useState(false);
   const [trialPeriod, setTrialPeriod] = useState(null);
+  const [remainingTime, setRemainingTime] = useState(null);
   useEffect(() => {
+    console.log({paymentId});
     if (paymentId?.subscriptionEnded) {
       setAction("");
     } else {
-      setAction("disabled");
+      setAction(true);
     }
 
     if (paymentId?.trialMode) {
@@ -27,11 +29,23 @@ export default function index({ plans, paymentId }) {
     } else {
       setTrialPeriod(false);
     }
+
+    if (paymentId?.subscriptionEndsIn){
+      convertToRemainingDaysAndHours(paymentId?.subscriptionEndsIn * 1000)
+    }
   }, [paymentId]);
 
-  useEffect(() => {
-    console.log(action);
-  }, [action]);
+  const convertToRemainingDaysAndHours = (milliseconds) => {
+    const seconds = Math.floor(milliseconds / 1000);
+    const remainingSeconds = seconds % 60;
+    const minutes = Math.floor(seconds / 60);
+    const remainingMinutes = minutes % 60;
+    const hours = Math.floor(minutes / 60);
+    const remainingHours = hours % 24;
+    const days = Math.floor(hours / 24);
+
+    setRemainingTime(`${days} days`);
+  }
 
   const handleUpgrade = async (plan) => {
     let subscription = await getAxios(
@@ -52,29 +66,30 @@ export default function index({ plans, paymentId }) {
       true,
       () => {}
     );
-    window.open(res?.url, "_blank");
+    if (res?.url){
+      window.open(res?.url, "_blank");
+    }
   };
 
   return (
     <div className="overflow-hidden">
       <div className="text-3xl font-light tracking-tight text-black my-[3rem] text-center">
-        <h1>Unleash your productivity</h1>
-        <h1>Join the Swans</h1>
+        <h1>We Manage You Celebrate</h1>
       </div>
       <div className="max-w-[20rem] m-auto">
         <Carousel autoplay dots="true">
           {plans?.map((item, index) => {
             return (
-              <div className="border rounded-lg  w-1/4 p-2">
-                <Badge.Ribbon text="Flash discount" className="Button">
-                  <div className="px-6 py-10">
-                    <h1 className="text-2xl font-semibold text-center">
+              <div className="w-1/4 p-2">
+                <Badge.Ribbon text={<p className="py-[0.2rem] px-[0.4rem]">Flash Discount</p>} className="Button">
+                  <div className="px-6 py-5 border rounded-lg">
+                    <div className="text-2xl font-semibold text-center mt-4">
                       {item.name}
-                    </h1>
-                    <p className="text-[3rem] text-green-600 font-bold mb-3 text-center">
-                      ${item?.price}
-                    </p>
-                    <ul className="mb-[3rem] mt-[3rem]">
+                    </div>
+                    <div className="text-[3rem] text-green-600 font-bold mb-3 text-center">
+                      ${item?.price.split(".")[0]}<span className="text-[1rem]">.{item?.price.split(".")[1]}</span>
+                    </div>
+                    <ul className="my-[2rem]">
                       {item?.features?.map((feature, index) => {
                         return (
                           <li className="flex gap-2">
@@ -98,23 +113,13 @@ export default function index({ plans, paymentId }) {
                         );
                       })}
                     </ul>
-               
-
-                    {action ? (
-                        
                       <button
-                        className={`w-full border rounded-lg mt-3 py-1 shadow font-bold hover:shadow-green-200 ${action}`}
+                      className={`w-full border rounded mt-3 py-1 shadow font-bold text-white bg-[#3659d4]  ${action ? "cursor-not-allowed" : "hover:bg-[#1d2e6e]"}`}
                         onClick={() => handleUpgrade(item?.stripeId)}
+                        disabled={action}
                       >
-                        Subscribe
+                      {trialPeriod ? <div>Your trial ends in {remainingTime}</div> : !paymentId?.subscriptionEnded ? <div>Your subscription ends in {remainingTime}</div> : "Subscribe"}
                       </button>
-                    ):(
-                      <Button onClick={handleCreateCustomerPortal} type="primary" size="larg" className="w-full mt-[20%] mb-2 Button">
-                      Update Payment Method
-                    </Button>
-                    )}
-
-                     
                     <div className="text-xs font-light text-gray-700 mt-2 text-justify">
                       By placing this order, you agree to Swans Track's{" "}
                       <a
@@ -135,7 +140,7 @@ export default function index({ plans, paymentId }) {
                       . Your card will be charges $ {item?.price} each month.
                       Subscription automatically renews uless subscription is
                       canceled. A redirect link will be available to manage your
-                      subscription once the transaction is completed.
+                      subscription once the transaction is completed. {!trialPeriod &&  <span className="hover:underline underline-offset-2 hover:cursor-pointer text-blue-500" onClick={handleCreateCustomerPortal}>Manage your subscription</span>}
                     </div>
                   </div>
                 </Badge.Ribbon>
@@ -144,29 +149,6 @@ export default function index({ plans, paymentId }) {
           })}
         </Carousel>
       </div>
- 
-      {/* <div className="bg-foreignBackground w-full absolute flex flex-col py-2 pl-[200px] text-white justify-center items-center gap-x-10 bottom-0 left-0">
-        <p className="text-center text-white">
-          {trialPeriod
-            ? `You are currently in trial mode, your trial ends in ${Math.round(
-                (paymentId?.subscriptionEndsIn || 0) / 86400
-              )} days!`
-            : `Your subscription ends in ${Math.round(
-                (paymentId?.subscriptionEndsIn || 0) / 86400
-              )} days!`}
-        </p>
-        {!trialPeriod && (
-          <div>
-            You can view and manage your subscription by clicking{" "}
-            <span
-              className="underline hover:cursor-pointer"
-              onClick={handleCreateCustomerPortal}
-            >
-              here
-            </span>
-          </div>
-        )}
-      </div> */}
     </div>
   );
 }

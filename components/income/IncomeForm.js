@@ -29,9 +29,8 @@ export default function IncomeForm({ setReload, onClose }) {
     const proposalSearchData = await getAxios(url);
     const arrData = proposalSearchData?.map((item) => ({
       value: item.id,
-      label: `${item?.invoiceNo} | ${item?.toCompanyName} | ${
-        item?.invoiceDate
-      } | ${Number(item?.invoiceTotal).toFixed(2)} JD`,
+      label: `${item?.invoiceNo} | ${item?.toCompanyName} | ${item?.invoiceDate
+        } | ${Number(item?.invoiceTotal).toFixed(2)} JD`,
     }));
     setProposalData(arrData);
   };
@@ -49,7 +48,7 @@ export default function IncomeForm({ setReload, onClose }) {
     }
 
     const url = `${process.env.DIGITALOCEAN}/invoice/create-income/`;
-    let res = await postAxios(url, formData, true, true, () => {});
+    let res = await postAxios(url, formData, true, true, () => { });
     setReload(res);
     form.resetFields();
     onClose();
@@ -152,34 +151,43 @@ export default function IncomeForm({ setReload, onClose }) {
 
           <Form.Item
             label={
-              <div className="flex justify-between items-center gap-4">
+              <div className="flex justify-between items-center gap-4 ">
                 <p>Link To Invoice</p>
 
-                <button
+                {/* <button
                   className="font-bold p-1 flex rounded-full items-center hover:bg-mainBackground hover:text-white "
                   onClick={() => setOpen(!open)}
                 >
                   <PlusOutlined />
-                </button>
+                </button> */}
               </div>
             }
             name="invoice"
-            className="w-full"
+            className="w-full "
           >
-            <Select
-              showSearch
-              defaultValue=""
-              style={{
-                width: "100%",
-              }}
-              onChange={(e) => {
-                form.setFieldValue("invoice", e);
-              }}
-              allowClear={true}
-              filterOption={false}
-              onSearch={searchProposal}
-              options={proposalData}
-            />
+            <div className="flex items-center gap-1">
+              <Select
+                showSearch
+                defaultValue=""
+                style={{
+                  width: "100%",
+                }}
+                onChange={(e) => {
+                  form.setFieldValue("invoice", e);
+                }}
+                allowClear={true}
+                filterOption={false}
+                onSearch={searchProposal}
+                options={proposalData}
+              />
+              <button
+                className="p-[0.5rem] flex rounded items-center bg-foreignBackground hover:bg-mainBackground text-white"
+                onClick={() => setOpen(!open)}
+                title="Create New Invoice"
+              >
+                <PlusOutlined />
+              </button>
+            </div>
           </Form.Item>
 
           <Form.Item label="Attachment" className="" name={"attachment"}>

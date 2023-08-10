@@ -11,14 +11,14 @@ export default function index() {
     }, [])
   return (
       <Result
-          status="success"
-          title="Successfully Purchased Cloud Server ECS!"
-          subTitle="Your payment was successful and your subscription is now active. Thank you for your subscription."
-          extra={[
-              <Button type="primary" key="console" onClick={() => { router.push('/authorized/settings')}}>
-                  Go Console
-              </Button>,
-          ]}
+        status="success"
+        title="Successfully Subscribed!"
+        subTitle="Your payment was successful and your subscription is now active. Thank you for your subscription."
+        extra={
+        <button className='py-2 px-4 border rounded-lg bg-foreignBackground text-white hover:bg-mainBackground' type="primary" key="console" onClick={() => { router.push('/authorized/settings')}}>
+            Go Console
+        </button>
+        }
       />
-  );
+    );
 };
