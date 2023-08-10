@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
-import { PlusOutlined } from "@ant-design/icons";
-import { DatePicker, Divider, Form, Input, Upload } from "antd";
+import cookie from "react-cookies";
+import { PlusOutlined, QuestionOutlined } from "@ant-design/icons";
+import { DatePicker, Divider, FloatButton, Form, Input, Upload, notification } from "antd";
+
 import dayjs from "dayjs";
 import { getAxios, patchAxios, postAxios } from "@/functions/ApiCalls";
 import FormButtons from "../ANTD/FormButtons";
@@ -158,6 +160,17 @@ export default function Profile() {
           </Form.Item>
         </div>
       </Form>
+
+      <FloatButton type="primary" icon={<QuestionOutlined />}  onClick={() => {
+        notification.info({
+          message: "Public Profile",
+          description: <div>Share your profile with others by using this link: <a
+          href={`https://www.swanstrack.com/shared-profile/${cookie.load("username", {path: "/" })}/`}
+          className="text-blue-500 hover:text-blue-400 "
+          >https://www.swanstrack.com/shared-profile/{cookie.load("username", {path: "/" })}/</a></div>,
+          key: "api",
+        })
+      } } style={{bottom: 20}} />
     </div>
   );
 }

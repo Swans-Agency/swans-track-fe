@@ -19,6 +19,12 @@ module.exports = {
         calendarBackground: "#6C737A",
         textIcons: "#ACBBC7",
 
+        // sidebar: "#0A2647",
+        // mainBackground: "#144272",
+        // foreignBackground: "#205295",
+        // calendarBackground: "#6C737A",
+        // textIcons: "#ACBBC7",
+
 
 
 

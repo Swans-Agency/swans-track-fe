@@ -78,9 +78,8 @@ export default function InvoiceForm({ setReload, onClose }) {
     const proposalSearchData = await getAxios(url);
     const arrData = proposalSearchData?.map((item) => ({
       value: item.id,
-      label: `${item?.proposalNo} | ${item?.toCompanyName} | ${
-        item?.proposalDate
-      } | ${Number(item?.proposalTotal).toFixed(2)} JD`,
+      label: `${item?.proposalNo} | ${item?.toCompanyName} | ${item?.proposalDate
+        } | ${Number(item?.proposalTotal).toFixed(2)} JD`,
     }));
     setProposalData(arrData);
   };
@@ -102,7 +101,7 @@ export default function InvoiceForm({ setReload, onClose }) {
     );
 
     const url = `${process.env.DIGITALOCEAN}/invoice/create-invoice/`;
-    let res = await postAxios(url, data, true, true, () => {});
+    let res = await postAxios(url, data, true, true, () => { });
     setReload(res);
     onClose();
   };
@@ -189,32 +188,43 @@ export default function InvoiceForm({ setReload, onClose }) {
               <div className="flex justify-between items-center gap-4">
                 <p>Link to existing proposal</p>
 
-                <button
+                {/* <button
                   className="font-bold p-1 flex rounded-full items-center hover:bg-mainBackground hover:text-white "
                   onClick={() => {
                     setOpen1(true)}}
                 >
                   <PlusOutlined />
-                </button>
+                </button> */}
               </div>
             }
             name="proposalNo"
             className="w-full"
           >
-            <Select
-              showSearch
-              defaultValue=""
-              style={{
-                width: "100%",
-              }}
-              onChange={(e) => {
-                form.setFieldValue("proposalNo", e);
-              }}
-              allowClear={true}
-              filterOption={false}
-              onSearch={searchProposal}
-              options={proposalData}
-            />
+            <div className="flex items-center gap-1">
+              <Select
+                showSearch
+                defaultValue=""
+                style={{
+                  width: "100%",
+                }}
+                onChange={(e) => {
+                  form.setFieldValue("proposalNo", e);
+                }}
+                allowClear={true}
+                filterOption={false}
+                onSearch={searchProposal}
+                options={proposalData}
+              />
+              <button
+                className="p-[0.5rem] flex rounded items-center bg-foreignBackground hover:bg-mainBackground text-white"
+                onClick={() => {
+                  setOpen1(true)
+                }}
+                title="Create new proposal"
+              >
+                <PlusOutlined />
+              </button>
+            </div>
           </Form.Item>
 
           <div className="flex gap-x-5 w-full mt-0">
