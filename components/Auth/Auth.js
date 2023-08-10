@@ -5,13 +5,11 @@ import { getAxios } from "@/functions/ApiCalls";
 
 export default function AuthWrapper({ children }) {
   const router = useRouter();
-
+  
   useEffect(() => {
     checkAuthorization();
-  }, [router.pathname]);
-
-  useEffect(() => {
     handleCheckSubscribe()
+    checkCompanyPreferences()
   }, [router.pathname])
 
   const checkAuthorization = () => {
@@ -23,6 +21,15 @@ export default function AuthWrapper({ children }) {
       }
     }
   };
+
+  const checkCompanyPreferences = async () => {
+    const companyPreferences = cookie.load("companyPreferences", { path: "/" });
+    if (router.pathname != "/authorized/company-preference" && router.pathname.includes("authorized")) {
+      if (!companyPreferences) {
+        router.push("/authorized/company-preference");
+      }
+    }
+  }
 
   const handleCheckSubscribe = async () => {
     const token = cookie.load("AccessTokenSBS", { path: "/" });
