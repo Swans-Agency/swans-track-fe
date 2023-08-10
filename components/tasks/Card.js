@@ -19,6 +19,7 @@ export default function Card({ card, index, showTag, setShowTag, setSelectedItem
     const handleShowTag = () => {
         setOpen(false);
         setShowTag(!showTag)
+        setOpen(false);
     }
 
     return (

@@ -479,6 +479,9 @@ const login = async (data) => {
       cookie.save("userId", res?.data?.id, {
         path: "/",
       });
+      cookie.save("companyPreferences", res?.data?.companyPreferences, {
+        path: "/",
+      });
       redirect("/authorized/dashboard");
       NotificationSuccess();
     })
@@ -506,6 +509,7 @@ const logout = async () => {
   remove("RefreshTokenSBS", { path: "/" });
   remove("userPermission", { path: "/" });
   remove("AccessTokenSBS", { path: "/" });
+  remove("companyPreferences", { path: "/" });
   redirect("/");
 };
 

@@ -116,7 +116,7 @@ export default function Navbar({ userPermission }) {
     },
     {
       key: "support",
-      label: "Support",
+      label: "Support & Tickets",
       icon: <CustomerServiceOutlined />,
     },
     {
@@ -142,11 +142,11 @@ export default function Navbar({ userPermission }) {
 
   return (
     <div className="sticky top-0 left-0 !z-[10000]">
-      <div className="absolute border-r border-foreignBackground !z-[1000]">
+      <div className="absolute !z-[1000]">
         <div
           className={`absolute  ${!collapsed
               ? "hidden"
-              : "left-0 h-[100vh] top-0"
+            : "left-0 h-[100vh] top-0 "
             }  p-1 bg-sidebar flex items-center hover:cursor-pointer`}
           onClick={toggleCollapsed}
           title={collapsed ? "Expand Sidebar" : "Collapse Sidebar"}
@@ -159,10 +159,10 @@ export default function Navbar({ userPermission }) {
         </div>
 
         <div
-          className={`bg-sidebar h-[100vh] ${collapsed ? "w-[20px] hidden" : "w-[256px]"
-            } relative overflow-y-auto overflow-x-hidden text-textIcons font-extralight text-md px-2 pt-2`}
+          className={`bg-sidebar  h-[100vh] ${collapsed ? "w-[20px]  hidden" : "w-[256px]"
+            } relative overflow-y-scroll overflow-x-hidden text-textIcons  font-extralight text-md px-2 `}
         >
-          <div className="w-full flex justify-center pb-2">
+          <div className="w-full flex justify-center py-2 sticky top-0 inset-0 bg-sidebar">
             <Image src="/Light Logo.svg" width={80} height={80} />
           </div>
           {menuItems.map((item, index) => {
@@ -175,11 +175,7 @@ export default function Navbar({ userPermission }) {
               />
             );
           })}
-          <div
-            className={`absolute bottom-2 ${collapsed ? "w-[20px] hidden" : "w-[240px]"
-              } `}
-          >
-          </div>
+
         </div>
       </div>
     </div>

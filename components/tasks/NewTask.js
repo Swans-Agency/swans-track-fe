@@ -111,25 +111,10 @@ export default function TaskForm({ handleNotifyTeam, selectedItem }) {
     handleNotifyTeam()
   }
 
-  const NotificationCustom = (id) => {
-    notification.info({
-      message: "Revert Action!",
-      description: <div>
-        <p>You archived a task successfully! </p>
-        <button
-          onClick={() => revertArchive(id)}
-          className="bg-green-500 hover:bg-green-600 hover:cursor-pointer text-white px-2 py-1 rounded"
-        >Revert Action</button>
-      </div>,
-      key: "api",
-    })
-  }
-
   const onArchive = async () => {
     const url = `${process.env.DIGITALOCEAN}/tasks/archive-task/${selectedItem?.id}/`
-    let res = await getAxios(url, true, false, () => { })
+    let res = await getAxios(url, true, false, () => {})
     if (res) {
-      NotificationCustom(selectedItem?.id)
       handleNotifyTeam();
     }
   }

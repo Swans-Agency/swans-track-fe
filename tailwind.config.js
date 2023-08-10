@@ -18,6 +18,10 @@ module.exports = {
         foreignBackground: "#2C333A",
         calendarBackground: "#6C737A",
         textIcons: "#ACBBC7",
+
+
+
+
         textButtons: "#ffffff",
         linkColor: "#2563eb",
         linkColorHover: "#3b82f6",

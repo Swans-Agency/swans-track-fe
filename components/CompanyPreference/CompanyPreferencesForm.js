@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { PlusOutlined } from "@ant-design/icons";
-import { Divider, Form, Input, Select, Upload } from "antd";
+import { Divider, Form, Input, Select, Upload, notification } from "antd";
 import FormButtons from "../ANTD/FormButtons";
 import { getAxios, postAxios } from "@/functions/ApiCalls";
 import { saveToLocal, timeZones } from "@/functions/GeneralFunctions";
+import cookie, { remove } from "react-cookies";
 
 export default function CompanyPreferencesForm() {
   const [invoiceTemplates, setInvoiceTemplates] = useState([]);
@@ -19,6 +20,10 @@ export default function CompanyPreferencesForm() {
     getUserInitialData();
     getInvoiceTemplates();
   }, [reloadData]);
+
+  useEffect(() => {
+    checkforCompanyPreferences()
+  }, [])
 
   const getUserInitialData = async () => {
     const url = `${process.env.DIGITALOCEAN}/company/company-preferences/`;
@@ -52,6 +57,21 @@ export default function CompanyPreferencesForm() {
     }
   };
 
+  const checkforCompanyPreferences = async () => {
+    let preferences = cookie.load("companyPreferences", { path: "/" });
+    if (!preferences) {
+      customNotification();
+    }
+  }
+
+  const customNotification = (type, message) => {
+      notification.info({
+        message: "Missing Company Preferences!",
+        description: "To ensure that your invoices and quotations are generated correctly, and to ensure best experience, please fill in your company preferences to continue.",
+        key: "api",
+      })
+  }
+
   const getInvoiceTemplates = async () => {
     const invoiceURL = `${process.env.DIGITALOCEAN}/account/invoice-templates/`;
     const quotationURL = `${process.env.DIGITALOCEAN}/account/quotation-templates/`;
@@ -63,17 +83,17 @@ export default function CompanyPreferencesForm() {
 
   const onFinish = async (data) => {
     const formData = new FormData();
-    formData.append("bankIban", data.bankIban);
-    formData.append("timeZone", data.timeZone);
-    formData.append("currency", data.currency);
-    formData.append("position", data.position);
-    formData.append("companyName", data.companyName);
-    formData.append("companyLocation", data.companyLocation);
-    formData.append("companyNumber", data.companyNumber);
-    formData.append("companyEmail", data.companyEmail);
-    formData.append("PTermsConditions", data.PTermsConditions);
-    formData.append("ITermsConditions", data.ITermsConditions);
-    formData.append("CLIQ", data.CLIQ);
+    formData.append("bankIban", data?.bankIban);
+    formData.append("timeZone", data?.timeZone);
+    formData.append("currency", data?.currency);
+    formData.append("position", data?.position);
+    formData.append("companyName", data?.companyName);
+    formData.append("companyLocation", data?.companyLocation);
+    formData.append("companyNumber", data?.companyNumber);
+    formData.append("companyEmail", data?.companyEmail);
+    formData.append("PTermsConditions", data?.PTermsConditions);
+    formData.append("ITermsConditions", data?.ITermsConditions);
+    formData.append("CLIQ", data?.CLIQ);
 
     if (data.logo && data.logo.file) {
       formData.append("logo", data.logo.file.originFileObj);
@@ -106,6 +126,11 @@ export default function CompanyPreferencesForm() {
             className="mt-4"
             name={"logo"}
             required
+            rules={[
+              {
+                required: true
+              }
+            ]}
           >
             <Upload
               listType="picture-circle"
@@ -129,6 +154,11 @@ export default function CompanyPreferencesForm() {
             className="mt-4"
             name={"signature"}
             required
+            rules={[
+              {
+                required: true
+              }
+            ]}
           >
             <Upload
               listType="picture-circle"
@@ -154,6 +184,11 @@ export default function CompanyPreferencesForm() {
             name="companyName"
             className="w-full"
             required
+            rules={[
+              {
+                required: true
+              }
+            ]}
           >
             <Input className="rounded" />
           </Form.Item>
@@ -162,6 +197,11 @@ export default function CompanyPreferencesForm() {
             name="companyLocation"
             className="w-full"
             required
+            rules={[
+              {
+                required: true
+              }
+            ]}
           >
             <Input className="rounded" />
           </Form.Item>
@@ -172,6 +212,11 @@ export default function CompanyPreferencesForm() {
             name="companyEmail"
             className="w-full"
             required
+            rules={[
+              {
+                required: true
+              }
+            ]}
           >
             <Input className="rounded" />
           </Form.Item>
@@ -180,6 +225,11 @@ export default function CompanyPreferencesForm() {
             name="companyNumber"
             className="w-full"
             required
+            rules={[
+              {
+                required: true
+              }
+            ]}
           >
             <Input className="rounded" />
           </Form.Item>
@@ -190,11 +240,16 @@ export default function CompanyPreferencesForm() {
             name="currency"
             className="w-full"
             required
+            rules={[
+              {
+                required: true
+              }
+            ]}
           >
             <Select
               disabled={disabledSelectCurrency}
               showSearch
-              // defaultValue=""
+              defaultValue=""
               style={{
                 width: "100%",
               }}
@@ -248,6 +303,11 @@ export default function CompanyPreferencesForm() {
             name="timeZone"
             className="w-full"
             required
+            rules={[
+              {
+                required: true
+              }
+            ]}
           >
             <Select
               showSearch
@@ -269,10 +329,20 @@ export default function CompanyPreferencesForm() {
           </Form.Item>
         </div>
         <div className="flex gap-x-5 w-full">
-          <Form.Item label="IBAN" name="bankIban" className="w-full" required>
+          <Form.Item label="IBAN" name="bankIban" className="w-full" required
+          rules={[
+            {
+              required: true
+            }
+          ]}>
             <Input className="rounded" />
           </Form.Item>
-          <Form.Item label="CLIQ" name="CLIQ" className="w-full" required>
+          <Form.Item label="CLIQ" name="CLIQ" className="w-full" required
+          rules={[
+            {
+              required: true
+            }
+          ]}>
             <Input className="rounded" />
           </Form.Item>
         </div>
@@ -281,6 +351,11 @@ export default function CompanyPreferencesForm() {
           name="PTermsConditions"
           className="w-full"
           required
+          rules={[
+            {
+              required: true
+            }
+          ]}
         >
           <TextArea rows={4} className="rounded" />
         </Form.Item>
@@ -289,6 +364,11 @@ export default function CompanyPreferencesForm() {
           name="ITermsConditions"
           className="w-full"
           required
+          rules={[
+            {
+              required: true
+            }
+          ]}
         >
           <TextArea rows={4} className="rounded" />
         </Form.Item>

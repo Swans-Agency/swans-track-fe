@@ -19,13 +19,13 @@ export default function TeamForm({ updateItem, setUpdateItem, setReload }) {
     if (updateItem) {
       console.log({updateItem})
       let initialData = {
-        firstName: updateItem.userProfile.firstName,
-        lastName: updateItem?.userProfile?.lastName,
-        phoneNumber: updateItem?.userProfile?.phoneNumber,
-        position: updateItem?.userProfile?.position,
-        bio: updateItem?.userProfile?.bio,
-        salary: updateItem?.userProfile?.salary,
-        socialSecurityNumber: updateItem?.userProfile?.socialSecurityNumber,
+        firstName: updateItem?.userProfile?.firstName || null,
+        lastName: updateItem?.userProfile?.lastName || null,
+        phoneNumber: updateItem?.userProfile?.phoneNumber || null,
+        position: updateItem?.userProfile?.position || null,
+        bio: updateItem?.userProfile?.bio || null,
+        salary: updateItem?.userProfile?.salary || null,
+        socialSecurityNumber: updateItem?.userProfile?.socialSecurityNumber || null,
         dob: updateItem?.userProfile?.dob 
           ? dayjs(new Date(updateItem?.userProfile?.dob))
           : dayjs("1998-01-01"),
@@ -48,14 +48,15 @@ export default function TeamForm({ updateItem, setUpdateItem, setReload }) {
 
   const onFinish = async (data) => {
     const formData = new FormData();
-    formData.append("firstName", data?.firstName);
-    formData.append("lastName", data?.lastName);
-    formData.append("bio", data?.bio);
-    formData.append("phoneNumber", data?.phoneNumber);
-    formData.append("salary", data?.salary);
-    formData.append("socialSecurityNumber", data?.socialSecurityNumber);
-    formData.append("dob", moment(new Date(data?.dob)).format("YYYY-MM-DD"));
-    formData.append("position", data?.position);
+    console.log({ data });
+    data?.firstName && formData.append("firstName", data?.firstName)  
+    data?.lastName && formData.append("lastName", data?.lastName);
+    data?.bio && formData.append("bio", data?.bio);
+    data?.phoneNumber && formData.append("phoneNumber", data?.phoneNumber);
+    data?.salary && formData.append("salary", data?.salary);
+    data?.socialSecurityNumber && formData.append("socialSecurityNumber", data?.socialSecurityNumber);
+    data?.dob && formData.append("dob", moment(new Date(data?.dob)).format("YYYY-MM-DD"));
+    data?.position && formData.append("position", data?.position);
     if (data.pfp && data?.pfp?.file) {
       formData.append("pfp", data?.pfp?.file?.originFileObj);
     }
