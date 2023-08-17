@@ -467,6 +467,9 @@ const login = async (data) => {
       cookie.save("AccessTokenSBS", res?.data?.access, {
         path: "/",
       });
+      cookie.save("company", res?.data?.company, {
+        path: "/",
+      });
       cookie.save("RefreshTokenSBS", res?.data?.refresh, {
         path: "/",
       });
