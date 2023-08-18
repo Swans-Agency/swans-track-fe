@@ -88,7 +88,7 @@ export default function Navbar({ userPermission }) {
       arrow: <DownOutlined />,
       children: [
         {
-          key: "invoice/proposal",
+          key: "sched-track/appointments",
           label: "Appointments",
           icon: <SnippetsOutlined />,
         },
@@ -163,7 +163,7 @@ export default function Navbar({ userPermission }) {
       <div className="absolute !z-[1000]">
         <div
           className={`absolute  ${!collapsed
-              ? "hidden"
+            ? "hidden"
             : "left-0 h-[100vh] top-0 "
             }  p-1 bg-sidebar flex items-center hover:cursor-pointer`}
           onClick={toggleCollapsed}
