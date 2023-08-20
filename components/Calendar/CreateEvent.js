@@ -1,6 +1,4 @@
-import moment from "moment";
 import React, { useState } from "react";
-
 
 import {
   Button,
@@ -17,7 +15,6 @@ import {
   PlusOutlined,
   MinusCircleOutlined,
 } from "@ant-design/icons";
-import dayjs from "dayjs";
 
 export default function CreateEvent({ form, onFinish }) {
   const [atendeesCount, setAtendeesCount] = useState(0);
@@ -41,8 +38,8 @@ export default function CreateEvent({ form, onFinish }) {
           required
           rules={[
             {
-              required: true
-            }
+              required: true,
+            },
           ]}
         >
           <Input className="rounded w-full" />
@@ -66,25 +63,24 @@ export default function CreateEvent({ form, onFinish }) {
           required
           rules={[
             {
-              required: true
-            }
+              required: true,
+            },
           ]}
         >
-          <TimePicker
-            className="custom-button rounded text-black w-full"
-            
-          />
+          <TimePicker className="custom-button rounded text-black w-full" />
         </Form.Item>
-        <Form.Item label="End time" name="endTime" className="w-full" required
+        <Form.Item
+          label="End time"
+          name="endTime"
+          className="w-full"
+          required
           rules={[
             {
-              required: true
-            }
-          ]}>
-          <TimePicker
-            className="custom-button rounded text-black w-full"
-            
-          />
+              required: true,
+            },
+          ]}
+        >
+          <TimePicker className="custom-button rounded text-black w-full" />
         </Form.Item>
       </div>
       <div className="flex gap-x-5 w-full mt-0">
@@ -143,7 +139,7 @@ export default function CreateEvent({ form, onFinish }) {
                         <MinusCircleOutlined
                           className="p-1 text-red-500"
                           onClick={() => {
-                            remove(name)
+                            remove(name);
                             setAtendeesCount(atendeesCount - 1);
                           }}
                         />
@@ -153,17 +149,19 @@ export default function CreateEvent({ form, onFinish }) {
                 </Space>
               ))}
               <Form.Item>
-                {atendeesCount < 98 && <Button
-                  type="dashed"
-                  onClick={() => {
-                    add()
-                    setAtendeesCount(atendeesCount + 1);
-                  }}
-                  block
-                  className="flex items-center justify-center"
-                >
-                  <PlusOutlined className="" /> Add attendee
-                </Button>}
+                {atendeesCount < 98 && (
+                  <Button
+                    type="dashed"
+                    onClick={() => {
+                      add();
+                      setAtendeesCount(atendeesCount + 1);
+                    }}
+                    block
+                    className="flex items-center justify-center"
+                  >
+                    <PlusOutlined className="" /> Add attendee
+                  </Button>
+                )}
               </Form.Item>
             </>
           )}
