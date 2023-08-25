@@ -8,6 +8,7 @@ import List from "./List";
 import DrawerANTD from "../ANTD/DrawerANTD";
 import TaskForm from "./NewTask";
 import ModalANTD from "../ANTD/ModalANTD";
+import { Empty } from 'antd';
 
 export default function TasksComponent({ companyTasks, initialData }) {
   const dbRef = useRef(null);
@@ -127,16 +128,16 @@ export default function TasksComponent({ companyTasks, initialData }) {
     }
 
     if (destination?.droppableId === source?.droppableId) {
-      let ourColumn = data?.columns?.[source?.droppableId]; 
+      let ourColumn = data?.columns?.[source?.droppableId];
       let newTasksIds = Array.from(ourColumn?.taskIds);
       newTasksIds.splice(source?.index, 1);
       newTasksIds.splice(destination?.index, 0, draggableId);
-  
+
       let newColumn = {
         ...ourColumn,
         taskIds: newTasksIds,
       }
-  
+
       setData((data) => ({
         ...data,
         columns: {
@@ -182,32 +183,57 @@ export default function TasksComponent({ companyTasks, initialData }) {
     setSelectedItem(null)
     setOpen(true)
   }
-  
+
   const handleOkModal = () => {
     setSelectedItem(null)
     setIsModalOpen(false)
   }
-  
+
   const handleCancelModal = () => {
     setSelectedItem(null)
     setIsModalOpen(false)
   }
-  
+
   const openModalUpdate = () => {
     setIsModalOpen(true)
   }
 
+  const borderColor = {
+    "To do": "bg-red-500",
+    "In Progress": "bg-yellow-500",
+    "Completed": "bg-green-500",
+    "Idle": "bg-purple-500",
+  }
+
   return (
     <>
+      <div className="flex justify-end mb-3">
+        <button
+          onClick={() => handleopenNewTask()}
+          className="flex justify-center items-center gap-x-2 hover:bg-foreignBackground hover:text-white rounded py-[0.35rem] px-2"
+        >
+          <PlusOutlined /> Add new task
+        </button>
+      </div>
+
       <DragDropContext onDragEnd={handleDragEnd}>
         <div className='flex justify-start gap-5 overflow-auto'>
           {data?.columnOrder?.map((value, key) => {
             let columns = data?.columns?.[value];
             let tasks = columns?.taskIds?.map((value) => data?.tasks?.[value]);
             return (
-              <div className=' rounded-lg relative bg-gray-200 pl-4 pr-2  min-w-[250px] w-[300px] max-h-[85vh] mb-4 h-fit overflow-hidden'>
-                <h2 className='text-lg font-bold py-2 sticky inset-0 bg-gray-200 text-black'>{columns?.title}</h2>
-                <div className='custom-scroll max-h-[70vh] overflow-y-auto '>
+              <div className=' rounded-lg relative pl-4 pr-2  min-w-[250px] w-[300px] max-h-[85vh] mb-4 h-fit overflow-hidden'>
+                <div className={`text font-bold rounded text-center p-1 mb-2 sticky inset-0`}>
+                  <div className="flex justify-start items-center gap-x-2">
+                  {columns?.title}
+                  <div className="border rounded px-2  text-[0.75rem] bg-gray-50">
+                    {tasks?.length}
+                  </div>
+                  </div>
+                  <p className={`mt-1 w-full h-[0.1rem] ${borderColor[columns?.title]}`}></p>
+                </div>
+
+                <div className='custom-scroll max-h-[70vh] overflow-y-auto p-2'>
                   <List
                     key={key}
                     cards={tasks}
@@ -217,14 +243,7 @@ export default function TasksComponent({ companyTasks, initialData }) {
                     setSelectedItem={setSelectedItem}
                     setOpen={openModalUpdate}
                   />
-                </div>
-                <div
-                  className='pl-2 my-2 mb-3 py-2 sticky mr-2 rounded-lg bottom-0 left-0 text-sm bg-gray-200 hover:bg-gray-300 text-black hover:cursor-pointer flex justify-start items-center gap-x-1'
-                  onClick={() => handleopenNewTask()}
-                >
-                  <PlusOutlined />
-                  <p>Add new task</p>
-                </div>
+                </div> 
               </div>
             );
           })}
@@ -236,7 +255,7 @@ export default function TasksComponent({ companyTasks, initialData }) {
         open={open}
         children={<TaskForm handleNotifyTeam={handleNotifyTeam} />}
       />
-      {selectedItem && <ModalANTD 
+      {selectedItem && <ModalANTD
         title={"Task Details"}
         footer={null}
         isModalOpen={isModalOpen}
