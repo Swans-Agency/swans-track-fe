@@ -2,7 +2,7 @@ import React from "react";
 import { Table } from "antd";
 import { RightOutlined, LeftOutlined } from "@ant-design/icons";
 
-export default function Calender(props) {
+export default function Calender() {
   const dataSource = [
     {
       key: "1",
@@ -221,7 +221,7 @@ export default function Calender(props) {
         <LeftOutlined />
         <RightOutlined />
       </div>
-      <Table dataSource={dataSource} columns={columns} />;
+      <Table dataSource={dataSource} columns={columns} />
     </div>
-  );
+  )
 }

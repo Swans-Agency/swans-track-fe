@@ -1,10 +1,11 @@
+import Navbar from "@/components/Calendly/Navbar";
 import React from "react";
-import Navbar from "../terms-conditions/Navbar";
 
-export default function PrivacyPolicy(props) {
+
+export default function PrivacyPolicy() {
   return (
     <>
-      <Navbar />
+      <Navbar content="Join the swans" />
       <div className="desktop:px-[20rem] tablet:px-[10rem] phone:px-5 text-left pt-10 pb-24 text-black">
         <h1 className="text-[2rem] font-black">Privacy Policy</h1>
         <p className="text-sm">Effective Date: June 19, 2023</p>
