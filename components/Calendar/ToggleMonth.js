@@ -1,11 +1,11 @@
 import React from "react";
 import { format } from "date-fns";
 
-export default function ToggleMonth({ setSelectedDate, selectedDate }) {
+export default function ToggleMonth({ setSelectedDate, selectedDate,visibleRight="visible",visibleLeft="visible" }) {
   return (
     <div className="flex gap-x-2 items-center">
       <div
-        className="w-[2rem] text-black hover:text-white text-center hover:bg-foreignBackground hover:cursor-pointer rounded-full"
+        className={`w-[2rem] text-black hover:text-white text-center hover:bg-foreignBackground hover:cursor-pointer rounded-full ${visibleLeft}`}
         onClick={() =>
           setSelectedDate(
             (prev) => new Date(prev.getFullYear(), prev.getMonth() - 1, 1)
@@ -28,7 +28,7 @@ export default function ToggleMonth({ setSelectedDate, selectedDate }) {
         </svg>
       </div>
       <div
-        className="w-[2rem] text-black hover:text-white text-center hover:bg-foreignBackground hover:cursor-pointer rounded-full"
+        className={`w-[2rem] text-black hover:text-white text-center hover:bg-foreignBackground hover:cursor-pointer rounded-full ${visibleRight}`}
         onClick={() =>
           setSelectedDate(
             (prev) => new Date(prev.getFullYear(), prev.getMonth() + 1, 1)

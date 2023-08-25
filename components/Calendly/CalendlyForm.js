@@ -1,26 +1,57 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Input, Select } from "antd";
 import FormButtons from "../ANTD/FormButtons";
+import { postAxios } from "@/functions/ApiCalls";
+import { useRouter } from "next/router";
+import dayjs from "dayjs";
 
-export default function CalendlyForm(props) {
+export default function CalendlyForm({ data, selectedDay, companyId }) {
+  const [options, setOptions] = useState([]);
+  const router = useRouter();
+
   const onFinish = async (values) => {
-    values.startTime =
-      moment(date).format("YYYY-MM-DD") +
-      moment(values.startTime).format("[T]HH:mm:ss");
-    values.endTime =
-      moment(date).format("YYYY-MM-DD") +
-      moment(values.endTime).format("[T]HH:mm:ss");
-    values.recurrenceTo = moment(values.recurrenceTo).format(
-      "YYYY-MM-DD[T]HH:mm:ss"
-    );
-    let url = `${process.env.DIGITALOCEAN}/tasks/create-event/`;
-    let res = await postAxios(url, values, true, true, () => { });
+
+    const Data = 
+      {...values,
+        appointmentDate:dayjs(selectedDay).format("YYYY-MM-DD")}
+      console.log(Data);
+
+    let url = `${process.env.DIGITALOCEAN}/calendy/sched/public/book/${companyId}/`;
+    let res = await postAxios(url, Data, true, true, () => {});
     router.reload();
   };
+
+  const getOptions = async () => {
+    let res = await postAxios(
+      `${process.env.DIGITALOCEAN}/calendy/sched/public/${companyId}/`,
+      { day: selectedDay },
+      false,
+      false,
+      () => {}
+    );
+    let arr = [];
+    res?.map((item) => {
+      return arr.push({
+        label: `${item?.fromHour.replace(".", ":")} - ${item?.toHour.replace(
+          ".",
+          ":"
+        )}`,
+        value: item?.id,
+      });
+    });
+    setOptions(arr);
+  };
+
+  useEffect(() => {
+    if (companyId) {
+      getOptions();
+    }
+  }, [selectedDay]);
+
   return (
     <section>
-      <h1 className="font-semibold pb-10 text-center -tracking-tighter">
-        Book 30 min appointment on August 11th, 2023
+      <h1 className="font-semibold pb-10 text-start -tracking-tighter">
+        Book your {data?.duration * 100} min appointment
       </h1>
       <Form
         onFinish={onFinish}
@@ -70,29 +101,33 @@ export default function CalendlyForm(props) {
               required: true,
             },
           ]}
-          name="appointmentSummary"
+          name="summary"
           label="Appointment Summary"
         >
           <Input.TextArea rows={3} />
         </Form.Item>
 
         <Form.Item
-          name="timeRange"
+          name="id"
           label="Time Range"
           rules={[{ required: true, message: "Province is required" }]}
         >
-          <Select placeholder="Select province" size="large">
-            {/* <Option value="Zhejiang">Zhejiang</Option> */}
-            {/* <Option value="Jiangsu">Jiangsu</Option> */}
-          </Select>
+          <Select
+            placeholder="Select province"
+            size="large"
+            options={options}
+          />
         </Form.Item>
 
         <div className="w-full">
           <Form.Item>
-            <FormButtons classNames={"w-full py-[0.5rem]"} content="Book Appointment" />
+            <FormButtons
+              classNames={"w-full py-[0.5rem]"}
+              content="Book Appointment"
+            />
           </Form.Item>
         </div>
       </Form>
     </section>
-  )
+  );
 }
