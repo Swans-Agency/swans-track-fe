@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-
 import { NavShowContext } from "@/context/ShowNavContext";
 import { NavCollapse } from "@/context/NavContext";
 import Navbar from "../Navbar/NavBar";
@@ -7,9 +6,8 @@ import Progress from "../progressBar/Progress";
 
 export default function Layout({ children, accessToken }) {
   const { showNav, userPermission } = useContext(NavShowContext);
-  const { collapsed, marginLeft, navBarWidth, toggleCollapsed } =
-    useContext(NavCollapse);
-
+  const { collapsed, marginLeft, navBarWidth, toggleCollapsed } = useContext(NavCollapse);
+  
   return (
     <>
       {showNav && userPermission ? (

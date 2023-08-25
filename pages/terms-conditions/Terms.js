@@ -1,10 +1,10 @@
+import Navbar from "@/components/Calendly/Navbar";
 import React from "react";
-import Navbar from "./Navbar";
 
-export default function Terms(props) {
+export default function Terms() {
   return (
     <>
-      <Navbar />
+      <Navbar content="Join the swans" />
       <div className="desktop:px-[20rem] tablet:px-[10rem] phone:px-5 text-left pt-10 pb-24 text-balck">
         <h1 className="text-[2rem] font-black">Terms and Conditions</h1>
         <p className="text-sm">Effective Date: June 19, 2023</p>
