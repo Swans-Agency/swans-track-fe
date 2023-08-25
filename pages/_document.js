@@ -5,7 +5,7 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
-        <link rel="icon" href="/Light Logo.svg" />
+        <link rel="icon" href="/logoNew.svg" />
 
         <script
           async

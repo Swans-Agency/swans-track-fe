@@ -177,11 +177,14 @@ export default function Navbar({ userPermission }) {
         </div>
 
         <div
-          className={`bg-sidebar  h-[100vh] ${collapsed ? "w-[20px]  hidden" : "w-[256px]"
+          className={`bg-sidebar h-[100vh] ${collapsed ? "w-[20px]  hidden" : "w-[256px]"
             } relative overflow-y-scroll overflow-x-hidden text-textIcons  font-extralight text-md px-2 `}
         >
-          <div className="w-full flex justify-center py-1 sticky top-0 inset-0 bg-sidebar">
-            <Image src="/Light Logo.svg" width={80} height={80} />
+          <div className="w-full flex justify-center py-1 sticky top-0 inset-0 bg-sidebar ">
+            <div className="pt-3">
+
+            <Image src="/logoNew.svg" width={70} height={70} />
+            </div>
           </div>
           {menuItems.map((item, index) => {
             return (
@@ -193,7 +196,6 @@ export default function Navbar({ userPermission }) {
               />
             );
           })}
-
         </div>
       </div>
     </div>

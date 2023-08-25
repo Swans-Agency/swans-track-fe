@@ -7,7 +7,7 @@ export default function HeroPhone() {
   return (
     <div className="px-3 flex flex-col items-center text-center w-[100%] tablet:px-10">
       <Image
-        src="/Dark Logo (1).png"
+        src="/logoNew.svg"
         width={110}
         height={110}
         className="opacity-100"
@@ -17,7 +17,7 @@ export default function HeroPhone() {
       </h1>
       <iframe
         title="SwanS Track Promo"
-        
+
         src="https://www.youtube.com/embed/MIK4ZRDI3ok"
         allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         width="100%"
