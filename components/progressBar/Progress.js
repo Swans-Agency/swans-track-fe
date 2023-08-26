@@ -1,14 +1,22 @@
 import Router from 'next/router';
 import NProgress from 'nprogress';
 
-
 let timer;
 let state;
 let activeRequests = 0;
 const delay = 250;
 
+const excludedUrls = ['/swans-track', '/shared-profile']; // Add URLs to exclude here
+
+function shouldLoadProgress(url) {
+    // Check if the URL is in the list of excluded URLs
+    return !excludedUrls.some(excludedUrl => url.startsWith(excludedUrl));
+}
+
 function load() {
-    if (state === 'loading') {
+    const currentUrl = Router.asPath;
+
+    if (state === 'loading' || !shouldLoadProgress(currentUrl)) {
         return;
     }
 
@@ -20,7 +28,7 @@ function load() {
 }
 
 function stop() {
-    if (activeRequests > 0) {
+    if (activeRequests > 1 || state !== 'loading') {
         return;
     }
 

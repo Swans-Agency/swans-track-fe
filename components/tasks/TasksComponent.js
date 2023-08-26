@@ -8,7 +8,7 @@ import List from "./List";
 import DrawerANTD from "../ANTD/DrawerANTD";
 import TaskForm from "./NewTask";
 import ModalANTD from "../ANTD/ModalANTD";
-import { Empty } from 'antd';
+import { Avatar, Divider, Tooltip } from 'antd';
 
 export default function TasksComponent({ companyTasks, initialData }) {
   const dbRef = useRef(null);
@@ -18,6 +18,7 @@ export default function TasksComponent({ companyTasks, initialData }) {
   const [data, setData] = useState(initialData);
   const [showTag, setShowTag] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [teamMembers, setTeamMembers] = useState([])
 
   const columnNames = {
     "To Do": "toDo",
@@ -48,6 +49,25 @@ export default function TasksComponent({ companyTasks, initialData }) {
       taskIds: [],
     },
   }
+
+  const getAllEmployees = async () => {
+    const url = `${process.env.DIGITALOCEAN}/account/list-employees-no-pagination/`;
+    const employeeData = await getAxios(url);
+    const arrData = employeeData?.map((item) => {
+      return (
+        item
+      )
+    })
+    setTeamMembers(arrData);
+  };
+
+  useEffect(() => {
+    getAllEmployees()
+  }, [])
+
+  useEffect(() => {
+    console.log({ teamMembers })
+  }, [teamMembers])
 
   const onClose = () => {
     setOpen(false);
@@ -207,10 +227,32 @@ export default function TasksComponent({ companyTasks, initialData }) {
 
   return (
     <>
-      <div className="flex justify-end mb-3">
+      <div className="flex justify-between gap-x-4 mb-3">
+        {teamMembers &&
+          <Avatar.Group
+            maxCount={3}
+            size="large"
+            maxStyle={{
+              color: 'white',
+              backgroundColor: '#205295',
+            }}
+            >
+            {teamMembers?.map((item) => {
+              return (
+                <Avatar
+                  src={item?.userProfile?.pfp?.split("?")[0] || "https://xsgames.co/randomusers/avatar.php?g=pixel&key=1"}
+                  className="w-10 h-10 rounded-full border-2"
+                  style={{
+                    border: "1px solid gray"
+                  }}
+                />
+              )
+            })}
+          </Avatar.Group>
+        }
         <button
           onClick={() => handleopenNewTask()}
-          className="flex justify-center items-center gap-x-2 hover:bg-foreignBackground hover:text-white rounded py-[0.35rem] px-2"
+          className="flex justify-center items-center gap-x-2 bg-mainBackground hover:bg-foreignBackground text-white rounded py-[0.35rem] px-2"
         >
           <PlusOutlined /> Add new task
         </button>
@@ -222,13 +264,13 @@ export default function TasksComponent({ companyTasks, initialData }) {
             let columns = data?.columns?.[value];
             let tasks = columns?.taskIds?.map((value) => data?.tasks?.[value]);
             return (
-              <div className=' rounded-lg relative pl-4 pr-2  min-w-[250px] w-[300px] max-h-[85vh] mb-4 h-fit overflow-hidden'>
+              <div className=' rounded-lg relative  min-w-[250px] w-[300px] max-h-[85vh] mb-4 h-fit overflow-hidden'>
                 <div className={`text font-bold rounded text-center p-1 mb-2 sticky inset-0`}>
                   <div className="flex justify-start items-center gap-x-2">
-                  {columns?.title}
-                  <div className="border rounded px-2  text-[0.75rem] bg-gray-50">
-                    {tasks?.length}
-                  </div>
+                    {columns?.title}
+                    <div className="border rounded px-2  text-[0.75rem] bg-gray-50">
+                      {tasks?.length}
+                    </div>
                   </div>
                   <p className={`mt-1 w-full h-[0.1rem] ${borderColor[columns?.title]}`}></p>
                 </div>
@@ -243,7 +285,7 @@ export default function TasksComponent({ companyTasks, initialData }) {
                     setSelectedItem={setSelectedItem}
                     setOpen={openModalUpdate}
                   />
-                </div> 
+                </div>
               </div>
             );
           })}

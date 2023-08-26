@@ -36,7 +36,7 @@ export default function Card({ card, index, showTag, setShowTag, setSelectedItem
             {(provided, snapshot) => (
 
                 <div
-
+                    className="pr-1"
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
                     ref={provided.innerRef}
@@ -57,7 +57,7 @@ export default function Card({ card, index, showTag, setShowTag, setSelectedItem
                                     {card?.taskDescription != "undefined" && card?.taskDescription.length > 2 && card?.taskDescription.substring(0, 60) + "..."}
                                 </p>
                                 <div className="py-2 flex justify-between mt-2">
-                                    <div className={`flex gap-x-1 items-center ${dayjs(card?.dueDate).diff(dayjs(), 'day') < 0 ? "text-red-500" : dayjs(card?.dueDate).diff(dayjs(), 'day') < 2 ? "text-yellow-500" : "text-green-500" }`}><Clock />{dayjs(card?.dueDate).format('D MMM, YYYY')}</div>
+                                    <div className={`flex gap-x-1 items-center ${dayjs(card?.dueDate).diff(dayjs(), 'day') < 0 && card?.taskStatus !== "Completed" ? "text-red-500" : dayjs(card?.dueDate).diff(dayjs(), 'day') < 2 && card?.taskStatus !== "Completed" ? "text-yellow-500" : card?.taskStatus !== "Completed" ? "text-green-500" : "text-black" }`}><Clock />{dayjs(card?.dueDate).format('D MMM, YYYY')}</div>
                                     <div className="w-[30px] h-[30px] hover:cursor-auto">
                                         <img src={card?.assignee?.pfp?.split('?')[0]} title={card?.assignee?.name} className="w-full h-full rounded-full border-2 p-1" />
                                     </div>

@@ -34,17 +34,17 @@
 
 /* Change the color of the scrollbar track */
 ::-webkit-scrollbar-track {
-  background-color: #1c212821;
+  background-color: #1c212800;
 }
 
 /* Change the color of the scrollbar thumb */
 ::-webkit-scrollbar-thumb {
-  background-color: #515457;
+  background-color: #205295;
 }
 
 /* Change the color of the scrollbar thumb when hovered */
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #515457;
+  background-color: #205295;
   cursor: pointer !important;
 }
 

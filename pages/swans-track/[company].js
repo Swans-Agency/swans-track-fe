@@ -11,6 +11,9 @@ export default function SchedTrack() {
   const [calData, setCalData] = useState({});
   const [companyId, setCompanyId] = useState(router.query.company);
   const [selectedDay, setSelectedDay] = useState([]);
+  const [dataTimeZone, setDataTimeZone] = useState("");
+  const [newTimeZone, setNewTimeZone] = useState(dataTimeZone);
+
   const getCalData = async (companyId) => {
     let res = await getAxios(
       `${process.env.DIGITALOCEAN}/calendy/sched/public/${companyId}/`,
@@ -18,6 +21,7 @@ export default function SchedTrack() {
       false,
       setCalData
     );
+    setDataTimeZone(res?.timeZone)
   };
 
   useEffect(() => {
@@ -30,18 +34,24 @@ export default function SchedTrack() {
   return (
     <section>
       <Navbar content="Get your calendar" />
-      <div className="w-[100%] items-center content-center mt-10">
-        <div className="w-[90%] m-auto flex justify-center gap-20">
-          <CalendlyForm
-            data={calData}
-            selectedDay={selectedDay}
-            companyId={companyId}
-          />
-          <Calender data={calData} setSelectedDay={setSelectedDay} />
+      <div className="mt-10">
+        <div className="desktop:grid desktop:grid-cols-[1fr_1fr] tablet:px-[15rem] phone:px-4 phone:flex phone:flex-col-reverse  gap-x-20">
+          <div>
+            <CalendlyForm
+              data={calData}
+              selectedDay={selectedDay}
+              companyId={companyId}
+              dataTimeZone={dataTimeZone}
+              newTimeZone={newTimeZone}
+            />
+          </div>
+          <div>
+            <Calender data={calData} setSelectedDay={setSelectedDay} dataTimeZone={dataTimeZone} setNewTimeZone={setNewTimeZone} newTimeZone={newTimeZone} />
+          </div>
         </div>
       </div>
 
-      <footer className="text-sm">
+      <footer className="text-sm phone:mb-4 tablet:mb-0">
         <div className="text-center">
           <h1 className=" text-gray-600">Swans Track &copy; 2023</h1>
           <div>
