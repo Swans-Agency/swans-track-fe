@@ -4,20 +4,24 @@ import FormButtons from "../ANTD/FormButtons";
 import { postAxios } from "@/functions/ApiCalls";
 import { useRouter } from "next/router";
 import dayjs from "dayjs";
+import moment from 'moment-timezone';
 
-export default function CalendlyForm({ data, selectedDay, companyId }) {
+export default function CalendlyForm({ data, selectedDay, companyId, dataTimeZone, newTimeZone }) {
   const [options, setOptions] = useState([]);
+
   const router = useRouter();
 
   const onFinish = async (values) => {
 
-    const Data = 
-      {...values,
-        appointmentDate:dayjs(selectedDay).format("YYYY-MM-DD")}
-      console.log(Data);
+    const Data =
+    {
+      ...values,
+      appointmentDate: dayjs(selectedDay).format("YYYY-MM-DD")
+    }
+    console.log(Data);
 
     let url = `${process.env.DIGITALOCEAN}/calendy/sched/public/book/${companyId}/`;
-    let res = await postAxios(url, Data, true, true, () => {});
+    let res = await postAxios(url, Data, true, true, () => { });
     router.reload();
   };
 
@@ -27,18 +31,34 @@ export default function CalendlyForm({ data, selectedDay, companyId }) {
       { day: selectedDay },
       false,
       false,
-      () => {}
+      () => { }
     );
+    setOptions([])
     let arr = [];
     res?.map((item) => {
-      return arr.push({
-        label: `${item?.fromHour.replace(".", ":")} - ${item?.toHour.replace(
-          ".",
-          ":"
-        )}`,
-        value: item?.id,
-      });
-    });
+      console.log(dataTimeZone,"sss", newTimeZone, "ddd")
+
+      console.log(typeof(dataTimeZone), typeof(newTimeZone))
+
+      if (dataTimeZone !== newTimeZone && dataTimeZone && newTimeZone) {
+        const fromTime = moment.tz(item.fromHour, 'HH.mm', dataTimeZone);
+        const toTime = moment.tz(item.toHour, 'HH.mm', dataTimeZone);
+
+        item.fromHour = moment.tz(fromTime, 'HH.mm', newTimeZone)
+        item.toHour = moment.tz(toTime, 'HH.mm', newTimeZone)
+
+        return arr.push({
+          label: `${item?.fromHour.format("HH:mm")} - ${item?.toHour.format("HH:mm")}`,
+          value: item?.id,
+        });
+      } else {
+        return arr.push({
+          label: `${item?.fromHour.replace(".", ":")} - ${item?.toHour.replace(".", ":")}`,
+          value: item?.id,
+        });
+      }
+    }
+      );
     setOptions(arr);
   };
 
@@ -46,11 +66,11 @@ export default function CalendlyForm({ data, selectedDay, companyId }) {
     if (companyId) {
       getOptions();
     }
-  }, [selectedDay]);
+  }, [selectedDay, newTimeZone]);
 
   return (
     <section>
-      <h1 className="font-semibold pb-10 text-start -tracking-tighter">
+      <h1 className="text-3xl font-light tracking-tight text-black pb-7">
         Book your {data?.duration * 100} min appointment
       </h1>
       <Form
@@ -122,7 +142,7 @@ export default function CalendlyForm({ data, selectedDay, companyId }) {
         <div className="w-full">
           <Form.Item>
             <FormButtons
-              classNames={"w-full py-[0.5rem]"}
+              classNames={"w-full py-[0.55rem]"}
               content="Book Appointment"
             />
           </Form.Item>

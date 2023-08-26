@@ -6,8 +6,8 @@ export default function Navbar({ content }) {
 
   return (
     <div className="flex px-[10%] bg-sidebar text-white">
-      <div className="flex-1 ">
-        <Image src="/logoNew.svg" width={80} height={80} />
+      <div className="flex-1">
+        <Image src="/logoNew.svg" width={60} height={60} className='py-2' />
       </div>
       <div className="flex-none  bg-foreignBackground hover:bg-mainBackground self-center px-4 py-2 rounded-xl">
         <ul className="menu menu-horizontal px-1">

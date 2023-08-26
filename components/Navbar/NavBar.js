@@ -27,6 +27,28 @@ import { NavCollapse } from "@/context/NavContext";
 import { logout } from "@/functions/GeneralFunctions";
 import MenuItem from "./MenuItem";
 import { useRouter } from "next/router";
+import Dashboard from "./Icons/Dashboard";
+import Arrows from "./Icons/Arrows";
+import TrendingUp from "./Icons/TrendingUp";
+import TrendingDown from "./Icons/TrendingDown";
+import Chart from "./Icons/Chart";
+import ProposalInvoice from "./Icons/ProposalInvoice";
+import Proposal from "./Icons/Proposal";
+import Invoice from "./Icons/Invoice";
+import CalendarIcon from "./Icons/CalendarIcon";
+import Tasks from "./Icons/Tasks";
+import Clients from "./Icons/Clients";
+import TeamMembers from "./Icons/TeamMembers";
+import User from "./Icons/User";
+import Company from "./Icons/Company";
+import Money from "./Icons/Money";
+import Support from "./Icons/Support";
+import Collapse from "./Icons/Collapse";
+import Logout from "./Icons/Logout";
+import Expand from "./Icons/Expand";
+import GearIcon from "./Icons/GearIcon";
+import Booked from "./Icons/Booked";
+import SchedIcon from "./Icons/SchedIcon";
 
 export default function Navbar({ userPermission }) {
   const router = useRouter();
@@ -36,166 +58,152 @@ export default function Navbar({ userPermission }) {
     {
       key: "dashboard",
       label: "Dashboard",
-      icon: <DashboardOutlined />,
+      icon: <Dashboard />,
     },
     {
       label: "Ins & Outs",
-      icon: <SwapOutlined />,
+      icon: <Arrows />,
       arrow: <DownOutlined />,
       children: [
         {
           key: "ins-out/income",
           label: "Incomes",
-          icon: <LoginOutlined />,
+          icon: <TrendingUp />,
         },
         {
           key: "ins-out/expenses",
           label: "Expenses",
-          icon: <LogoutOutlined />,
+          icon: <TrendingDown />,
         },
       ],
     },
     {
       key: "reports",
       label: "Reports",
-      icon: <DotChartOutlined />,
+      icon: <Chart />,
     },
     {
       label: "Proposals & Invoices",
-      icon: <FileTextOutlined />,
+      icon: <ProposalInvoice />,
       arrow: <DownOutlined />,
       children: [
         {
           key: "invoice/proposal",
           label: "Proposals",
-          icon: <ReconciliationOutlined />,
+          icon: <Proposal />,
         },
         {
           key: "invoice",
           label: "Invoices",
-          icon: <MedicineBoxOutlined />,
+          icon: <Invoice />,
         },
       ],
     },
     {
       key: "calendar",
       label: "Calendar",
-      icon: <CalendarOutlined />,
+      icon: <CalendarIcon />,
     },
     {
       label: "Sched Track",
-      icon: <AlignLeftOutlined />,
+      icon: <SchedIcon />,
       arrow: <DownOutlined />,
       children: [
         {
           key: "sched-track/appointments",
           label: "Appointments",
-          icon: <SnippetsOutlined />,
+          icon: <Booked />,
         },
         {
           key: "sched-track/settings",
           label: "Settings",
-          icon: <SettingOutlined />,
+          icon: <GearIcon />,
         },
       ],
     },
     {
       key: "tasks",
       label: "Tasks",
-      icon: <SnippetsOutlined />,
+      icon: <Tasks />,
     },
     {
       key: "client",
       label: "Clients List",
-      icon: <ProfileOutlined />,
+      icon: <Clients />,
     },
     {
       key: "team",
       label: "Team Members",
-      icon: <TeamOutlined />,
+      icon: <TeamMembers />,
     },
     {
       key: "company-preference",
       label: "Company Preferences",
-      icon: <ReconciliationOutlined />,
+      icon: <GearIcon />,
       permissions: ["Admin", "Supervisor"],
     },
     {
       key: "profile",
       label: "Profile",
-      icon: <UserOutlined />,
+      icon: <User />,
       divider: true,
     },
     {
       key: "settings",
       label: "Billing & Plans",
-      icon: <ShopOutlined />,
+      icon: <Money />,
       permissions: ["Admin"],
     },
     {
       key: "support",
       label: "Support & Tickets",
-      icon: <CustomerServiceOutlined />,
+      icon: <Support />,
     },
     {
       key: "collapse",
       label: "Collapse Sidebar",
-      icon: <MenuFoldOutlined />,
+      icon: <Collapse />,
     },
     {
       key: "logout",
       label: "Logout",
-      icon: <ExportOutlined />,
+      icon: <Logout />,
     },
   ];
-
-
-  const Routing = (key) => {
-    if (key === "logout") {
-      logout();
-    } else {
-      router.push(`/authorized/${key}`);
-    }
-  };
 
   return (
     <div className="sticky top-0 left-0 !z-[10000]">
       <div className="absolute !z-[1000]">
         <div
-          className={`absolute  ${!collapsed
-            ? "hidden"
-            : "left-0 h-[100vh] top-0 "
-            }  p-1 bg-sidebar flex items-center hover:cursor-pointer`}
+          className={`${!collapsed ? "hidden" : "left-0 h-[100vh] top-0 "} text-textIcons  p-1 bg-sidebar flex items-center hover:cursor-pointer`}
           onClick={toggleCollapsed}
           title={collapsed ? "Expand Sidebar" : "Collapse Sidebar"}
         >
-          {!collapsed ? (
-            <MenuFoldOutlined className="text-textIcons" />
-          ) : (
-            <MenuUnfoldOutlined className="text-textIcons" />
-          )}
+          <Expand />
         </div>
 
         <div
-          className={`bg-sidebar h-[100vh] ${collapsed ? "w-[20px]  hidden" : "w-[256px]"
-            } relative overflow-y-scroll overflow-x-hidden text-textIcons  font-extralight text-md px-2 `}
+          className={`bg-navbar h-[100vh] ${collapsed ? "w-[20px]  hidden" : "w-[256px] rounded-r-xl"
+            } fixed overflow-hidden text-textIcons font-extralight px-2`}
         >
-          <div className="w-full flex justify-center py-1 sticky top-0 inset-0 bg-sidebar ">
+          <div className="w-full flex justify-center py-1 sticky top-0 inset-0 bg-navbar ">
             <div className="pt-3">
-
-            <Image src="/logoNew.svg" width={70} height={70} />
+              <Image src="/logoNew.svg" width={60} height={60} />
             </div>
           </div>
-          {menuItems.map((item, index) => {
-            return (
-              <MenuItem
-                item={item}
-                index={index}
-                userPermission={userPermission}
-                toggleCollapsed={toggleCollapsed}
-              />
-            );
-          })}
+
+          <div className="h-[80vh] pr-2 overflow-y-scroll">
+            {menuItems.map((item, index) => {
+              return (
+                <MenuItem
+                  item={item}
+                  index={index}
+                  userPermission={userPermission}
+                  toggleCollapsed={toggleCollapsed}
+                />
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>

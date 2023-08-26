@@ -22,6 +22,7 @@
     "dayjs": "^1.11.8",
     "firebase": "^9.22.1",
     "moment": "^2.29.4",
+    "moment-timezone": "^0.5.43",
     "next": "13.4.7",
     "nprogress": "^0.2.0",
     "postcss": "8.4.24",
