@@ -49,6 +49,7 @@ import Expand from "./Icons/Expand";
 import GearIcon from "./Icons/GearIcon";
 import Booked from "./Icons/Booked";
 import SchedIcon from "./Icons/SchedIcon";
+import Gpt from "./Icons/Gpt";
 
 export default function Navbar({ userPermission }) {
   const router = useRouter();
@@ -125,6 +126,11 @@ export default function Navbar({ userPermission }) {
       key: "tasks",
       label: "Tasks",
       icon: <Tasks />,
+    },
+    {
+      key: "swan-ai",
+      label: "Intelligent Swan",
+      icon: <Gpt />,
     },
     {
       key: "client",

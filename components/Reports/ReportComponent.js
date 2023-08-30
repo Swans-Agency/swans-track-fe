@@ -11,6 +11,12 @@ import { getAxios } from "@/functions/ApiCalls";
 import { NotificationLoading } from "@/functions/Notifications";
 import CardANTD from "../ANTD/CardANTD";
 import ChildrenContent from "./ChildrenContent";
+import TrendingDown from "../Navbar/Icons/TrendingDown";
+import TrendingUp from "../Navbar/Icons/TrendingUp";
+import Proposal from "../Navbar/Icons/Proposal";
+import Invoice from "../Navbar/Icons/Invoice";
+import Tasks from "../Navbar/Icons/Tasks";
+import Clients from "../Navbar/Icons/Clients";
 export default function ReportComponent() {
   const classNames =
     "text-linkColor hover:text-linkColorHover hover:cursor-pointer";
@@ -23,38 +29,38 @@ export default function ReportComponent() {
 
   const panels = [
     {
-      icon: <LogoutOutlined />,
+      icon: <TrendingDown />,
       header: "Expense Transactions",
       key: "expense",
     },
     {
-      icon: <LoginOutlined />,
+      icon: <TrendingUp />,
       header: "Income Transactions",
       key: "income",
     },
     {
-      icon: <ReconciliationOutlined />,
+      icon: <Proposal />,
       header: "Proposals",
       key: "proposal",
     },
     {
-      icon: <UnorderedListOutlined />,
+      icon: <Tasks />,
       header: "Proposal Items",
       key: "proposal-items",
     },
     {
-      icon: <MedicineBoxOutlined />,
+      icon: <Invoice />,
       header: "Invoices",
       key: "invoice",
     },
     {
-      icon: <UnorderedListOutlined />,
+      icon: <Tasks />,
       header: "Invoice Items",
       key: "invoice-items",
     },
 
     {
-      icon: <ProfileOutlined />,
+      icon: <Clients />,
       header: "Clients",
       key: "clients",
     },

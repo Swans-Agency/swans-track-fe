@@ -1,18 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { Form, Input, Select } from "antd";
 import FormButtons from "../ANTD/FormButtons";
-import { postAxios } from "@/functions/ApiCalls";
+import { useForm } from 'antd/lib/form/Form';
 import { useRouter } from "next/router";
 import dayjs from "dayjs";
 import moment from 'moment-timezone';
+import axios from "axios";
+import { NotificationLoading, NotificationSuccess } from "@/functions/Notifications";
 
 export default function CalendlyForm({ data, selectedDay, companyId, dataTimeZone, newTimeZone }) {
   const [options, setOptions] = useState([]);
 
   const router = useRouter();
+  const [form] = useForm();
+
+  const handleReset = () => {
+    form.resetFields(); // Reset all form fields to their initial values
+  };
 
   const onFinish = async (values) => {
-
+    NotificationLoading()
     const Data =
     {
       ...values,
@@ -21,24 +28,20 @@ export default function CalendlyForm({ data, selectedDay, companyId, dataTimeZon
     console.log(Data);
 
     let url = `${process.env.DIGITALOCEAN}/calendy/sched/public/book/${companyId}/`;
-    let res = await postAxios(url, Data, true, true, () => { });
-    router.reload();
+    let res = await axios.post(url, Data);
+    NotificationSuccess()
+    handleReset()
   };
 
   const getOptions = async () => {
-    let res = await postAxios(
-      `${process.env.DIGITALOCEAN}/calendy/sched/public/${companyId}/`,
-      { day: selectedDay },
-      false,
-      false,
-      () => { }
-    );
+    const url = `${process.env.DIGITALOCEAN}/calendy/sched/public/${companyId}/`
+    let res = await axios.post(url, { day: selectedDay })
     setOptions([])
     let arr = [];
-    res?.map((item) => {
-      console.log(dataTimeZone,"sss", newTimeZone, "ddd")
+    res?.data?.map((item) => {
+      console.log(dataTimeZone, "sss", newTimeZone, "ddd")
 
-      console.log(typeof(dataTimeZone), typeof(newTimeZone))
+      console.log(typeof (dataTimeZone), typeof (newTimeZone))
 
       if (dataTimeZone !== newTimeZone && dataTimeZone && newTimeZone) {
         const fromTime = moment.tz(item.fromHour, 'HH.mm', dataTimeZone);
@@ -58,7 +61,7 @@ export default function CalendlyForm({ data, selectedDay, companyId, dataTimeZon
         });
       }
     }
-      );
+    );
     setOptions(arr);
   };
 
@@ -74,6 +77,7 @@ export default function CalendlyForm({ data, selectedDay, companyId, dataTimeZon
         Book your {data?.duration * 100} min appointment
       </h1>
       <Form
+        form={form}
         onFinish={onFinish}
         layout="vertical"
         style={{
@@ -86,7 +90,7 @@ export default function CalendlyForm({ data, selectedDay, companyId, dataTimeZon
           <Form.Item
             label="First name"
             name="firstName"
-            className="w-full"
+            className="w-full mb-2"
             required
             rules={[
               {
@@ -96,24 +100,43 @@ export default function CalendlyForm({ data, selectedDay, companyId, dataTimeZon
           >
             <Input className="rounded w-full" size="large" />
           </Form.Item>
-          <Form.Item label="Last name" name="lastName" className="w-full">
+          <Form.Item label="Last name" name="lastName" required
+            rules={[
+              {
+                required: true,
+              },
+            ]} className="w-full  mb-2">
             <Input className="rounded w-full" size="large" />
           </Form.Item>
         </div>
+        <div className="flex gap-x-5 w-full mt-0">
+          <Form.Item label="Phone number" name="phoneNumber" required
+            rules={[
+              {
+                required: true,
+              },
+            ]} className="w-full  mb-2">
+            <Input className="rounded w-full" size="large" />
+          </Form.Item>
+          
+          <Form.Item
+            label="Email"
+            rules={[
+              {
+                required: true,
+              },
+              { type: "email" },
+            ]}
+            name="email"
+            className="w-full mb-2"
+          >
+            <Input className="rounded w-full" size="large" />
+          </Form.Item>
 
-        <Form.Item
-          label="Email"
-          rules={[
-            {
-              required: true,
-            },
-            { type: "email" },
-          ]}
-          name="email"
-          className="w-full"
-        >
-          <Input className="rounded w-full" size="large" />
-        </Form.Item>
+          
+
+
+        </div>
 
         <Form.Item
           rules={[
@@ -123,14 +146,21 @@ export default function CalendlyForm({ data, selectedDay, companyId, dataTimeZon
           ]}
           name="summary"
           label="Appointment Summary"
+          className="mb-2"
         >
-          <Input.TextArea rows={3} />
+          <Input.TextArea
+            autoSize={{
+              minRows: 4,
+              maxRows: 4,
+            }}
+          />
         </Form.Item>
 
         <Form.Item
           name="id"
           label="Time Range"
-          rules={[{ required: true, message: "Province is required" }]}
+          className="mb-2"
+          rules={[{ required: true, message: "Time range is required" }]}
         >
           <Select
             placeholder="Select province"

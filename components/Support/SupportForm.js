@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Form, Input, InputNumber } from "antd";
 import { postAxios } from "@/functions/ApiCalls";
+import FormButtons from "../ANTD/FormButtons";
 
 /* eslint-disable no-template-curly-in-string */
 const validateMessages = {
@@ -24,7 +25,7 @@ const onFinish = async(values) => {
 export default function SupportForm(props) {
   return (
     <>
-      <div className="text-3xl font-light tracking-tight mb-3">
+      <div className="text-3xl font-light tracking-tight mb-1">
         <h1>Love to Hear from you</h1>
         <h1>Get in touch👋</h1>
       </div>
@@ -39,6 +40,7 @@ export default function SupportForm(props) {
         validateMessages={validateMessages}
       >
         <Form.Item
+        className="mb-1"
           name={"name"}
           label="Name"
           rules={[
@@ -47,9 +49,10 @@ export default function SupportForm(props) {
             },
           ]}
         >
-          <Input />
+          <Input size="large" />
         </Form.Item>
         <Form.Item
+        className="mb-1"
           name={"email"}
           label="Email"
           rules={[
@@ -60,19 +63,21 @@ export default function SupportForm(props) {
             },
           ]}
         >
-          <Input />
+          <Input size="large" />
         </Form.Item>
         <Form.Item
+        className="mb-1"
           name={"phone"}
           label="Phone Number"
           rules={[
             { required: true, message: "Please input your phone number!" },
           ]}
         >
-          <InputNumber min={0} className="rounded  w-full" />
+          <Input  size="large" />
         </Form.Item>
 
         <Form.Item
+        className="mb-1"
           name={"message"}
           label="Message"
           rules={[
@@ -81,14 +86,9 @@ export default function SupportForm(props) {
         >
           <Input.TextArea rows={4} />
         </Form.Item>
-        <Form.Item
-        //  className="flex flex-row-reverse"
-        >
-          <Button type="primary" htmlType="submit">
-            Submit
-          </Button>
+        <Form.Item className="w-full">
+          <FormButtons content="Save" classNames="w-full py-2" />
         </Form.Item>
-        {/* <NotificationSuccess/> */}
       </Form>
     </>
   );

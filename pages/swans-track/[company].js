@@ -4,6 +4,7 @@ import CalendlyForm from "@/components/Calendly/CalendlyForm";
 import Calender from "@/components/Calendly/Calender";
 import { useRouter } from "next/router";
 import { getAxios } from "@/functions/ApiCalls";
+import axios from "axios";
 
 export default function SchedTrack() {
   const router = useRouter();
@@ -15,13 +16,18 @@ export default function SchedTrack() {
   const [newTimeZone, setNewTimeZone] = useState(dataTimeZone);
 
   const getCalData = async (companyId) => {
-    let res = await getAxios(
-      `${process.env.DIGITALOCEAN}/calendy/sched/public/${companyId}/`,
-      false,
-      false,
-      setCalData
-    );
-    setDataTimeZone(res?.timeZone)
+    const url = `${process.env.DIGITALOCEAN}/calendy/sched/public/${companyId}/`
+    let res = await axios.get(url)
+    if (res?.status === 200) {
+      setCalData(res?.data)
+      setDataTimeZone(res?.data?.timeZone)
+    }
+    // let res = await getAxios(
+    //   `${process.env.DIGITALOCEAN}/calendy/sched/public/${companyId}/`,
+    //   false,
+    //   false,
+    //   setCalData
+    // );
   };
 
   useEffect(() => {
@@ -51,7 +57,7 @@ export default function SchedTrack() {
         </div>
       </div>
 
-      <footer className="text-sm phone:mb-4 tablet:mb-0">
+      <footer className="text-sm phone:mb-4 tablet:mb-0 mt-4">
         <div className="text-center">
           <h1 className=" text-gray-600">Swans Track &copy; 2023</h1>
           <div>

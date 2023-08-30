@@ -128,7 +128,7 @@ export default function Profile() {
         <Form.Item label="Position" name="position" className="w-full">
           <Input className="rounded" disabled />
         </Form.Item>
-        <p className="text-foreignBackground">
+        <p className="text-gray-400">
           This account was created on {userCreateDate}
         </p>
         <Divider />

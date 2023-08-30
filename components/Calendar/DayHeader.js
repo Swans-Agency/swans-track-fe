@@ -46,17 +46,17 @@ export default function DayHeader({ date, isConnected }) {
         {format(new Date(), "dd/MM/yyyy") ==
         format(new Date(date), "dd/MM/yyyy") ? (
           <div className="sticky top-0 left-0 w-full bg-gray-100">
-            <p className="text-blue-500 font-bold">{format(date, "dd")}</p>
-            <p className="text-black text-xs font-light">
+            <p className="text-blue-500 font-bold pt-1">{format(date, "dd")}</p>
+            {/* <p className="text-black text-xs font-light">
               {format(date, "EEE")}
-            </p>
+            </p> */}
           </div>
         ) : (
           <div className=" bg-gray-100">
-            <p className="text-black">{format(date, "dd")}</p>
-            <p className="text-black text-xs font-light">
+            <p className="text-black pt-1">{format(date, "dd")}</p>
+            {/* <p className="text-black text-xs font-light">
               {format(date, "EEE")}
-            </p>
+            </p> */}
           </div>
         )}
       </div>

@@ -14,7 +14,7 @@ export default function AuthWrapper({ children }) {
 
   const checkAuthorization = () => {
     const token = cookie.load("AccessTokenSBS", { path: "/" });
-    const path = "authorized";
+    const path = "/authorized";
     if (router.pathname.includes(path)) {
       if (!token) {
         window.location.href = ("/401");
