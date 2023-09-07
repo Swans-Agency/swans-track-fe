@@ -19,13 +19,27 @@ import {
 import { getAxios, postAxios } from "@/functions/ApiCalls";
 import FormButtons from "../ANTD/FormButtons";
 
-export default function ProposalForm({ setReload, onClose }) {
+export default function ProposalForm({ setReload, onClose, getAllProposals=()=>{}}) {
   const [disabledSelectCurrency, setDisabledCurrency] = useState(false);
   const [clientData, setClientData] = useState([]);
   const [numberofItems, setNumberofItems] = useState(0);
   const [form] = Form.useForm();
   let logoPicList = [];
   let signaturePicList = [];
+  const [clientsData, setClientsData] = useState([]);
+  useEffect(() => {
+    GetAllClient()
+  }, []);
+
+  const GetAllClient = async () => {
+    const url = `${process.env.DIGITALOCEAN}/client/get-clients/`;
+    const clientSearchData = await getAxios(url);
+    const arrData = clientSearchData?.map((item) => ({
+      value: item.id,
+      label: `${item.firstName} ${item.lastName}`,
+    }));
+    setClientsData(arrData);
+  };
 
   useEffect(() => {
     getUserInitialData();
@@ -88,6 +102,7 @@ export default function ProposalForm({ setReload, onClose }) {
 
     const url = `${process.env.DIGITALOCEAN}/invoice/create-proposal/`;
     let res = await postAxios(url, data, true, true, ()=>{});
+    getAllProposals()
     setReload(res);
     onClose()
   };
@@ -117,7 +132,7 @@ export default function ProposalForm({ setReload, onClose }) {
             }}
             filterOption={false}
             onSearch={searchClient}
-            options={clientData}
+            options={clientsData}
           />
         </Form.Item>
         <Form.Item

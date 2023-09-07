@@ -1,12 +1,10 @@
 import React from "react";
-
-import DoughnutChart from "./DoughnutChart";
-import LineChart from "./LineChart";
-import BarChart from "./BarChart";
 import CardPercent from "./CardPercent";
 import Quote from "./Quote";
-import Circular from "./circular";
-import LinearChart from "./LinearChart";
+import ChartANtd from "@/pages/authorized/dashboard/ChartANtd";
+import RoseChart from "./RoseChart";
+import ColumnChart from "./ColumnChart";
+import ProjectsChart from "@/pages/authorized/dashboard/ProjectsChart";
 
 export default function Dashboard({
   quotes,
@@ -21,14 +19,17 @@ export default function Dashboard({
   expenseAlltime,
   incomeAlltime,
   incomePayment,
+  projectsAlltime
 }) {
   return (
-    <div className="grid laptop:grid-cols-[1fr_1fr_1fr] tablet:grid-cols-[1fr_1fr] sm:grid-cols-[1fr] gap-4 mb-4 overflow-hidden">
+    <div className="grid laptop:grid-cols-3 phone:grid-cols-1 gap-4">
       <Quote quotes={quotes} />
-
+      
       <CardPercent
         title="Monthly Proposals"
         main={proposals?.percentChange}
+        // classes={'bg-[#d1a404]'}
+        classes={'bg-gray-200'}
         percent={proposals?.percentChange}
         number={<>{proposals?.currentMonthProposals || 0}</>}
         color={"bg-[#947404]"}
@@ -73,6 +74,8 @@ export default function Dashboard({
           </svg>
         }
         color={"bg-[#00736C]"}
+        // classes={"bg-[#029e95]"}
+        classes={'bg-gray-200'}
       />
       <CardPercent
         title="Proposals Invoices Ratio"
@@ -84,6 +87,8 @@ export default function Dashboard({
           </>
         }
         color={"bg-[#630073]"}
+        // classes={"bg-[#8f02a6]"}
+        classes={'bg-gray-200'}
         icon={
           <svg
             width="32"
@@ -108,6 +113,8 @@ export default function Dashboard({
         percent={clients?.percentChange}
         number={<>{clients?.currentMonthClients || 0}</>}
         color={"bg-[#002073]"}
+        // classes={"bg-[#0234b5]"}
+        classes={'bg-gray-200'}
         icon={
           <svg
             width="32"
@@ -132,6 +139,8 @@ export default function Dashboard({
         percent={expenses?.percentChange || 0}
         number={<>{expenses?.currentMonthExpenses || 0}</>}
         color={"bg-[#730000]"}
+        // classes={"bg-[#a30202]"}
+        classes={'bg-gray-200'}
         icon={
           <svg
             width="32"
@@ -156,6 +165,8 @@ export default function Dashboard({
         percent={income?.percentChange}
         number={<>{income?.currentMonthIncome || 0}</>}
         color={"bg-[#00732E]"}
+        // classes={"bg-[#008a36]"}
+        classes={'bg-gray-200'}
         icon={
           <svg
             width="32"
@@ -175,31 +186,59 @@ export default function Dashboard({
         }
       />
 
-      <LinearChart
-        title="Expenses & Income Alltime"
-        chart={
-          <LineChart
+      <div className="rounded-2xl bg-gray-200 px-6 py-8 col-span-2 relative">
+        <img className="!z-0 absolute top-0 right-0 h-[100%]" src={"https://demo.bootstrapdash.com/purple-admin-free/assets/images/dashboard/circle.svg"} />
+        <p className="font-light  text-lg">Expenses & Income All-time</p>
+        <div className="pt-8">
+          <ChartANtd
             expenseAlltime={expenseAlltime}
             incomeAlltime={incomeAlltime}
           />
-        }
-        classs={"col-span-2"}
-      />
-      <Circular
-        title="Expenses by Category"
-        chart={<DoughnutChart expensesCategory={expensesCategory} />}
-      />
+        </div>
+      </div>
 
-      <Circular
-        title="Income by Payment Method"
-        chart={<DoughnutChart expensesCategory={incomePayment} />}
-      />
+      <div className="rounded-2xl bg-gray-200 px-6 py-8 relative">
+        <img className="!z-0 absolute top-0 right-0 h-[100%]" src={"https://demo.bootstrapdash.com/purple-admin-free/assets/images/dashboard/circle.svg"} />
+        <p className="font-light  text-lg">Expenses by Category</p>
+        <div className="pt-8">
+          <RoseChart
+            dataSet={expensesCategory}
+            type={"category"}
+          />
+        </div>
+      </div>
 
-      <LinearChart
-        title="Clients by Referral Source"
-        chart={<BarChart clientsCategory={clientsCategory} />}
-        classs={"col-span-2"}
-      />
+      <div className="rounded-2xl bg-gray-200 px-6 py-8 relative">
+        <img className="!z-0 absolute top-0 right-0 h-[100%]" src={"https://demo.bootstrapdash.com/purple-admin-free/assets/images/dashboard/circle.svg"} />
+        <p className="font-light  text-lg">Income by Payment Method</p>
+        <div className="pt-8">
+          <RoseChart
+            dataSet={incomePayment}
+            type={"paymentMethod"}
+          />
+        </div>
+      </div>
+
+      <div className="rounded-2xl bg-gray-200 px-6 py-8 col-span-2 relative">
+        <img className="!z-0 absolute top-0 right-0 h-[100%]" src={"https://demo.bootstrapdash.com/purple-admin-free/assets/images/dashboard/circle.svg"} />
+        <p className="font-light  text-lg">Clients by Referral Source</p>
+        <div className="pt-8">
+          <ColumnChart
+            clientsCategory={clientsCategory}
+          />
+        </div>
+      </div>
+
+      <div className="rounded-2xl bg-gray-200 px-6 py-8 col-span-3 relative">
+        <img className="!z-0 absolute top-0 right-0 h-[100%]" src={"https://demo.bootstrapdash.com/purple-admin-free/assets/images/dashboard/circle.svg"} />
+        <p className="font-light text-lg">Projects All-time</p>
+        <div className="pt-8">
+          <ProjectsChart
+            projectsAlltime={projectsAlltime}
+          />
+        </div>
+      </div>
+      
     </div>
   );
 }

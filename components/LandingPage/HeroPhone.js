@@ -30,11 +30,19 @@ export default function HeroPhone() {
         <span className="font-bold">magic</span> powered{" "}
         <span className="font-bold">management</span> tools.
       </p>
-      <button
+      <a href="/login" class="relative inline-block w-full text-lg group">
+        <span class="relative z-10 block px-5 py-[1rem] overflow-hidden font-medium leading-tight text-red-600 transition-colors duration-300 ease-out border-2 border-red-600 rounded-lg group-hover:text-white">
+          <span class="absolute inset-0 w-full h-full px-5 py-3 rounded-lg bg-gray-50"></span>
+          <span class="absolute left-0 w-full h-48  transition-all duration-300 origin-top-right -rotate-90 -translate-x-full translate-y-12 bg-red-600 group-hover:-rotate-180 ease"></span>
+          <span class="relative">Join the Swans</span>
+        </span>
+        <span class="absolute bottom-0 right-0 w-full h-12 -mb-1 -mr-1 transition-all duration-200 ease-linear bg-red-600 rounded-lg group-hover:mb-0 group-hover:mr-0" data-rounded="rounded-lg"></span>
+      </a>
+      {/* <button
         className="py-3 px-8 text-[1.25rem] text-white hover:text-[#dc2626] hover:bg-white bg-[#dc2626] rounded-lg border border-[#dc2626] flex items-center gap-x-2"
-        onClick={() => router.push("/signup")}
+        onClick={() => router.push("/login")}
       >
-        Get Exclusive Access
+        Don't Click Here
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -49,7 +57,7 @@ export default function HeroPhone() {
             d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
           />
         </svg>
-      </button>
+      </button> */}
     </div>
   );
 }

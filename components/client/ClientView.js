@@ -80,6 +80,7 @@ export default function ClientView() {
             style={{
               width: 90,
             }}
+            type="primary"
           >
             Reset
           </Button>

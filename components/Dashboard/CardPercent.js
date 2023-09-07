@@ -7,6 +7,7 @@ export default function CardPercent({
   icon,
   color,
   number,
+  classes
 }) {
   const formatNumber = (number) => {
     if (Math.abs(number) >= 1000 && Math.abs(number) < 1000000) {
@@ -18,68 +19,35 @@ export default function CardPercent({
   };
 
   return (
-    <div>
-      {main > 0 ? (
-         <div className="grid rounded bg-gray-100  hover:shadow-gray-300 px-5 py-5">
-         <div className="space-y-1">
-           <div className="grid justify-items-stretch">
-             <div
-               className={`${color} p-2 rounded-2xl w-12 justify-self-center`}
-             >
-               {icon}
-             </div>
-           </div>
-           <h1 className="text-lg font-light text-center">{title}</h1>
-           <h1 className="font-thin tracking-tight text-2xl text-center">
-             {number}
-           </h1>
-           <div className="flex items-center justify-center gap-x-1 text-lg text-gray-500"></div>
-           <div className="flex text-green-600 items-center justify-center gap-x-1 font-semibold">
-             <RiseOutlined style={{ fontSize: "1.3rem" }} />
-             <div className="flex gap-x-1">
-               +{typeof formatNumber(percent * -1) != NaN
-                 ? formatNumber(percent)
-                 : "-"}
-               <p>%</p>
-             </div>
-           </div>
-           <h1 className="tracking-tight text-black text-center">
-             as from the beginning of the month
-           </h1>
-         </div>
-       </div>
-      ) : (
-    
-
-        <div className="grid rounded bg-gray-100  hover:shadow-gray-300 px-5 py-5">
-          <div className="space-y-1">
-            <div className="grid justify-items-stretch">
-              <div
-                className={`${color} p-2 rounded-2xl w-12 justify-self-center`}
-              >
-                {icon}
-              </div>
+    <div className="grid col-span-1 text-black">
+      <div className={`rounded-2xl p-5 relative ${classes}`}>
+        <img className="!z-0 absolute top-0 right-0 h-[100%]" src={"https://demo.bootstrapdash.com/purple-admin-free/assets/images/dashboard/circle.svg"} />
+        <div className="space-y-1">
+          <div className="flex justify-center w-full">
+            <div
+              className={`${color} p-2 rounded-2xl w-12 justify-self-center shadow-lg `}
+            >
+              {icon}
             </div>
-            <h1 className="text-lg font-light text-center">{title}</h1>
-            <h1 className="font-thin tracking-tight text-2xl text-center">
-              {number}
-            </h1>
-            <div className="flex items-center justify-center gap-x-1 text-lg text-gray-500"></div>
-            <div className="flex text-red-600 items-center justify-center gap-x-1 font-semibold">
-              <FallOutlined style={{ fontSize: "1.3rem" }} />
-              <div className="flex gap-x-1">
-                {typeof formatNumber(percent * -1) != NaN
-                  ? formatNumber(percent)
-                  : "-"}
-                <p>%</p>
-              </div>
-            </div>
-            <h1 className="tracking-tight text-black text-center">
-              as from the beginning of the month
-            </h1>
           </div>
+          <h1 className="text-lg font-light text-center ">{title}</h1>
+          <h1 className="font-thin tracking-tight text-2xl text-center ">
+            {number}
+          </h1>
+          <div className="flex  items-center justify-center gap-x-1 font-semibold">
+            {main > 0 ? <RiseOutlined style={{ fontSize: "1.3rem", color: "green" }} /> : <FallOutlined style={{ fontSize: "1.3rem", color: "red" }} />}
+            <div className={`flex gap-x-1 ${main > 0 ? "text-green-700" : "text-red-500"}`}>
+              {typeof formatNumber(percent * -1) != NaN
+                ? formatNumber(percent)
+                : ""}
+              <p>%</p>
+            </div>
+          </div> 
+          <h1 className="tracking-tight  text-center !z-[1000]">
+            as from the beginning of the month
+          </h1>
         </div>
-      )}
+      </div>
     </div>
   );
 }

@@ -14,6 +14,7 @@ export default function Proposals() {
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef(null);
+  
 
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
@@ -97,6 +98,7 @@ export default function Proposals() {
             style={{
               width: 90,
             }}
+            type="primary"
           >
             Reset
           </Button>

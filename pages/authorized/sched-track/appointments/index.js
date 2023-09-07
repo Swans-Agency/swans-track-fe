@@ -172,6 +172,7 @@ export default function index() {
                         style={{
                             width: 90,
                         }}
+                        
                     >
                         Reset
                     </Button>

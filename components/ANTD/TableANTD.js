@@ -25,7 +25,9 @@ export default function TableANTD({
   handleOkUpdate,
   handleCancelUpdate,
   modalContent,
-  passedItem
+  passedItem,
+  additionalGet=false,
+  customClass ="",
 }) {
     
   const [data, setData] = useState({});
@@ -64,6 +66,10 @@ export default function TableANTD({
   useEffect(() => {
     fetchData();
   }, [reload]);
+
+  useEffect(() => {
+    fetchData();
+  }, [additionalGet]);
 
   const handlePaginationChange = (page, pageSize) => {
     fetchData(page, pageSize);
@@ -125,7 +131,7 @@ export default function TableANTD({
             </div>
           }
           <Table
-            className="w-full"
+            className={`w-full ${customClass}`}
             columns={columns}
             dataSource={data?.results}
             pagination={false}

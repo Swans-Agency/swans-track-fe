@@ -7,6 +7,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      transform: {
+        'y-180': 'rotateY(180deg)',
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':

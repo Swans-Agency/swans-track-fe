@@ -454,6 +454,48 @@ const timeZones = [
   { label: "UTC", value: "UTC" },
 ];
 
+const jobcategories = [
+  { label: "Web Development and Design", value: "Web Development and Design" },
+  { label: "Writing and Content", value: "Writing and Content" },
+  { label: "Digital Marketing", value: "Digital Marketing" },
+  { label: "Data Entry and Virtual Assistance", value: "Data Entry and Virtual Assistance" },
+  { label: "Translation and Language Services", value: "Translation and Language Services" },
+  { label: "IT and Software", value: "IT and Software" },
+  { label: "Sales and Marketing", value: "Sales and Marketing" },
+  { label: "Video and Animation", value: "Video and Animation" },
+  { label: "Customer Support and Service", value: "Customer Support and Service" },
+  { label: "Consulting and Business Services", value: "Consulting and Business Services" },
+  { label: "Engineering and Architecture", value: "Engineering and Architecture" },
+  { label: "E-commerce", value: "E-commerce" },
+  { label: "Video and Audio Services", value: "Video and Audio Services" },
+  { label: "Marketing and Sales", value: "Marketing and Sales" },
+  { label: "Education and Training", value: "Education and Training" },
+  { label: "Healthcare and Medical Services", value: "Healthcare and Medical Services" },
+  { label: "Legal Services", value: "Legal Services" },
+  { label: "Accounting and Finance", value: "Accounting and Finance" },
+  { label: "Photography and Videography", value: "Photography and Videography" },
+  { label: "Gaming", value: "Gaming" },
+  { label: "Art and Illustration", value: "Art and Illustration" },
+  { label: "Travel and Lifestyle", value: "Travel and Lifestyle" },
+  { label: "Science and Research", value: "Science and Research" },
+  { label: "Manufacturing and Product Design", value: "Manufacturing and Product Design" },
+  { label: "Human Resources", value: "Human Resources" },
+  { label: "Real Estate", value: "Real Estate" },
+  { label: "Blockchain and Cryptocurrency", value: "Blockchain and Cryptocurrency" },
+  { label: "Food and Culinary", value: "Food and Culinary" },
+  { label: "Environmental and Sustainability", value: "Environmental and Sustainability" },
+  { label: "Nonprofit and Social Services", value: "Nonprofit and Social Services" }
+]
+
+const jobStatus = [
+  { label: "Pre Seed", value: "Pre Seed" },
+  { label: "In Progress", value: "In Progress" },
+  { label: "Invoiced", value: "Invoiced" },
+  { label: "Partially Paid", value: "Partially Paid" },
+  { label: "Closed", value: "Closed" },
+  { label: "Canceled", value: "Canceled" },
+]
+
 const redirect = (url) => {
   window.location.href = url;
 };
@@ -483,6 +525,9 @@ const login = async (data) => {
         path: "/",
       });
       cookie.save("companyPreferences", res?.data?.companyPreferences, {
+        path: "/",
+      });
+      cookie.save("companyCurrency", res?.data?.companyCurrency, {
         path: "/",
       });
       redirect("/authorized/dashboard");
@@ -536,4 +581,6 @@ export {
   saveToLocal,
   getObjectsFromLocalStorage,
   timeZones,
+  jobcategories,
+  jobStatus,
 };

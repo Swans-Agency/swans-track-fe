@@ -12,6 +12,8 @@ Chart.register(ArcElement, LinearScale, CategoryScale, Legend, Title, Tooltip);
 import { Line } from "react-chartjs-2";
 
 export default function LineChart({ expenseAlltime, incomeAlltime }) {
+
+  console.log({ expenseAlltime, incomeAlltime })
   const data = {
     labels: [
       "Jan",

@@ -6,12 +6,14 @@ export default function Quote({ quotes }) {
     <Card
       bordered={false}
       hoverable={false}
-      className="grid rounded laptop:col-span-3 tablet:col-span-2 items-center text-center bg-gray-100"
+      className="grid rounded-2xl col-span-3 items-center text-center bg-gray-200 relative text-black"
     >
+      <img className="!z-0 absolute top-0 right-0 h-[100%]" src={"https://demo.bootstrapdash.com/purple-admin-free/assets/images/dashboard/circle.svg"} />
+      <img className="!z-0 absolute top-0 left-0 h-[100%] rotate-180" src={"https://demo.bootstrapdash.com/purple-admin-free/assets/images/dashboard/circle.svg"} />
       <div className="w-[100%] py-4 px-3 ">
         <svg
           aria-hidden="true"
-          class="w-12 h-12 mx-auto mb-0 text-gray-400 dark:text-gray-600"
+          class="w-12 h-12 mx-auto mb-0 "
           viewBox="0 0 24 27"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"

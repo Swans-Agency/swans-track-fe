@@ -1,30 +1,7 @@
-import React, { useContext } from "react";
-import {
-  CalendarOutlined,
-  DownOutlined,
-  DashboardOutlined,
-  SwapOutlined,
-  SnippetsOutlined,
-  LoginOutlined,
-  LogoutOutlined,
-  DotChartOutlined,
-  UserOutlined,
-  CustomerServiceOutlined,
-  TeamOutlined,
-  FileTextOutlined,
-  ReconciliationOutlined,
-  MedicineBoxOutlined,
-  ProfileOutlined,
-  ExportOutlined,
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  AlignLeftOutlined,
-  ShopOutlined,
-  SettingOutlined
-} from "@ant-design/icons";
+import React, { useContext, useState } from "react";
+import { DownOutlined} from "@ant-design/icons";
 import Image from "next/image";
 import { NavCollapse } from "@/context/NavContext";
-import { logout } from "@/functions/GeneralFunctions";
 import MenuItem from "./MenuItem";
 import { useRouter } from "next/router";
 import Dashboard from "./Icons/Dashboard";
@@ -40,7 +17,6 @@ import Tasks from "./Icons/Tasks";
 import Clients from "./Icons/Clients";
 import TeamMembers from "./Icons/TeamMembers";
 import User from "./Icons/User";
-import Company from "./Icons/Company";
 import Money from "./Icons/Money";
 import Support from "./Icons/Support";
 import Collapse from "./Icons/Collapse";
@@ -50,10 +26,11 @@ import GearIcon from "./Icons/GearIcon";
 import Booked from "./Icons/Booked";
 import SchedIcon from "./Icons/SchedIcon";
 import Gpt from "./Icons/Gpt";
+import ProjectIcons from "./Icons/ProjectIcons";
 
 export default function Navbar({ userPermission }) {
-  const router = useRouter();
   const { collapsed, toggleCollapsed } = useContext(NavCollapse);
+  const [selectedTab, setSelectedTab] = useState("dashboard"); 
 
   const menuItems = [
     {
@@ -65,6 +42,7 @@ export default function Navbar({ userPermission }) {
       label: "Ins & Outs",
       icon: <Arrows />,
       arrow: <DownOutlined />,
+      key: "ino",
       children: [
         {
           key: "ins-out/income",
@@ -87,6 +65,7 @@ export default function Navbar({ userPermission }) {
       label: "Proposals & Invoices",
       icon: <ProposalInvoice />,
       arrow: <DownOutlined />,
+      key: "prop",
       children: [
         {
           key: "invoice/proposal",
@@ -109,6 +88,7 @@ export default function Navbar({ userPermission }) {
       label: "Sched Track",
       icon: <SchedIcon />,
       arrow: <DownOutlined />,
+      key: "sched",
       children: [
         {
           key: "sched-track/appointments",
@@ -126,6 +106,11 @@ export default function Navbar({ userPermission }) {
       key: "tasks",
       label: "Tasks",
       icon: <Tasks />,
+    },
+    {
+      key: "projects",
+      label: "Projects",
+      icon: <ProjectIcons />,
     },
     {
       key: "swan-ai",
@@ -206,6 +191,8 @@ export default function Navbar({ userPermission }) {
                   index={index}
                   userPermission={userPermission}
                   toggleCollapsed={toggleCollapsed}
+                  selectedTab={selectedTab}
+                  setSelectedTab={setSelectedTab}
                 />
               );
             })}

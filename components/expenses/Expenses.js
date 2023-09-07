@@ -69,6 +69,7 @@ export default function Expenses() {
             style={{
               width: 90,
             }}
+            type="primary"
           >
             Reset
           </Button>

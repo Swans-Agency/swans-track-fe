@@ -113,15 +113,15 @@ body {
 }
 
 .ant-btn-primary {
-  background-color: #23262e !important;
-  border-color: #23262e !important;
+  background-color: #3659D4 !important;
+  border-color: #3659D4 !important;
   color: #ffffff !important;
   box-shadow: none !important;
 }
 
 .ant-btn-primary:hover {
-  background-color: #2c333a !important;
-  border-color: #2c333a !important;
+  background-color: #123edd !important;
+  border-color: #123edd !important;
   color: #ffffff !important;
   box-shadow: none !important;
 }
@@ -225,3 +225,22 @@ body {
   background-color: #3659D4 !important;
   border: none;
 }
+
+/* .custom-cell td:nth-child(7) {                                                                                                               
+  padding: 0 !important;
+}
+
+.custom-cell td {                                                                                                               
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+} */
+
+.ant-checkbox-wrapper {
+  display: flex !important;
+}
+
+.ant-checkbox-wrapper .ant-checkbox {
+  align-self: baseline !important;
+} 
+
+

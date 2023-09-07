@@ -72,6 +72,7 @@ export default function Incomes({ showModal }) {
             style={{
               width: 90,
             }}
+            type="primary"
           >
             Reset
           </Button>

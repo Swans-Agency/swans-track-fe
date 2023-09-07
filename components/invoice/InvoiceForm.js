@@ -21,7 +21,7 @@ import { getAxios, postAxios } from "@/functions/ApiCalls";
 import FormButtons from "../ANTD/FormButtons";
 import ProposalForm from "../proposal/ProposalForm";
 
-export default function InvoiceForm({ setReload, onClose }) {
+export default function InvoiceForm({ setReload, onClose, getAllInvoices=()=>{} }) {
   const [disabledSelectCurrency, setDisabledCurrency] = useState(false);
   const [open1, setOpen1] = useState(false);
 
@@ -31,9 +31,24 @@ export default function InvoiceForm({ setReload, onClose }) {
   const [form] = Form.useForm();
   let logoPicList = [];
   let signaturePicList = [];
+  const [clientsData, setClientsData] = useState([]);
+  useEffect(() => {
+    GetAllClient()
+  }, []);
+
+  const GetAllClient = async () => {
+    const url = `${process.env.DIGITALOCEAN}/client/get-clients/`;
+    const clientSearchData = await getAxios(url);
+    const arrData = clientSearchData?.map((item) => ({
+      value: item.id,
+      label: `${item.firstName} ${item.lastName}`,
+    }));
+    setClientsData(arrData);
+  };
 
   useEffect(() => {
     getUserInitialData();
+    getAllProposal()
   }, []);
 
   const getUserInitialData = async () => {
@@ -73,8 +88,19 @@ export default function InvoiceForm({ setReload, onClose }) {
     setClientData(arrData);
   };
 
+  const getAllProposal = async () => {
+    const url = `${process.env.DIGITALOCEAN}/invoice/get-proposals-all/`;
+    const proposalSearchData = await getAxios(url);
+    const arrData = proposalSearchData?.map((item) => ({
+      value: item.id,
+      label: `${item?.proposalNo} | ${item?.toCompanyName} | ${item?.proposalDate
+        } | ${Number(item?.proposalTotal).toFixed(2)} JD`,
+    }));
+    setProposalData(arrData);
+  };
+
   const searchProposal = async (value) => {
-    const url = `${process.env.DIGITALOCEAN}/search/proposal?search=${value}`;
+    const url = `${process.env.DIGITALOCEAN}/search/proposal/?search=${value}`;
     const proposalSearchData = await getAxios(url);
     const arrData = proposalSearchData?.map((item) => ({
       value: item.id,
@@ -102,6 +128,7 @@ export default function InvoiceForm({ setReload, onClose }) {
 
     const url = `${process.env.DIGITALOCEAN}/invoice/create-invoice/`;
     let res = await postAxios(url, data, true, true, () => { });
+    getAllInvoices()
     setReload(res);
     onClose();
   };
@@ -151,7 +178,7 @@ export default function InvoiceForm({ setReload, onClose }) {
                 }}
                 filterOption={false}
                 onSearch={searchClient}
-                options={clientData}
+                  options={clientsData}
               />
             </Form.Item>
             <Form.Item

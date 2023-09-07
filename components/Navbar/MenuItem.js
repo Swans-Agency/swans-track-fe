@@ -2,18 +2,24 @@ import { logout } from "@/functions/GeneralFunctions";
 import { Divider } from "antd";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+import cookie, { remove } from "react-cookies";
 
-export default function MenuItem({ item, index, userPermission, toggleCollapsed }) {
+export default function MenuItem({ item, index, userPermission, toggleCollapsed, selectedTab, setSelectedTab }) {
   const [showChildren, setShowChildren] = useState(false);
   const [hide, setHide] = useState("");
   const router = useRouter();
 
   const handleClick = (item) => {
+    setSelectedTab(null)
+    cookie.save("selectedTab", item?.key, {
+      path: "/",
+    });
+    setSelectedTab(item?.key);
     if (item.key === "collapse") {
       toggleCollapsed()
     } else if (item?.key === "logout") {
       logout();
-    } else if (item?.key) {
+    } else if (item?.key && !item?.children) {
       router.push(`/authorized/${item?.key}`);
     } else {
       setShowChildren(!showChildren);
@@ -21,6 +27,7 @@ export default function MenuItem({ item, index, userPermission, toggleCollapsed 
   };
 
   useEffect(() => {
+    setSelectedTab(cookie.load("selectedTab", { path: "/" }) || "dashboard");
     if (!item?.permissions?.includes(userPermission) && item?.permissions) {
       setHide("hidden");
     } else {
@@ -30,9 +37,9 @@ export default function MenuItem({ item, index, userPermission, toggleCollapsed 
 
   return (
     <>
-      <div key={index} className={`${hide}`}>
+      <div key={index} className={`${hide} `}>
         <div
-          className="flex font-extralight justify-between gap-x-3 items-center text-[1rem] hover:bg-mainBackground hover:cursor-pointer px-2 py-2 rounded-lg"
+          className={`flex font-extralight justify-between gap-x-3 items-center text-[1rem] hover:bg-mainBackground hover:cursor-pointer px-2 py-2 rounded-lg ${selectedTab === item?.key ? "bg-mainBackground" : ""}`}
           onClick={() => handleClick(item)}
         >
           <div className="flex gap-x-3 items-center  text-[15px]">
