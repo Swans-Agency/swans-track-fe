@@ -3,7 +3,7 @@ import { PlusOutlined } from "@ant-design/icons";
 import { Divider, Form, Input, Select, Upload, notification } from "antd";
 import FormButtons from "../ANTD/FormButtons";
 import { getAxios, postAxios } from "@/functions/ApiCalls";
-import { saveToLocal, timeZones } from "@/functions/GeneralFunctions";
+import { currencies, getObjectsFromLocalStorage, saveToLocal, timeZones } from "@/functions/GeneralFunctions";
 import cookie, { remove } from "react-cookies";
 
 export default function CompanyPreferencesForm() {
@@ -58,7 +58,7 @@ export default function CompanyPreferencesForm() {
   };
 
   const checkforCompanyPreferences = async () => {
-    let preferences = cookie.load("companyPreferences", { path: "/" });
+    let preferences = getObjectsFromLocalStorage("companyPreferences");
     if (!preferences) {
       customNotification();
     }
@@ -109,7 +109,7 @@ export default function CompanyPreferencesForm() {
 
   return (
     <div className="text-black">
-      <h1 className="text-3xl font-light tracking-tight text-black">Company Preferences</h1>
+      <h1 className="text-3xl font-light tracking-tight text-black">Company Settings</h1>
       <Form
         onFinish={onFinish}
         layout="vertical"
@@ -133,7 +133,7 @@ export default function CompanyPreferencesForm() {
             ]}
           >
             <Upload
-              listType="picture-circle"
+              listType="picture-card"
               maxCount={1}
               defaultFileList={logoPicList}
             >
@@ -161,7 +161,7 @@ export default function CompanyPreferencesForm() {
             ]}
           >
             <Upload
-              listType="picture-circle"
+              listType="picture-card"
               maxCount={1}
               defaultFileList={signaturePicList}
             >
@@ -190,7 +190,7 @@ export default function CompanyPreferencesForm() {
               }
             ]}
           >
-            <Input className="rounded" />
+            <Input size="large" className="rounded-lg" />
           </Form.Item>
           <Form.Item
             label="Company address"
@@ -203,7 +203,7 @@ export default function CompanyPreferencesForm() {
               }
             ]}
           >
-            <Input className="rounded" />
+            <Input size="large" className="rounded-lg" />
           </Form.Item>
         </div>
         <div className="flex gap-x-5 w-full">
@@ -218,7 +218,7 @@ export default function CompanyPreferencesForm() {
               }
             ]}
           >
-            <Input className="rounded" />
+            <Input size="large" className="rounded-lg" />
           </Form.Item>
           <Form.Item
             label="Company number"
@@ -231,7 +231,7 @@ export default function CompanyPreferencesForm() {
               }
             ]}
           >
-            <Input className="rounded" />
+            <Input size="large" className="rounded-lg" />
           </Form.Item>
         </div>
         <div className="flex gap-x-5 w-full">
@@ -247,6 +247,7 @@ export default function CompanyPreferencesForm() {
             ]}
           >
             <Select
+            size="large"
               disabled={disabledSelectCurrency}
               showSearch
               defaultValue=""
@@ -262,40 +263,7 @@ export default function CompanyPreferencesForm() {
                   .toLowerCase()
                   .includes(input.toLowerCase())
               }
-              options={[
-                {
-                  value: "JD",
-                  label: "JD",
-                },
-                {
-                  value: "KD",
-                  label: "KD",
-                },
-                {
-                  value: "EUR",
-                  label: "EUR",
-                },
-                {
-                  value: "USD",
-                  label: "USD",
-                },
-                {
-                  value: "GBP",
-                  label: "GBP",
-                },
-                {
-                  value: "AED",
-                  label: "AED",
-                },
-                {
-                  value: "RS",
-                  label: "RS",
-                },
-                {
-                  value: "TL",
-                  label: "TL",
-                },
-              ]}
+              options={currencies}
             />
           </Form.Item>
           <Form.Item
@@ -310,6 +278,7 @@ export default function CompanyPreferencesForm() {
             ]}
           >
             <Select
+            size="large"
               showSearch
               defaultValue=""
               style={{
@@ -329,21 +298,13 @@ export default function CompanyPreferencesForm() {
           </Form.Item>
         </div>
         <div className="flex gap-x-5 w-full">
-          <Form.Item label="IBAN" name="bankIban" className="w-full" required
+          <Form.Item label={<div><p>Payment Info <span className="text-[0.7rem] text-gray-500">this might be the IBAN, paypal or anything</span></p> </div>} name="bankIban" className="w-full" required
           rules={[
             {
               required: true
             }
           ]}>
-            <Input className="rounded" />
-          </Form.Item>
-          <Form.Item label="CLIQ" name="CLIQ" className="w-full" required
-          rules={[
-            {
-              required: true
-            }
-          ]}>
-            <Input className="rounded" />
+            <Input size="large" className="rounded-lg" />
           </Form.Item>
         </div>
         <Form.Item
@@ -357,7 +318,7 @@ export default function CompanyPreferencesForm() {
             }
           ]}
         >
-          <TextArea rows={4} className="rounded" />
+          <TextArea rows={4} className="rounded-lg" />
         </Form.Item>
         <Form.Item
           label="Invoices Terms & Conditons"
@@ -370,7 +331,7 @@ export default function CompanyPreferencesForm() {
             }
           ]}
         >
-          <TextArea rows={4} className="rounded" />
+          <TextArea rows={4} className="rounded-lg" />
         </Form.Item>
         <Divider />
         <div className="flex gap-x-5 w-full justify-end">

@@ -42,7 +42,7 @@ export default function CreateForm({ setReload, onClose }) {
           required
           className="w-full"
         >
-          <Input className="rounded" />
+          <Input size="large" className="rounded-lg" />
         </Form.Item>
         <Form.Item
           label="Permission"
@@ -53,9 +53,11 @@ export default function CreateForm({ setReload, onClose }) {
               required: true,
             },
           ]}
-          className="w-full"
+          className="w-full rounded-lg"
         >
           <Select
+            size="large"
+            className="!rounded-lg"
             options={[
               {
                 value: "Employee",

@@ -217,11 +217,12 @@ body {
   color: white !important;
 }
 
-.Button{
+.Button {
   background-color: #3659D4 !important;
   border: none;
 }
-.Button:hover{
+
+.Button:hover {
   background-color: #3659D4 !important;
   border: none;
 }
@@ -241,6 +242,21 @@ body {
 
 .ant-checkbox-wrapper .ant-checkbox {
   align-self: baseline !important;
-} 
+}
 
 
+.animation-delay-1 {
+  animation-delay: 0.1s;
+}
+
+.animation-delay-2 {
+  animation-delay: 0.2s;
+}
+
+.animation-delay-3 {
+  animation-delay: 0.3s;
+}
+
+/* .animate-bounce {
+    animation: bounce 1s infinite;
+} */

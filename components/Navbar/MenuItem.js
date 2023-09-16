@@ -3,26 +3,33 @@ import { Divider } from "antd";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import cookie, { remove } from "react-cookies";
+import DrawerANTD from "../ANTD/DrawerANTD";
+import TextBox from "../SwanAi/TextBox";
 
 export default function MenuItem({ item, index, userPermission, toggleCollapsed, selectedTab, setSelectedTab }) {
   const [showChildren, setShowChildren] = useState(false);
   const [hide, setHide] = useState("");
+  const [showGPT, setShowGPT] = useState(false);
   const router = useRouter();
 
   const handleClick = (item) => {
-    setSelectedTab(null)
-    cookie.save("selectedTab", item?.key, {
-      path: "/",
-    });
-    setSelectedTab(item?.key);
-    if (item.key === "collapse") {
-      toggleCollapsed()
-    } else if (item?.key === "logout") {
-      logout();
-    } else if (item?.key && !item?.children) {
-      router.push(`/authorized/${item?.key}`);
+    if (item.key === "swan-ai") {
+      setShowGPT(true)
     } else {
-      setShowChildren(!showChildren);
+      setSelectedTab(null)
+      cookie.save("selectedTab", item?.key, {
+        path: "/",
+      });
+      setSelectedTab(item?.key);
+      if (item.key === "collapse") {
+        toggleCollapsed()
+      } else if (item?.key === "logout") {
+        logout();
+      } else if (item?.key && !item?.children) {
+        router.push(`/authorized/${item?.key}`);
+      } else {
+        setShowChildren(!showChildren);
+      }
     }
   };
 
@@ -66,7 +73,13 @@ export default function MenuItem({ item, index, userPermission, toggleCollapsed,
           })}
         </div>
       </div>
-      {item?.divider && <Divider/>}
+      {item?.divider && <Divider />}
+      <DrawerANTD
+        title="ChatGPT"
+        children={<TextBox />}
+        onClose={() => setShowGPT(false)}
+        open={showGPT}
+      />
     </>
   );
 }

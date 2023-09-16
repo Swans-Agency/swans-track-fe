@@ -52,10 +52,10 @@ export default function LinkProposalForm({ projectId, getProjectProposals, proje
                         onClick={() => {
                             setOpen1(false);
                         }}
-                        className="flex gap-3 items-center mb-5 bg-foreignBackground hover:bg-mainBackground text-white px-2 py-1 rounded"
+                        className="flex gap-3 items-center mb-5 bg-foreignBackground hover:bg-mainBackground text-white px-2 py-1 -lg"
                     >
                         <ArrowLeftOutlined />
-                        Back To Invoice Form
+                        Back to proposal selection
                     </button>
                     <ProposalForm
                         setReload={()=>{}}
@@ -84,6 +84,7 @@ export default function LinkProposalForm({ projectId, getProjectProposals, proje
                             className="w-full"
                         >
                             <Select
+                                    size="large"
                                 defaultValue=""
                                 style={{
                                     width: "100%",
@@ -106,6 +107,7 @@ export default function LinkProposalForm({ projectId, getProjectProposals, proje
                         >
                             <div className="flex items-center gap-1">
                                 <Select
+                                        size="large"
                                     showSearch
                                     defaultValue=""
                                     style={{
@@ -120,7 +122,7 @@ export default function LinkProposalForm({ projectId, getProjectProposals, proje
                                     options={proposalData}
                                 />
                                 <button
-                                    className="p-[0.5rem] flex rounded items-center bg-foreignBackground hover:bg-mainBackground text-white"
+                                    className="p-[0.75rem] flex rounded-lg items-center bg-foreignBackground hover:bg-mainBackground text-white"
                                     onClick={() => {
                                         setOpen1(true)
                                     }}

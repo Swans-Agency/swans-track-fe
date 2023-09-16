@@ -129,7 +129,7 @@ export default function Navbar({ userPermission }) {
     },
     {
       key: "company-preference",
-      label: "Company Preferences",
+      label: "Company Settings",
       icon: <GearIcon />,
       permissions: ["Admin", "Supervisor"],
     },

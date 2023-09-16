@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import cookie from "react-cookies";
 import { useRouter } from "next/router";
 import { getAxios } from "@/functions/ApiCalls";
+import { getObjectsFromLocalStorage } from "@/functions/GeneralFunctions";
 
 export default function AuthWrapper({ children }) {
   const router = useRouter();
@@ -23,10 +24,11 @@ export default function AuthWrapper({ children }) {
   };
 
   const checkCompanyPreferences = async () => {
-    const companyPreferences = cookie.load("companyPreferences", { path: "/" });
+    
+    const companyPreferences = getObjectsFromLocalStorage("companyPreferences");
     if (router.pathname != "/authorized/company-preference" && router.pathname.includes("authorized")) {
       if (!companyPreferences) {
-        router.push("/authorized/company-preference");
+        router.push("/authorized/new-company");
       }
     }
   }

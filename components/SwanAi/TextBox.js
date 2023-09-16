@@ -24,6 +24,7 @@ export default function TextBox() {
             role: "user",
             content: textInput,
         }
+        setTextInput(null)
         let data = {
             messages: [...conversation, text]
         }
@@ -56,7 +57,7 @@ export default function TextBox() {
     return (
         <div className='border rounded-lg h-[85vh] relative overflow-hidden '>
 
-            <div className='h-[75vh] overflow-auto my-2'>
+            <div className='h-[75vh] overflow-auto my-2 '>
                 {conversation?.map((message, index) => {
                     return (
                         <div>
@@ -82,9 +83,11 @@ export default function TextBox() {
                     <div className=' justify-start'>
                         <p className='pl-2 pt-2 text-xs text-gray-400'>Chat GPT</p>
                         <div className='bg-gray-200 text-black rounded p-2 mx-2 mb-1'>
-                            <div className='flex gap-x-2 items-center'>
-                                <Spin indicator={antIcon} />
-                                <p className=''>Loading...</p>
+
+                            <div className="flex justify-start">
+                                <div className="w-2 h-2 my-1 mx-1 bg-gray-500 rounded-full animate-bounce animation-delay-1"></div>
+                                <div className="w-2 h-2 my-1 mx-1 bg-gray-500 rounded-full animate-bounce animation-delay-2"></div>
+                                <div className="w-2 h-2 my-1 mx-1 bg-gray-500 rounded-full animate-bounce animation-delay-3"></div>
                             </div>
                         </div>
                     </div>

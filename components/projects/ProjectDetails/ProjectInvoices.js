@@ -34,7 +34,7 @@ export default function ProjectInvoices({ projectInvoices, getProjectInvoices, p
                 <p className='font-semibold text-md '>Invoices</p>
                 {add && <div onClick={() => setIsModalOpen(true)}><AddIcon /></div>}
             </div>
-            <div className='max-h-[290px] hover:overflow-y-auto overflow-hidden hover:pr-2'>
+            <div className='max-h-[290px] hover:overflow-y-auto overflow-hidden '>
                 {projectInvoices?.map((item, index) => {
                     return (
                         <div className={`grid grid-cols-[1fr_1fr_1fr_1fr] items-center border rounded py-3 px-2 mb-2 ${bgColor[item?.status]} `}>

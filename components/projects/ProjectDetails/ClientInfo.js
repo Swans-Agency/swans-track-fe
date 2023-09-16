@@ -38,7 +38,7 @@ export default function ClientInfo({ projectObj, projectId }) {
                 <div className='flex items-center justify-start gap-x-2 text-sm py-1'><PhoneIcon /> {projectObj?.client?.phoneNumber}</div>
 
                 <p className='font-semibold text-sm mt-3 pb-1'>Client Portal</p>
-                <div className='flex items-center justify-start gap-x-2 text-sm py-1'><EyeIcon /> <a href={`https://www.swanstrack.com/client-portal/${projectId}`} target='_blank' className='text-blue-500 hover:text-blue-700'>View portal</a></div>
+                <div className='flex items-center justify-start gap-x-2 text-sm py-1'><EyeIcon /> <a href={`/client-portal/${projectId}`} target='_blank' className='text-blue-500 hover:text-blue-700'>View portal</a></div>
                 <div className='flex items-center justify-start gap-x-2 text-sm py-1'><CopyIcon /> <p id="inviteLink" onClick={() => copyToClipboard()} href={`https://www.swanstrack.com/client-portal/${projectId}/`} className='text-blue-500 hover:text-blue-700 hover:cursor-pointer'>Copy invite URL</p></div>
             </div>
         </div>

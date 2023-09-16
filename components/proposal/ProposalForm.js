@@ -121,6 +121,7 @@ export default function ProposalForm({ setReload, onClose, getAllProposals=()=>{
       <div className="flex gap-x-5 w-full mt-0">
         <Form.Item label="Client" name="client" className="w-full" required>
           <Select
+            size="large"
             showSearch
             defaultValue=""
             style={{
@@ -141,7 +142,7 @@ export default function ProposalForm({ setReload, onClose, getAllProposals=()=>{
           className="w-full"
           required
         >
-          <Input className="rounded" />
+          <Input size="large" className="rounded-lg" />
         </Form.Item>
       </div>
 
@@ -152,7 +153,7 @@ export default function ProposalForm({ setReload, onClose, getAllProposals=()=>{
           className="w-full"
           required
         >
-          <Input className="rounded" />
+          <Input size="large" className="rounded-lg" />
         </Form.Item>
         <Form.Item
           label="Client address"
@@ -160,7 +161,7 @@ export default function ProposalForm({ setReload, onClose, getAllProposals=()=>{
           className="w-full"
           required
         >
-          <Input className="rounded" />
+          <Input size="large" className="rounded-lg" />
         </Form.Item>
       </div>
 
@@ -171,7 +172,7 @@ export default function ProposalForm({ setReload, onClose, getAllProposals=()=>{
           className="w-full"
           required
         >
-          <DatePicker className="rounded w-full" placeholder="" />
+          <DatePicker size="large" className="rounded-lg w-full" placeholder="" />
         </Form.Item>
       </div>
       <Form.Item
@@ -180,7 +181,7 @@ export default function ProposalForm({ setReload, onClose, getAllProposals=()=>{
         className="w-full"
         required
       >
-        <Input.TextArea className="rounded" />
+        <Input.TextArea className="rounded-lg" />
       </Form.Item>
 
       <div className="flex gap-x-5 w-full mt-0">
@@ -191,8 +192,9 @@ export default function ProposalForm({ setReload, onClose, getAllProposals=()=>{
           required
         >
           <InputNumber
+            size="large"
             min={0}
-            className="rounded  w-full"
+            className="rounded-lg  w-full"
             addonAfter={<MoneyCollectOutlined className="pb-1" />}
           />
         </Form.Item>
@@ -203,8 +205,9 @@ export default function ProposalForm({ setReload, onClose, getAllProposals=()=>{
           required
         >
           <InputNumber
+            size="large"
             min={0}
-            className="rounded w-full"
+            className="rounded-lg w-full"
             addonAfter={<PercentageOutlined className="pb-1" />}
           />
         </Form.Item>
@@ -230,7 +233,7 @@ export default function ProposalForm({ setReload, onClose, getAllProposals=()=>{
                       },
                     ]}
                   >
-                    <Input placeholder="Item name" />
+                    <Input size="large" placeholder="Item name" />
                   </Form.Item>
 
                   <div className="flex gap-x-5 w-full">
@@ -246,6 +249,7 @@ export default function ProposalForm({ setReload, onClose, getAllProposals=()=>{
                       className="w-full"
                     >
                       <InputNumber
+                        size="large"
                         min={0}
                         placeholder="Item quantity"
                         className="w-full"
@@ -263,6 +267,7 @@ export default function ProposalForm({ setReload, onClose, getAllProposals=()=>{
                       className="w-full"
                     >
                       <InputNumber
+                        size="large"
                         min={0}
                         className="w-full"
                         placeholder="Item rate"
@@ -284,6 +289,7 @@ export default function ProposalForm({ setReload, onClose, getAllProposals=()=>{
               ))}
               {numberofItems < 12 && <Form.Item>
                 <Button
+                  size="large"
                   type="dashed"
                   onClick={() => {
                     return (

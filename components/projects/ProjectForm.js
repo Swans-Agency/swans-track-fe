@@ -49,7 +49,7 @@ export default function ProjectForm({ setReload, onClose }) {
                             required: true
                         }
                     ]} label="Project Name" name="projectName" className="w-full">
-                    <Input className="rounded" />
+                    <Input size="large" className="rounded-lg" />
                 </Form.Item>
                 <Form.Item
                     rules={[
@@ -58,6 +58,7 @@ export default function ProjectForm({ setReload, onClose }) {
                         }
                     ]} label="Client" name="client" className="w-full">
                     <Select
+                        size="large"
                         options={clientData}
                         showSearch
                         filterOption={(input, option) =>
@@ -75,10 +76,7 @@ export default function ProjectForm({ setReload, onClose }) {
                         required: true
                     }
                 ]} label="Project Summary" name="summary" className="w-full">
-                <Input.TextArea maxLength={255} className="rounded" autoSize={{
-                    minRows: 3,
-                    maxRows: 3,
-                }} />
+                <Input.TextArea maxLength={255} className="rounded-lg" rows={4} />
             </Form.Item>
             <div className="flex gap-x-5 w-full">
                 <Form.Item
@@ -92,6 +90,7 @@ export default function ProjectForm({ setReload, onClose }) {
                     className="w-full"
                 >
                     <Select
+                        size="large"
                         style={{ width: "100%", }}
                         showSearch
                         filterOption={(input, option) =>
@@ -113,6 +112,7 @@ export default function ProjectForm({ setReload, onClose }) {
                     className="w-full"
                 >
                     <Select
+                        size="large"
                         style={{ width: "100%", }}
                         showSearch
                         filterOption={(input, option) =>

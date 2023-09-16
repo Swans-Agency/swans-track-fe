@@ -59,7 +59,7 @@ export default function ExoenseForm({ setReload, onClose }) {
           className="w-full"
           required
         >
-          <Input className="rounded" />
+          <Input size="large" className="rounded-lg" />
         </Form.Item>
         <Form.Item
           label="Expense Amount"
@@ -68,8 +68,9 @@ export default function ExoenseForm({ setReload, onClose }) {
           required
         >
           <InputNumber
+            size="large"
             min={0}
-            className="rounded w-full"
+            className="rounded-lg w-full"
             addonAfter={<MoneyCollectOutlined className="pb-1" />}
           />
         </Form.Item>
@@ -82,6 +83,7 @@ export default function ExoenseForm({ setReload, onClose }) {
           required
         >
           <Select
+            size="large"
             showSearch
             defaultValue=""
             style={{
@@ -145,8 +147,9 @@ export default function ExoenseForm({ setReload, onClose }) {
         </Form.Item>
         <Form.Item label="Expense Date" name="date" className="w-full" required>
           <DatePicker
+            size="large"
             format="YYYY-MM-DD"
-            className="rounded w-full"
+            className="rounded-lg w-full"
             placeholder=""
           />
         </Form.Item>

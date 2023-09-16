@@ -140,7 +140,7 @@ export default function InvoiceForm({ setReload, onClose, getAllInvoices=()=>{} 
             onClick={() => {
               setOpen1(false);
             }}
-            className="flex gap-3 items-center mb-5 bg-foreignBackground hover:bg-mainBackground text-white px-2 py-1 rounded"
+            className="flex gap-3 items-center mb-5 bg-foreignBackground hover:bg-mainBackground text-white px-2 py-1 rounded-lg"
           >
             <ArrowLeftOutlined />
             Back To Invoice Form
@@ -167,6 +167,7 @@ export default function InvoiceForm({ setReload, onClose, getAllInvoices=()=>{} 
           <div className="flex gap-x-5 w-full mt-0">
             <Form.Item label="Client" name="client" className="w-full" required>
               <Select
+                  size="large"
                 showSearch
                 defaultValue=""
                 style={{
@@ -187,7 +188,7 @@ export default function InvoiceForm({ setReload, onClose, getAllInvoices=()=>{} 
               className="w-full"
               required
             >
-              <Input className="rounded" />
+                <Input size="large" className="rounded-lg" />
             </Form.Item>
           </div>
 
@@ -198,7 +199,7 @@ export default function InvoiceForm({ setReload, onClose, getAllInvoices=()=>{} 
               className="w-full"
               required
             >
-              <Input className="rounded" />
+                <Input size="large" className="rounded-lg" />
             </Form.Item>
             <Form.Item
               label="Client address"
@@ -206,7 +207,7 @@ export default function InvoiceForm({ setReload, onClose, getAllInvoices=()=>{} 
               className="w-full"
               required
             >
-              <Input className="rounded" />
+                <Input size="large" className="rounded-lg" />
             </Form.Item>
           </div>
 
@@ -229,6 +230,7 @@ export default function InvoiceForm({ setReload, onClose, getAllInvoices=()=>{} 
           >
             <div className="flex items-center gap-1">
               <Select
+                  size="large"
                 showSearch
                 defaultValue=""
                 style={{
@@ -243,7 +245,7 @@ export default function InvoiceForm({ setReload, onClose, getAllInvoices=()=>{} 
                 options={proposalData}
               />
               <button
-                className="p-[0.5rem] flex rounded items-center bg-foreignBackground hover:bg-mainBackground text-white"
+                className="p-[0.75rem] flex rounded-lg items-center bg-foreignBackground hover:bg-mainBackground text-white"
                 onClick={() => {
                   setOpen1(true)
                 }}
@@ -261,7 +263,7 @@ export default function InvoiceForm({ setReload, onClose, getAllInvoices=()=>{} 
               className="w-full"
               required
             >
-              <DatePicker className="rounded w-full" placeholder="" />
+                <DatePicker size="large" className="rounded-lg w-full" placeholder="" />
             </Form.Item>
           </div>
           <div className="flex gap-x-5 w-full mt-0">
@@ -272,8 +274,9 @@ export default function InvoiceForm({ setReload, onClose, getAllInvoices=()=>{} 
               required
             >
               <InputNumber
+                  size="large"
                 min={0}
-                className="rounded w-full"
+                className="rounded-lg w-full"
                 addonAfter={<MoneyCollectOutlined className="pb-1" />}
               />
             </Form.Item>
@@ -284,8 +287,9 @@ export default function InvoiceForm({ setReload, onClose, getAllInvoices=()=>{} 
               required
             >
               <InputNumber
+                  size="large"
                 min={0}
-                className="rounded w-full"
+                className="rounded-lg w-full"
                 addonAfter={<PercentageOutlined className="pb-1" />}
               />
             </Form.Item>
@@ -311,7 +315,7 @@ export default function InvoiceForm({ setReload, onClose, getAllInvoices=()=>{} 
                           },
                         ]}
                       >
-                        <Input placeholder="Item name" />
+                        <Input size="large" placeholder="Item name" />
                       </Form.Item>
 
                       <div className="flex gap-x-5 w-full">
@@ -327,6 +331,7 @@ export default function InvoiceForm({ setReload, onClose, getAllInvoices=()=>{} 
                           className="w-full"
                         >
                           <InputNumber
+                            size="large"
                             min={0}
                             placeholder="Item quantity"
                             className="w-full"
@@ -344,6 +349,7 @@ export default function InvoiceForm({ setReload, onClose, getAllInvoices=()=>{} 
                           className="w-full"
                         >
                           <InputNumber
+                            size="large"
                             min={0}
                             className="w-full"
                             placeholder="Item rate"
@@ -366,6 +372,7 @@ export default function InvoiceForm({ setReload, onClose, getAllInvoices=()=>{} 
                   {numberofItems < 12 && (
                     <Form.Item>
                       <Button
+                          size="large"
                         type="dashed"
                         onClick={() => {
                           return (

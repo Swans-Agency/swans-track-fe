@@ -40,7 +40,7 @@ export default function InternalNoteForm({ projectId, getInternalNotes, handleCl
                         required: true
                     }
                 ]} label="" name="jobNote" className="w-full mb-3">
-                <Input.TextArea className="rounded" rows={4} maxLength={1000} />
+                <Input.TextArea className="rounded-lg" rows={4} maxLength={1000} />
             </Form.Item>
 
             <div className="flex gap-x-5 w-full justify-start mt-0">

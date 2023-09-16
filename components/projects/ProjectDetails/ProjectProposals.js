@@ -37,7 +37,7 @@ export default function ProjectProposals({ projectProposals, projectId, getProje
                 <p className='font-semibold text-md '>Proposals</p>
                 {add && <div onClick={() => setIsModalOpen(true)}><AddIcon /></div>}
             </div>
-            <div className="max-h-[290px] hover:overflow-y-auto overflow-hidden hover:pr-2">
+            <div className="max-h-[290px] hover:overflow-y-auto overflow-hidden ">
                 {projectProposals?.map((item, index) => {
                     return (
                         <div className={`grid grid-cols-[1fr_1fr_1fr_1fr] items-center border rounded py-3 px-2 mb-2 ${bgColor[item?.status]} `}>

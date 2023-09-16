@@ -41,10 +41,10 @@ export default function UpdateModal({
         >
           <div className="flex gap-x-5 w-full">
             <Form.Item label="First name" name="firstName" className="w-full">
-              <Input className="rounded" />
+              <Input size="large" className="rounded-lg" />
             </Form.Item>
             <Form.Item label="Last name" name="lastName" className="w-full">
-              <Input className="rounded" />
+              <Input size="large" className="rounded-lg" />
             </Form.Item>
           </div>
           <div className="flex gap-x-5 w-full">
@@ -58,14 +58,14 @@ export default function UpdateModal({
               ]}
               className="w-full"
             >
-              <Input className="rounded" />
+              <Input size="large" className="rounded-lg" />
             </Form.Item>
             <Form.Item
               label="Phone number"
               name="phoneNumber"
               className="w-full"
             >
-              <Input className="rounded" />
+              <Input size="large" className="rounded-lg" />
             </Form.Item>
           </div>
           <div className="flex gap-x-5 w-full">
@@ -75,6 +75,7 @@ export default function UpdateModal({
               className="w-full"
             >
               <Select
+              size="large"
                 options={[
                   {
                     value: "Low",
@@ -97,6 +98,7 @@ export default function UpdateModal({
               className="w-full"
             >
               <Select
+              size="large"
                 options={[
                   {
                     value: "Friends&Family",
@@ -132,11 +134,11 @@ export default function UpdateModal({
               name="clientAddress"
               className="w-full"
             >
-              <Input className="rounded" />
+          <Input size="large" className="rounded-lg" />
             </Form.Item>
 
             <Form.Item label="Acquire Date" name="createdAt" className="w-full">
-              <DatePicker placeholder="" className="w-full" />
+          <DatePicker size="large" placeholder="" className="w-full" />
             </Form.Item>
           </div>
           <div className="flex gap-x-5 w-full justify-end">

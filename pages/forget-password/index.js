@@ -50,7 +50,7 @@ export default function index() {
                         required
                         tooltip="E-mail address used in the signing up process."
                     >
-                        <Input className="rounded" placeholder="support@swanstrack.com" />
+                        <Input className="rounded-lg" placeholder="support@swanstrack.com" />
                     </Form.Item>
                     <Form.Item>
                         <button

@@ -86,8 +86,8 @@ export default function SupportForm(props) {
         >
           <Input.TextArea rows={4} />
         </Form.Item>
-        <Form.Item className="w-full">
-          <FormButtons content="Save" classNames="w-full py-2" />
+        <Form.Item className="w-full mt-3">
+          <FormButtons content="Send" classNames="w-full py-2 font-semibold" />
         </Form.Item>
       </Form>
     </>

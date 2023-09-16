@@ -5,7 +5,7 @@ export default function FormButtons({ content, classNames, disable=false }) {
     <button
       htmlType="submit"
       type="primary"
-      className={`bg-foreignBackground hover:bg-mainBackground text-textButtons rounded ${!classNames ? "py-[0.4rem]" : ""} px-3 ${classNames}`}
+      className={`bg-foreignBackground hover:bg-mainBackground text-textButtons rounded ${!classNames ? "py-[0.5rem]" : ""} px-4 ${classNames}`}
       disable={disable}
     >
       {content}

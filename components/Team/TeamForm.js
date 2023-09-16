@@ -78,7 +78,7 @@ export default function TeamForm({ updateItem, setUpdateItem, setReload }) {
     >
       <Form.Item label="Profile picture" className="mt-4" name={"pfp"}>
         <Upload
-          listType="picture-circle"
+          listType="picture-card"
           maxCount={1}
           defaultFileList={initialPicList}
         >
@@ -96,37 +96,37 @@ export default function TeamForm({ updateItem, setUpdateItem, setReload }) {
       </Form.Item>
       <div className="flex gap-x-5 w-full">
         <Form.Item label="First name" name="firstName" className="w-full">
-          <Input className="rounded" />
+          <Input size="large" className="rounded-lg" />
         </Form.Item>
         <Form.Item label="Last name" name="lastName" className="w-full">
-          <Input className="rounded" />
+          <Input size="large" className="rounded-lg" />
         </Form.Item>
       </div>
       <Form.Item label="Bio" name="bio" className="w-full">
-        <Input.TextArea rows={3} className="rounded" />
+        <Input.TextArea rows={4} className="rounded-lg" />
       </Form.Item>
       <div className="flex gap-x-5 w-full">
         <Form.Item label="Phone number" name="phoneNumber" className="w-full">
-          <Input className="rounded" />
+          <Input size="large" className="rounded-lg" />
         </Form.Item>
         <Form.Item label="Date of birth" className="w-full" name="dob">
-          <DatePicker className="rounded w-full" placeholder="" />
+          <DatePicker size="large" className="rounded-lg w-full" placeholder="" />
         </Form.Item>
       </div>
       <div className="flex gap-x-5 w-full">
         <Form.Item label="Salary" name="salary" className="w-full">
-          <InputNumber min={0} className="rounded w-full" />
+          <InputNumber size="large" min={0} className="rounded-lg w-full" />
         </Form.Item>
         <Form.Item
           label="Social security Number"
           name="socialSecurityNumber"
           className="w-full"
         >
-          <InputNumber min={0} className="rounded w-full" />
+          <InputNumber size="large" min={0} className="rounded-lg w-full" />
         </Form.Item>
       </div>
       <Form.Item label="Position" name="position" className="w-full">
-        <Input className="rounded" />
+        <Input size="large" className="rounded-lg" />
       </Form.Item>
       <div className="flex gap-x-5 w-full justify-end">
         <Form.Item>

@@ -12,6 +12,7 @@ import SharedDocuments from '@/components/projects/ProjectDetails/SharedDocument
 import ProjectMoney from '@/components/projects/ProjectDetails/ProjectMoney';
 import ProjectInvoices from '@/components/projects/ProjectDetails/ProjectInvoices';
 import ProjectProposals from '@/components/projects/ProjectDetails/ProjectProposals';
+import { getObjectsFromLocalStorage } from '@/functions/GeneralFunctions';
 
 
 
@@ -93,7 +94,7 @@ export default function ProjectDetails() {
             if (typeof window !== 'undefined') {
                 setProjectObj(JSON.parse(localStorage.getItem('project')))
             }
-            setProjectCurrency(cookie.load("companyCurrency", { path: "/" }))
+            setProjectCurrency(getObjectsFromLocalStorage("companyPreferences")?.currency)
 
             getClientNotes();
             getInternalNotes();
