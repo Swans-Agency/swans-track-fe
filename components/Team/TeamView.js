@@ -90,7 +90,7 @@ export default function TeamView({ userPermission }) {
 
   return (
     <div>
-      <h1 className="text-3xl font-light tracking-tight text-black mb-3">Team Members</h1>
+      {/* <h1 className="text-3xl font-light tracking-tight text-black mb-3">Team Members</h1> */}
       <TableANTD
         columns={columns}
         getUrl={`${process.env.DIGITALOCEAN}/account/list-employees/`}

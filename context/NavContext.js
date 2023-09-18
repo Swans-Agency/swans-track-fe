@@ -13,8 +13,8 @@ export function NavCollapseWraper({ children }) {
       setMarginLeft("ml-[256px]");
       setNavBarWidth("w-[256px]");
     } else {
-      setMarginLeft("ml-[20px]");
-      setNavBarWidth("w-[20px]");
+      setMarginLeft("ml-[30px]");
+      setNavBarWidth("w-[30px]");
     }
   };
 

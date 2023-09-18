@@ -184,9 +184,9 @@ export default function Expenses() {
 
   return (
     <>
-      <h1 className="text-3xl font-light tracking-tight text-black mb-3">
+      {/* <h1 className="text-3xl font-light tracking-tight text-black mb-3">
         Company Expenses
-      </h1>
+      </h1> */}
       <TableANTD
         columns={columns}
         getUrl={`${process.env.DIGITALOCEAN}/company/company-paginated-expenses/`}

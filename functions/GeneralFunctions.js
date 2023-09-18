@@ -1125,6 +1125,12 @@ const login = async (data) => {
       cookie.save("AccessTokenSBS", res?.data?.access, {
         path: "/",
       });
+      cookie.save("userImage", res?.data?.userImage, {
+        path: "/",
+      });
+      cookie.save("userFullname", res?.data?.userFullname, {
+        path: "/",
+      });
       cookie.save("company", res?.data?.company, {
         path: "/",
       });

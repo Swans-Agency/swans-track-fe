@@ -3,10 +3,11 @@ import React from "react";
 export default function ConnectGoogleCalendar({
   isConnected,
   handleConnectGoogleCalendar,
+  isHidden={fasle}
 }) {
   return (
     <button
-      className={`flex ${
+      className={`flex ${isHidden ? "hidden" : ""} ${
         isConnected?.details === true ? "hidden" : ""
       } gap-x-2 hover:bg-foreignBackground hover:text-white text-black rounded py-[0.4rem] px-3`}
       title="Connecting with google calendar allows you to create events and sync it automatically with your google calendar where you can get notifications."

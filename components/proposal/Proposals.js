@@ -212,7 +212,7 @@ export default function Proposals() {
 
   return (
     <>
-      <h1 className="text-3xl font-light tracking-tight text-black mb-3">Company Proposals</h1>
+      {/* <h1 className="text-3xl font-light tracking-tight text-black mb-3">Company Proposals</h1> */}
       <TableANTD
         columns={columns}
         getUrl={`${process.env.DIGITALOCEAN}/invoice/get-proposals/`}

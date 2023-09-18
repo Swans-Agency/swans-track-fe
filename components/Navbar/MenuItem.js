@@ -15,17 +15,17 @@ export default function MenuItem({ item, index, userPermission, toggleCollapsed,
   const handleClick = (item) => {
     if (item.key === "swan-ai") {
       setShowGPT(true)
+    } else if (item.key === "collapse") {
+      toggleCollapsed()
+    } else if (item?.key === "logout") {
+      logout();
     } else {
       setSelectedTab(null)
       cookie.save("selectedTab", item?.key, {
         path: "/",
       });
       setSelectedTab(item?.key);
-      if (item.key === "collapse") {
-        toggleCollapsed()
-      } else if (item?.key === "logout") {
-        logout();
-      } else if (item?.key && !item?.children) {
+      if (item?.key && !item?.children) {
         router.push(`/authorized/${item?.key}`);
       } else {
         setShowChildren(!showChildren);
@@ -63,7 +63,7 @@ export default function MenuItem({ item, index, userPermission, toggleCollapsed,
             return (
               <div
                 key={cIndex}
-                className="flex gap-x-3 items-center  text-[15px] hover:bg-foreignBackground hover:text-textIcons hover:cursor-pointer pl-8 px-2 py-2 rounded-lg"
+                className="flex gap-x-3 items-center  text-[15px] hover:bg-foreignBackground hover:text-white hover:cursor-pointer pl-8 px-2 py-2 rounded-lg"
                 onClick={() => handleClick(child)}
               >
                 {child?.icon}

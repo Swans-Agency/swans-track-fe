@@ -66,12 +66,11 @@ export default function ProjectProposals({ projectProposals, projectId, getProje
                                 bordered={false}
                                 onChange={(value) => handlePatchProposal(item, value)}
                                 options={[
-                                    { label: 'Pending', value: "Pending" },
+                                    { label: "Pending", value: "Pending" },
                                     { label: "Accepted", value: "Accepted" },
                                     { label: "Rejected", value: "Rejected" },
                                 ]}
                             />
-
                         </div>
                     )
                 })}

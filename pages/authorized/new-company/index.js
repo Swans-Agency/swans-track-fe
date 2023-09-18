@@ -5,7 +5,7 @@ import { currencies, getObjectsFromLocalStorage, saveToLocal, timeZones } from '
 import FormButtons from '@/components/ANTD/FormButtons';
 import { postAxios } from '@/functions/ApiCalls';
 import { useRouter } from "next/router";
-
+import cookie from "react-cookies";
 
 export default function index() {
     const [form] = Form.useForm();
@@ -123,6 +123,9 @@ export default function index() {
         const url = `${process.env.DIGITALOCEAN}/company/company-preferences/`;
         let companyPrefernceSavedData = await postAxios(url, formData, true, true, () => { });
         saveToLocal("companyPreferences", companyPrefernceSavedData);
+        cookie.save("companyPreferences", companyPrefernceSavedData?.id, {
+            path: "/",
+        });
         router.push("/authorized/dashboard");
     };
 

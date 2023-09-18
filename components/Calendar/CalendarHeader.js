@@ -8,19 +8,21 @@ export default function CalendarHeader({
   selectedDate,
   setSelectedDate,
   isConnected,
-  handleConnectGoogleCalendar
+  handleConnectGoogleCalendar,
+  isHidden = false,
 }) {
 
   return (
-    <div className="flex justify-between items-center mb-4">
+    <div className=" sticky top-6 left-0 mt-2 pb-2 bg-white">
       <ToggleMonth
         selectedDate={selectedDate}
         setSelectedDate={setSelectedDate}
       />
-      <ConnectGoogleCalendar
+      {/* <ConnectGoogleCalendar
         isConnected={isConnected}
         handleConnectGoogleCalendar={handleConnectGoogleCalendar}
-      />
+        isHidden={isHidden}
+      /> */}
     </div>
   );
 }

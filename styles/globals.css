@@ -260,3 +260,21 @@ body {
 /* .animate-bounce {
     animation: bounce 1s infinite;
 } */
+
+.ant-picker-calendar-mode-switch {
+  visibility: hidden !important;
+  display: none !important;
+}
+
+.ant-picker-calendar-month-select .ant-select-selector, .ant-picker-calendar-year-select .ant-select-selector {
+  
+}
+
+.a7a {
+  font-family: 'Southernsky', sans-serif;
+  /* font-family: 'Seafood', sans-serif; */
+}
+
+.ant-popover-inner, .ant-popover-arrow::before {
+  background-color: #0B2447 !important;
+}
