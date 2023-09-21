@@ -278,3 +278,7 @@ body {
 .ant-popover-inner, .ant-popover-arrow::before {
   background-color: #0B2447 !important;
 }
+
+.ant-watermark img {
+  opacity: 0.01 !important;
+}

@@ -22,7 +22,7 @@ export default function NewEventForm({ getEvents, handleClose, instance, setSele
 
     useEffect(() => {
         if (clickedDate) {
-            form.setFieldsValue({eventTime: [dayjs(clickedDate), dayjs(clickedDate).add(1, 'hour')],})
+            form.setFieldsValue({ eventTime: [dayjs(clickedDate), dayjs(clickedDate).add(1, 'hour')], })
         }
     }, [clickedDate])
 
@@ -46,7 +46,7 @@ export default function NewEventForm({ getEvents, handleClose, instance, setSele
         setSelectedEvent(null)
         form.resetFields()
     }
-    
+
     return (
         <Form
             onFinish={onFinish}
@@ -57,20 +57,20 @@ export default function NewEventForm({ getEvents, handleClose, instance, setSele
             }}
             form={form}
         >
-            <div className="flex gap-x-5 w-full mt-0">
                 <Form.Item
-                    label="Event name"
+                    label="Event Name"
                     name="title"
                     className="w-full"
                 >
-                    <Input size="large" className="rounded-lg w-full" />
+                    <Input size="large" className="rounded-lg  w-full" />
                 </Form.Item>
                 <Form.Item label="Event Location" name="location" className="w-full">
-                    <Input size="large" className="rounded-lg w-full" />
+                    <Input size="large"  className="rounded-lg w-full" />
                 </Form.Item>
+            <div className="flex gap-x-5 w-full mt-0">
             </div>
             <Form.Item
-                label="Event description"
+                label="Event Description"
                 name="discription"
                 className="w-full"
             >

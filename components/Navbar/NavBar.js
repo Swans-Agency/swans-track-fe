@@ -121,7 +121,7 @@ export default function Navbar({ userPermission }) {
     },
     {
       key: "swan-ai",
-      label: "Intelligent Swan",
+      label: "ChatGPT",
       icon: <Gpt />,
     },
     {

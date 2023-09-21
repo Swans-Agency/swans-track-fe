@@ -1122,6 +1122,7 @@ const login = async (data) => {
   axios
     .post(URL, data)
     .then((res) => {
+      clearStorageCookies()
       cookie.save("AccessTokenSBS", res?.data?.access, {
         path: "/",
       });
@@ -1152,6 +1153,7 @@ const login = async (data) => {
         cookie.save("companyPreferences", res?.data?.companyPreferences, {
           path: "/",
         });
+        localStorage.setItem("companyPreferences", JSON.stringify(res?.data?.companyPreferencesObj));
         cookie.save("companyCurrency", res?.data?.companyCurrency, {
           path: "/",
         });
@@ -1177,14 +1179,24 @@ const signup = async (data) => {
 };
 
 const logout = async () => {
-  remove("username", { path: "/" });
-  remove("userId", { path: "/" });
-  remove("RefreshTokenSBS", { path: "/" });
-  remove("userPermission", { path: "/" });
-  remove("AccessTokenSBS", { path: "/" });
-  remove("companyPreferences", { path: "/" });
+  clearStorageCookies()
   redirect("/");
 };
+
+const clearStorageCookies = () => {
+  remove("selectedTab", { path: "/" });
+  remove("userId", { path: "/" });
+  remove("company", { path: "/" });
+  remove("username", { path: "/" });
+  remove("RefreshTokenSBS", { path: "/" });
+  remove("userFullname", { path: "/" });
+  remove("AccessTokenSBS", { path: "/" });
+  remove("userImage", { path: "/" });
+  remove("userPermission", { path: "/" });
+  remove("companyCurrency", { path: "/" });
+  remove("companyPreferences", { path: "/" });
+  localStorage.clear();
+}
 
 const saveToLocal = (key, value) => {
   localStorage.setItem(key, JSON.stringify(value));

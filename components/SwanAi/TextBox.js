@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import DOMPurify from 'dompurify';
-import { Input } from 'antd';
+import { Input, Watermark } from 'antd';
 import SendIcon from '@/components/SwanAi/SendIcon';
 import { postAxios } from '@/functions/ApiCalls';
 const { TextArea } = Input;
-import { LoadingOutlined } from '@ant-design/icons';
+import { LoadingOutlined, WechatOutlined } from '@ant-design/icons';
 import { Spin } from 'antd';
+import Chatbgimage from './Chatbgimage';
 
 export default function TextBox() {
     const [textInput, setTextInput] = useState(null);
@@ -29,7 +30,7 @@ export default function TextBox() {
             messages: [...conversation, text]
         }
         setConversation([...conversation, text])
-        
+
         const url = `${process.env.DIGITALOCEAN}/company/swans-gpt/`
         let res = await postAxios(url, data, false, false)
         setTextInput(null)
@@ -56,7 +57,6 @@ export default function TextBox() {
 
     return (
         <div className='border rounded-lg h-[85vh] relative overflow-hidden '>
-
             <div className='h-[75vh] overflow-auto my-2 '>
                 {conversation?.map((message, index) => {
                     return (

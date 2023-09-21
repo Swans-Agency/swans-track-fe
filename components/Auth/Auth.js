@@ -26,10 +26,10 @@ export default function AuthWrapper({ children }) {
   const checkCompanyPreferences = async () => {
     
     const companyPreferences = cookie.load("companyPreferences", { path: "/" });
-    const companyPreferences1 = getObjectsFromLocalStorage("companyPreferences");
+    // const companyPreferences1 = getObjectsFromLocalStorage("companyPreferences");
 
     if (router.pathname != "/authorized/company-preference" && router.pathname.includes("authorized")) {
-      if (!companyPreferences || !companyPreferences1) {
+      if (!companyPreferences) {
         router.push("/authorized/new-company");
       }
     }

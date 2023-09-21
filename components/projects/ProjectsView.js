@@ -227,7 +227,7 @@ export default function ProjectsView() {
             ...getColumnSearchProps("client"),
             render: (_, item) => (
                 <>
-                    {item?.client?.firstName} {item?.client?.lastName}
+                    {item?.clientObj?.firstName} {item?.clientObj?.lastName}
                 </>
             ),
         },
