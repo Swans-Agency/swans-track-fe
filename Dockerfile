@@ -10,6 +10,9 @@ COPY package*.json ./
 # Set a build-time argument for the container name
 ARG CONTAINER_NAME=swans-track-fe
 
+ARG DIGITALOCEAN=http://206.81.24.19:8000
+ENV DIGITALOCEAN=${DIGITALOCEAN}
+
 # Install project dependencies
 RUN npm install --legacy-peer-deps
 
