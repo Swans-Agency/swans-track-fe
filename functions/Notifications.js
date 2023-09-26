@@ -34,10 +34,11 @@ const NotificationSuccess = (res) => {
 }
 
 const NotificationError = (err) => {
-    if (err?.detail) {
+    console.log({err})
+    if (err?.detail || err?.response?.data?.detail) {
         notification.error({
             message: "Error",
-            description: err?.detail,
+            description: err?.detail || err?.response?.data?.detail,
         });
     } else {
         notification.error({

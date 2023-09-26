@@ -8,7 +8,7 @@ export default function index() {
   const router = useRouter();
 
   const onFinish = async (values) => {
-    values["username"] = values["username"].toLowerCase();
+    values["username"] = values["username"]?.toLowerCase();
     console.log({ values });
     let loggedIn = await login(values);
     if (loggedIn) {

@@ -11,7 +11,7 @@ export default function Layout({ children, accessToken }) {
   return (
     <>
       {showNav && userPermission ? (
-        <>
+        <div className="">
           <Navbar userPermission={userPermission} />
           <div
             className={`tablet:px-10 phone:px-5 py-5  ${!collapsed ? "desktop:ml-[256px]" : "phone:ml-[25px]"} `}
@@ -19,7 +19,7 @@ export default function Layout({ children, accessToken }) {
             <Progress />
             {children}
           </div>
-        </>
+        </div>
       ) : (
         <div className="">
           <Progress />

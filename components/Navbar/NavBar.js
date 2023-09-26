@@ -210,7 +210,7 @@ export default function Navbar({ userPermission }) {
       })
       .join(' ');
   }
-
+  const router = useRouter();
 
 
 
@@ -264,11 +264,11 @@ export default function Navbar({ userPermission }) {
         </div>
       </div>
 
-      <div className={`${collapsed ? "w-[100%-30px] ml-[30px]" : "w-[100%-256px] ml-[256px] overflow-hidden"} !z-[1000] sticky top-0 left-0 bg-gray-100 h-14  px-5 flex justify-between items-center gap-x-2  text-black `}>
+      <div className={`${collapsed ? "w-[100%-30px] ml-[30px]" : "w-[100%-256px] ml-[256px] overflow-hidden"} !z-[1000] sticky top-0 left-0 bg-gray-200 h-14  px-5 flex justify-between items-center gap-x-2  text-black `}>
 
 
         <div className=" flex items-center gap-x-4 py-1 sticky top-0 inset-0 ">
-          <span className="text-3xl pl-5 a7a font-bold">{toTitleCase(selectedTab)}</span>
+          <span className="text-2xl pl-5 a7a font-bold">{toTitleCase(router.pathname.split("authorized/")[1])}</span>
         </div>
 
         <div className="flex items-center gap-x-2 h-full text-black ">

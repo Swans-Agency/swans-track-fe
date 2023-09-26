@@ -14,6 +14,7 @@ export default function ClientForm({ setReload, onClose }) {
     );
     const url = `${process.env.DIGITALOCEAN}/client/get-clients/`;
     let res = await postAxios(url, data, true, true);
+    form.resetFields()
     setReload(res) 
     onClose()
   };

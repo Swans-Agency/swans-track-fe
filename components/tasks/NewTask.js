@@ -146,7 +146,7 @@ export default function TaskForm({ handleNotifyTeam, selectedItem }) {
           name="taskDescription"
           className="w-full"
         >
-          <TextArea size="large" className="rounded w-full" />
+          <TextArea size="large" className="rounded w-full" rows={5} />
         </Form.Item>
         <div className="flex gap-x-5 w-full mt-0">
           <Form.Item

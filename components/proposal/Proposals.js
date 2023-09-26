@@ -32,7 +32,8 @@ export default function Proposals() {
     let response = await getAxios(
       `${process.env.DIGITALOCEAN}/invoice/download-proposal/${id}`
     );
-    let base64Data = response.invoice;
+    console.log({ response })
+    let base64Data = response?.invoice;
     const byteString = atob(base64Data.split(",")[1]);
     const mimeString = base64Data.split(",")[0].split(":")[1].split(";")[0];
     const arrayBuffer = new ArrayBuffer(byteString.length);
