@@ -29,6 +29,7 @@ import Gpt from "./Icons/Gpt";
 import ProjectIcons from "./Icons/ProjectIcons";
 import { Avatar, Menu, Popover } from "antd";
 import cookie from "react-cookies";
+import { logout } from "@/functions/GeneralFunctions";
 
 export default function Navbar({ userPermission }) {
   const { collapsed, toggleCollapsed } = useContext(NavCollapse);
@@ -125,15 +126,15 @@ export default function Navbar({ userPermission }) {
       icon: <Gpt />,
     },
     {
-      key: "client",
-      label: "Clients List",
+      key: "clients",
+      label: "Clients",
       icon: <Clients />,
     },
     {
       key: "team",
       label: "Team Members",
       icon: <TeamMembers />,
-      divider: true,
+      // divider: true,
     },
     // {
     //   key: "company-preference",
@@ -158,11 +159,11 @@ export default function Navbar({ userPermission }) {
     //   label: "Support & Tickets",
     //   icon: <Support />,
     // },
-    {
-      key: "collapse",
-      label: "Collapse Sidebar",
-      icon: <Collapse />,
-    },
+    // {
+    //   key: "collapse",
+    //   label: "Collapse Sidebar",
+    //   icon: <Collapse />,
+    // },
     // {
     //   key: "logout",
     //   label: "Logout",
@@ -192,16 +193,19 @@ export default function Navbar({ userPermission }) {
       key: "profile",
       label: "Profile",
       icon: <User />,
-      divider: true,
+      // divider: true,
     },
-    {
-      key: "logout",
-      label: "Logout",
-      icon: <Logout />,
-    },
+    // {
+    //   key: "logout",
+    //   label: "Logout",
+    //   icon: <Logout />,
+    // },
   ];
 
   function toTitleCase(str) {
+    if (str == "projects/details/[project]") {
+      return "Project Details"
+    } 
     return str
       .toLowerCase()
       .split(' ')
@@ -210,6 +214,7 @@ export default function Navbar({ userPermission }) {
       })
       .join(' ');
   }
+  
   const router = useRouter();
 
 
@@ -219,32 +224,36 @@ export default function Navbar({ userPermission }) {
     <>
       <link href="https://fonts.cdnfonts.com/css/southernsky" rel="stylesheet" />
 
+      <div
+        className={`${collapsed ? "left-[0.85rem]" : "left-[14.85rem]"} fixed top-[1rem] rounded-full p-1  !z-[9999999] bg-white shadow hover:shadow-xl border hover:cursor-pointer`}
+        onClick={toggleCollapsed}
+        title={collapsed ? "Expand Sidebar" : "Collapse Sidebar"}
+      >
+        {!collapsed ? <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+        </svg> :
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+          </svg>}
+
+      </div>
+
+
       <div className="sticky top-0 left-0 !z-[1000]">
         <div className="absolute !z-[1000]">
           <div
-            className={`${!collapsed ? "hidden" : "left-0 h-[100vh] top-0 "} text-white  p-1 bg-sidebar flex items-center hover:cursor-pointer`}
+            className={`${!collapsed ? "hidden" : "left-0 h-[100vh] top-0 w-[30px]"} text-white p-1 bg-navbar flex items-center hover:cursor-pointer`}
             onClick={toggleCollapsed}
             title={collapsed ? "Expand Sidebar" : "Collapse Sidebar"}
           >
-            <Expand />
+            {/* <Expand /> */}
           </div>
 
-          <div
-            className={`bg-navbar h-[100vh] ${collapsed ? "w-[20px]  hidden" : "w-[256px] "
-              } fixed overflow-hidden text-white font-extralight px-2`}
-          >
-            {/* <div className="w-full flex justify-center py-1 sticky top-0 inset-0 bg-navbar ">
-              <div className="pt-3">
-                <Image src="/logoNew.svg" width={60} height={60} />
-              </div>
-            </div> */}
+
+          <div className={`bg-navbar h-[100vh] ${collapsed ? "w-[20px]  hidden" : "w-[256px] "} fixed overflow-hidden text-white font-extralight px-2`}>
             <div className=" flex justify-center items-center gap-x-4 py-2 sticky top-0 inset-0">
-
               <Image src="/logoNew.svg" width={50} height={50} />
-
-              {/* <span className="text-2xl a7a font-bold">Swans Track</span> */}
             </div>
-            {/* <div className="w-full h-16"></div> */}
 
             <div className="h-[80vh] pr-2 overflow-y-scroll">
               {menuItems.map((item, index) => {
@@ -259,18 +268,39 @@ export default function Navbar({ userPermission }) {
                   />
                 );
               })}
+
+              <div className="absolute bottom-4 left-0 w-full px-2 pr-[1.5rem] border-t">
+                <div
+                  className={`flex mt-4 font-extralight justify-between gap-x-3 items-center text-[1rem] hover:bg-mainBackground hover:cursor-pointer px-2 py-2 rounded-lg `}
+                  onClick={() => logout()}
+                >
+                  <div className="flex gap-x-3 items-center  text-[15px]">
+                    <Logout />
+                    <p>Logout</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div className={`${collapsed ? "w-[100%-30px] ml-[30px]" : "w-[100%-256px] ml-[256px] overflow-hidden"} !z-[1000] sticky top-0 left-0 bg-gray-200 h-14  px-5 flex justify-between items-center gap-x-2  text-black `}>
 
 
+
+
+
+
+
+
+
+
+      <div
+        className={`${collapsed ? "w-[100%-30px] ml-[30px]" : "w-[100%-256px] ml-[256px] overflow-hidden"} !z-[1000] sticky top-0 left-0 shadow bg-white h-[4rem]  px-5 flex justify-between items-center gap-x-2  text-black `}
+      >
         <div className=" flex items-center gap-x-4 py-1 sticky top-0 inset-0 ">
-          <span className="text-2xl pl-5 a7a font-bold">{toTitleCase(router.pathname.split("authorized/")[1])}</span>
+          <span className="text-3xl pl-5  font-light">{toTitleCase(router.pathname.split("authorized/")[1])}</span>
         </div>
-
         <div className="flex items-center gap-x-2 h-full text-black ">
           <p className="">Hello, {cookie.load("userFullname", { path: "/" }) || cookie.load("username", { path: "/" })}</p>
           <Avatar

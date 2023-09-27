@@ -5,11 +5,11 @@ import React from 'react';
 export default function MonthView({ calendarEvents, setClickedDate, setIsModalOpenNew, currentMonth, days, handleShowEvent}) {
     return (
         <div className='grid grid-cols-7 gap-1 '>
-            <div className='col-span-7 h-[0.5rem] bg-white sticky top-[3.5rem] left-0'></div>
+            <div className='col-span-7 h-[1rem] bg-white sticky top-[4rem] left-0'></div>
             {
                 days.map((day, index) => {
                     return (
-                        <div key={index} className={`text-center bg-mainBackground text-white sticky top-[4rem] left-0 ${day == "Sun" ? "rounded-tl-lg" : ""}  ${day == "Sat" ? "rounded-tr-lg" : ""} py-1`}>
+                        <div key={index} className={`text-center bg-mainBackground text-white sticky top-[5rem] left-0 ${day == "Sun" ? "rounded-tl-lg" : ""}  ${day == "Sat" ? "rounded-tr-lg" : ""} py-1`}>
                             {day}
                         </div>
                     )

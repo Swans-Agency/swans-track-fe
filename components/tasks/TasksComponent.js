@@ -252,9 +252,9 @@ export default function TasksComponent({ companyTasks, initialData }) {
         }
         <button
           onClick={() => handleopenNewTask()}
-          className="flex justify-center items-center gap-x-2 bg-mainBackground hover:bg-foreignBackground text-white rounded py-[0.35rem] px-2"
+          className="flex justify-center items-center gap-x-2 bg-mainBackground hover:bg-foreignBackground text-white rounded py-[0.6rem] px-3"
         >
-          <PlusOutlined /> Add new task
+          Add new task
         </button>
       </div>
 
@@ -264,7 +264,7 @@ export default function TasksComponent({ companyTasks, initialData }) {
             let columns = data?.columns?.[value];
             let tasks = columns?.taskIds?.map((value) => data?.tasks?.[value]);
             return (
-              <div className='px-1 relative  min-w-[250px] w-[300px] max-h-[77vh] mb-4 h-fit overflow-hidden'>
+              <div className='px-1 relative  min-w-[250px] w-[300px] max-h-[75vh] mb-4 h-fit overflow-hidden'>
                 <div className={`text font-bold rounded text-center p-1 mb-2 sticky inset-0 `}>
                   <div className="flex justify-start items-center gap-x-2">
                     {columns?.title}

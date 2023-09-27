@@ -49,7 +49,7 @@ export default function MenuItem({ item, index, userPermission, toggleCollapsed,
           className={`flex font-extralight justify-between gap-x-3 items-center text-[1rem] hover:bg-mainBackground hover:cursor-pointer px-2 py-2 rounded-lg ${selectedTab === item?.key ? "bg-mainBackground" : ""}`}
           onClick={() => handleClick(item)}
         >
-          <div className="flex gap-x-3 items-center  text-[15px]">
+          <div className="flex gap-x-3 items-center text-[15px]">
             {item?.icon}
             <p>{item?.label}</p>
           </div>

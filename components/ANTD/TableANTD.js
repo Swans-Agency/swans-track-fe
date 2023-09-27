@@ -112,9 +112,9 @@ export default function TableANTD({
         <div className="flex justify-end mb-3">
           <button
             onClick={showDrawer}
-            className="flex justify-center items-center gap-x-2 bg-mainBackground hover:bg-foreignBackground text-white rounded py-[0.35rem] px-2"
+            className="flex justify-center items-center gap-x-2 bg-mainBackground hover:bg-foreignBackground text-white rounded py-[0.6rem] px-3"
           >
-            <PlusOutlined />
+            {/* <PlusOutlined /> */}
             {buttonTitle}
           </button>
         </div>
