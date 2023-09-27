@@ -42,10 +42,10 @@ export default function DynamicPage() {
       >
         <Meta title={`${responseData?.firstName} ${responseData?.lastName}`} description={
           <div>
-            <p><span className='font-bold'>E-mail:</span> {router.query.username}</p>
-            {responseData?.phoneNumber && <p><span className='font-bold'>Phone number:</span> {responseData?.phoneNumber}</p>}
-            {responseData?.position && <p><span className='font-bold'>Position:</span> {responseData?.position}</p>}
-            <p className='pt-2 text-justify'>{responseData?.bio} </p>
+            <p><a href={`mailto:${router.query.username}`}><span className='font-bold'>E-mail:</span> {router.query.username}</a></p>
+            {responseData?.phoneNumber && responseData?.phoneNumber != "null" && <p><a href={`tel:${responseData?.phoneNumber}`}><span className='font-bold'>Phone number:</span> {responseData?.phoneNumber}</a></p>}
+            {responseData?.position && responseData?.position != "null" && <p><span className='font-bold'>Position:</span> {responseData?.position}</p>}
+            {responseData?.bio  &&responseData?.bio != 'null' && <p className='pt-2 text-justify'>{responseData?.bio} </p>}
           </div>
         } />
       </Card> :

@@ -205,7 +205,7 @@ export default function Navbar({ userPermission }) {
   function toTitleCase(str) {
     if (str == "projects/details/[project]") {
       return "Project Details"
-    } 
+    }
     return str
       .toLowerCase()
       .split(' ')
@@ -214,7 +214,7 @@ export default function Navbar({ userPermission }) {
       })
       .join(' ');
   }
-  
+
   const router = useRouter();
 
 
@@ -299,7 +299,7 @@ export default function Navbar({ userPermission }) {
         className={`${collapsed ? "w-[100%-30px] ml-[30px]" : "w-[100%-256px] ml-[256px] overflow-hidden"} !z-[1000] sticky top-0 left-0 shadow bg-white h-[4rem]  px-5 flex justify-between items-center gap-x-2  text-black `}
       >
         <div className=" flex items-center gap-x-4 py-1 sticky top-0 inset-0 ">
-          <span className="text-3xl pl-5  font-light">{toTitleCase(router.pathname.split("authorized/")[1])}</span>
+          <span className="text-2xl pl-5  font-light">{toTitleCase(router.pathname.split("authorized/")[1])}</span>
         </div>
         <div className="flex items-center gap-x-2 h-full text-black ">
           <p className="">Hello, {cookie.load("userFullname", { path: "/" }) || cookie.load("username", { path: "/" })}</p>
@@ -311,6 +311,8 @@ export default function Navbar({ userPermission }) {
             }}
           />
           <Popover
+            placement="bottomLeft"
+            className="mr-4"
             content={
               <div className="text-white">
                 {hoverItems.map((item, index) => {
