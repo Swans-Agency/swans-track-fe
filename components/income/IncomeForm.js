@@ -62,10 +62,10 @@ export default function IncomeForm({ setReload, onClose }) {
             onClick={() => {
               setOpen(false);
             }}
-            className="flex gap-3 items-center mb-5 bg-foreignBackground hover:bg-mainBackground text-white px-2 py-1 rounded"
+            className="flex gap-3 items-center mb-5 bg-foreignBackground hover:bg-mainBackground text-white px-2 py-1 rounded-lg"
           >
             <ArrowLeftOutlined />
-            Back To Income Form
+            Back To Income
           </button>
           <InvoiceForm setReload={setReload} onClose={() => setOpen(!open)} />
         </div>
@@ -88,7 +88,7 @@ export default function IncomeForm({ setReload, onClose }) {
               className="w-full"
               required
             >
-              <Input className="rounded" />
+                <Input size="large" className="rounded-lg" />
             </Form.Item>
             <Form.Item
               label="Payment Amount"
@@ -97,8 +97,9 @@ export default function IncomeForm({ setReload, onClose }) {
               required
             >
               <InputNumber
+                  size="large"
                 min={0}
-                className="rounded w-full"
+                className="rounded-lg w-full"
                 addonAfter={<MoneyCollectOutlined className="pb-1" />}
               />
             </Form.Item>
@@ -111,6 +112,7 @@ export default function IncomeForm({ setReload, onClose }) {
               required
             >
               <Select
+                  size="large"
                 showSearch
                 defaultValue=""
                 style={{
@@ -142,8 +144,9 @@ export default function IncomeForm({ setReload, onClose }) {
               required
             >
               <DatePicker
+                  size="large"
                 format="YYYY-MM-DD"
-                className="rounded w-full"
+                className="rounded-lg w-full"
                 placeholder=""
               />
             </Form.Item>
@@ -167,6 +170,7 @@ export default function IncomeForm({ setReload, onClose }) {
           >
             <div className="flex items-center gap-1">
               <Select
+                  size="large"
                 showSearch
                 defaultValue=""
                 style={{
@@ -181,7 +185,7 @@ export default function IncomeForm({ setReload, onClose }) {
                 options={proposalData}
               />
               <button
-                className="p-[0.5rem] flex rounded items-center bg-foreignBackground hover:bg-mainBackground text-white"
+                className="p-[0.75rem] flex rounded-lg items-center bg-foreignBackground hover:bg-mainBackground text-white"
                 onClick={() => setOpen(!open)}
                 title="Create New Invoice"
               >

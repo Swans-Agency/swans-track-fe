@@ -139,14 +139,14 @@ export default function TaskForm({ handleNotifyTeam, selectedItem }) {
               required: true
             }
           ]}>
-          <Input className="rounded" />
+          <Input size="large" className="rounded" />
         </Form.Item>
         <Form.Item
           label="Description"
           name="taskDescription"
           className="w-full"
         >
-          <TextArea className="rounded w-full" />
+          <TextArea size="large" className="rounded w-full" rows={5} />
         </Form.Item>
         <div className="flex gap-x-5 w-full mt-0">
           <Form.Item
@@ -161,6 +161,7 @@ export default function TaskForm({ handleNotifyTeam, selectedItem }) {
             ]}
           >
             <Select
+              size="large"
               showSearch
               defaultValue=""
               style={{
@@ -191,6 +192,7 @@ export default function TaskForm({ handleNotifyTeam, selectedItem }) {
             ]}
           >
             <Select
+              size="large"
               showSearch
               defaultValue=""
               style={{
@@ -221,7 +223,7 @@ export default function TaskForm({ handleNotifyTeam, selectedItem }) {
               }
             ]}
           >
-            <DatePicker className="rounded w-full" placeholder="" />
+            <DatePicker size="large" className="rounded w-full" placeholder="" />
           </Form.Item>
 
           <Form.Item
@@ -236,6 +238,7 @@ export default function TaskForm({ handleNotifyTeam, selectedItem }) {
             ]}
           >
             <Select
+              size="large"
               showSearch
               defaultValue=""
               style={{

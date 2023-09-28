@@ -8,7 +8,7 @@ import { signup } from "@/functions/GeneralFunctions";
 export default function index() {
   const router = useRouter();
   const onFinish = async (values) => {
-    values["email"] = values["email"].toLowerCase();
+    values["email"] = values["email"]?.toLowerCase();
     let signedUp = await signup(values);
     if (signedUp) {
       router.push("/login");
@@ -97,7 +97,14 @@ export default function index() {
               onClick={() => router.push("/swans-privacy-policy")}
               className="hover:cursor-pointer text-blue-500"
             >
-              Global Privacy Statement.
+              Global Privacy Statement{" "}
+            </span>
+            and {" "}
+            <span
+              onClick={() => router.push("/swans-cookies")}
+              className="hover:cursor-pointer text-blue-500"
+            >
+              Cookies policies.
             </span>
           </p>
         </div>

@@ -5,11 +5,13 @@ import moment from "moment";
 import { getAxios, postAxios } from "@/functions/ApiCalls";
 import { useRouter } from "next/router";
 import CardInfo from "./CardInfo";
+import dayjs from "dayjs";
 
 export default function Calendar({ isConnected }) {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [monthEvents, setMonthEvents] = useState({});
   const [authorizedNow, setAuthorizedNow] = useState(false);
+  const [daysWeek, setDaysWeek] = useState(["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"])
 
   const router = useRouter();
 
@@ -86,7 +88,25 @@ export default function Calendar({ isConnected }) {
         isConnected={isConnected}
         handleConnectGoogleCalendar={handleConnectGoogleCalendar}
       />
-      <div className="grid desktop:grid-cols-[1fr_1fr_1fr_1fr_1fr_1fr] tablet:grid-cols-[1fr_1fr_1fr_1fr] phone:grid-cols-[1fr] gap-1">
+      <div className="grid desktop:grid-cols-[1fr_1fr_1fr_1fr_1fr_1fr_1fr] tablet:grid-cols-[1fr_1fr_1fr_1fr] phone:grid-cols-[1fr] gap-1">
+        {daysWeek?.map((date, index) => {
+          return (
+            <div >
+              <p className="text-sm text-gray-400 text-center">{date}</p>
+            </div>
+          )
+        })}
+        {currentMonth?.map((date, index) => {
+          if (index === 0) {
+            const dayOfWeek = dayjs(date).day();
+            const emptyDivs = Array.from({ length: dayOfWeek }, (_, i) => (
+              <div key={i} className="m-auto bg-gray-50 h-[10rem] w-full">
+                <p></p>
+              </div>
+            ));
+            return emptyDivs;
+          }
+        })}
         {currentMonth.map((date, index) => (
           <CardInfo
             key={index}

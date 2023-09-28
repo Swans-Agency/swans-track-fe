@@ -7,6 +7,8 @@ import { DatePicker, Divider, FloatButton, Form, Input, Upload, notification } f
 import dayjs from "dayjs";
 import { getAxios, patchAxios, postAxios } from "@/functions/ApiCalls";
 import FormButtons from "../ANTD/FormButtons";
+import FloatButtonJS from "../ANTD/FloatButton";
+
 
 export default function Profile() {
   const [form] = Form.useForm();
@@ -22,6 +24,15 @@ export default function Profile() {
   const getUserInitialData = async () => {
     const url = `${process.env.DIGITALOCEAN}/account/get-profile/`;
     let data = await getAxios(url);
+    console.log({ data })
+    if (data?.bio === "null") {
+      data["bio"] = null
+      console.log("dddddddddddddddddddddddd")
+    }
+    if (data?.position === "null") {
+      data["position"] = null
+      console.log("dddddddddddddddddddddddd")
+    }
     if (data) {
       data.dob = data?.dob ? dayjs(new Date(data?.dob)) : dayjs("2000-01-01");
       data.pfp = data?.pfp?.split("?")[0];
@@ -56,17 +67,17 @@ export default function Profile() {
       formData.append("pfp", data.pfp.file.originFileObj);
     }
     const url = `${process.env.DIGITALOCEAN}/account/user-profile/${userData.id}`;
-    await patchAxios(url, formData, true, true, () => {});
+    await patchAxios(url, formData, true, true, () => { });
   };
 
   const onFinishPassword = async (data) => {
     const url = `${process.env.DIGITALOCEAN}/account/update-password/`;
-    await postAxios(url, data, true, true, () => {});
+    await postAxios(url, data, true, true, () => { });
   };
 
   return (
     <div className="text-black">
-      <h1 className="text-3xl font-light tracking-tight text-black">Profile</h1>
+      {/* <h1 className="text-3xl font-light tracking-tight text-black">Profile</h1> */}
       <Form
         onFinish={onFinish}
         layout="vertical"
@@ -78,7 +89,7 @@ export default function Profile() {
       >
         <Form.Item label="Profile picture" className="mt-4" name={"pfp"}>
           <Upload
-            listType="picture-circle"
+            listType="picture-card"
             maxCount={1}
             defaultFileList={initialPicList}
           >
@@ -97,22 +108,23 @@ export default function Profile() {
         </Form.Item>
         <div className="flex gap-x-5 w-full">
           <Form.Item label="First name" name="firstName" className="w-full">
-            <Input className="rounded" />
+            <Input size="large" className="rounded-lg" />
           </Form.Item>
           <Form.Item label="Last name" name="lastName" className="w-full">
-            <Input className="rounded" />
+            <Input size="large" className="rounded-lg" />
           </Form.Item>
         </div>
         <Form.Item label="Bio" name="bio" className="w-full">
-          <Input.TextArea rows={3} className="rounded" />
+          <Input.TextArea rows={4} className="rounded-lg" />
         </Form.Item>
         <div className="flex gap-x-5 w-full">
           <Form.Item label="Phone number" name="phoneNumber" className="w-full">
-            <Input className="rounded" />
+            <Input size="large" className="rounded-lg" />
           </Form.Item>
           <Form.Item label="Date of birth" className="w-full" name="dob">
             <DatePicker
-              className="rounded w-full custom-date-picker"
+              size="large"
+              className="rounded-lg w-full custom-date-picker"
               placeholder=""
               popupClassName="custom-date-picker"
               getPopupContainer={(trigger) => {
@@ -124,9 +136,9 @@ export default function Profile() {
           </Form.Item>
         </div>
         <Form.Item label="Position" name="position" className="w-full">
-          <Input className="rounded" disabled />
+          <Input size="large" className="rounded-lg" disabled />
         </Form.Item>
-        <p className="text-foreignBackground">
+        <p className="text-gray-400">
           This account was created on {userCreateDate}
         </p>
         <Divider />
@@ -146,12 +158,23 @@ export default function Profile() {
         }}
         className="desktop:max-w-[600px]"
         form={passwordForm}
+        requiredMark={true}
       >
-        <Form.Item label="New password" name="password" className="w-full mt-4">
-          <Input type="password" className="rounded" />
+        <Form.Item label="New password" name="password" className="w-full mt-4" required
+          rules={[
+            {
+              required: true
+            }
+          ]}>
+          <Input required size="large"  type="password" className="rounded-lg" />
         </Form.Item>
-        <Form.Item label="Confirm password" name="password2" className="w-full">
-          <Input type="password" className="rounded" />
+        <Form.Item label="Confirm password" name="password2" className="w-full" required
+          rules={[
+            {
+              required: true
+            }
+          ]}>
+          <Input size="large" type="password" className="rounded-lg" />
         </Form.Item>
         <Divider />
         <div className="flex gap-x-5 w-full justify-end">
@@ -160,17 +183,22 @@ export default function Profile() {
           </Form.Item>
         </div>
       </Form>
-
-      <FloatButton type="primary" icon={<QuestionOutlined />}  onClick={() => {
-        notification.info({
-          message: "Public Profile",
-          description: <div>Share your profile with others by using this link: <a
-          href={`https://www.swanstrack.com/shared-profile/${cookie.load("username", {path: "/" })}/`}
-          className="text-blue-500 hover:text-blue-400 "
-          >https://www.swanstrack.com/shared-profile/{cookie.load("username", {path: "/" })}/</a></div>,
-          key: "api",
-        })
-      } } style={{bottom: 20}} />
+      <FloatButton
+        type="primary"
+        icon={<QuestionOutlined />}
+        style={{ bottom: 20 }}
+        onClick={() => {
+          return (
+            notification.info({
+              message: "Public Profile",
+              description: <div>Share your profile with others by using this link: <a
+                href={`https://www.swanstrack.com/shared-profile/${cookie.load("username", { path: "/" })}/`}
+                className="text-blue-500 hover:text-blue-400 "
+              >{`https://www.swanstrack.com/shared-profile/${cookie.load("username", { path: "/" })}/`}</a></div>,
+              key: "api",
+            }))
+        }}
+      />
     </div>
   );
 }

@@ -80,6 +80,7 @@ export default function ClientView() {
             style={{
               width: 90,
             }}
+            type="primary"
           >
             Reset
           </Button>
@@ -224,7 +225,7 @@ export default function ClientView() {
 
   return (
     <div>
-      <h1 className="text-3xl font-light tracking-tight text-black mb-3">Clients List</h1>
+      {/* <h1 className="text-3xl font-light tracking-tight text-black mb-3">Clients List</h1> */}
       <TableANTD
         columns={columns}
         getUrl={`${process.env.DIGITALOCEAN}/client/get-paginated-clients/`}

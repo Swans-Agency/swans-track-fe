@@ -6,228 +6,349 @@ export default function Terms() {
     <>
       <Navbar content="Join the swans" />
       <div className="desktop:px-[20rem] tablet:px-[10rem] phone:px-5 text-left pt-10 pb-24 text-balck">
-        <h1 className="text-[2rem] font-black">Terms and Conditions</h1>
-        <p className="text-sm">Effective Date: June 19, 2023</p>
-
-        <p className="pt-2">
-          Please read these Terms and Conditions carefully before using Swans
-          Track, a web application (hereinafter referred to as "the Platform").
-          These Terms and Conditions govern your use of the Platform and
-          constitute a legally binding agreement between you and Swans Track. By
-          accessing or using the Platform, you agree to be bound by these Terms
-          and Conditions. If you do not agree with any of the provisions set
-          forth herein, please refrain from using the Platform.
-        </p>
-
-        <h2 className="text-[1.5rem] font-bold pt-4">
-          1. User Eligibility and Account Registration
-        </h2>
-        <p>
-          To use the Platform, you must be at least 18 years old and have the
-          legal capacity to enter into a contract. By using the Platform, you
-          represent and warrant that you meet these requirements.
+        <h1 className="text-[2rem] font-black">Terms of Service</h1>
+        {/* <p className="text-sm">Effective Date: June 19, 2023</p> */}
+        <p className="pt-4">
+          These Terms of Service govern your use of the website located at&nbsp;
+          <a href="https://swanstrack.com">https://swanstrack.com</a>&nbsp;and
+          any related services provided by Swans Track LTD.
         </p>
         <p>
-          You are responsible for providing accurate and complete information
-          during the registration process. You agree to keep your account
-          credentials secure and promptly update any changes to your
-          information.
+          By accessing&nbsp;
+          <a href="https://swanstrack.com">https://swanstrack.com</a>, you agree
+          to abide by these Terms of Service and to comply with all applicable
+          laws and regulations. If you do not agree with these Terms of Service,
+          you are prohibited from using or accessing this website or using any
+          other services provided by Swans Track LTD.
         </p>
-
-        <h2 className="text-[1.5rem] font-bold pt-4">
-          2. Platform Use and Restrictions
-        </h2>
         <p>
-          The Platform is provided for your personal and non-commercial use. You
-          may not use the Platform for any other purpose without the prior
-          written consent of Swans Track.
+          Swans Track LTD reserves the right to review and amend the Terms of
+          Service at our sole discretion. Upon making any changes, we will
+          update this page. Any modifications to the Terms of Service will take
+          effect immediately from the date of publication. Additionally,
+          whenever significant updates are made, registered users may be
+          notified via email. It remains the responsibility of the user to
+          regularly review and stay updated with our Terms of Service.
         </p>
-        <p>You agree not to:</p>
-        <ul className="pl-5 mt-2 space-y-1 list-disc list-inside">
+        <p>These Terms of Service were last updated on 18 September 2023.</p>
+        <h3 className="text-[1.5rem] font-bold pt-4">Description of Service</h3>
+        <p>
+          The aim of our platform is to offer a digital platform for
+          freelancers, entrepreneurs, and small businesses. As part of our
+          platform&rsquo;s functionalities, users can delve into their financial
+          data, discerning valuable insights from expenses, income, and client
+          referrals.
+        </p>
+        <h3 className="text-[1.5rem] font-bold pt-4">Limitations of Use</h3>
+        <p>
+          By using this website, you warrant on behalf of yourself, your users,
+          and other parties you represent that you will not:
+        </p>
+        <ol>
           <li>
-            Use the Platform in any manner that violates applicable laws or
-            regulations.
+            modify, copy, prepare derivative works of, decompile, or reverse
+            engineer any materials and software contained on this website;
           </li>
           <li>
-            Interfere with or disrupt the integrity or performance of the
-            Platform or its underlying software.
+            remove any copyright or other proprietary notations from any
+            materials and software on this website;
           </li>
           <li>
-            Attempt to gain unauthorized access to the Platform or any related
-            systems or networks.
+            transfer the materials to another person or &ldquo;mirror&rdquo; the
+            materials on any other server;
           </li>
           <li>
-            Modify, adapt, translate, reverse engineer, decompile, or
-            disassemble any portion of the Platform.
+            knowingly or negligently use this website or any of its associated
+            services in a way that abuses or disrupts our networks or any other
+            service Swans Track LTD provides;
           </li>
           <li>
-            Use any automated means, including bots, crawlers, or scrapers, to
-            access or collect information from the Platform.
+            use this website or its associated services to transmit or publish
+            any harassing, indecent, obscene, fraudulent, or unlawful material;
           </li>
           <li>
-            Use the Platform to transmit or distribute any viruses, malware, or
-            other harmful computer code.
+            use this website or its associated services in violation of any
+            applicable laws or regulations;
           </li>
           <li>
-            Engage in any activity that may impose an unreasonable burden on the
-            Platform's infrastructure.
+            use this website in conjunction with sending unauthorised
+            advertising or spam;
           </li>
-        </ul>
-
-        <h2 className="text-[1.5rem] font-bold pt-4">
-          3. Intellectual Property Rights
-        </h2>
+          <li>
+            harvest, collect or gather user data without the user&rsquo;s
+            consent; or
+          </li>
+          <li>
+            use this website or its associated services in such a way that may
+            infringe the privacy, intellectual property rights, or other rights
+            of third parties.
+          </li>
+        </ol>
+        <h3 className="text-[1.5rem] font-bold pt-4">Intellectual Property</h3>
         <p>
-          Swans Track retains all rights, title, and interest in and to the
-          Platform, including all intellectual property rights. You acknowledge
-          that you do not acquire any ownership rights by using the Platform.
+          The intellectual property in the materials contained in this website
+          are owned by or licensed to Swans Track LTD and are protected by
+          applicable copyright and trademark law. We grant our users permission
+          to download one copy of the materials for personal, non-commercial
+          transitory use.
         </p>
         <p>
-          You agree not to copy, reproduce, modify, distribute, display, or
-          create derivative works based on the Platform or any part thereof
-          without the prior written consent of Swans Track.
+          This constitutes the grant of a license, not a transfer of title. This
+          license shall automatically terminate if you violate any of these
+          restrictions or the Terms of Service, and may be terminated by Swans
+          Track LTD at any time.
         </p>
-
-        <h2 className="text-[1.5rem] font-bold pt-4">4. Privacy</h2>
+        <h3 className="text-[1.5rem] font-bold pt-4">User-Generated Content</h3>
         <p>
-          Your privacy is important to us. Please refer to our Privacy Policy
-          for information on how we collect, use, and disclose your personal
-          information.
-        </p>
-
-        <h2 className="text-[1.5rem] font-bold pt-4">
-          5. Disclaimer of Warranties
-        </h2>
-        <p>
-          The Platform is provided on an "as is" and "as available" basis. Swans
-          Track makes no representations or warranties of any kind, whether
-          express, implied, or statutory, regarding the Platform, including
-          without limitation, any warranty of merchantability, fitness for a
-          particular purpose, or non-infringement.
+          You retain your intellectual property ownership rights over the
+          content you submit to us for publication on our website. We will never
+          claim ownership of your content but we do require a license from you
+          in order to use it.
         </p>
         <p>
-          Swans Track does not guarantee the accuracy, completeness, or
-          reliability of any content or information provided through the
-          Platform. You acknowledge and agree that your use of the Platform is
-          at your own risk.
-        </p>
-
-        <h2 className="text-[1.5rem] font-bold pt-4">
-          6. Limitation of Liability
-        </h2>
-        <p>
-          To the maximum extent permitted by applicable law, Swans Track and its
-          affiliates, directors, officers, employees, agents, or licensors shall
-          not be liable for any indirect, incidental, special, consequential, or
-          exemplary damages, including without limitation, damages for loss of
-          profits, data, or other intangible losses, arising out of or in
-          connection with your use of the Platform.
+          When you use our website or its associated services to post, upload,
+          share or otherwise transmit content covered by intellectual property
+          rights, you grant to us a non-exclusive, royalty-free, transferable,
+          sub-licensable, worldwide license to use, distribute, modify, run,
+          copy, publicly display, translate or otherwise create derivative works
+          of your content in a manner that is consistent with your privacy
+          preferences and our Privacy Policy.
         </p>
         <p>
-          Swans Track's total liability, whether in contract, tort (including
-          negligence), or otherwise, shall be limited to the amount paid by you,
-          if any, for accessing and using the Platform during the twelve (12)
-          months preceding the claim.
-        </p>
-
-        <h2 className="text-[1.5rem] font-bold pt-4">7. Indemnification</h2>
-        <p>
-          You agree to indemnify and hold Swans Track and its affiliates,
-          directors, officers, employees, agents, or licensors harmless from any
-          claims, damages, liabilities, and expenses (including reasonable
-          attorneys' fees) arising out of or in connection with your use of the
-          Platform, your violation of these Terms and Conditions, or your
-          violation of any applicable laws or regulations.
-        </p>
-
-        <h2 className="text-[1.5rem] font-bold pt-4">
-          8. Modifications and Termination
-        </h2>
-        <p>
-          Swans Track reserves the right, in its sole discretion, to modify or
-          terminate the Platform, or any part thereof, at any time without prior
-          notice.
+          The license you grant us can be terminated at any time by deleting
+          your content or account. However, to the extent that we (or our
+          partners) have used your content in connection with commercial or
+          sponsored content, the license will continue until the relevant
+          commercial or post has been discontinued by us.
         </p>
         <p>
-          Swans Track may also revise these Terms and Conditions from time to
-          time by posting an updated version on the Platform. Your continued use
-          of the Platform after any such changes constitutes your acceptance of
-          the revised Terms and Conditions.
+          You give us permission to use your username and other identifying
+          information associated with your account in a manner that is
+          consistent with your privacy preferences and our Privacy Policy.
         </p>
-
-        <h2 className="text-[1.5rem] font-bold pt-4">
-          9. Governing Law and Jurisdiction
-        </h2>
+        <h3 className="text-[1.5rem] font-bold pt-4">Registration and Payments</h3>
         <p>
-          These Terms and Conditions shall be governed by and construed in
-          accordance with the laws of [Jurisdiction]. Any disputes arising out
-          of or in connection with these Terms and Conditions shall be subject
-          to the exclusive jurisdiction of the courts of [Jurisdiction].
-        </p>
-
-        <h2 className="text-[1.5rem] font-bold pt-4">10. Entire Agreement</h2>
-        <p>
-          These Terms and Conditions constitute the entire agreement between you
-          and Swans Track regarding the use of the Platform and supersede any
-          prior agreements or understandings, whether oral or written, relating
-          to the subject matter herein.
-        </p>
-
-        <h2 className="text-[1.5rem] font-bold pt-4">11. Data Loss</h2>
-        <p>
-          Swans Track shall not be responsible for any loss, corruption, or
-          unauthorized access to your data stored on the Platform. You are
-          solely responsible for backing up your data and ensuring its
-          integrity.
+          In order to use our services, you need to create an account. Any
+          information provided needs to be accurate and updated if necessary.
+          Customers are liable for maintaining their accounts and are fully
+          responsible for all activities occurring under their accounts. Should
+          anybody gain unauthorized access to your account, you need to notify
+          us immediately. Swans Track LTD is not liable for any loss or damage
+          arising from failure to maintain the confidentiality of your account.
         </p>
         <p>
-          Swans Track recommends that you regularly backup your data and
-          implement appropriate security measures to protect against data loss
-          or unauthorized access.
-        </p>
-
-        <h2 className="text-[1.5rem] font-bold pt-4">12. Account Suspension</h2>
-        <p>
-          Swans Track reserves the right to suspend or terminate your account,
-          without prior notice, if it determines, in its sole discretion, that
-          you have violated these Terms and Conditions or engaged in any conduct
-          that may harm or disrupt the Platform or its users.
+          When creating your account, you may be required to provide financial
+          information relevant to the chosen payment method, including in some
+          cases, your credit card details. Please note that any payments made on
+          our platform will be processed by Stripe. As such, we will not be
+          responsible for processing or retaining any of your financial
+          information. Stripe will handle all of your financial information per
+          their respective Terms of Service, and you agree to comply with such
+          Terms of Service.
         </p>
         <p>
-          In the event of account suspension, you may lose access to your
-          account and any associated data. Swans Track shall not be liable for
-          any loss or damage resulting from such account suspension.
-        </p>
-
-        <h2 className="text-[1.5rem] font-bold pt-4">13. Refunds</h2>
-        <p>
-          All fees and charges paid to Swans Track are non-refundable unless
-          otherwise expressly stated.
+          All payments made to Swans Track LTD are final and non-reversible,
+          except where explicitly stated otherwise. Refunds, if applicable, will
+          be processed at the sole discretion of Swans Track LTD.
         </p>
         <p>
-          In exceptional cases, where a refund request is made, Swans Track may,
-          at its sole discretion, consider issuing a refund. Any such refund
-          shall be subject to the approval of Swans Track.
+          Subscriptions to Swans Track LTD services will automatically renew at
+          the end of each subscription period. It is essential for users to be
+          aware of this auto-renewal. To stop renewals, users must proactively
+          manage their subscription settings. Renewal fees will be charged based
+          on the subscription plan chosen by the user.
+        </p>
+        <h3 className="text-[1.5rem] font-bold pt-4">Liability</h3>
+        <p>
+          Our website and the materials on our website are provided on an 'as
+          is' basis. To the extent permitted by law, Swans Track LTD makes no
+          warranties, expressed or implied, and hereby disclaims and negates all
+          other warranties including, without limitation, implied warranties or
+          conditions of merchantability, fitness for a particular purpose, or
+          non-infringement of intellectual property, or other violation of
+          rights.
         </p>
         <p>
-          Swans Track reserves the right to determine, in its sole discretion,
-          whether to accept or reject a refund request and the amount of the
-          refund, if any, to be issued.
-        </p>
-
-        <h2 className="text-[1.5rem] font-bold pt-4">
-          14. Non-Payment and Account Deletion
-        </h2>
-        <p>
-          In the event of non-payment of any fees or charges owed to Swans
-          Track, Swans Track reserves the right to suspend or terminate your
-          account, without prior notice.
+          In no event shall Swans Track LTD or its suppliers be liable for any
+          consequential loss suffered or incurred by you or any third party
+          arising from the use or inability to use this website or the materials
+          on this website, even if Swans Track LTD or an authorised
+          representative has been notified, orally or in writing, of the
+          possibility of such damage.
         </p>
         <p>
-          If your account is suspended or terminated due to non-payment, Swans
-          Track may, at its discretion, delete or remove your account and any
-          associated data from the Platform. Swans Track shall not be liable for
-          any loss or damage resulting from such deletion or removal.
+          In the context of this agreement, &ldquo;consequential loss&rdquo;
+          includes any consequential loss, indirect loss, real or anticipated
+          loss of profit, loss of benefit, loss of revenue, loss of business,
+          loss of goodwill, loss of opportunity, loss of savings, loss of
+          reputation, loss of use and/or loss or corruption of data, whether
+          under statute, contract, equity, tort (including negligence),
+          indemnity or otherwise.
+        </p>
+        <p>
+          Because some jurisdictions do not allow limitations on implied
+          warranties, or limitations of liability for consequential or
+          incidental damages, these limitations may not apply to you.
+        </p>
+        <h3 className="text-[1.5rem] font-bold pt-4">Accuracy of Materials</h3>
+        <p>
+          The materials appearing on our website are not comprehensive and are
+          for general information purposes only. Swans Track LTD does not
+          warrant or make any representations concerning the accuracy, likely
+          results, or reliability of the use of the materials on this website,
+          or otherwise relating to such materials or on any resources linked to
+          this website. You should not rely solely on the said materials to make
+          decisions, we advise you to consult other, more complete sources of
+          information. You are solely responsible for the strict reliance on the
+          materials posted on our website. We have the right to change the
+          information on our website without prior notice and users are
+          responsible to monitor said changes. Any historical information
+          present on our website is provided for reference only.
+        </p>
+        <h3 className="text-[1.5rem] font-bold pt-4">Additional Tools</h3>
+        <p>
+          Please note that our website may include third-party tools which are
+          outside of our control. The access to said tools is provided on an 'as
+          is' basis with no warranties, expressed or implied, and without any
+          endorsement. We are not liable for the use of the third-party tools
+          provided on our website. You are solely responsible for any risks
+          associated with using said tools, we recommend reading the relevant
+          third-party provider&rsquo;s Terms of Service. Swans Track LTD has the
+          right to offer new third-party tools in the future.
+        </p>
+        <h3 className="text-[1.5rem] font-bold pt-4">Links</h3>
+        <p>
+          Swans Track LTD has not reviewed all of the sites linked to its
+          website and is not responsible for the contents of any such linked
+          site. The inclusion of any link does not imply endorsement, approval
+          or control by Swans Track LTD of the site. Use of any such linked site
+          is at your own risk and we strongly advise you make your own
+          investigations with respect to the suitability of those sites.
+        </p>
+        <h3 className="text-[1.5rem] font-bold pt-4">Third-party Integrations and Google User Data</h3>
+        <p>
+          By employing Swans Track LTD, users implicitly grant us the authority
+          to interact with third-party platforms like Google. Such interaction
+          might involve accessing, storing, and sharing specific data, the
+          dynamics of which are elaborated in our Privacy Policy. When users
+          choose to synchronise their Google account or use functionalities that
+          demand Google API integration, they consent to the stipulated data
+          interactions highlighted in our Privacy Policy.
+        </p>
+        <h3 className="text-[1.5rem] font-bold pt-4">Branding Integrity and Representations</h3>
+        <p>
+          Swans Track LTD ensures that all associated branding and logos comply
+          with Google&rsquo;s branding guidelines. Users are encouraged to
+          highlight any discrepancies for prompt corrective measures.
+        </p>
+        <h3 className="text-[1.5rem] font-bold pt-4">Inaccuracies and Mistakes</h3>
+        <p>
+          Please note that any content available on our website may contain
+          typographical errors, inaccuracies, or mistakes related to the
+          service&rsquo;s description, pricing, promotion, and availability. We
+          have the right to cancel or update any existing services should any
+          information provided by us be proven inaccurate. Said information can
+          be amended at any time without prior notice. Please note that we are
+          not obligated to clarify any of the information related to our website
+          and service, including pricing information, except as required by law.
+        </p>
+        <h3 className="text-[1.5rem] font-bold pt-4">Data Loss or Corruption</h3>
+        <p>
+          While we strive to ensure the integrity and security of our systems,
+          Swans Track LTD does not guarantee that user data will always be safe
+          from loss or corruption. Users are encouraged to maintain their own
+          backups of any critical data they upload or store on our platform.
+        </p>
+        <h3 className="text-[1.5rem] font-bold pt-4">Beta Version Disclaimer</h3>
+        <p>
+          Please note that Swans Track LTD is currently in its beta version.
+          This means that while we have made every effort to ensure the
+          platform&rsquo;s stability and functionality, there may be occasional
+          bugs or issues. Your patience and feedback during this phase are
+          greatly appreciated.
+        </p>
+        <h3 className="text-[1.5rem] font-bold pt-4">Updates and User Communication</h3>
+        <p>
+          As we introduce changes or updates to our platform or its third-party
+          integrations, you will be informed. We communicate these changes to
+          ensure you are aware of any modifications made on Swans Track LTD.
+        </p>
+        <h3 className="text-[1.5rem] font-bold pt-4">Policy Updates and Modifications</h3>
+        <p>
+          We periodically assess and refine our platform or its functionalities.
+          Such changes might influence our data interaction methods with Google
+          user data. All such amendments will invariably be reflected in our
+          revised Privacy Policy. For staying updated, we advocate our users to
+          periodically review our policy.
+        </p>
+        <h3 className="text-[1.5rem] font-bold pt-4">Indemnification</h3>
+        <p>
+          You agree to defend, indemnify, and hold us harmless, including our
+          subsidiaries, affiliates, and all of our respective officers, agents,
+          partners, and employees, from and against any loss, damage, liability,
+          claim, or demand, including reasonable attorneys&rsquo; fees and
+          expenses, made by any third party due to or arising out of: (1) your
+          Contributions; (2) use of the website; (3) breach of these Terms of
+          Service; (4) any breach of your representations and warranties set
+          forth in these Terms of Service; (5) your violation of the rights of a
+          third party, including but not limited to intellectual property
+          rights; or (6) any overt harmful act toward any other user of the
+          website with whom you connected via the website.
+        </p>
+        <p>
+          Notwithstanding the foregoing, we reserve the right, at your expense,
+          to assume the exclusive defence and control of any matter for which
+          you are required to indemnify us, and you agree to cooperate, at your
+          expense, with our defence of such claims. We will use reasonable
+          efforts to notify you of any such claim, action, or proceeding which
+          is subject to this indemnification upon becoming aware of it.
+        </p>
+        <h3 className="text-[1.5rem] font-bold pt-4">Right to Terminate</h3>
+        <p>
+          We may suspend or terminate your right to use our website immediately
+          upon written notice to you for any breach of these Terms of Service.
+          Swans Track LTD further reserves the right to block, prohibit,
+          suspend, or delete any user account without prior notice or reason.
+          Such actions may be taken due to, but not limited to, violations of
+          our terms, suspicious activity, or misuse of our platform.
+        </p>
+        <h3 className="text-[1.5rem] font-bold pt-4">Severance</h3>
+        <p>
+          Any term of these Terms of Service which is wholly or partially void
+          or unenforceable is severed to the extent that it is void or
+          unenforceable. The validity of the remainder of these Terms of Service
+          is not affected.
+        </p>
+        <h3 className="text-[1.5rem] font-bold pt-4">Entire Agreement</h3>
+        <p>
+          These Terms of Service and any policies or operating rules posted by
+          us on the website or with respect to the website constitute the entire
+          agreement and understanding between you and us. Our failure to
+          exercise or enforce any right or provision of these Terms of Service
+          shall not operate as a waiver of such right or provision. These Terms
+          of Service operate to the fullest extent permissible by law. We may
+          assign any or all of our rights and obligations to others at any time.
+          We shall not be responsible or liable for any loss, damage, delay, or
+          failure to act caused by any cause beyond our reasonable control.
+        </p>
+        <p>
+          If any provision or part of a provision of these Terms of Service is
+          determined to be unlawful, void, or unenforceable, that provision or
+          part of the provision is deemed severable from these Terms of Service
+          and does not affect the validity and enforceability of any remaining
+          provisions. There is no joint venture, partnership, employment, or
+          agency relationship created between you and us as a result of these
+          Terms of Service or use of the website. You agree that these Terms of
+          Service will not be construed against us by virtue of having drafted
+          them. You hereby waive any and all defences you may have based on the
+          electronic form of these Terms of Service and the lack of signing by
+          the parties hereto to execute these Terms of Service.
+        </p>
+        <h3 className="text-[1.5rem] font-bold pt-4">Governing Law</h3>
+        <p>
+          These Terms of Service are governed by and construed in accordance
+          with the laws of the United Kingdom. You irrevocably submit to the
+          exclusive jurisdiction of the courts in that location.
         </p>
       </div>
     </>

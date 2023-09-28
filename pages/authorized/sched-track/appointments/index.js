@@ -1,10 +1,12 @@
 import React, { useRef, useState } from 'react';
 import TableANTD from '@/components/ANTD/TableANTD';
 import { SearchOutlined } from "@ant-design/icons";
-import { Button, Input, Space } from 'antd';
+import { Button, FloatButton, Input, Space, notification } from 'antd';
 import Highlighter from 'react-highlight-words';
 import { postAxios } from '@/functions/ApiCalls';
+import { PlusOutlined, QuestionOutlined } from "@ant-design/icons";
 
+import cookie from "react-cookies";
 
 export default function index() {
     const [searchText, setSearchText] = useState("");
@@ -170,6 +172,7 @@ export default function index() {
                         style={{
                             width: 90,
                         }}
+                        
                     >
                         Reset
                     </Button>
@@ -279,29 +282,45 @@ export default function index() {
             dataIndex: "summary",
             key: "summary",
         },
-        {
-            title: "Add to Google Calendar",
-            dataIndex: "q",
-            key: "q",
-            render: (_, item) => {
-                return <div className='text-blue-500 hover:text-blue-600 hover:cursor-pointer' onClick={() => onFinish(item)}>
-                    Add to Google Calendar
-                </div>
-            }
-        }
+        // {
+        //     title: "Add to Google Calendar",
+        //     dataIndex: "q",
+        //     key: "q",
+        //     render: (_, item) => {
+        //         return <div className='text-blue-500 hover:text-blue-600 hover:cursor-pointer' onClick={() => onFinish(item)}>
+        //             Add to Google Calendar
+        //         </div>
+        //     }
+        // }
     ];
     return (
         <>
-            <h1 className="text-3xl font-light tracking-tight text-black mb-3">
+            {/* <h1 className="text-3xl font-light tracking-tight text-black mb-3">
                 Appointments
-            </h1>
+            </h1> */}
             <TableANTD
                 columns={columns}
                 getUrl={`${process.env.DIGITALOCEAN}/calendy/sched/appointments/`}
                 addButton={false}
                 addDrawer={false}
             />
+            <FloatButton
+                type="primary"
+                icon={<QuestionOutlined />}
+                style={{ bottom: 20 }}
+                onClick={() => {
+                    return (
+                        notification.info({
+                            message: "Public Profile",
+                            description: <div>Share your calendar with others by using this link: <a
+                                href={`https://www.swanstrack.com/swans-track/${cookie.load("company", { path: "/" })}/`}
+                                className="text-blue-500 hover:text-blue-400 "
+                            >{`https://www.swanstrack.com/swans-track/${cookie.load("company", { path: "/" })}/`}</a></div>,
+                            key: "api",
+                        })
+                    )
+                }}
+            />
         </>
-
     );
 };

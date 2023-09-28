@@ -73,9 +73,9 @@ export default function index({ plans, paymentId }) {
 
   return (
     <div className="overflow-hidden">
-      <div className="text-3xl font-light tracking-tight text-black my-[3rem] text-center">
+      {/* <div className="text-3xl font-light tracking-tight text-black my-[3rem] text-center">
         <h1>We Manage You Celebrate</h1>
-      </div>
+      </div> */}
       <div className="max-w-[20rem] m-auto">
         <Carousel autoplay dots="true">
           {plans?.map((item, index) => {

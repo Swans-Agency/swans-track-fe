@@ -8,6 +8,7 @@ import List from "./List";
 import DrawerANTD from "../ANTD/DrawerANTD";
 import TaskForm from "./NewTask";
 import ModalANTD from "../ANTD/ModalANTD";
+import { Avatar, Divider, Tooltip } from 'antd';
 
 export default function TasksComponent({ companyTasks, initialData }) {
   const dbRef = useRef(null);
@@ -17,6 +18,7 @@ export default function TasksComponent({ companyTasks, initialData }) {
   const [data, setData] = useState(initialData);
   const [showTag, setShowTag] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [teamMembers, setTeamMembers] = useState([])
 
   const columnNames = {
     "To Do": "toDo",
@@ -47,6 +49,25 @@ export default function TasksComponent({ companyTasks, initialData }) {
       taskIds: [],
     },
   }
+
+  const getAllEmployees = async () => {
+    const url = `${process.env.DIGITALOCEAN}/account/list-employees-no-pagination/`;
+    const employeeData = await getAxios(url);
+    const arrData = employeeData?.map((item) => {
+      return (
+        item
+      )
+    })
+    setTeamMembers(arrData);
+  };
+
+  useEffect(() => {
+    getAllEmployees()
+  }, [])
+
+  useEffect(() => {
+    console.log({ teamMembers })
+  }, [teamMembers])
 
   const onClose = () => {
     setOpen(false);
@@ -127,16 +148,16 @@ export default function TasksComponent({ companyTasks, initialData }) {
     }
 
     if (destination?.droppableId === source?.droppableId) {
-      let ourColumn = data?.columns?.[source?.droppableId]; 
+      let ourColumn = data?.columns?.[source?.droppableId];
       let newTasksIds = Array.from(ourColumn?.taskIds);
       newTasksIds.splice(source?.index, 1);
       newTasksIds.splice(destination?.index, 0, draggableId);
-  
+
       let newColumn = {
         ...ourColumn,
         taskIds: newTasksIds,
       }
-  
+
       setData((data) => ({
         ...data,
         columns: {
@@ -182,32 +203,79 @@ export default function TasksComponent({ companyTasks, initialData }) {
     setSelectedItem(null)
     setOpen(true)
   }
-  
+
   const handleOkModal = () => {
     setSelectedItem(null)
     setIsModalOpen(false)
   }
-  
+
   const handleCancelModal = () => {
     setSelectedItem(null)
     setIsModalOpen(false)
   }
-  
+
   const openModalUpdate = () => {
     setIsModalOpen(true)
   }
 
+  const borderColor = {
+    "To do": "bg-red-500",
+    "In Progress": "bg-yellow-500",
+    "Completed": "bg-green-500",
+    "Idle": "bg-purple-500",
+  }
+
   return (
     <>
+      <div className="flex justify-between gap-x-4 mb-3">
+        {teamMembers &&
+          <Avatar.Group
+            maxCount={3}
+            size="large"
+            maxStyle={{
+              color: 'white',
+              backgroundColor: '#205295',
+            }}
+            >
+            {teamMembers?.map((item) => {
+              return (
+                <Avatar
+                  src={item?.userProfile?.pfp?.split("?")[0] || "https://xsgames.co/randomusers/avatar.php?g=pixel&key=1"}
+                  className="w-10 h-10 rounded-full border-2"
+                  style={{
+                    border: "1px solid gray"
+                  }}
+                />
+              )
+            })}
+          </Avatar.Group>
+        }
+        <button
+          onClick={() => handleopenNewTask()}
+          className="flex justify-center items-center gap-x-2 bg-mainBackground hover:bg-foreignBackground text-white rounded py-[0.6rem] px-3"
+        >
+          Add new task
+        </button>
+      </div>
+
       <DragDropContext onDragEnd={handleDragEnd}>
         <div className='flex justify-start gap-5 overflow-auto'>
           {data?.columnOrder?.map((value, key) => {
             let columns = data?.columns?.[value];
             let tasks = columns?.taskIds?.map((value) => data?.tasks?.[value]);
             return (
-              <div className=' rounded-lg relative bg-gray-200 pl-4 pr-2  min-w-[250px] w-[300px] max-h-[85vh] mb-4 h-fit overflow-hidden'>
-                <h2 className='text-lg font-bold py-2 sticky inset-0 bg-gray-200 text-black'>{columns?.title}</h2>
-                <div className='custom-scroll max-h-[70vh] overflow-y-auto '>
+              <div className='px-1 relative  min-w-[250px] w-[300px] max-h-[75vh] mb-4 h-fit overflow-hidden'>
+                <div className={`text font-bold rounded text-center p-1 mb-2 sticky inset-0 `}>
+                  <div className="flex justify-start items-center gap-x-2">
+                    {columns?.title}
+                    <div className="border rounded px-2  text-[0.75rem] bg-gray-50">
+                      {tasks?.length}
+                    </div>
+                  </div>
+                  <p className={`mt-1 w-full h-[0.1rem] bg-gray-500 `}></p>
+                </div>
+
+                <div className='custom-scroll max-h-[71vh] overflow-y-auto p-2'>
                   <List
                     key={key}
                     cards={tasks}
@@ -217,13 +285,6 @@ export default function TasksComponent({ companyTasks, initialData }) {
                     setSelectedItem={setSelectedItem}
                     setOpen={openModalUpdate}
                   />
-                </div>
-                <div
-                  className='pl-2 my-2 mb-3 py-2 sticky mr-2 rounded-lg bottom-0 left-0 text-sm bg-gray-200 hover:bg-gray-300 text-black hover:cursor-pointer flex justify-start items-center gap-x-1'
-                  onClick={() => handleopenNewTask()}
-                >
-                  <PlusOutlined />
-                  <p>Add new task</p>
                 </div>
               </div>
             );
@@ -236,7 +297,7 @@ export default function TasksComponent({ companyTasks, initialData }) {
         open={open}
         children={<TaskForm handleNotifyTeam={handleNotifyTeam} />}
       />
-      {selectedItem && <ModalANTD 
+      {selectedItem && <ModalANTD
         title={"Task Details"}
         footer={null}
         isModalOpen={isModalOpen}

@@ -1,55 +1,37 @@
 import React from "react";
-import Image from "next/image";
 import { useRouter } from "next/router";
 
 export default function HeroPhone() {
   const router = useRouter();
   return (
-    <div className="px-3 flex flex-col items-center text-center w-[100%] tablet:px-10">
-      <Image
-        src="/Dark Logo (1).png"
-        width={110}
-        height={110}
-        className="opacity-100"
-      />
-      <h1 className="text-[2.4rem] my-[15px] font-light text-black">
-        Create. Manage. Succeed Effortlessly
-      </h1>
-      <iframe
-        title="SwanS Track Promo"
-        
-        src="https://www.youtube.com/embed/MIK4ZRDI3ok"
-        allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        width="100%"
-        height="350"
-        frameborder="0"
-        allowfullscreen
-      ></iframe>
-      <p className="text-[1.25rem] tracking-[0.2rem] my-[15px] font-extralight text-black">
-        Unleash your productivity with our{" "}
-        <span className="font-bold">magic</span> powered{" "}
-        <span className="font-bold">management</span> tools.
-      </p>
-      <button
-        className="py-3 px-8 text-[1.25rem] text-white hover:text-[#dc2626] hover:bg-white bg-[#dc2626] rounded-lg border border-[#dc2626] flex items-center gap-x-2"
-        onClick={() => router.push("/signup")}
-      >
-        Get Exclusive Access
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          class="w-6 h-6"
+    <div className="px-3 flex flex-col items-center text-center tablet:px-10">
+      <div className="w-[80%] m-auto">
+        <h1 className="text-[3.75rem] font-bold text-white text-center">
+          Create. Manage. Succeed Effortlessly
+        </h1>
+        <p className="text-white text-[1.563rem]">
+          Unleash your productivity with our magic powered management tool.
+        </p>
+      </div>
+      <div className="my-[50px] w-[90%] m-auto">
+        <p className="text-[1.25rem] font-extralight text-white">
+          Freelance project management tools are a unique solution for
+          organizing and streamlining freelance work. These tools empower you to
+          make the most of your freelancing skills and experience. They offer
+          easy tracking of projects and tasks, efficient calendar and schedule
+          management, and systematic organization of tasks and projects.
+          Additionally, they enable seamless collaboration with your team. In
+          “Swan track” we bring all tools in one place.
+        </p>
+      </div>
+      <div className="flex flex-col items-center justify-center">
+        <button
+          className="bg-gradient-to-br from-[#003B76] to-[#00A3FF] hover:shadow-md hover:shadow-white text-white font-bold py-3 px-4 rounded-lg w-[200px] my-3"
+          onClick={() => router.push("/login")}
         >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
-          />
-        </svg>
-      </button>
+          Join for free
+        </button>
+      </div>
     </div>
   );
 }

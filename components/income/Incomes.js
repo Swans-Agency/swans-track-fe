@@ -72,6 +72,7 @@ export default function Incomes({ showModal }) {
             style={{
               width: 90,
             }}
+            type="primary"
           >
             Reset
           </Button>
@@ -192,9 +193,9 @@ export default function Incomes({ showModal }) {
 
   return (
     <>
-      <h1 className="text-3xl font-light tracking-tight text-black mb-3">
+      {/* <h1 className="text-3xl font-light tracking-tight text-black mb-3">
         Company Income
-      </h1>
+      </h1> */}
       <TableANTD
         columns={columns}
         getUrl={`${process.env.DIGITALOCEAN}/invoice/get-income/`}

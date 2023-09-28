@@ -23,6 +23,7 @@ export default function index() {
   const [incomePayment, setIncomePayment] = useState([]);
   const [incomeAlltime, setIncomeAlltime] = useState([]);
   const [expenseAlltime, setExpenseAlltime] = useState([]);
+  const [projectsAlltime, setProjectsAlltime] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [form] = Form.useForm();
 
@@ -55,6 +56,11 @@ export default function index() {
       `${process.env.DIGITALOCEAN}/company/dashboard/daily-quote/`
     );
     setQuotes(quote);
+    let projects = await getAxios(
+      `${process.env.DIGITALOCEAN}/company/dashboard/projects-alltime/`
+    );
+    console.log({ projects })
+    setProjectsAlltime(projects);
     let proposal = await getAxios(
       `${process.env.DIGITALOCEAN}/company/dashboard/proposals/`
     );
@@ -102,7 +108,7 @@ export default function index() {
   };
   return (
     <>
-      <div>
+      <div className="">
         <Dashboard
           quotes={quotes}
           proposals={proposals}
@@ -116,6 +122,7 @@ export default function index() {
           expenseAlltime={expenseAlltime}
           incomeAlltime={incomeAlltime}
           incomePayment={incomePayment}
+          projectsAlltime={projectsAlltime}
         />
       </div>
       <Feedback

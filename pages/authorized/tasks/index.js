@@ -11,7 +11,7 @@ export default function index({ companyTasks }) {
   };
   return (
     <div className="">
-      <TasksHeader />
+      {/* <TasksHeader /> */}
       <TasksComponent companyTasks={companyTasks} initialData={initialData} />
     </div>
   );

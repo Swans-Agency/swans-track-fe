@@ -8,14 +8,13 @@ export default function ModalANTD({
   handleOk,
   handleCancel,
   renderComponent,
+  style={top: 20}
 }) {
   return (
     <Modal
       title={title}
       footer={footer}
-      style={{
-        top: 20,
-      }}
+      style={style}
       open={isModalOpen}
       onOk={handleOk}
       onCancel={handleCancel}

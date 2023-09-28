@@ -14,6 +14,7 @@ export default function ClientForm({ setReload, onClose }) {
     );
     const url = `${process.env.DIGITALOCEAN}/client/get-clients/`;
     let res = await postAxios(url, data, true, true);
+    form.resetFields()
     setReload(res) 
     onClose()
   };
@@ -36,7 +37,7 @@ export default function ClientForm({ setReload, onClose }) {
             required: true
           }
         ]} label="First name" name="firstName" className="w-full">
-          <Input className="rounded" />
+          <Input size="large"  className="rounded-lg" />
         </Form.Item>
         <Form.Item 
         rules={[
@@ -44,7 +45,7 @@ export default function ClientForm({ setReload, onClose }) {
             required: true
           }
         ]} label="Last name" name="lastName" className="w-full">
-          <Input className="rounded" />
+          <Input size="large" className="rounded-lg" />
         </Form.Item>
       </div>
       <Form.Item 
@@ -53,7 +54,7 @@ export default function ClientForm({ setReload, onClose }) {
           required: true
         }
       ]} label="Client address" name="clientAddress" className="w-full">
-        <Input className="rounded" />
+        <Input size="large" className="rounded-lg" />
       </Form.Item>
       <div className="flex gap-x-5 w-full">
         <Form.Item 
@@ -66,7 +67,7 @@ export default function ClientForm({ setReload, onClose }) {
           name="email"
           className="w-full"
         >
-          <Input className="rounded" />
+          <Input size="large" className="rounded-lg" />
         </Form.Item>
         <Form.Item 
         rules={[
@@ -74,7 +75,7 @@ export default function ClientForm({ setReload, onClose }) {
             required: true
           }
         ]} label="Phone number" name="phoneNumber" className="w-full">
-          <Input className="rounded" />
+          <Input size="large" className="rounded-lg" />
         </Form.Item>
       </div>
       <div className="flex gap-x-5 w-full">
@@ -89,6 +90,7 @@ export default function ClientForm({ setReload, onClose }) {
           className="w-full"
         >
           <Select
+            size="large"
             options={[
               {
                 value: "Low",
@@ -116,6 +118,7 @@ export default function ClientForm({ setReload, onClose }) {
           className="w-full"
         >
           <Select
+            size="large"
             options={[
               {
                 value: "Friends&Family",
@@ -151,7 +154,7 @@ export default function ClientForm({ setReload, onClose }) {
           required: true
         }
       ]} label="Acquire Date" name="createdAt">
-        <DatePicker className="rounded w-full" placeholder="" />
+        <DatePicker size="large" className="rounded-lg w-full" placeholder="" />
       </Form.Item>
       <div className="flex gap-x-5 w-full justify-end">
         <Form.Item 

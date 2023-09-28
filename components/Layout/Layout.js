@@ -11,18 +11,17 @@ export default function Layout({ children, accessToken }) {
   return (
     <>
       {showNav && userPermission ? (
-        <>
+        <div className="">
           <Navbar userPermission={userPermission} />
           <div
-            className={`tablet:px-10 phone:px-5 py-5  min-h-[100vh] ${!collapsed ? "desktop:ml-[256px]" : "phone:ml-[25px]"
-              }`}
+            className={`tablet:px-10 phone:px-5 py-5  ${!collapsed ? "desktop:ml-[256px]" : "phone:ml-[25px]"} `}
           >
             <Progress />
             {children}
           </div>
-        </>
+        </div>
       ) : (
-        <div className=" min-h-[100vh]">
+        <div className="">
           <Progress />
           {children}
         </div>

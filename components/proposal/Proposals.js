@@ -14,6 +14,7 @@ export default function Proposals() {
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef(null);
+  
 
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
@@ -31,7 +32,8 @@ export default function Proposals() {
     let response = await getAxios(
       `${process.env.DIGITALOCEAN}/invoice/download-proposal/${id}`
     );
-    let base64Data = response.invoice;
+    console.log({ response })
+    let base64Data = response?.invoice;
     const byteString = atob(base64Data.split(",")[1]);
     const mimeString = base64Data.split(",")[0].split(":")[1].split(";")[0];
     const arrayBuffer = new ArrayBuffer(byteString.length);
@@ -97,6 +99,7 @@ export default function Proposals() {
             style={{
               width: 90,
             }}
+            type="primary"
           >
             Reset
           </Button>
@@ -210,7 +213,7 @@ export default function Proposals() {
 
   return (
     <>
-      <h1 className="text-3xl font-light tracking-tight text-black mb-3">Company Proposals</h1>
+      {/* <h1 className="text-3xl font-light tracking-tight text-black mb-3">Company Proposals</h1> */}
       <TableANTD
         columns={columns}
         getUrl={`${process.env.DIGITALOCEAN}/invoice/get-proposals/`}

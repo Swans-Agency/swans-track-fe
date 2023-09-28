@@ -12,7 +12,9 @@ export function NavShowWraper({ children }) {
 
   useEffect(() => {
     let accessToken = cookie.load("AccessTokenSBS", { path: "/" });
-    if (accessToken && router.pathname.includes(path)) {
+    if (accessToken && router.pathname == "/authorized/new-company") {
+      setShowNav(false);
+    } else if (accessToken && router.pathname.includes(path)) {
       setShowNav(true);
     } else {
       setShowNav(false);

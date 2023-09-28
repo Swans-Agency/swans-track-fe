@@ -42,10 +42,10 @@ export default function CreateEvent({ form, onFinish }) {
             },
           ]}
         >
-          <Input className="rounded w-full" />
+          <Input className="rounded-lg w-full" />
         </Form.Item>
         <Form.Item label="Event Location" name="location" className="w-full">
-          <Input className="rounded w-full" />
+          <Input className="rounded-lg w-full" />
         </Form.Item>
       </div>
       <Form.Item
@@ -53,7 +53,7 @@ export default function CreateEvent({ form, onFinish }) {
         name="description"
         className="w-full"
       >
-        <Input.TextArea className="rounded w-full" />
+        <Input.TextArea className="rounded-lg w-full" />
       </Form.Item>
       <div className="flex gap-x-5 w-full mt-0">
         <Form.Item
@@ -67,7 +67,7 @@ export default function CreateEvent({ form, onFinish }) {
             },
           ]}
         >
-          <TimePicker className="custom-button rounded text-black w-full" />
+          <TimePicker className="custom-button rounded-lg text-black w-full" />
         </Form.Item>
         <Form.Item
           label="End time"
@@ -80,7 +80,7 @@ export default function CreateEvent({ form, onFinish }) {
             },
           ]}
         >
-          <TimePicker className="custom-button rounded text-black w-full" />
+          <TimePicker className="custom-button rounded-lg text-black w-full" />
         </Form.Item>
       </div>
       <div className="flex gap-x-5 w-full mt-0">
@@ -91,7 +91,7 @@ export default function CreateEvent({ form, onFinish }) {
         >
           <InputNumber
             min={0}
-            className="rounded  w-full"
+            className="rounded-lg  w-full"
             addonAfter={<FieldTimeOutlined className="p-1" />}
           />
         </Form.Item>
@@ -102,7 +102,7 @@ export default function CreateEvent({ form, onFinish }) {
         >
           <InputNumber
             min={0}
-            className="rounded w-full"
+            className="rounded-lg w-full"
             addonAfter={<FieldTimeOutlined className="p-1" />}
           />
         </Form.Item>
@@ -173,7 +173,7 @@ export default function CreateEvent({ form, onFinish }) {
           <button
             htmlType="submit"
             type="primary"
-            className="bg-mainBackground hover:bg-foreignBackground text-textButtons rounded py-[0.4rem] px-3 "
+            className="bg-mainBackground hover:bg-foreignBackground text-textButtons rounded-lg py-[0.4rem] px-3 "
           >
             Create
           </button>

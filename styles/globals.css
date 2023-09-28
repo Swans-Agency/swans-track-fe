@@ -4,26 +4,26 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap");
 
 .custom-scroll::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 4px;
+  height: 4px;
 }
 
 /* Change the color of the scrollbar track */
 .custom-scroll::-webkit-scrollbar-track {
-  background-color: #c5c7c9;
-  border-radius: 30px;
+  background-color: #20539533;
+  /* border-radius: 30px; */
   margin-left: 10px;
 }
 
 /* Change the color of the scrollbar thumb */
 .custom-scroll::-webkit-scrollbar-thumb {
-  background-color: #515457;
-  border-radius: 30px;
+  background-color: #205295;
+  /* border-radius: 30px; */
 }
 
 /* Change the color of the scrollbar thumb when hovered */
 .custom-scroll::-webkit-scrollbar-thumb:hover {
-  background-color: #515457;
+  background-color: #205295;
   cursor: pointer !important;
 }
 
@@ -34,17 +34,17 @@
 
 /* Change the color of the scrollbar track */
 ::-webkit-scrollbar-track {
-  background-color: #1c212821;
+  background-color: #579dff00;
 }
 
 /* Change the color of the scrollbar thumb */
 ::-webkit-scrollbar-thumb {
-  background-color: #515457;
+  background-color: #205295;
 }
 
 /* Change the color of the scrollbar thumb when hovered */
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #515457;
+  background-color: #205295;
   cursor: pointer !important;
 }
 
@@ -113,15 +113,15 @@ body {
 }
 
 .ant-btn-primary {
-  background-color: #23262e !important;
-  border-color: #23262e !important;
+  background-color: #3659D4 !important;
+  border-color: #3659D4 !important;
   color: #ffffff !important;
   box-shadow: none !important;
 }
 
 .ant-btn-primary:hover {
-  background-color: #2c333a !important;
-  border-color: #2c333a !important;
+  background-color: #123edd !important;
+  border-color: #123edd !important;
   color: #ffffff !important;
   box-shadow: none !important;
 }
@@ -217,11 +217,68 @@ body {
   color: white !important;
 }
 
-.Button{
+.Button {
   background-color: #3659D4 !important;
   border: none;
 }
-.Button:hover{
+
+.Button:hover {
   background-color: #3659D4 !important;
   border: none;
+}
+
+/* .custom-cell td:nth-child(7) {                                                                                                               
+  padding: 0 !important;
+}
+
+.custom-cell td {                                                                                                               
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+} */
+
+.ant-checkbox-wrapper {
+  display: flex !important;
+}
+
+.ant-checkbox-wrapper .ant-checkbox {
+  align-self: baseline !important;
+}
+
+
+.animation-delay-1 {
+  animation-delay: 0.1s;
+}
+
+.animation-delay-2 {
+  animation-delay: 0.2s;
+}
+
+.animation-delay-3 {
+  animation-delay: 0.3s;
+}
+
+/* .animate-bounce {
+    animation: bounce 1s infinite;
+} */
+
+.ant-picker-calendar-mode-switch {
+  visibility: hidden !important;
+  display: none !important;
+}
+
+.a7a {
+  font-family: 'Southernsky', sans-serif;
+  /* font-family: 'Seafood', sans-serif; */
+}
+
+.ant-popover-inner, .ant-popover-arrow::before {
+  background-color: #0B2447 !important;
+}
+
+.ant-watermark img {
+  opacity: 0.01 !important;
+}
+.ServicesSection {
+  opacity: 0.25;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.00) 0%, rgba(1, 145, 231, 0.73) 53.12%);
 }

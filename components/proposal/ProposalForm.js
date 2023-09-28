@@ -19,13 +19,27 @@ import {
 import { getAxios, postAxios } from "@/functions/ApiCalls";
 import FormButtons from "../ANTD/FormButtons";
 
-export default function ProposalForm({ setReload, onClose }) {
+export default function ProposalForm({ setReload, onClose, getAllProposals=()=>{}}) {
   const [disabledSelectCurrency, setDisabledCurrency] = useState(false);
   const [clientData, setClientData] = useState([]);
   const [numberofItems, setNumberofItems] = useState(0);
   const [form] = Form.useForm();
   let logoPicList = [];
   let signaturePicList = [];
+  const [clientsData, setClientsData] = useState([]);
+  useEffect(() => {
+    GetAllClient()
+  }, []);
+
+  const GetAllClient = async () => {
+    const url = `${process.env.DIGITALOCEAN}/client/get-clients/`;
+    const clientSearchData = await getAxios(url);
+    const arrData = clientSearchData?.map((item) => ({
+      value: item.id,
+      label: `${item.firstName} ${item.lastName}`,
+    }));
+    setClientsData(arrData);
+  };
 
   useEffect(() => {
     getUserInitialData();
@@ -88,6 +102,7 @@ export default function ProposalForm({ setReload, onClose }) {
 
     const url = `${process.env.DIGITALOCEAN}/invoice/create-proposal/`;
     let res = await postAxios(url, data, true, true, ()=>{});
+    getAllProposals()
     setReload(res);
     onClose()
   };
@@ -106,6 +121,7 @@ export default function ProposalForm({ setReload, onClose }) {
       <div className="flex gap-x-5 w-full mt-0">
         <Form.Item label="Client" name="client" className="w-full" required>
           <Select
+            size="large"
             showSearch
             defaultValue=""
             style={{
@@ -117,7 +133,7 @@ export default function ProposalForm({ setReload, onClose }) {
             }}
             filterOption={false}
             onSearch={searchClient}
-            options={clientData}
+            options={clientsData}
           />
         </Form.Item>
         <Form.Item
@@ -126,7 +142,7 @@ export default function ProposalForm({ setReload, onClose }) {
           className="w-full"
           required
         >
-          <Input className="rounded" />
+          <Input size="large" className="rounded-lg" />
         </Form.Item>
       </div>
 
@@ -137,7 +153,7 @@ export default function ProposalForm({ setReload, onClose }) {
           className="w-full"
           required
         >
-          <Input className="rounded" />
+          <Input size="large" className="rounded-lg" />
         </Form.Item>
         <Form.Item
           label="Client address"
@@ -145,7 +161,7 @@ export default function ProposalForm({ setReload, onClose }) {
           className="w-full"
           required
         >
-          <Input className="rounded" />
+          <Input size="large" className="rounded-lg" />
         </Form.Item>
       </div>
 
@@ -156,7 +172,7 @@ export default function ProposalForm({ setReload, onClose }) {
           className="w-full"
           required
         >
-          <DatePicker className="rounded w-full" placeholder="" />
+          <DatePicker size="large" className="rounded-lg w-full" placeholder="" />
         </Form.Item>
       </div>
       <Form.Item
@@ -165,7 +181,7 @@ export default function ProposalForm({ setReload, onClose }) {
         className="w-full"
         required
       >
-        <Input.TextArea className="rounded" />
+        <Input.TextArea className="rounded-lg" />
       </Form.Item>
 
       <div className="flex gap-x-5 w-full mt-0">
@@ -176,8 +192,9 @@ export default function ProposalForm({ setReload, onClose }) {
           required
         >
           <InputNumber
+            size="large"
             min={0}
-            className="rounded  w-full"
+            className="rounded-lg  w-full"
             addonAfter={<MoneyCollectOutlined className="pb-1" />}
           />
         </Form.Item>
@@ -188,8 +205,9 @@ export default function ProposalForm({ setReload, onClose }) {
           required
         >
           <InputNumber
+            size="large"
             min={0}
-            className="rounded w-full"
+            className="rounded-lg w-full"
             addonAfter={<PercentageOutlined className="pb-1" />}
           />
         </Form.Item>
@@ -215,7 +233,7 @@ export default function ProposalForm({ setReload, onClose }) {
                       },
                     ]}
                   >
-                    <Input placeholder="Item name" />
+                    <Input size="large" placeholder="Item name" />
                   </Form.Item>
 
                   <div className="flex gap-x-5 w-full">
@@ -231,6 +249,7 @@ export default function ProposalForm({ setReload, onClose }) {
                       className="w-full"
                     >
                       <InputNumber
+                        size="large"
                         min={0}
                         placeholder="Item quantity"
                         className="w-full"
@@ -248,6 +267,7 @@ export default function ProposalForm({ setReload, onClose }) {
                       className="w-full"
                     >
                       <InputNumber
+                        size="large"
                         min={0}
                         className="w-full"
                         placeholder="Item rate"
@@ -269,6 +289,7 @@ export default function ProposalForm({ setReload, onClose }) {
               ))}
               {numberofItems < 12 && <Form.Item>
                 <Button
+                  size="large"
                   type="dashed"
                   onClick={() => {
                     return (

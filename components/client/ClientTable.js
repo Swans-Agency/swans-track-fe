@@ -78,6 +78,7 @@ export default function ClientTable({
             style={{
               width: 90,
             }}
+            type="primary"
           >
             Reset
           </Button>
