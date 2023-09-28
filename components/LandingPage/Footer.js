@@ -30,19 +30,19 @@ export default function Footer(props) {
             <button className="text-white">Sign up</button>
           </div>
           <div className="  space-x-3 text-white">
-            <Link href="/" className="">
+            <Link href="/">
               © 2023 Swanstrack Ltd
             </Link>
             <span>|</span>
-            <Link href="/" className="">
+            <Link href="/terms-conditions">
               Terms
             </Link>
             <span>|</span>
-            <Link href="/" className="">
+            <Link href="/swans-cookies">
               Cookies
             </Link>
             <span>|</span>
-            <Link href="/" className="">
+            <Link href="/swans-privacy-policy">
               Privacy
             </Link>
           </div>
