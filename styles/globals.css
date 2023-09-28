@@ -266,10 +266,6 @@ body {
   display: none !important;
 }
 
-.ant-picker-calendar-month-select .ant-select-selector, .ant-picker-calendar-year-select .ant-select-selector {
-  
-}
-
 .a7a {
   font-family: 'Southernsky', sans-serif;
   /* font-family: 'Seafood', sans-serif; */
@@ -281,4 +277,8 @@ body {
 
 .ant-watermark img {
   opacity: 0.01 !important;
+}
+.ServicesSection {
+  opacity: 0.25;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.00) 0%, rgba(1, 145, 231, 0.73) 53.12%);
 }
