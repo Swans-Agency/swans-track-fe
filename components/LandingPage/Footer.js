@@ -1,12 +1,14 @@
+import React from "react";
 import { Input } from "antd";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
 
 export default function Footer(props) {
   return (
     <section className="bg-gradient-to-b from-[#01417E] to-[#019DF7] h-[25vh] grid">
-      <div className="w-[90%] m-auto flex justify-between ">
+      <div className="w-[80%] m-auto flex justify-between ">
+        <div className="flex gap-24">
+
         <div className="self-center">
           <Image src="/logoNew.svg" width={100} height={100} />
         </div>
@@ -22,6 +24,7 @@ export default function Footer(props) {
             </button>
           </div>
         </div>
+        </div>
         <div className="flex flex-col gap-10 pt-4 ">
           <div className="flex justify-between gap-10">
             <button className="text-white">Home</button>
@@ -30,21 +33,13 @@ export default function Footer(props) {
             <button className="text-white">Sign up</button>
           </div>
           <div className="  space-x-3 text-white">
-            <Link href="/">
-              © 2023 Swanstrack Ltd
-            </Link>
+            <Link href="/">© 2023 Swanstrack Ltd</Link>
             <span>|</span>
-            <Link href="/terms-conditions">
-              Terms
-            </Link>
+            <Link href="/terms-conditions">Terms</Link>
             <span>|</span>
-            <Link href="/swans-cookies">
-              Cookies
-            </Link>
+            <Link href="/swans-cookies">Cookies</Link>
             <span>|</span>
-            <Link href="/swans-privacy-policy">
-              Privacy
-            </Link>
+            <Link href="/swans-privacy-policy">Privacy</Link>
           </div>
         </div>
       </div>

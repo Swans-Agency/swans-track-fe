@@ -3,15 +3,15 @@ import ServicesButtonStyle from "./ServicesButtonStyle";
 
 export default function Service(props) {
   return (
-    <section className="h-[100vh] bg-[#e3f5ffba] flex flex-col justify-center bg-opacity-25">
+    <section className="h-[70vh] bg-[#e3f5ffba] flex flex-col justify-center bg-opacity-25">
       <div className="w-[90%] m-auto">
         <p className="text-[#575757] text[1.563rem] text-center">
           WHO IT'S FOR
         </p>
-        <h1 className="text-[3.75rem] font-bold text-[#0191E7] text-center">
+        <h1 className="text-[3.75rem] font-black text-[#0191E7] text-center">
           Explore the new standard for
         </h1>
-        <h1 className="text-[3.75rem] font-bold text-[#0191E7] text-center">
+        <h1 className="text-[3.75rem] font-black text-[#0191E7] text-center">
           service professionals
         </h1>
         <div className="text-center mt-10 text[1.563rem] text-[#575757] flex justify-center gap-7">

@@ -4,8 +4,9 @@ import SvgLeft from "./SvgLeft";
 
 export default function Features(props) {
   return (
-    <section>
+    <section className="pb-32">
       <SvgRight
+      id={'Calendar'}
         title={"Calendar"}
         description={
           "Effortlessly manage your appointments and events, whether personal or collaborative with colleagues."
@@ -14,6 +15,8 @@ export default function Features(props) {
       />
 
       <SvgLeft
+      id={'Sched'}
+
         image={"/Sched.svg"}
         title={"Sched Track"}
         description={
@@ -22,6 +25,8 @@ export default function Features(props) {
       />
 
       <SvgRight
+      id={'Tasks'}
+
         title={"Tasks"}
         description={
           "Streamline your daily routine by organizing and monitoring tasks and assignments with ease."
@@ -30,6 +35,8 @@ export default function Features(props) {
       />
 
       <SvgLeft
+      id={'Projects'}
+
         image={"/Projects.svg"}
         title={"Projects"}
         description={
@@ -38,6 +45,8 @@ export default function Features(props) {
       />
 
       <SvgRight
+      id={'Client'}
+
         title={"Client Portal"}
         description={
           "Bring your people, clients and partners under one roof for a modern transparency and professional business experience"
@@ -46,6 +55,8 @@ export default function Features(props) {
       />
 
       <SvgLeft
+      id={'Intelligent'}
+
         image={"/Intelligent.svg"}
         title={"Intelligent Swan (ChatGPT)"}
         description={
@@ -54,6 +65,8 @@ export default function Features(props) {
       />
 
       <SvgRight
+      id={'Proposals'}
+
         title={"Proposals & Invoicing"}
         description={
           "Simplify your project workflow by effortlessly generating proposals and issuing invoices for both projects and clients"
@@ -62,6 +75,8 @@ export default function Features(props) {
       />
 
       <SvgLeft
+      id={'Expenses'}
+
         image={"/Expenses.svg"}
         title={"Expenses and income tracking"}
         description={
@@ -70,6 +85,8 @@ export default function Features(props) {
       />
 
       <SvgRight
+      id={'Team'}
+
         title={"Team collaboration"}
         description={
           "Elevate collaboration within your team through shared projects, tasks, and smooth interaction"

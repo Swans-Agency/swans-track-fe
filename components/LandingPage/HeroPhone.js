@@ -6,7 +6,7 @@ export default function HeroPhone() {
   return (
     <div className="px-3 flex flex-col items-center text-center tablet:px-10">
       <div className="w-[80%] m-auto">
-        <h1 className="text-[3.75rem] font-bold text-white text-center">
+        <h1 className="text-[3.75rem] font-black text-white text-center">
           Create. Manage. Succeed Effortlessly
         </h1>
         <p className="text-white text-[1.563rem]">
