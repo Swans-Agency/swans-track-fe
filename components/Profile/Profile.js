@@ -8,6 +8,7 @@ import dayjs from "dayjs";
 import { getAxios, patchAxios, postAxios } from "@/functions/ApiCalls";
 import FormButtons from "../ANTD/FormButtons";
 import FloatButtonJS from "../ANTD/FloatButton";
+import { NotificationError } from "@/functions/Notifications";
 
 
 export default function Profile() {
@@ -75,6 +76,16 @@ export default function Profile() {
     await postAxios(url, data, true, true, () => { });
   };
 
+  const checkFileSize = (file) => {
+    const maxSize = 1024 * 1024; // 1MB in bytes
+    if (file.size > maxSize) {
+      NotificationError("File size must be less than 1MB");
+      // message.error('File size must be less than 1MB');
+      return false; // Prevent upload
+    }
+    return true; // Allow upload
+  };
+
   return (
     <div className="text-black">
       {/* <h1 className="text-3xl font-light tracking-tight text-black">Profile</h1> */}
@@ -89,6 +100,7 @@ export default function Profile() {
       >
         <Form.Item label="Profile picture" className="mt-4" name={"pfp"}>
           <Upload
+            beforeUpload={checkFileSize}
             listType="picture-card"
             maxCount={1}
             defaultFileList={initialPicList}

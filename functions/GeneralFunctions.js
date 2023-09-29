@@ -1203,9 +1203,9 @@ const saveToLocal = (key, value) => {
 };
 
 const getObjectsFromLocalStorage = (key) => {
-  let localStorageCheck = localStorage.getItem(key);
+  let localStorageCheck = localStorage?.getItem(key) || null;
   if (localStorageCheck) {
-    return JSON.parse(localStorage.getItem(key));
+    return JSON?.parse(localStorage?.getItem(key) || {});
   }
   return null;
 };

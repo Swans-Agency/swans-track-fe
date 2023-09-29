@@ -1,51 +1,69 @@
 import { notification } from "antd";
+import Swal from "sweetalert2";
 
 
 const NotificationLoading = () => {
-    notification.info({
-        message: "Loading",
-        description: "Please wait while we process your request",
-        key: "api",
+    Swal.fire({
+        title: "Loading",
+        text: `Please wait while we process your request`,
+        icon: "info",
+        allowOutsideClick: false,
+        showConfirmButton: false,
+        timer: 3000,
+        customClass: {
+            container: "custom-swal-container",
+            popup: "custom-swal-popup",
+        },
     })
 }
 
 const NotificationPermission = () => {
-    notification.info({
-        message: "No Permission",
-        description: "You don\'t have the permission to perform this action.",
-        key: "api",
+    Swal.fire({
+        title: "No Permission",
+        text: `You don\'t have the permission to perform this action.`,
+        icon: "error",
+        allowOutsideClick: true,
+        showConfirmButton: false,
+        timer: 3000,
+        customClass: {
+            container: "custom-swal-container",
+            popup: "custom-swal-popup",
+        },
     })
 }
 
 const NotificationSuccess = (res) => {
-    if (res?.description) {
-        notification.success({
-            message: "Success",
-            description: res?.description,
-            key: "api",
-        })
-    } else {
-        notification.success({
-            message: "Success",
-            description: "Your request has been processed",
-            key: "api",
-        })
-    }
+    Swal.fire({
+        title: "Success",
+        text: `Your request has been processed`,
+        icon: "success",
+        allowOutsideClick: true,
+        showConfirmButton: false,
+        timer: 3000,
+        customClass: {
+            container: "custom-swal-container",
+            popup: "custom-swal-popup",
+        },
+    })
 }
 
 const NotificationError = (err) => {
-    console.log({err})
-    if (err?.detail || err?.response?.data?.detail) {
-        notification.error({
-            message: "Error",
-            description: err?.detail || err?.response?.data?.detail,
-        });
-    } else {
-        notification.error({
-            message: "Error",
-            description: "Sorry we are unable to process your request at this time, something went wrong",
-        });
-    }
+    console.log({ err })
+    let textErr = typeof (err) == "string" ? err : err?.response?.data?.detail || typeof (err?.response?.data) !== "object" && err?.response?.data || "Sorry were are unable to process your request."
+    console.log({ textErr })
+    Swal.fire({
+        title: "Error",
+        text: `${textErr}`,
+        icon: "error",
+        allowOutsideClick: true,
+        showConfirmButton:false,
+        timer: 3000,
+        customClass: {
+            container: "custom-swal-container",
+            popup: "custom-swal-popup",
+        },
+    })
+
 }
 
 

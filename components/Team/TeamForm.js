@@ -5,6 +5,7 @@ import { PlusOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
 import moment from "moment";
 import { patchAxios } from "@/functions/ApiCalls";
+import { NotificationError } from "@/functions/Notifications";
 
 export default function TeamForm({ updateItem, setUpdateItem, setReload }) {
   const [form] = Form.useForm();
@@ -66,6 +67,16 @@ export default function TeamForm({ updateItem, setUpdateItem, setReload }) {
     setReload({});
   };
 
+  const checkFileSize = (file) => {
+    const maxSize = 1024 * 1024; // 1MB in bytes
+    if (file.size > maxSize) {
+      NotificationError("File size must be less than 1MB");
+      // message.error('File size must be less than 1MB');
+      return false; // Prevent upload
+    }
+    return true; // Allow upload
+  };
+
   return (
     <Form
       onFinish={onFinish}
@@ -78,6 +89,7 @@ export default function TeamForm({ updateItem, setUpdateItem, setReload }) {
     >
       <Form.Item label="Profile picture" className="mt-4" name={"pfp"}>
         <Upload
+          beforeUpload={checkFileSize}
           listType="picture-card"
           maxCount={1}
           defaultFileList={initialPicList}

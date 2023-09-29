@@ -6,6 +6,7 @@ import FormButtons from '@/components/ANTD/FormButtons';
 import { postAxios } from '@/functions/ApiCalls';
 import { useRouter } from "next/router";
 import cookie from "react-cookies";
+import { NotificationError } from '@/functions/Notifications';
 
 export default function index() {
     const [form] = Form.useForm();
@@ -127,6 +128,16 @@ export default function index() {
             path: "/",
         });
         router.push("/authorized/dashboard");
+    };
+
+    const checkFileSize = (file) => {
+        const maxSize = 1024 * 1024; // 1MB in bytes
+        if (file.size > maxSize) {
+            NotificationError("File size must be less than 1MB");
+            // message.error('File size must be less than 1MB');
+            return false; // Prevent upload
+        }
+        return true; // Allow upload
     };
 
     return (
@@ -287,6 +298,7 @@ export default function index() {
                                 required
                             >
                                 <Upload
+                                    beforeUpload={checkFileSize}
                                     listType="picture-card"
                                     maxCount={1}
                                     defaultFileList={[]}
@@ -322,6 +334,7 @@ export default function index() {
                                 required
                             >
                                 <Upload
+                                    beforeUpload={checkFileSize}
                                     listType="picture-card"
                                     defaultFileList={[]}
                                     maxCount={1}

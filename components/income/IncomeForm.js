@@ -19,6 +19,7 @@ import { postAxios } from "@/functions/ApiCalls";
 import { getAxios } from "@/functions/ApiCalls";
 import FormButtons from "../ANTD/FormButtons";
 import InvoiceForm from "../invoice/InvoiceForm";
+import { NotificationError } from "@/functions/Notifications";
 
 export default function IncomeForm({ setReload, onClose }) {
   const [form] = Form.useForm();
@@ -52,6 +53,16 @@ export default function IncomeForm({ setReload, onClose }) {
     setReload(res);
     form.resetFields();
     onClose();
+  };
+
+  const checkFileSize = (file) => {
+    const maxSize = 1024 * 1024; // 1MB in bytes
+    if (file.size > maxSize) {
+      NotificationError("File size must be less than 1MB");
+      // message.error('File size must be less than 1MB');
+      return false; // Prevent upload
+    }
+    return true; // Allow upload
   };
 
   return (
@@ -195,7 +206,7 @@ export default function IncomeForm({ setReload, onClose }) {
           </Form.Item>
 
           <Form.Item label="Attachment" className="" name={"attachment"}>
-            <Upload listType="picture-card" maxCount={1} accept="image/*">
+              <Upload listType="picture-card" maxCount={1} accept="image/*" beforeUpload={checkFileSize}>
               <div>
                 <PlusOutlined />
                 <div

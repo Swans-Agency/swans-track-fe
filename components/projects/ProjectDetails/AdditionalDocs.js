@@ -31,7 +31,7 @@ export default function AdditionalDocs({ projectAdditionalDocs, getProjectAdditi
                                     // You can also handle other actions, like showing an error message, here.
                                 }}
                             />
-                            <div style={{ backdropFilter: "blur(10px)", }} className='absolute text-xs text-black top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full py-1 text-center'>
+                            <div style={{ backdropFilter: "blur(10px)", }} className='absolute text-xs text-black top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full py-1 text-center  overflow-x-hidden'>
                                 {item?.docName}
                             </div>
                         </div>

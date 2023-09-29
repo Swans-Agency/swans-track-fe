@@ -225,7 +225,7 @@ export default function Navbar({ userPermission }) {
       <link href="https://fonts.cdnfonts.com/css/southernsky" rel="stylesheet" />
 
       <div
-        className={`${collapsed ? "left-[0.85rem]" : "left-[14.85rem]"} fixed top-[1rem] rounded-full p-1  !z-[9999999] bg-white shadow hover:shadow-xl border hover:cursor-pointer`}
+        className={`${collapsed ? "left-[0.85rem]" : "left-[14.85rem]"} fixed top-[1rem] rounded-full p-1  !z-[1000] bg-white shadow hover:shadow-xl border hover:cursor-pointer`}
         onClick={toggleCollapsed}
         title={collapsed ? "Expand Sidebar" : "Collapse Sidebar"}
       >
@@ -239,8 +239,8 @@ export default function Navbar({ userPermission }) {
       </div>
 
 
-      <div className="sticky top-0 left-0 !z-[1000]">
-        <div className="absolute !z-[1000]">
+      <div className="sticky top-0 left-0 !z-[500]">
+        <div className="absolute !z-[500]">
           <div
             className={`${!collapsed ? "hidden" : "left-0 h-[100vh] top-0 w-[30px]"} text-white p-1 bg-navbar flex items-center hover:cursor-pointer`}
             onClick={toggleCollapsed}
@@ -296,7 +296,7 @@ export default function Navbar({ userPermission }) {
 
 
       <div
-        className={`${collapsed ? "w-[100%-30px] ml-[30px]" : "w-[100%-256px] ml-[256px] overflow-hidden"} !z-[1000] sticky top-0 left-0 shadow bg-white h-[4rem]  px-5 flex justify-between items-center gap-x-2  text-black `}
+        className={`${collapsed ? "w-[100%-30px] ml-[30px]" : "w-[100%-256px] ml-[256px] overflow-hidden"} !z-[500] sticky top-0 left-0 shadow bg-white h-[4rem]  px-5 flex justify-between items-center gap-x-2  text-black `}
       >
         <div className=" flex items-center gap-x-4 py-1 sticky top-0 inset-0 ">
           <span className="text-2xl pl-5  font-light">{toTitleCase(router.pathname.split("authorized/")[1])}</span>
