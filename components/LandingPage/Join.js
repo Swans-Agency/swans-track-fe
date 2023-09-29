@@ -4,8 +4,8 @@ import { useRouter } from "next/router";
 export default function Join() {
   const router = useRouter();
   return (
-    <section className="h-[70vh] flex flex-col justify-center bg-opacity-25">
-      <h1 className="text-[3.75rem] font-bold text-[#0191E7] text-center">
+    <section className="h-[60vh] flex flex-col justify-center bg-opacity-25">
+      <h1 className="text-[3.75rem] font-black text-[#0191E7] text-center">
         Join for free
       </h1>
       <p className="text-center mt-10 text[1.563rem] text-[#575757] flex justify-center gap-2">
