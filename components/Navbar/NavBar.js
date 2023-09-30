@@ -269,9 +269,9 @@ export default function Navbar({ userPermission }) {
                 );
               })}
 
-              <div className="absolute bottom-4 left-0 w-full px-2 pr-[1.5rem] border-t">
+              <div className="absolute bottom-0 left-0 w-full  border-t">
                 <div
-                  className={`flex mt-4 font-extralight justify-between gap-x-3 items-center text-[1rem] hover:bg-mainBackground hover:cursor-pointer px-2 py-2 rounded-lg `}
+                  className={`flex py-4 px-4 font-extralight justify-between gap-x-3 items-center text-[1rem] hover:bg-mainBackground hover:cursor-pointer`}
                   onClick={() => logout()}
                 >
                   <div className="flex gap-x-3 items-center  text-[15px]">

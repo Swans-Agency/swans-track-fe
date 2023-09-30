@@ -26,14 +26,17 @@ export default function Profile() {
     const url = `${process.env.DIGITALOCEAN}/account/get-profile/`;
     let data = await getAxios(url);
     console.log({ data })
-    if (data?.bio === "null") {
-      data["bio"] = null
-      console.log("dddddddddddddddddddddddd")
+    
+    for (const key in data) {
+      if (data.hasOwnProperty(key)) {
+        if (typeof data[key] === 'string' && data[key].toLowerCase() === 'null') {
+          // If the value is a string "null", convert it to null
+          data[key] = null;
+        }
+      }
     }
-    if (data?.position === "null") {
-      data["position"] = null
-      console.log("dddddddddddddddddddddddd")
-    }
+    console.log({ data })
+    
     if (data) {
       data.dob = data?.dob ? dayjs(new Date(data?.dob)) : dayjs("2000-01-01");
       data.pfp = data?.pfp?.split("?")[0];
@@ -64,6 +67,14 @@ export default function Profile() {
     formData.append("phoneNumber", data.phoneNumber);
     formData.append("dob", moment(new Date(data?.dob)).format("YYYY-MM-DD"));
     formData.append("position", data.position);
+
+    formData.append("website", data.website);
+    formData.append("linkedin", data.linkedin);
+    formData.append("facebook", data.facebook);
+    formData.append("instagram", data.instagram);
+    formData.append("twitter", data.twitter);
+    
+    
     if (data.pfp && data.pfp.file) {
       formData.append("pfp", data.pfp.file.originFileObj);
     }
@@ -97,6 +108,7 @@ export default function Profile() {
         }}
         className="desktop:max-w-[600px]"
         form={form}
+        initialValues={userData}
       >
         <Form.Item label="Profile picture" className="mt-4" name={"pfp"}>
           <Upload
@@ -147,6 +159,25 @@ export default function Profile() {
             />
           </Form.Item>
         </div>
+        <div className="flex gap-x-5 w-full">
+          <Form.Item label="Instagram Username" name="instagram" className="w-full">
+            <Input size="large" className="rounded-lg" />
+          </Form.Item>
+          <Form.Item label="Facebook Username" name="facebook" className="w-full">
+            <Input size="large" className="rounded-lg" />
+          </Form.Item>
+        </div>
+        <div className="flex gap-x-5 w-full">
+          <Form.Item label="Linkedin Username" name="linkedin" className="w-full">
+            <Input size="large" className="rounded-lg" />
+          </Form.Item>
+          <Form.Item label="Twitter Username" name="twitter" className="w-full">
+            <Input size="large" className="rounded-lg" />
+          </Form.Item>
+        </div>
+          <Form.Item label="Website Link" name="website" className="w-full">
+            <Input size="large" className="rounded-lg" />
+          </Form.Item>
         <Form.Item label="Position" name="position" className="w-full">
           <Input size="large" className="rounded-lg" disabled />
         </Form.Item>
