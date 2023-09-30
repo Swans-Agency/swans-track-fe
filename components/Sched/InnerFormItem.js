@@ -52,7 +52,7 @@ export default function InnerFormItem({ field, remove, handleDelete, fullDay, ti
                 </div>
                 <div>
                     <DeleteOutlined className='text-lg' onClick={() => {
-                        handleDelete(remove, field)
+                        handleDelete(remove, field, field.key)
                     }} />
                 </div>
             </div>

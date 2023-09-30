@@ -98,10 +98,17 @@ body {
   background-color: #eeeeee !important;
 }
 
-.custom-swal-container,
-.custom-swal-popup {
-  background-color: #23262e;
-  color: #acbbc7;
+.custom-swal-container, .custom-swal-container1,
+.custom-swal-popup, .custom-swal-popup1 {
+  background-color: white;
+  color: black;
+  /* height: 300px; */
+}
+
+.custom-swal-popup{
+  height: 300px;
+  width: 300px;
+  border-radius: 15px;
 }
 
 .swal2-confirm:focus,
@@ -109,7 +116,7 @@ body {
   box-shadow: none !important;
   border: none !important;
   outline: none !important;
-  color: #acbbc7 !important;
+  color: white !important;
 }
 
 .ant-btn-primary {

@@ -3,6 +3,7 @@ import { PlusOutlined } from "@ant-design/icons";
 import { Form, Input, Upload } from "antd";
 import { postAxios } from "@/functions/ApiCalls";
 import FormButtons from "@/components/ANTD/FormButtons";
+import { NotificationError } from "@/functions/Notifications";
 
 
 export default function SharedDocsForm({ projectId, getProjectSharedDocs, handleCloseModal }) {
@@ -30,6 +31,16 @@ export default function SharedDocsForm({ projectId, getProjectSharedDocs, handle
         handleCloseModal()
     };
 
+    const checkFileSize = (file) => {
+        const maxSize = 1024 * 1024; // 1MB in bytes
+        if (file.size > maxSize) {
+            NotificationError("File size must be less than 1MB");
+            // message.error('File size must be less than 1MB');
+            return false; // Prevent upload
+        }
+        return true; // Allow upload
+    };
+
     return (
         <Form
             onFinish={onFinish}
@@ -51,7 +62,7 @@ export default function SharedDocsForm({ projectId, getProjectSharedDocs, handle
                     },
                 ]}
                 label="Document(s)" className="" name={"doc"}>
-                <Upload listType="picture-card" multiple accept="*/*">
+                <Upload listType="picture-card" multiple accept="*/*" beforeUpload={checkFileSize} >
                     <div>
                         <PlusOutlined />
                         <div

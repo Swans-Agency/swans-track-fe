@@ -5,6 +5,7 @@ import FormButtons from "../ANTD/FormButtons";
 import { getAxios, postAxios } from "@/functions/ApiCalls";
 import { currencies, getObjectsFromLocalStorage, saveToLocal, timeZones } from "@/functions/GeneralFunctions";
 import cookie, { remove } from "react-cookies";
+import { NotificationError } from "@/functions/Notifications";
 
 export default function CompanyPreferencesForm() {
   const [invoiceTemplates, setInvoiceTemplates] = useState([]);
@@ -81,8 +82,8 @@ export default function CompanyPreferencesForm() {
     setQuotationTemplates(quotationData);
   };
 
+  const formData = new FormData();
   const onFinish = async (data) => {
-    const formData = new FormData();
     formData.append("bankIban", data?.bankIban);
     formData.append("timeZone", data?.timeZone);
     formData.append("currency", data?.currency);
@@ -106,6 +107,18 @@ export default function CompanyPreferencesForm() {
     saveToLocal("companyPreferences", companyPrefernceSavedData);
     setReloadData({});
   };
+
+  const checkFileSize = (file) => {
+    const maxSize = 1024 * 1024; // 1MB in bytes
+    if (file.size > maxSize) {
+      NotificationError("File size must be less than 1MB");
+      // message.error('File size must be less than 1MB');
+      logoPicList = [];
+      return false; // Prevent upload
+    }
+    return true; // Allow upload
+  };
+
 
   return (
     <div className="text-black">
@@ -136,6 +149,8 @@ export default function CompanyPreferencesForm() {
               listType="picture-card"
               maxCount={1}
               defaultFileList={logoPicList}
+              // fileList={logoPicList}
+              beforeUpload={checkFileSize}
             >
               <div>
                 <PlusOutlined />
@@ -164,6 +179,7 @@ export default function CompanyPreferencesForm() {
               listType="picture-card"
               maxCount={1}
               defaultFileList={signaturePicList}
+              beforeUpload={checkFileSize}
             >
               <div>
                 <PlusOutlined />

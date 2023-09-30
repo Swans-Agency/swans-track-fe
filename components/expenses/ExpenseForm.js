@@ -12,6 +12,7 @@ import {
 } from "antd";
 import { postAxios } from "@/functions/ApiCalls";
 import FormButtons from "../ANTD/FormButtons";
+import { NotificationError } from "@/functions/Notifications";
 
 export default function ExoenseForm({ setReload, onClose }) {
   const [form] = Form.useForm();
@@ -38,6 +39,16 @@ export default function ExoenseForm({ setReload, onClose }) {
     setReload(res);
     form.resetFields();
     onClose()
+  };
+
+  const checkFileSize = (file) => {
+    const maxSize = 1024 * 1024; // 1MB in bytes
+    if (file.size > maxSize) {
+      NotificationError("File size must be less than 1MB");
+      // message.error('File size must be less than 1MB');
+      return false; // Prevent upload
+    }
+    return true; // Allow upload
   };
 
   return (
@@ -155,7 +166,7 @@ export default function ExoenseForm({ setReload, onClose }) {
         </Form.Item>
       </div>
       <Form.Item label="Attachement" className="" name={"attachement"}>
-        <Upload listType="picture-card" maxCount={1} accept="image/*">
+        <Upload listType="picture-card" maxCount={1} accept="image/*" beforeUpload={checkFileSize} >
           <div>
             <PlusOutlined />
             <div

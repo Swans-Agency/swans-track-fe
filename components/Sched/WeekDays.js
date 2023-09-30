@@ -111,26 +111,56 @@ export default function WeekDays({ day, fullDay, classStyle, setDisableSave, for
         { value: "23.30", label: "23:30" },
         { value: "23.45", label: "23:45" },
     ]);
+    const [times, setTimes] = useState([])
 
 
+    useEffect(() => {
+        console.log("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq")
+        console.log(form.getFieldValue(["weeklySchedule", fullDay, "schedule"]))
+        if (times.length == 0) {
+            let newArr = []
+            form.getFieldValue(["weeklySchedule", fullDay, "schedule"])?.map((item) => {
+                Object?.values(item)?.map((key) => {
+                    console.log({ key } )
+                    newArr.push(Number(key?.start))
+                    newArr.push(Number(key?.end))
+                })
+                
+            })
+            setTimes(newArr)
+        }
+    }, [form.getFieldValue(["weeklySchedule", fullDay, "schedule"])])
+
+    useEffect(() => {
+        console.log({ times })
+    }, [times])
 
     const handleSelectTime = (value, type, key) => {
 
-        if (type === 'start') {
-            setStartTime(value);
-            setDisableSave(false);
+        if (timeOptions.length == 0){
+            setTimes([...times, value])
             setErrorTime(false);
-            if (value >= endTime) {
-                setErrorTime(true);
-                setDisableSave(true);
-            }
+            setDisableSave(false);
         } else {
-            setEndTime(value);
-            setDisableSave(false);
-            setErrorTime(false);
-            if (value <= startTime) {
-                setErrorTime(true);
-                setDisableSave(true);
+            times[key -1]
+            if (key <= times.length) {
+                if(Number(value) <= times[key - 1]) {
+                    setErrorTime(true);
+                    setDisableSave(true);
+                } else {
+                    times[key] = Number(value)
+                    setErrorTime(false);
+                    setDisableSave(false);
+                }
+            } else {
+                if (Number(value) <= times[times.length - 1]) {
+                    setErrorTime(true);
+                    setDisableSave(true);
+                } else {
+                    setTimes([...times, Number(value)])
+                    setErrorTime(false);
+                    setDisableSave(false);
+                }
             }
         }
     }
@@ -141,11 +171,11 @@ export default function WeekDays({ day, fullDay, classStyle, setDisableSave, for
         setChecked(e.target.checked);
     };
 
-    const handleDelete = (remove, field) => {
-        console.log({field})
-        console.log({remove})
+    const handleDelete = (remove, field, value) => {
         remove(field.name)
         setCountFields(countfields - 1)
+        times.splice(value*2, 2)
+        setTimes(times)
     }
 
     const handleAdd = (add) => {
@@ -177,7 +207,7 @@ export default function WeekDays({ day, fullDay, classStyle, setDisableSave, for
                     </Checkbox>
                 </Form.Item>
             </div>
-            {form.getFieldValue(["weeklySchedule", fullDay, "check"])  ? <div className='col-span-3'>
+            {form.getFieldValue(["weeklySchedule", fullDay, "check"])  ? <div className='col-span-3 '>
                 
                 <Form.List name={["weeklySchedule", fullDay, "schedule"]}>
                     {(fields, { add, remove }) => (
