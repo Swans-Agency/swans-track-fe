@@ -282,3 +282,9 @@ body {
   opacity: 0.25;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.00) 0%, rgba(1, 145, 231, 0.73) 53.12%);
 }
+.loginInput .ant-input{
+  background-color: #E6F4FD !important;
+  color: #acbbc7 !important;
+  border: 0 !important;
+  border-radius: 5px !important;
+}
