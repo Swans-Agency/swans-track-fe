@@ -19,7 +19,7 @@ export default function index() {
   return (
     <section className="w-full h-screen desktop:grid desktop:grid-cols-12">
       <div
-        className="col-span-4 w-full h-screen desktop:block phone:hidden laptop:hidden tablet:hidden"
+        className="col-span-4 w-full h-full desktop:block phone:hidden laptop:hidden tablet:hidden"
         style={{
           backgroundImage: "url(/BgForms.svg)",
           backgroundPosition: "center",
@@ -272,7 +272,7 @@ export default function index() {
             </Form>
           </div>
         </div>
-        <div className="flex flex-wrap justify-center pt-10 gap-1 w-[100%]">
+        <div className="flex flex-wrap justify-center pt-10 gap-1 w-[100%] pb-2">
           <h1>By signing in, you agree to our</h1>
           <Link href="/terms-conditions" className="text-[#0191E7]">
             Terms
