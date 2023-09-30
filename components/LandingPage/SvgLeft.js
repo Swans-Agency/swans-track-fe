@@ -1,15 +1,28 @@
 import Image from "next/image";
 import React from "react";
 
-export default function SvgLeft({ title, description, image }) {
+export default function SvgLeft({ title, description, image, id }) {
   return (
-    <div className="flex justify-between w-[70%] m-auto pt-20">
-      <Image src={image} width={300} height={300} />
-      <div className="self-center text-end">
-        <h1 className="text-[2.188rem] text-[#0191E7] font-extrabold  mt-4">
+    <div
+      id={id}
+      className="desktop:flex desktop:justify-between tablet:mx-auto phone: desktop:w-[70%] phone:w-[90%] m-auto pt-20"
+    >
+      <div>
+        <Image src={image} width={300} height={300} className="m-auto" />
+      </div>
+      <div className="self-center desktop:text-right phone:text-center phone:space-y-2">
+        <h1 className="desktop:text-[2.188rem] phone:text-[1.5rem] text-[#0191E7] font-black mt-4">
           {title}
         </h1>
-        <p className="text-[1.25rem] text-right ml-40">{description}</p>
+        <div className="flex desktop:justify-end desktop:text-right phone:text-center">
+          <p className="desktop:w-[80%] text-[1.25rem] desktop:m-0 phone:m-auto">
+            {description}
+          </p>
+        </div>
+
+        <div className="flex justify-center">
+          <Image src={"/Left.svg"} width={100} height={100} />
+        </div>
       </div>
     </div>
   );

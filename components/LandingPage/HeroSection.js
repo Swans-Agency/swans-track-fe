@@ -1,41 +1,87 @@
-import React from "react";
+import React, { useState } from "react";
 import HeroPhone from "./HeroPhone";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
 export default function HeroSection() {
   const router = useRouter();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
     <section
       id="hero-section"
-      className="w-full h-[100vh]  overflow-hidden grid gap-0"
-      style={{ backgroundImage: "url(/Main.png)" }}
+      className="w-full grid gap-0 relative"
+      style={{ backgroundImage: "url(/Main.png)", backgroundPosition: "center", backgroundSize: "cover" }}
     >
-      <nav className="flex justify-between w-[80%] m-auto fixed right-0 left-0 top-4 z-50">
+      <nav className="desktop:flex desktop:justify-between desktop:items-center px-[10%] w-full py-6 phone:flex phone:place-content-between">
         <div>
-          {/* <Image src="/logoNew.svg" width={54} height={54} /> */}
-          <Image src="/Main.svg" width={54} height={54} />
+          <Image src="/LogoWhite.svg" width={54} height={54} />
+          
+        </div>
 
+
+        <ul className={`${isMenuOpen ? 'flex' : 'hidden'} desktop:flex justify-between desktop:gap-10 phone:gap-5 text-white self-center`}>
+          <a href="/">Home</a>
+          <a href="#Features">Features</a>
+          <a href="#User">User</a>
+        </ul>
+  
+        <div className="desktop:hidden phone:grid ">
+          <button
+            onClick={toggleMenu}
+            className="text-white focus:outline-none"
+          >
+            {isMenuOpen ? (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-8 w-full"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            ) : (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-8 w-full"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h16m-7 6h7"
+                />
+              </svg>
+            )}
+          </button>
         </div>
-        <div className="flex justify-between gap-10 text-[#0191E7]">
-        {/* <div className="flex justify-between gap-10 text-white"> */}
-          <button className="">Home</button>
-          <button className="">Features</button>
-          <button className="">User</button>
-        </div>
-        <div>
+        
+        <div className="phone:hidden phone:relative desktop:block">
           <button
             onClick={() => {
               router.push("/signup");
             }}
-            className="bg-gradient-to-br from-[#003B76] to-[#00A3FF] hover:shadow-md hover:shadow-white text-white font-bold py-3 px-4 rounded-lg my-3"
+            className="bg-gradient-to-br from-[#003B76] to-[#00A3FF] hover:shadow hover:shadow-gray-400 text-white font-bold py-3 px-4 rounded-lg my-3"
           >
             Register Now !
           </button>
         </div>
       </nav>
 
-      <div className="desktop:block mt-2 self-center">
+      <div className="desktop:block py-20 mb-[18%] mt-[4%] self-center">
         <HeroPhone />
       </div>
     </section>
