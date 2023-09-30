@@ -30,7 +30,7 @@ export default function Dashboard({
         main={proposals?.percentChange}
         // classes={'bg-[#d1a404]'}
         classes={'bg-gray-200'}
-        percent={Number(proposals?.percentChange)?.toFixed(1) || 0}
+        percent={proposals?.percentChange ? Number(proposals?.percentChange)?.toFixed(1) : 0}
         number={<>{proposals?.currentMonthProposals || 0}</>}
         color={"bg-[#947404]"}
         icon={
@@ -54,7 +54,7 @@ export default function Dashboard({
       <CardPercent
         title="Monthly Invoice"
         main={invoices?.percentChange}
-        percent={Number(invoices?.percentChange)?.toFixed(1) || 0}
+        percent={invoices?.percentChange? Number(invoices?.percentChange)?.toFixed(1) : 0}
         number={<>{invoices?.currentMonthInvoices || 0}</>}
         icon={
           <svg
@@ -80,7 +80,7 @@ export default function Dashboard({
       <CardPercent
         title="Proposals Invoices Ratio"
         main={successRatio?.successRatio}
-        percent={Number(successRatio?.successRatio)?.toFixed(1) || 0}
+        percent={successRatio?.successRatio ? Number(successRatio?.successRatio)?.toFixed(1) : 0}
         number={
           <>
             {successRatio?.invoices || 0}/{successRatio?.proposals || 0}
@@ -110,7 +110,7 @@ export default function Dashboard({
       <CardPercent
         title="Customer Aquisition"
         main={clients?.percentChange}
-        percent={Number(clients?.percentChange)?.toFixed(1) || 0}
+        percent={clients?.percentChange ? Number(clients?.percentChange)?.toFixed(1) : 0}
         number={<>{clients?.currentMonthClients || 0}</>}
         color={"bg-[#002073]"}
         // classes={"bg-[#0234b5]"}
@@ -136,7 +136,7 @@ export default function Dashboard({
       <CardPercent
         title="Monthly Expenses"
         main={expenses?.percentChange || 0}
-        percent={Number(expenses?.percentChange)?.toFixed(1) || 0}
+        percent={expenses?.percentChange ? Number(expenses?.percentChange)?.toFixed(1) : 0}
         number={<>{Number(expenses?.currentMonthExpenses) || 0}</>}
         color={"bg-[#730000]"}
         // classes={"bg-[#a30202]"}
@@ -162,7 +162,7 @@ export default function Dashboard({
       <CardPercent
         title="Monthly Income"
         main={income?.percentChange}
-        percent={Number(income?.percentChange)?.toFixed(1) || 0}
+        percent={income?.percentChange ? Number(income?.percentChange)?.toFixed(1) : 0}
         number={<>{income?.currentMonthIncome || 0}</>}
         color={"bg-[#00732E]"}
         // classes={"bg-[#008a36]"}

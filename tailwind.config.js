@@ -33,10 +33,10 @@ module.exports = {
         // calendarBackground: "#6C737A",
         // textIcons: "#ACBBC7",
 
-        sidebar: "#0A2647",
-        navbar: "#0A2647",
-        mainBackground: "#144272",
-        foreignBackground: "#205295",
+        sidebar: "#19376D",
+        navbar: "#19376D",
+        mainBackground: "#015BA1",
+        foreignBackground: "#337CCF",
         calendarBackground: "#6C737A",
         textIcons: "#ACBBC7",
 

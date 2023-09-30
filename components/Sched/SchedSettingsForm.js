@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import WeekDays from './WeekDays';
 import FormButtons from '../ANTD/FormButtons';
 import { getAxios, postAxios } from '@/functions/ApiCalls';
+import { NotificationError } from '@/functions/Notifications';
 
 
 export default function SchedSettingsForm() {
@@ -10,6 +11,7 @@ export default function SchedSettingsForm() {
     const [disableSave, setDisableSave] = useState(false);
     const [initialData, setInitialData] = useState({});
     const [initialFormData, setInitialFormData] = useState({})
+    const [disableSaveButton, setDisableSaveButton] = useState([false])
 
     const weekDays = [
         { shortName: "MON", fullName: "Monday" },
@@ -19,6 +21,63 @@ export default function SchedSettingsForm() {
         { shortName: "FRI", fullName: "Friday" },
         { shortName: "SAT", fullName: "Saturday" },
         { shortName: "SUN", fullName: "Sunday" },
+    ]
+
+    const monthsBooking = [
+        {
+            value: "this month",
+            label: "Only this current month",
+        },
+        {
+            value: "one month",
+            label: "One month ahead",
+        },
+        {
+            value: "three months",
+            label: "Three months ahead",
+        },
+    ]
+
+    const meetingDuration = [
+        {
+            value: 0.15,
+            label: "15 min",
+        },
+        {
+            value: 0.30,
+            label: "30 min",
+        },
+        {
+            value: 0.45,
+            label: "45 min",
+        },
+        {
+            value: 1,
+            label: "60 min",
+        },
+    ]
+
+    const breakDuration = [
+        {
+            value: "0",
+            label: "No breaks",
+        },
+        {
+            value: 0.15,
+            label: "15 min",
+        },
+        {
+            value: 0.3,
+            label: "30 min",
+        },
+        {
+            value: 0.45,
+            label: "45 min",
+        },
+        {
+            value: 1,
+            label: "60 min",
+        },
     ]
 
     useEffect(() => {
@@ -63,13 +122,41 @@ export default function SchedSettingsForm() {
         setInitialData(res)
     }
 
+    const validateTimes = async(schedule) => {
+        for (const day in schedule) {
+            if (schedule.hasOwnProperty(day)) {
+                const daySchedule = schedule[day].schedule;
+                const dayCheck = schedule[day].check;
+                if (dayCheck) {
+                    if (daySchedule.length > 1) {
+                        for (let i = 1; i < daySchedule.length; i++) {
+                            const previousSchedule = daySchedule[i - 1][day];
+                            const currentSchedule = daySchedule[i][day];
+                            const previousEnd = parseFloat(previousSchedule.end);
+                            const currentStart = parseFloat(currentSchedule.start);
+    
+                            if (currentStart < previousEnd || currentStart > previousEnd) {
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return true
+    }
+
     const onFinish = async (data) => {
         console.log({ data })
-        const url = `${process.env.DIGITALOCEAN}/calendy/sched/`
-        let res = await postAxios(url, data, true, true)
-
-        if (res) {
-            getInitialData()
+        let isValed = await validateTimes(data.weeklySchedule)
+        if (!isValed) {
+            NotificationError("Invalid schedule")
+        } else {
+            const url = `${process.env.DIGITALOCEAN}/calendy/sched/`
+            let res = await postAxios(url, data, true, true)
+            if (res) {
+                getInitialData()
+            }
         }
     };
 
@@ -89,44 +176,14 @@ export default function SchedSettingsForm() {
                 <p>Invitees can schedule...</p>
             </div>} name="dateRange" className="w-full">
                 <Select
-                    options={[
-                        {
-                            value: "this month",
-                            label: "Only this current month",
-                        },
-                        {
-                            value: "one month",
-                            label: "One month ahead",
-                        },
-                        {
-                            value: "three months",
-                            label: "Three months ahead",
-                        },
-                    ]}
+                    options={monthsBooking}
                     size='large'
                     placeholder="Invitees can schedule a meeting in the next..."
                 />
             </Form.Item>
             <Form.Item label="Duration" name="duration" className="w-full">
                 <Select
-                    options={[
-                        {
-                            value: 0.15,
-                            label: "15 min",
-                        },
-                        {
-                            value: 0.30,
-                            label: "30 min",
-                        },
-                        {
-                            value: 0.45,
-                            label: "45 min",
-                        },
-                        {
-                            value: 1,
-                            label: "60 min",
-                        },
-                    ]}
+                    options={meetingDuration}
                     size='large'
                     placeholder="Your meetings generally last..."
                 />
@@ -140,7 +197,6 @@ export default function SchedSettingsForm() {
                                 day={day?.shortName}
                                 fullDay={day?.fullName}
                                 classStyle={`py-5 ${index % 2 !== 0 ? "border-b bg-gray-50" : "border-b "}`}
-                                setDisableSave={setDisableSave}
                                 form={form}
                             />
                         )
@@ -149,28 +205,7 @@ export default function SchedSettingsForm() {
             </Form.Item>
             <Form.Item label="Want to add break after your events?" name="breakDuration" className="w-full">
                 <Select
-                    options={[
-                        {
-                            value: "0",
-                            label: "No breaks",
-                        },
-                        {
-                            value: 0.15,
-                            label: "15 min",
-                        },
-                        {
-                            value: 0.3,
-                            label: "30 min",
-                        },
-                        {
-                            value: 0.45,
-                            label: "45 min",
-                        },
-                        {
-                            value: 1,
-                            label: "60 min",
-                        },
-                    ]}
+                    options={breakDuration}
                     size='large'
                     placeholder="Want to add break after your events?"
                 />
