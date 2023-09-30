@@ -7,7 +7,7 @@ import React, { useEffect, useState } from 'react';
 import InnerFormItem from './InnerFormItem';
 import cookie from "react-cookies";
 
-export default function WeekDays({ day, fullDay, classStyle, setDisableSave, form }) {
+export default function WeekDays({ day, fullDay, classStyle, form}) {
     const [checked, setChecked] = useState(false);
     const [countfields, setCountFields] = useState(1);
     const [startTime, setStartTime] = useState(0.00);
@@ -114,55 +114,80 @@ export default function WeekDays({ day, fullDay, classStyle, setDisableSave, for
     const [times, setTimes] = useState([])
 
 
-    useEffect(() => {
-        console.log("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq")
-        console.log(form.getFieldValue(["weeklySchedule", fullDay, "schedule"]))
-        if (times.length == 0) {
-            let newArr = []
-            form.getFieldValue(["weeklySchedule", fullDay, "schedule"])?.map((item) => {
-                Object?.values(item)?.map((key) => {
-                    console.log({ key } )
-                    newArr.push(Number(key?.start))
-                    newArr.push(Number(key?.end))
-                })
-                
-            })
-            setTimes(newArr)
-        }
-    }, [form.getFieldValue(["weeklySchedule", fullDay, "schedule"])])
-
-    useEffect(() => {
-        console.log({ times })
-    }, [times])
 
     const handleSelectTime = (value, type, key) => {
-
-        if (timeOptions.length == 0){
-            setTimes([...times, value])
-            setErrorTime(false);
-            setDisableSave(false);
+        console.log({key})
+        console.log({ value })
+        console.log({ type })
+        let newArr = []
+        form.getFieldValue(["weeklySchedule", fullDay, "schedule"])?.map((item) => {
+            Object?.values(item)?.map((key) => {
+                { key?.start && newArr.push(Number(key?.start))}
+                { key?.end && newArr.push(Number(key?.end))}
+            })
+        })
+        console.log({times})
+        console.log({newArr})
+        let index;
+        if (type == "start") {
+            index = key * 2
         } else {
-            times[key -1]
-            if (key <= times.length) {
-                if(Number(value) <= times[key - 1]) {
-                    setErrorTime(true);
-                    setDisableSave(true);
-                } else {
-                    times[key] = Number(value)
-                    setErrorTime(false);
-                    setDisableSave(false);
-                }
-            } else {
-                if (Number(value) <= times[times.length - 1]) {
-                    setErrorTime(true);
-                    setDisableSave(true);
-                } else {
-                    setTimes([...times, Number(value)])
-                    setErrorTime(false);
-                    setDisableSave(false);
-                }
+            index = key * 2 + 1
+        }
+
+        if (index < 0 || index >= newArr.length) {
+            return 
+        }
+
+        for (let i = 0; i < index; i++) {
+            if (newArr[i] >= value) {
+                setErrorTime(true)
+                return ;
             }
         }
+        for (let i = index + 1; i < newArr.length; i++) {
+            if (newArr[i] <= value) {
+                setErrorTime(true)
+                return ;
+            }
+        }
+        setErrorTime(false)
+
+        
+    
+
+
+
+
+
+
+
+        // if (newArr.length == 0){
+        //     setTimes([...times, value])
+        //     setErrorTime(false);
+        //     setDisableSave(false);
+        // } else {
+        //     times[key -1]
+        //     if (key <= times.length) {
+        //         if(Number(value) <= times[key - 1]) {
+        //             setErrorTime(true);
+        //             setDisableSave(true);
+        //         } else {
+        //             times[key] = Number(value)
+        //             setErrorTime(false);
+        //             setDisableSave(false);
+        //         }
+        //     } else {
+        //         if (Number(value) <= times[times.length - 1]) {
+        //             setErrorTime(true);
+        //             setDisableSave(true);
+        //         } else {
+        //             setTimes([...times, Number(value)])
+        //             setErrorTime(false);
+        //             setDisableSave(false);
+        //         }
+        //     }
+        // }
     }
 
 
@@ -181,13 +206,6 @@ export default function WeekDays({ day, fullDay, classStyle, setDisableSave, for
     const handleAdd = (add) => {
         add()
         setCountFields(countfields + 1)
-        let newOptions = []
-        timeOptions.filter((item) => {
-            if (item?.value > endTime) {
-                newOptions.push(item)
-            }
-        })
-        setTimeOptions(newOptions)
     }
 
     useEffect(() => {
@@ -211,10 +229,10 @@ export default function WeekDays({ day, fullDay, classStyle, setDisableSave, for
                 
                 <Form.List name={["weeklySchedule", fullDay, "schedule"]}>
                     {(fields, { add, remove }) => (
-                        <div className='grid grid-cols-2 gap-8'>
+                        <div className='grid grid-cols-2 gap-8 '>
                             {setCountFields(fields.length)}
                             {countfields ? <div className='col-span-1'>
-                                {fields.map((field, key) => (
+                                {fields?.map((field, key) => (
                                         <InnerFormItem
                                             key={key}
                                             field={field}
@@ -226,7 +244,7 @@ export default function WeekDays({ day, fullDay, classStyle, setDisableSave, for
                                             errorTime={errorTime}
                                         />
                                 ))}
-                            </div> : ""}
+                            </div> : "" }
                             <div className='col-span-1'>
                                 <PlusOutlined className='text-lg' onClick={() => {
                                     handleAdd(add)
