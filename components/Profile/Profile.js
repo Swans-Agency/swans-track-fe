@@ -161,18 +161,18 @@ export default function Profile() {
         </div>
         <div className="flex gap-x-5 w-full">
           <Form.Item label="Instagram Username" name="instagram" className="w-full">
-            <Input size="large" className="rounded-lg" />
+            <Input addonBefore="https://instagram.com/" size="large" className="rounded-lg" />
           </Form.Item>
           <Form.Item label="Facebook Username" name="facebook" className="w-full">
-            <Input size="large" className="rounded-lg" />
+            <Input addonBefore="https://facebook.com/" size="large" className="rounded-lg" />
           </Form.Item>
         </div>
         <div className="flex gap-x-5 w-full">
           <Form.Item label="Linkedin Username" name="linkedin" className="w-full">
-            <Input size="large" className="rounded-lg" />
+            <Input addonBefore="https://linkedin.com/in/" size="large" className="rounded-lg" />
           </Form.Item>
           <Form.Item label="Twitter Username" name="twitter" className="w-full">
-            <Input size="large" className="rounded-lg" />
+            <Input addonBefore="https://twitter.com/" size="large" className="rounded-lg" />
           </Form.Item>
         </div>
           <Form.Item label="Website Link" name="website" className="w-full">
