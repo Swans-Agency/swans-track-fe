@@ -130,7 +130,7 @@ export default function Profile() {
             </div>
           </Upload>
         </Form.Item>
-        <div className="flex gap-x-5 w-full">
+        <div className="laptop:flex gap-x-5 w-full">
           <Form.Item label="First name" name="firstName" className="w-full">
             <Input size="large" className="rounded-lg" />
           </Form.Item>
@@ -141,7 +141,7 @@ export default function Profile() {
         <Form.Item label="Bio" name="bio" className="w-full">
           <Input.TextArea rows={4} className="rounded-lg" />
         </Form.Item>
-        <div className="flex gap-x-5 w-full">
+        <div className="laptop:flex gap-x-5 w-full">
           <Form.Item label="Phone number" name="phoneNumber" className="w-full">
             <Input size="large" className="rounded-lg" />
           </Form.Item>
@@ -159,7 +159,7 @@ export default function Profile() {
             />
           </Form.Item>
         </div>
-        <div className="flex gap-x-5 w-full">
+        <div className="laptop:flex gap-x-5 w-full">
           <Form.Item label="Instagram Username" name="instagram" className="w-full">
             <Input addonBefore="https://instagram.com/" size="large" className="rounded-lg" />
           </Form.Item>
@@ -167,7 +167,7 @@ export default function Profile() {
             <Input addonBefore="https://facebook.com/" size="large" className="rounded-lg" />
           </Form.Item>
         </div>
-        <div className="flex gap-x-5 w-full">
+        <div className="laptop:flex gap-x-5 w-full">
           <Form.Item label="Linkedin Username" name="linkedin" className="w-full">
             <Input addonBefore="https://linkedin.com/in/" size="large" className="rounded-lg" />
           </Form.Item>
@@ -185,7 +185,7 @@ export default function Profile() {
           This account was created on {userCreateDate}
         </p>
         <Divider />
-        <div className="flex gap-x-5 w-full justify-end">
+        <div className="laptop:flex gap-x-5 w-full justify-end">
           <Form.Item>
             <FormButtons content="Save" />
           </Form.Item>
@@ -220,7 +220,7 @@ export default function Profile() {
           <Input size="large" type="password" className="rounded-lg" />
         </Form.Item>
         <Divider />
-        <div className="flex gap-x-5 w-full justify-end">
+        <div className="laptop:flex gap-x-5 w-full justify-end">
           <Form.Item>
             <FormButtons content="Save" />
           </Form.Item>

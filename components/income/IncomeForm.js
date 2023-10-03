@@ -38,8 +38,9 @@ export default function IncomeForm({ setReload, onClose }) {
 
   const onFinish = async (data) => {
     const formData = new FormData();
+    console.log({ data})
     formData.append("description", data?.description);
-    formData.append("invoice", data?.invoice);
+    data?.invoice && formData.append("invoice", data?.invoice);
     formData.append("paymentMethod", data?.paymentMethod);
     formData.append("date", moment(new Date(data?.date)).format("YYYY-MM-DD"));
     formData.append("amount", data?.amount);

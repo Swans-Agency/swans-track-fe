@@ -186,7 +186,7 @@ export default function Dashboard({
         }
       />
 
-      <div className="rounded-2xl bg-gray-200 px-6 py-8 col-span-2 relative">
+      <div className="rounded-2xl bg-gray-200 px-6 py-8 laptop:col-span-2 phone:col-span-3 relative">
         <img className="!z-0 absolute top-0 right-0 h-[100%]" src={"https://demo.bootstrapdash.com/purple-admin-free/assets/images/dashboard/circle.svg"} />
         <p className="font-light  text-lg">Expenses & Income All-time</p>
         <div className="pt-8">
@@ -197,7 +197,7 @@ export default function Dashboard({
         </div>
       </div>
 
-      <div className="rounded-2xl bg-gray-200 px-6 py-8 relative">
+      <div className="rounded-2xl bg-gray-200 px-6 py-8 relative laptop:col-span-1 phone:col-span-3">
         <img className="!z-0 absolute top-0 right-0 h-[100%]" src={"https://demo.bootstrapdash.com/purple-admin-free/assets/images/dashboard/circle.svg"} />
         <p className="font-light  text-lg">Expenses by Category</p>
         <div className="pt-8">
@@ -208,7 +208,7 @@ export default function Dashboard({
         </div>
       </div>
 
-      <div className="rounded-2xl bg-gray-200 px-6 py-8 relative">
+      <div className="rounded-2xl bg-gray-200 px-6 py-8 relative laptop:col-span-1 phone:col-span-3">
         <img className="!z-0 absolute top-0 right-0 h-[100%]" src={"https://demo.bootstrapdash.com/purple-admin-free/assets/images/dashboard/circle.svg"} />
         <p className="font-light  text-lg">Income by Payment Method</p>
         <div className="pt-8">
@@ -219,7 +219,7 @@ export default function Dashboard({
         </div>
       </div>
 
-      <div className="rounded-2xl bg-gray-200 px-6 py-8 col-span-2 relative">
+      <div className="rounded-2xl bg-gray-200 px-6 py-8 laptop:col-span-2 phone:col-span-3 relative">
         <img className="!z-0 absolute top-0 right-0 h-[100%]" src={"https://demo.bootstrapdash.com/purple-admin-free/assets/images/dashboard/circle.svg"} />
         <p className="font-light  text-lg">Clients by Referral Source</p>
         <div className="pt-8">

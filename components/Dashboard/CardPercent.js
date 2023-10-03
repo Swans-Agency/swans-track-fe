@@ -19,7 +19,7 @@ export default function CardPercent({
   };
 
   return (
-    <div className="grid col-span-1 text-black">
+    <div className="grid laptop:col-span-1 phone:col-span-3 text-black">
       <div className={`rounded-2xl p-5 relative ${classes}`}>
         <img className="!z-0 absolute top-0 right-0 h-[100%]" src={"https://demo.bootstrapdash.com/purple-admin-free/assets/images/dashboard/circle.svg"} />
         <div className="space-y-1">

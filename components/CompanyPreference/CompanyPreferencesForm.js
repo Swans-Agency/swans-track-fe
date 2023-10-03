@@ -194,7 +194,7 @@ export default function CompanyPreferencesForm() {
             </Upload>
           </Form.Item>
         </div>
-        <div className="flex gap-x-5 w-full">
+        <div className="laptop:flex gap-x-5 w-full">
           <Form.Item
             label="Company name"
             name="companyName"
@@ -222,7 +222,7 @@ export default function CompanyPreferencesForm() {
             <Input size="large" className="rounded-lg" />
           </Form.Item>
         </div>
-        <div className="flex gap-x-5 w-full">
+        <div className="laptop:flex gap-x-5 w-full">
           <Form.Item
             label="Company email"
             name="companyEmail"
@@ -250,7 +250,7 @@ export default function CompanyPreferencesForm() {
             <Input size="large" className="rounded-lg" />
           </Form.Item>
         </div>
-        <div className="flex gap-x-5 w-full">
+        <div className="laptop:flex gap-x-5 w-full">
           <Form.Item
             label="Currency"
             name="currency"

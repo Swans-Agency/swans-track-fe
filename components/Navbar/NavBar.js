@@ -302,7 +302,7 @@ export default function Navbar({ userPermission }) {
           <span className="text-2xl pl-5  font-light">{toTitleCase(router.pathname.split("authorized/")[1])}</span>
         </div>
         <div className="flex items-center gap-x-2 h-full text-black ">
-          <p className="">Hello, {cookie.load("userFullname", { path: "/" }) || cookie.load("username", { path: "/" })}</p>
+          <p className="laptop:block phone:hidden">Hello, {cookie.load("userFullname", { path: "/" }) || cookie.load("username", { path: "/" })}</p>
           <Avatar
             src={userPfp}
             className="w-9 h-9 rounded-full border-2"
