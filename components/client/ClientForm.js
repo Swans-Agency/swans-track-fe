@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { DatePicker, Form, Input, Select } from "antd";
 import moment from "moment";
 import FormButtons from "../ANTD/FormButtons";
 import { postAxios } from "@/functions/ApiCalls";
+import { LoadingOutlined } from "@ant-design/icons";
 
 export default function ClientForm({ setReload, onClose }) {
-
+  const [isLoading, setIsLoading] = useState(false);
   const [form] = Form.useForm();
 
   const onFinish = async (data) => {
+    setIsLoading(true);
     data["createdAt"] = moment(new Date(data["createdAt"])).format(
       "YYYY-MM-DD"
     );
@@ -17,6 +19,7 @@ export default function ClientForm({ setReload, onClose }) {
     form.resetFields()
     setReload(res) 
     onClose()
+    setIsLoading(false);
   };
 
   return (
@@ -157,14 +160,21 @@ export default function ClientForm({ setReload, onClose }) {
         <DatePicker size="large" className="rounded-lg w-full" placeholder="" />
       </Form.Item>
       <div className="flex gap-x-5 w-full justify-end">
-        <Form.Item 
+        {/* <Form.Item 
         rules={[
           {
             required: true
           }
         ]}>
           <FormButtons content="Save" />
-        </Form.Item>
+        </Form.Item> */}
+        {!isLoading ? <Form.Item>
+          <FormButtons content="Save" />
+        </Form.Item> :
+          <div className='flex gap-3 bg-gray-200 p-4 rounded'>
+            <LoadingOutlined />
+          </div>
+        }
       </div>
     </Form>
   );

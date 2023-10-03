@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Form, Input, InputNumber } from "antd";
 import { postAxios } from "@/functions/ApiCalls";
 import FormButtons from "../ANTD/FormButtons";
+import { LoadingOutlined } from "@ant-design/icons";
 
 /* eslint-disable no-template-curly-in-string */
 const validateMessages = {
@@ -16,13 +17,19 @@ const validateMessages = {
 };
 /* eslint-enable no-template-curly-in-string */
 
-const onFinish = async(values) => {
-  console.log(values);
-  const url = `${process.env.DIGITALOCEAN}/company/support/`;
-  let response = await postAxios(url, values, true, true, () => {}, true);
-};
+
 
 export default function SupportForm(props) {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const onFinish = async (values) => {
+    setIsLoading(true);
+    console.log(values);
+    const url = `${process.env.DIGITALOCEAN}/company/support/`;
+    let response = await postAxios(url, values, true, true, () => { }, true);
+    console.log({ response });
+    setIsLoading(false);
+  };
   return (
     <>
       <div className="text-3xl font-light tracking-tight mb-1">
@@ -86,9 +93,16 @@ export default function SupportForm(props) {
         >
           <Input.TextArea rows={4} />
         </Form.Item>
-        <Form.Item className="w-full mt-3">
+        {/* <Form.Item className="w-full mt-3">
           <FormButtons content="Send" classNames="w-full py-2 font-semibold" />
-        </Form.Item>
+        </Form.Item> */}
+        {!isLoading ? <Form.Item>
+          <FormButtons content="Save" classNames="w-full py-2 font-semibold" />
+        </Form.Item> :
+          <div className='flex gap-3 justify-center items-center bg-gray-200 p-4 rounded'>
+            <LoadingOutlined />
+          </div>
+        }
       </Form>
     </>
   );

@@ -1,15 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { Form, Input, Select } from "antd";
 import FormButtons from "../ANTD/FormButtons";
 import { postAxios } from "@/functions/ApiCalls";
 import { NotificationError } from "@/functions/Notifications";
+import { LoadingOutlined } from "@ant-design/icons";
 
 export default function CreateForm({ setReload, onClose }) {
+  const [isLoading, setIsLoading] = useState(false);
 
   const [form] = Form.useForm();
 
 
   const onFinish = async (data) => {
+    setIsLoading(true);
     const url = `${process.env.DIGITALOCEAN}/account/signup/`;
     let res = await postAxios(url, data, true, true, () => { }, false);
     if (!res) {
@@ -17,6 +20,7 @@ export default function CreateForm({ setReload, onClose }) {
     }
     setReload({ data: "dataq" });
     onClose()
+    setIsLoading(false);
   };
 
   return (
@@ -82,9 +86,16 @@ export default function CreateForm({ setReload, onClose }) {
       </div>
 
       <div className="flex gap-x-5 w-full justify-end">
-        <Form.Item>
+        {/* <Form.Item>
           <FormButtons content="Save" />
-        </Form.Item>
+        </Form.Item> */}
+        {!isLoading ? <Form.Item>
+          <FormButtons content="Save" />
+        </Form.Item> :
+          <div className='flex gap-3 bg-gray-200 p-4 rounded'>
+            <LoadingOutlined />
+          </div>
+        }
       </div>
     </Form>
   );

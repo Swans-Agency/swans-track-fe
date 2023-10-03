@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { PlusOutlined } from "@ant-design/icons";
+import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { Form, Input, Upload } from "antd";
 import { postAxios } from "@/functions/ApiCalls";
 import FormButtons from "@/components/ANTD/FormButtons";
@@ -8,11 +8,12 @@ import { NotificationError } from "@/functions/Notifications";
 
 export default function AdditionalDocsForm({ projectId, getProjectAdditionalDocs, handleCloseModal }) {
     const [form] = Form.useForm();
+    const [isLoading, setIsLoading] = useState(false);
 
 
 
     const onFinish = async (data) => {
-
+        setIsLoading(true)
         const formData = new FormData();
         formData.append("docName", data?.docName);
 
@@ -29,6 +30,7 @@ export default function AdditionalDocsForm({ projectId, getProjectAdditionalDocs
         form.resetFields();
         getProjectAdditionalDocs()
         handleCloseModal()
+        setIsLoading(false)
     };
     const checkFileSize = (file) => {
         const maxSize = 1024 * 1024; // 1MB in bytes
@@ -76,9 +78,16 @@ export default function AdditionalDocsForm({ projectId, getProjectAdditionalDocs
             </Form.Item>
 
             <div className="flex gap-x-5 w-full justify-end">
-                <Form.Item>
+                {/* <Form.Item>
                     <FormButtons content="Save" />
-                </Form.Item>
+                </Form.Item> */}
+                {!isLoading ? <Form.Item>
+                    <FormButtons content="Save" />
+                </Form.Item> :
+                    <div className='flex gap-3 bg-gray-200 p-4 rounded'>
+                        <LoadingOutlined />
+                    </div>
+                }
             </div>
         </Form>
     );

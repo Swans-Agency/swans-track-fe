@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
 import cookie from "react-cookies";
-import { PlusOutlined, QuestionOutlined } from "@ant-design/icons";
+import { LoadingOutlined, PlusOutlined, QuestionOutlined } from "@ant-design/icons";
 import { DatePicker, Divider, FloatButton, Form, Input, Upload, notification } from "antd";
 
 import dayjs from "dayjs";
@@ -16,6 +16,8 @@ export default function Profile() {
   const [passwordForm] = Form.useForm();
   const [userData, setUserData] = useState();
   const [userCreateDate, setUserCreateDate] = useState();
+  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading1, setIsLoading1] = useState(false);
   let initialPicList = [];
 
   useEffect(() => {
@@ -60,6 +62,7 @@ export default function Profile() {
   };
 
   const onFinish = async (data) => {
+    setIsLoading1(true)
     const formData = new FormData();
     formData.append("firstName", data.firstName);
     formData.append("lastName", data.lastName);
@@ -80,11 +83,16 @@ export default function Profile() {
     }
     const url = `${process.env.DIGITALOCEAN}/account/user-profile/${userData.id}`;
     await patchAxios(url, formData, true, true, () => { });
+    getUserInitialData();
+    setIsLoading1(false)
   };
 
   const onFinishPassword = async (data) => {
+    setIsLoading(true)
     const url = `${process.env.DIGITALOCEAN}/account/update-password/`;
     await postAxios(url, data, true, true, () => { });
+    passwordForm.resetFields();
+    setIsLoading(false)
   };
 
   const checkFileSize = (file) => {
@@ -186,9 +194,16 @@ export default function Profile() {
         </p>
         <Divider />
         <div className="laptop:flex gap-x-5 w-full justify-end">
-          <Form.Item>
+          {/* <Form.Item>
             <FormButtons content="Save" />
-          </Form.Item>
+          </Form.Item> */}
+          {!isLoading1 ? <Form.Item>
+            <FormButtons content="Save" />
+          </Form.Item> :
+            <div className='flex gap-3 bg-gray-200 p-4 rounded'>
+              <LoadingOutlined />
+            </div>
+          }
         </div>
       </Form>
       <Divider />
@@ -221,9 +236,16 @@ export default function Profile() {
         </Form.Item>
         <Divider />
         <div className="laptop:flex gap-x-5 w-full justify-end">
-          <Form.Item>
+          {/* <Form.Item>
             <FormButtons content="Save" />
-          </Form.Item>
+          </Form.Item> */}
+          {!isLoading ? <Form.Item>
+            <FormButtons content="Save" />
+          </Form.Item> :
+            <div className='flex gap-3 bg-gray-200 p-4 rounded'>
+              <LoadingOutlined />
+            </div>
+          }
         </div>
       </Form>
       <FloatButton

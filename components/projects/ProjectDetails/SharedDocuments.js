@@ -55,7 +55,7 @@ export default function SharedDocuments({ projectId, getProjectSharedDocs, proje
                 renderComponent={<SharedDocsForm projectId={projectId} getProjectSharedDocs={getProjectSharedDocs} handleCloseModal={handleCloseModal} />}
                 style={{
                     top: 20,
-                    left: 50
+                    // left: 50
                 }}
             />
         </div>

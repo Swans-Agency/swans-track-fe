@@ -1,6 +1,6 @@
 import { Divider, Form, Select } from 'antd';
 import React, { useEffect, useState } from 'react';
-import { PlusOutlined, ArrowLeftOutlined } from "@ant-design/icons";
+import { PlusOutlined, ArrowLeftOutlined, LoadingOutlined } from "@ant-design/icons";
 import { getAxios, postAxios } from '@/functions/ApiCalls';
 import FormButtons from '@/components/ANTD/FormButtons';
 import ProposalForm from '@/components/proposal/ProposalForm';
@@ -8,6 +8,7 @@ import ProposalForm from '@/components/proposal/ProposalForm';
 export default function LinkProposalForm({ projectId, getProjectProposals, projectCurrency, getProjectDetails }) {
     const [proposalData, setProposalData] = useState([]);
     const [open1, setOpen1] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const [form] = Form.useForm();
 
     useEffect(() => {
@@ -19,8 +20,7 @@ export default function LinkProposalForm({ projectId, getProjectProposals, proje
         const proposalSearchData = await getAxios(url);
         const arrData = proposalSearchData?.map((item) => ({
             value: item.id,
-            label: `${item?.proposalNo} | ${item?.toCompanyName} | ${item?.proposalDate
-                } | ${Number(item?.proposalTotal).toFixed(2)} ${projectCurrency}`,
+            label: `${item?.proposalNo} | ${Number(item?.proposalTotal).toFixed(2)} ${projectCurrency}`,
         }));
         setProposalData(arrData);
     };
@@ -30,18 +30,19 @@ export default function LinkProposalForm({ projectId, getProjectProposals, proje
         const proposalSearchData = await getAxios(url);
         const arrData = proposalSearchData?.map((item) => ({
             value: item.id,
-            label: `${item?.proposalNo} | ${item?.toCompanyName} | ${item?.proposalDate
-                } | ${Number(item?.proposalTotal).toFixed(2)} ${projectCurrency}`,
+            label: `${item?.proposalNo} | ${Number(item?.proposalTotal).toFixed(2)} ${projectCurrency}`,
         }));
         setProposalData(arrData);
     };
 
     const onFinish = async (data) => {
-        console.log({data})
+        setIsLoading(true)
         const url = `${process.env.DIGITALOCEAN}/project/proposal-project/${projectId}/`;
+        console.log({ data })
         await postAxios(url, data, true, true);
         getProjectProposals()
         getProjectDetails()
+        setIsLoading(false)
     }
 
     return (
@@ -58,7 +59,7 @@ export default function LinkProposalForm({ projectId, getProjectProposals, proje
                         Back to proposal selection
                     </button>
                     <ProposalForm
-                        setReload={()=>{}}
+                        setReload={() => { }}
                         getAllProposals={getAllProposal}
                         onClose={() => {
                             setOpen1(false);
@@ -77,14 +78,14 @@ export default function LinkProposalForm({ projectId, getProjectProposals, proje
                     form={form}
                     requiredMark={true}
                 >
-                    <div className='grid grid-cols-[1fr_1fr] gap-x-5 w-full '>
+                    <div className='grid laptop:grid-cols-[1fr_1fr] gap-x-5 w-full '>
                         <Form.Item
                             label="Proposal Status"
                             name="status"
                             className="w-full"
                         >
                             <Select
-                                    size="large"
+                                size="large"
                                 defaultValue=""
                                 style={{
                                     width: "100%",
@@ -107,7 +108,7 @@ export default function LinkProposalForm({ projectId, getProjectProposals, proje
                         >
                             <div className="flex items-center gap-1">
                                 <Select
-                                        size="large"
+                                    size="large"
                                     showSearch
                                     defaultValue=""
                                     style={{
@@ -135,9 +136,13 @@ export default function LinkProposalForm({ projectId, getProjectProposals, proje
                     </div>
                     <Divider />
                     <div className="flex gap-x-5 w-full justify-end">
-                        <Form.Item>
+                        {!isLoading ? <Form.Item>
                             <FormButtons content="Save" />
-                        </Form.Item>
+                        </Form.Item> :
+                            <div className='flex gap-3 bg-gray-200 p-4 rounded'>
+                                <LoadingOutlined />
+                            </div>
+                        }
                     </div>
                 </Form>
             )}

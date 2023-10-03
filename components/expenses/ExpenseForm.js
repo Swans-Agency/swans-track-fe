@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import moment from "moment";
-import { MoneyCollectOutlined, PlusOutlined } from "@ant-design/icons";
+import { LoadingOutlined, MoneyCollectOutlined, PlusOutlined } from "@ant-design/icons";
 import {
   DatePicker,
   Divider,
@@ -15,9 +15,11 @@ import FormButtons from "../ANTD/FormButtons";
 import { NotificationError } from "@/functions/Notifications";
 
 export default function ExoenseForm({ setReload, onClose }) {
+  const [isLoading, setIsLoading] = useState(false);
   const [form] = Form.useForm();
 
   const onFinish = async (data) => {
+    setIsLoading(true);
     let obj = {
       description: data?.description,
       amount: data?.amount,
@@ -39,6 +41,7 @@ export default function ExoenseForm({ setReload, onClose }) {
     setReload(res);
     form.resetFields();
     onClose()
+    setIsLoading(false);
   };
 
   const checkFileSize = (file) => {
@@ -181,9 +184,16 @@ export default function ExoenseForm({ setReload, onClose }) {
       </Form.Item>
       <Divider />
       <div className="flex gap-x-5 w-full justify-end">
-        <Form.Item>
+        {/* <Form.Item>
           <FormButtons content="Save" />
-        </Form.Item>
+        </Form.Item> */}
+        {!isLoading ? <Form.Item>
+          <FormButtons content="Save" />
+        </Form.Item> :
+          <div className='flex gap-3 bg-gray-200 p-4 rounded'>
+            <LoadingOutlined />
+          </div>
+        }
       </div>
     </Form>
   );

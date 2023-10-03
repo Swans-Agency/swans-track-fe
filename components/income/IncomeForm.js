@@ -4,6 +4,7 @@ import {
   MoneyCollectOutlined,
   PlusOutlined,
   ArrowLeftOutlined,
+  LoadingOutlined,
 } from "@ant-design/icons";
 import {
   Button,
@@ -22,6 +23,7 @@ import InvoiceForm from "../invoice/InvoiceForm";
 import { NotificationError } from "@/functions/Notifications";
 
 export default function IncomeForm({ setReload, onClose }) {
+  const [isLoading, setIsLoading] = useState(false);
   const [form] = Form.useForm();
   const [proposalData, setProposalData] = useState([]);
   const [open, setOpen] = useState(false);
@@ -30,15 +32,15 @@ export default function IncomeForm({ setReload, onClose }) {
     const proposalSearchData = await getAxios(url);
     const arrData = proposalSearchData?.map((item) => ({
       value: item.id,
-      label: `${item?.invoiceNo} | ${item?.toCompanyName} | ${item?.invoiceDate
-        } | ${Number(item?.invoiceTotal).toFixed(2)} JD`,
+      label: `${item?.invoiceNo} | ${Number(item?.invoiceTotal).toFixed(2)}${JSON.parse(localStorage.getItem('companyPreferences'))?.currency}`,
     }));
     setProposalData(arrData);
   };
 
   const onFinish = async (data) => {
+    setIsLoading(true);
     const formData = new FormData();
-    console.log({ data})
+    console.log({ data })
     formData.append("description", data?.description);
     data?.invoice && formData.append("invoice", data?.invoice);
     formData.append("paymentMethod", data?.paymentMethod);
@@ -54,6 +56,7 @@ export default function IncomeForm({ setReload, onClose }) {
     setReload(res);
     form.resetFields();
     onClose();
+    setIsLoading(false);
   };
 
   const checkFileSize = (file) => {
@@ -100,7 +103,7 @@ export default function IncomeForm({ setReload, onClose }) {
               className="w-full"
               required
             >
-                <Input size="large" className="rounded-lg" />
+              <Input size="large" className="rounded-lg" />
             </Form.Item>
             <Form.Item
               label="Payment Amount"
@@ -109,7 +112,7 @@ export default function IncomeForm({ setReload, onClose }) {
               required
             >
               <InputNumber
-                  size="large"
+                size="large"
                 min={0}
                 className="rounded-lg w-full"
                 addonAfter={<MoneyCollectOutlined className="pb-1" />}
@@ -124,7 +127,7 @@ export default function IncomeForm({ setReload, onClose }) {
               required
             >
               <Select
-                  size="large"
+                size="large"
                 showSearch
                 defaultValue=""
                 style={{
@@ -156,7 +159,7 @@ export default function IncomeForm({ setReload, onClose }) {
               required
             >
               <DatePicker
-                  size="large"
+                size="large"
                 format="YYYY-MM-DD"
                 className="rounded-lg w-full"
                 placeholder=""
@@ -182,7 +185,7 @@ export default function IncomeForm({ setReload, onClose }) {
           >
             <div className="flex items-center gap-1">
               <Select
-                  size="large"
+                size="large"
                 showSearch
                 defaultValue=""
                 style={{
@@ -207,7 +210,7 @@ export default function IncomeForm({ setReload, onClose }) {
           </Form.Item>
 
           <Form.Item label="Attachment" className="" name={"attachment"}>
-              <Upload listType="picture-card" maxCount={1} accept="image/*" beforeUpload={checkFileSize}>
+            <Upload listType="picture-card" maxCount={1} accept="image/*" beforeUpload={checkFileSize}>
               <div>
                 <PlusOutlined />
                 <div
@@ -225,6 +228,13 @@ export default function IncomeForm({ setReload, onClose }) {
             <Form.Item>
               <FormButtons content="Save" />
             </Form.Item>
+              {!isLoading ? <Form.Item>
+                <FormButtons content="Save" />
+              </Form.Item> :
+                <div className='flex gap-3 bg-gray-200 p-4 rounded'>
+                  <LoadingOutlined />
+                </div>
+              }
           </div>
         </Form>
       )}

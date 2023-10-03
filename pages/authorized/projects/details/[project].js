@@ -84,7 +84,7 @@ export default function ProjectDetails() {
         const url2 = `${process.env.DIGITALOCEAN}/project/todo-project/${item?.id}/`;
         const projectData2 = await patchAxios(url2, {
             "checked": e,
-        }, false, false, () => { });
+        }, true, true, () => { });
         getProjectTodos()
     }
 
@@ -109,22 +109,27 @@ export default function ProjectDetails() {
 
 
     return (
-        <div>
+        <div className='bg-white'>
             <BreadCrumbs
                 router={router}
                 projectObj={projectObj}
             />
-            <div className='py-5 flex  justify-between'>
+            <div className='py-5 flex justify-between'>
                 <div>
-                    <h1 className='text-3xl font-bold'>{projectObj?.projectName}</h1>
-                    <p className='text-gray-400 font-light'>{projectObj?.category}</p>
+                    <h1 className='laptop:text-3xl phone:text-sm font-bold'>{projectObj?.projectName}</h1>
+                    <p className='text-gray-400  phone:text-sm font-light'>{projectObj?.category}</p>
                 </div>
-                <div className='text-xl font-light'>
-                    Project Total: <span className='font-bold text-xl'>{projectDetails ? projectCurrency : ""} {projectDetails?.jobTotal ? parseFloat(projectDetails?.jobTotal).toFixed(2) : 0}</span>
+                <div className='laptop:text-xl font-light phone:text-sm '>
+                    <p>
+                    Project Total: {" "}
+                        <span className='font-bold laptop:text-xl phone:text-sm'>
+                        {projectDetails ? projectCurrency : ""} {projectDetails?.jobTotal ? parseFloat(projectDetails?.jobTotal).toFixed(2) : 0}
+                    </span>
+                    </p>
                 </div>
             </div>
-            <div className='grid grid-cols-[1fr_3fr_1fr] gap-4'>
-                <div className=''>
+            <div className='grid laptop:grid-cols-[1fr_3fr_1fr] gap-4'>
+                <div className='laptop:block phone:hidden'>
                     <ClientInfo
                         projectObj={projectObj}
                         projectId={projectId}
@@ -143,6 +148,20 @@ export default function ProjectDetails() {
                         projectDetails={projectDetails}
                         projectCurrency={projectCurrency}
                     />
+                    <div className='laptop:hidden phone:block phone:mt-4'>
+                        <ClientInfo
+                            projectObj={projectObj}
+                            projectId={projectId}
+                        />
+                        <ClientNotes
+                            clientJobNotes={clientJobNotes}
+                        />
+                        <InternalNote
+                            internalJobNotes={internalJobNotes}
+                            projectId={projectId}
+                            getInternalNotes={getInternalNotes}
+                        />
+                    </div>
                     <ProjectInvoices
                         projectInvoices={projectInvoices}
                         getProjectInvoices={getProjectInvoices}

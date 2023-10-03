@@ -4,6 +4,7 @@ import dayjs from "dayjs";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import FormButtons from "../ANTD/FormButtons";
+import { LoadingOutlined } from "@ant-design/icons";
 
 export default function UpdateModal({
   updateClient,
@@ -11,6 +12,7 @@ export default function UpdateModal({
   handleOk
 }) {
   const [clientId, setClientId] = useState();
+  const [isLoading, setIsLoading] = useState(false);
   const [form] = Form.useForm();
 
   useEffect(() => {
@@ -20,6 +22,7 @@ export default function UpdateModal({
   }, []);
 
   const onFinish = async (data) => {
+    setIsLoading(true);
     data["createdAt"] = moment(new Date(data["createdAt"])).format(
       "YYYY-MM-DD"
     );
@@ -27,6 +30,7 @@ export default function UpdateModal({
     let res = await patchAxios(url, data, true, true);
     setReload(res);
     handleOk()
+    setIsLoading(false);
   };
 
   return (
@@ -142,9 +146,16 @@ export default function UpdateModal({
             </Form.Item>
           </div>
           <div className="flex gap-x-5 w-full justify-end">
-            <Form.Item>
+            {/* <Form.Item>
               <FormButtons content="Save" />
-            </Form.Item>
+            </Form.Item> */}
+        {!isLoading ? <Form.Item>
+          <FormButtons content="Save" />
+        </Form.Item> :
+          <div className='flex gap-3 bg-gray-200 p-4 rounded'>
+            <LoadingOutlined />
+          </div>
+        }
           </div>
         </Form>
   );
