@@ -40,7 +40,7 @@ export default function ClientNotes({ clientJobNotes, add = false, getProjectInf
                 renderComponent={<InternalNoteForm getInternalNotes={getProjectInfo} projectId={projectId} handleCloseModal={handleCloseModal} path="client-notes-project" />}
                 style={{
                     top: 20,
-                    left: 50
+                    // left: 50
                 }}
             />
         </>

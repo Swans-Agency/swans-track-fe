@@ -1,7 +1,7 @@
 import { DatePicker, Form, Input, InputNumber, Upload } from "antd";
 import React, { useEffect, useState } from "react";
 import FormButtons from "../ANTD/FormButtons";
-import { PlusOutlined } from "@ant-design/icons";
+import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
 import moment from "moment";
 import { patchAxios } from "@/functions/ApiCalls";
@@ -10,6 +10,7 @@ import { NotificationError } from "@/functions/Notifications";
 export default function TeamForm({ updateItem, setUpdateItem, setReload }) {
   const [form] = Form.useForm();
   const [userData, setUserData] = useState();
+  const [isLoading, setIsLoading] = useState(false);
   let initialPicList = [];
 
   useEffect(() => {
@@ -48,6 +49,7 @@ export default function TeamForm({ updateItem, setUpdateItem, setReload }) {
   };
 
   const onFinish = async (data) => {
+    setIsLoading(true);
     const formData = new FormData();
     console.log({ data });
     data?.firstName && formData.append("firstName", data?.firstName)  
@@ -65,6 +67,7 @@ export default function TeamForm({ updateItem, setUpdateItem, setReload }) {
     await patchAxios(url, formData, true, true, () => { });
     setUpdateItem(null);
     setReload({});
+    setIsLoading(false);
   };
 
   const checkFileSize = (file) => {
@@ -141,9 +144,16 @@ export default function TeamForm({ updateItem, setUpdateItem, setReload }) {
         <Input size="large" className="rounded-lg" />
       </Form.Item>
       <div className="flex gap-x-5 w-full justify-end">
-        <Form.Item>
+        {/* <Form.Item>
           <FormButtons content="Save" />
-        </Form.Item>
+        </Form.Item> */}
+        {!isLoading ? <Form.Item>
+          <FormButtons content="Save" />
+        </Form.Item> :
+          <div className='flex gap-3 bg-gray-200 p-4 rounded'>
+            <LoadingOutlined />
+          </div>
+        }
       </div>
     </Form>
   );

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { PlusOutlined } from "@ant-design/icons";
+import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { Divider, Form, Input, Select, Upload, notification } from "antd";
 import FormButtons from "../ANTD/FormButtons";
 import { getAxios, postAxios } from "@/functions/ApiCalls";
@@ -12,6 +12,7 @@ export default function CompanyPreferencesForm() {
   const [quotationTemplates, setQuotationTemplates] = useState([]);
   const [disabledSelectCurrency, setDisabledCurrency] = useState(false);
   const [reloadData, setReloadData] = useState();
+  const [isLoading, setIsLoading] = useState(false);
   const [form] = Form.useForm();
   let logoPicList = [];
   let signaturePicList = [];
@@ -83,7 +84,9 @@ export default function CompanyPreferencesForm() {
   };
 
   const formData = new FormData();
+  
   const onFinish = async (data) => {
+    setIsLoading(true)
     formData.append("bankIban", data?.bankIban);
     formData.append("timeZone", data?.timeZone);
     formData.append("currency", data?.currency);
@@ -106,6 +109,7 @@ export default function CompanyPreferencesForm() {
     let companyPrefernceSavedData = await postAxios(url, formData, true, true, ()=>{});
     saveToLocal("companyPreferences", companyPrefernceSavedData);
     setReloadData({});
+    setIsLoading(false)
   };
 
   const checkFileSize = (file) => {
@@ -194,7 +198,7 @@ export default function CompanyPreferencesForm() {
             </Upload>
           </Form.Item>
         </div>
-        <div className="flex gap-x-5 w-full">
+        <div className="laptop:flex gap-x-5 w-full">
           <Form.Item
             label="Company name"
             name="companyName"
@@ -222,7 +226,7 @@ export default function CompanyPreferencesForm() {
             <Input size="large" className="rounded-lg" />
           </Form.Item>
         </div>
-        <div className="flex gap-x-5 w-full">
+        <div className="laptop:flex gap-x-5 w-full">
           <Form.Item
             label="Company email"
             name="companyEmail"
@@ -250,7 +254,7 @@ export default function CompanyPreferencesForm() {
             <Input size="large" className="rounded-lg" />
           </Form.Item>
         </div>
-        <div className="flex gap-x-5 w-full">
+        <div className="laptop:flex gap-x-5 w-full">
           <Form.Item
             label="Currency"
             name="currency"
@@ -351,9 +355,16 @@ export default function CompanyPreferencesForm() {
         </Form.Item>
         <Divider />
         <div className="flex gap-x-5 w-full justify-end">
-          <Form.Item>
+          {/* <Form.Item>
             <FormButtons content={"save"} />
-          </Form.Item>
+          </Form.Item> */}
+          {!isLoading ? <Form.Item>
+            <FormButtons content="Save" />
+          </Form.Item> :
+            <div className='flex gap-3 bg-gray-200 p-4 rounded'>
+              <LoadingOutlined />
+            </div>
+          }
         </div>
       </Form>
     </div>

@@ -27,6 +27,8 @@ export default function ProposalForm({ setReload, onClose, getAllProposals=()=>{
   let logoPicList = [];
   let signaturePicList = [];
   const [clientsData, setClientsData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
     GetAllClient()
   }, []);
@@ -95,7 +97,7 @@ export default function ProposalForm({ setReload, onClose, getAllProposals=()=>{
   };
 
   const onFinish = async (data) => {
-    ;
+    setIsLoading(true);
     data["proposalDate"] = moment(new Date(data["proposalDate"])).format(
       "YYYY-MM-DD"
     );
@@ -105,6 +107,7 @@ export default function ProposalForm({ setReload, onClose, getAllProposals=()=>{
     getAllProposals()
     setReload(res);
     onClose()
+    setIsLoading(false);
   };
   return (
     <Form
@@ -311,9 +314,16 @@ export default function ProposalForm({ setReload, onClose, getAllProposals=()=>{
       </Form.Item>
       <Divider />
       <div className="flex gap-x-5 w-full justify-end">
-        <Form.Item>
+        {/* <Form.Item>
           <FormButtons content="Save" />
-        </Form.Item>
+        </Form.Item> */}
+        {!isLoading ? <Form.Item>
+          <FormButtons content="Save" />
+        </Form.Item> :
+          <div className='flex gap-3 bg-gray-200 p-4 rounded'>
+            <LoadingOutlined />
+          </div>
+        }
       </div>
     </Form>
   );

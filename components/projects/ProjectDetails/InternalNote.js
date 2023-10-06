@@ -37,7 +37,7 @@ export default function InternalNote({ internalJobNotes, getInternalNotes, proje
                 renderComponent={<InternalNoteForm getInternalNotes={getInternalNotes} projectId={projectId} handleCloseModal={handleCloseModal} />}
                 style={{
                     top: 20,
-                    left: 50
+                    // left: 50
                 }}
             />
         </div>

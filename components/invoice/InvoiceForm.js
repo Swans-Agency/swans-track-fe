@@ -6,6 +6,7 @@ import {
   PlusOutlined,
   MinusCircleOutlined,
   ArrowLeftOutlined,
+  LoadingOutlined,
 } from "@ant-design/icons";
 import {
   Button,
@@ -21,10 +22,10 @@ import { getAxios, postAxios } from "@/functions/ApiCalls";
 import FormButtons from "../ANTD/FormButtons";
 import ProposalForm from "../proposal/ProposalForm";
 
-export default function InvoiceForm({ setReload, onClose, getAllInvoices=()=>{} }) {
+export default function InvoiceForm({ setReload, onClose, getAllInvoices = () => { } }) {
   const [disabledSelectCurrency, setDisabledCurrency] = useState(false);
   const [open1, setOpen1] = useState(false);
-
+  const [isLoading, setIsLoading] = useState(false);
   const [clientData, setClientData] = useState([]);
   const [proposalData, setProposalData] = useState([]);
   const [numberofItems, setNumberofItems] = useState(0);
@@ -93,8 +94,7 @@ export default function InvoiceForm({ setReload, onClose, getAllInvoices=()=>{} 
     const proposalSearchData = await getAxios(url);
     const arrData = proposalSearchData?.map((item) => ({
       value: item.id,
-      label: `${item?.proposalNo} | ${item?.toCompanyName} | ${item?.proposalDate
-        } | ${Number(item?.proposalTotal).toFixed(2)} JD`,
+      label: `${item?.proposalNo} | ${Number(item?.proposalTotal).toFixed(2)}${JSON.parse(localStorage.getItem('companyPreferences'))?.currency}`,
     }));
     setProposalData(arrData);
   };
@@ -104,8 +104,7 @@ export default function InvoiceForm({ setReload, onClose, getAllInvoices=()=>{} 
     const proposalSearchData = await getAxios(url);
     const arrData = proposalSearchData?.map((item) => ({
       value: item.id,
-      label: `${item?.proposalNo} | ${item?.toCompanyName} | ${item?.proposalDate
-        } | ${Number(item?.proposalTotal).toFixed(2)} JD`,
+      label: `${item?.proposalNo} | ${Number(item?.proposalTotal).toFixed(2)}${JSON.parse(localStorage.getItem('companyPreferences'))?.currency}`,
     }));
     setProposalData(arrData);
   };
@@ -122,6 +121,7 @@ export default function InvoiceForm({ setReload, onClose, getAllInvoices=()=>{} 
   };
 
   const onFinish = async (data) => {
+    setIsLoading(true)
     data["invoiceDate"] = moment(new Date(data["invoiceDate"])).format(
       "YYYY-MM-DD"
     );
@@ -131,6 +131,7 @@ export default function InvoiceForm({ setReload, onClose, getAllInvoices=()=>{} 
     getAllInvoices()
     setReload(res);
     onClose();
+    setIsLoading(false)
   };
   return (
     <>
@@ -167,7 +168,7 @@ export default function InvoiceForm({ setReload, onClose, getAllInvoices=()=>{} 
           <div className="flex gap-x-5 w-full mt-0">
             <Form.Item label="Client" name="client" className="w-full" required>
               <Select
-                  size="large"
+                size="large"
                 showSearch
                 defaultValue=""
                 style={{
@@ -179,7 +180,7 @@ export default function InvoiceForm({ setReload, onClose, getAllInvoices=()=>{} 
                 }}
                 filterOption={false}
                 onSearch={searchClient}
-                  options={clientsData}
+                options={clientsData}
               />
             </Form.Item>
             <Form.Item
@@ -188,7 +189,7 @@ export default function InvoiceForm({ setReload, onClose, getAllInvoices=()=>{} 
               className="w-full"
               required
             >
-                <Input size="large" className="rounded-lg" />
+              <Input size="large" className="rounded-lg" />
             </Form.Item>
           </div>
 
@@ -199,7 +200,7 @@ export default function InvoiceForm({ setReload, onClose, getAllInvoices=()=>{} 
               className="w-full"
               required
             >
-                <Input size="large" className="rounded-lg" />
+              <Input size="large" className="rounded-lg" />
             </Form.Item>
             <Form.Item
               label="Client address"
@@ -207,7 +208,7 @@ export default function InvoiceForm({ setReload, onClose, getAllInvoices=()=>{} 
               className="w-full"
               required
             >
-                <Input size="large" className="rounded-lg" />
+              <Input size="large" className="rounded-lg" />
             </Form.Item>
           </div>
 
@@ -230,7 +231,7 @@ export default function InvoiceForm({ setReload, onClose, getAllInvoices=()=>{} 
           >
             <div className="flex items-center gap-1">
               <Select
-                  size="large"
+                size="large"
                 showSearch
                 defaultValue=""
                 style={{
@@ -263,7 +264,7 @@ export default function InvoiceForm({ setReload, onClose, getAllInvoices=()=>{} 
               className="w-full"
               required
             >
-                <DatePicker size="large" className="rounded-lg w-full" placeholder="" />
+              <DatePicker size="large" className="rounded-lg w-full" placeholder="" />
             </Form.Item>
           </div>
           <div className="flex gap-x-5 w-full mt-0">
@@ -274,7 +275,7 @@ export default function InvoiceForm({ setReload, onClose, getAllInvoices=()=>{} 
               required
             >
               <InputNumber
-                  size="large"
+                size="large"
                 min={0}
                 className="rounded-lg w-full"
                 addonAfter={<MoneyCollectOutlined className="pb-1" />}
@@ -287,7 +288,7 @@ export default function InvoiceForm({ setReload, onClose, getAllInvoices=()=>{} 
               required
             >
               <InputNumber
-                  size="large"
+                size="large"
                 min={0}
                 className="rounded-lg w-full"
                 addonAfter={<PercentageOutlined className="pb-1" />}
@@ -372,7 +373,7 @@ export default function InvoiceForm({ setReload, onClose, getAllInvoices=()=>{} 
                   {numberofItems < 12 && (
                     <Form.Item>
                       <Button
-                          size="large"
+                        size="large"
                         type="dashed"
                         onClick={() => {
                           return (
@@ -395,9 +396,16 @@ export default function InvoiceForm({ setReload, onClose, getAllInvoices=()=>{} 
           </Form.Item>
           <Divider />
           <div className="flex gap-x-5 w-full justify-end">
-            <Form.Item>
+            {/* <Form.Item>
               <FormButtons content="Save" />
-            </Form.Item>
+            </Form.Item> */}
+              {!isLoading ? <Form.Item>
+                <FormButtons content="Save" />
+              </Form.Item> :
+                <div className='flex gap-3 bg-gray-200 p-4 rounded'>
+                  <LoadingOutlined />
+                </div>
+              }
           </div>
         </Form>
       )}

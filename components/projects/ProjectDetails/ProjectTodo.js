@@ -42,7 +42,7 @@ export default function ProjectTodo({ projectTodo, handleChangeEdit, projectId, 
                 renderComponent={<ProjectTodoForm getProjectTodos={getProjectTodos} projectId={projectId} handleCloseModal={handleCloseModal} />}
                 style={{
                     top: 20,
-                    left: 50
+                    // left: 50
                 }}
             />
         </div>

@@ -48,7 +48,7 @@ export default function AdditionalDocs({ projectAdditionalDocs, getProjectAdditi
                 renderComponent={<AdditionalDocsForm projectId={projectId} getProjectAdditionalDocs={getProjectAdditionalDocs} handleCloseModal={handleCloseModal} />}
                 style={{
                     top: 20,
-                    left: 50
+                    // left: 50
                 }}
             />
         </div>

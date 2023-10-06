@@ -71,11 +71,11 @@ export default function ClientProtal() {
             <div className='px-[10%] py-6'>
                 <div className='py-5 flex  justify-between'>
                     <div>
-                        <h1 className='text-3xl font-bold'>{projectInfo?.projectName}</h1>
-                        <p className='text-gray-400 font-light'>{projectInfo?.category}</p>
+                        <h1 className='laptop:text-3xl phone:text-sm font-bold'>{projectInfo?.projectName}</h1>
+                        <p className='text-gray-400 phone:text-sm font-light'>{projectInfo?.category}</p>
                     </div>
-                    <div className='text-xl font-light'>
-                        Project Total: <span className='font-bold text-xl'>{projectInfo ? projectInfo?.projectCurrency : ""} {projectInfo?.projectDetails[0]?.jobTotal ? parseFloat(projectInfo?.projectDetails[0]?.jobTotal).toFixed(2) : 0}</span>
+                    <div className='laptop:text-xl phone:text-sm font-light'>
+                        Project Total: <span className='font-bold laptop:text-xl phone:text-sm'>{projectInfo ? projectInfo?.projectCurrency : ""} {projectInfo?.projectDetails[0]?.jobTotal ? parseFloat(projectInfo?.projectDetails[0]?.jobTotal).toFixed(2) : 0}</span>
                     </div>
                 </div>
                 <ProjectMoney

@@ -40,14 +40,14 @@ export default function ProjectProposals({ projectProposals, projectId, getProje
             <div className="max-h-[290px] hover:overflow-y-auto overflow-hidden ">
                 {projectProposals?.map((item, index) => {
                     return (
-                        <div className={`grid grid-cols-[1fr_1fr_1fr_1fr] items-center border rounded py-3 px-2 mb-2 ${bgColor[item?.status]} `}>
+                        <div className={`grid grid-cols-4 items-center border rounded py-3 px-2 mb-2 ${bgColor[item?.status]} `}>
                             <div className='flex items-center justify-start gap-1'>
                                 <Proposal />
-                                <p className='text-sm font-extralight'>{item?.proposal?.proposalNo}</p>
+                                <p className='laptop:text-sm phone:text-xs font-extralight'>{item?.proposal?.proposalNo}</p>
                             </div>
                             <div>
                                 <p className='text-xs font-bold text-center'>Total</p>
-                                <p className='text-sm font-extralight text-center'>{projectCurrency} {item?.proposal?.proposalTotal ? parseFloat(item?.proposal?.proposalTotal).toFixed(2) : 0}</p>
+                                <p className='laptop:text-sm phone:text-xs font-extralight text-center'>{projectCurrency} {item?.proposal?.proposalTotal ? parseFloat(item?.proposal?.proposalTotal).toFixed(2) : 0}</p>
                             </div>
                             <div className='w-fit justify-self-center'>
                                 <div className="text-center">

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
 import cookie from "react-cookies";
-import { PlusOutlined, QuestionOutlined } from "@ant-design/icons";
+import { LoadingOutlined, PlusOutlined, QuestionOutlined } from "@ant-design/icons";
 import { DatePicker, Divider, FloatButton, Form, Input, Upload, notification } from "antd";
 
 import dayjs from "dayjs";
@@ -16,6 +16,8 @@ export default function Profile() {
   const [passwordForm] = Form.useForm();
   const [userData, setUserData] = useState();
   const [userCreateDate, setUserCreateDate] = useState();
+  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading1, setIsLoading1] = useState(false);
   let initialPicList = [];
 
   useEffect(() => {
@@ -60,6 +62,7 @@ export default function Profile() {
   };
 
   const onFinish = async (data) => {
+    setIsLoading1(true)
     const formData = new FormData();
     formData.append("firstName", data.firstName);
     formData.append("lastName", data.lastName);
@@ -80,11 +83,16 @@ export default function Profile() {
     }
     const url = `${process.env.DIGITALOCEAN}/account/user-profile/${userData.id}`;
     await patchAxios(url, formData, true, true, () => { });
+    getUserInitialData();
+    setIsLoading1(false)
   };
 
   const onFinishPassword = async (data) => {
+    setIsLoading(true)
     const url = `${process.env.DIGITALOCEAN}/account/update-password/`;
     await postAxios(url, data, true, true, () => { });
+    passwordForm.resetFields();
+    setIsLoading(false)
   };
 
   const checkFileSize = (file) => {
@@ -130,7 +138,7 @@ export default function Profile() {
             </div>
           </Upload>
         </Form.Item>
-        <div className="flex gap-x-5 w-full">
+        <div className="laptop:flex gap-x-5 w-full">
           <Form.Item label="First name" name="firstName" className="w-full">
             <Input size="large" className="rounded-lg" />
           </Form.Item>
@@ -141,7 +149,7 @@ export default function Profile() {
         <Form.Item label="Bio" name="bio" className="w-full">
           <Input.TextArea rows={4} className="rounded-lg" />
         </Form.Item>
-        <div className="flex gap-x-5 w-full">
+        <div className="laptop:flex gap-x-5 w-full">
           <Form.Item label="Phone number" name="phoneNumber" className="w-full">
             <Input size="large" className="rounded-lg" />
           </Form.Item>
@@ -159,20 +167,20 @@ export default function Profile() {
             />
           </Form.Item>
         </div>
-        <div className="flex gap-x-5 w-full">
+        <div className="laptop:flex gap-x-5 w-full">
           <Form.Item label="Instagram Username" name="instagram" className="w-full">
-            <Input size="large" className="rounded-lg" />
+            <Input addonBefore="https://instagram.com/" size="large" className="rounded-lg" />
           </Form.Item>
           <Form.Item label="Facebook Username" name="facebook" className="w-full">
-            <Input size="large" className="rounded-lg" />
+            <Input addonBefore="https://facebook.com/" size="large" className="rounded-lg" />
           </Form.Item>
         </div>
-        <div className="flex gap-x-5 w-full">
+        <div className="laptop:flex gap-x-5 w-full">
           <Form.Item label="Linkedin Username" name="linkedin" className="w-full">
-            <Input size="large" className="rounded-lg" />
+            <Input addonBefore="https://linkedin.com/in/" size="large" className="rounded-lg" />
           </Form.Item>
           <Form.Item label="Twitter Username" name="twitter" className="w-full">
-            <Input size="large" className="rounded-lg" />
+            <Input addonBefore="https://twitter.com/" size="large" className="rounded-lg" />
           </Form.Item>
         </div>
           <Form.Item label="Website Link" name="website" className="w-full">
@@ -185,10 +193,17 @@ export default function Profile() {
           This account was created on {userCreateDate}
         </p>
         <Divider />
-        <div className="flex gap-x-5 w-full justify-end">
-          <Form.Item>
+        <div className="laptop:flex gap-x-5 w-full justify-end">
+          {/* <Form.Item>
             <FormButtons content="Save" />
-          </Form.Item>
+          </Form.Item> */}
+          {!isLoading1 ? <Form.Item>
+            <FormButtons content="Save" />
+          </Form.Item> :
+            <div className='flex gap-3 bg-gray-200 p-4 rounded'>
+              <LoadingOutlined />
+            </div>
+          }
         </div>
       </Form>
       <Divider />
@@ -220,10 +235,17 @@ export default function Profile() {
           <Input size="large" type="password" className="rounded-lg" />
         </Form.Item>
         <Divider />
-        <div className="flex gap-x-5 w-full justify-end">
-          <Form.Item>
+        <div className="laptop:flex gap-x-5 w-full justify-end">
+          {/* <Form.Item>
             <FormButtons content="Save" />
-          </Form.Item>
+          </Form.Item> */}
+          {!isLoading ? <Form.Item>
+            <FormButtons content="Save" />
+          </Form.Item> :
+            <div className='flex gap-3 bg-gray-200 p-4 rounded'>
+              <LoadingOutlined />
+            </div>
+          }
         </div>
       </Form>
       <FloatButton

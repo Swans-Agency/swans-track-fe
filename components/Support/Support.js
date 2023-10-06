@@ -4,13 +4,13 @@ import Fozi from "./Fozi";
 
 export default function Support(props) {
   return (
-    <div className="grid grid-cols-2 justify-center items-center px-36 pt-10 gap-x-10">
+    <div className="grid grid-cols-1 justify-center items-center laptop:px-36 pt-10 gap-x-10">
       <div>
         <SupportForm />
       </div>
-      <div>
+      {/* <div className="laptop:block phone:hidden">
         <Fozi />
-      </div>
+      </div> */}
     </div>
   );
 }
