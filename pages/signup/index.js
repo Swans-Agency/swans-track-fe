@@ -62,9 +62,10 @@ export default function index() {
                 name="email"
                 required
                 tooltip="You will use this for signing in."
+                className="text-[#000000]"
               >
                 <Input
-                  className="bg-[#E6F4FD] border-none loginInput py-3 tablet:w-[663px] desktop:w-full"
+                  className="bg-[#E6F4FD] border-none loginInput py-3 tablet:w-[663px] desktop:w-full text-[#000000]"
                   placeholder=" E-mail"
                   size="large"
                   prefix={
@@ -101,7 +102,7 @@ export default function index() {
                 }}
               >
                 <Input
-                  className="bg-[#E6F4FD] border-none loginInput py-3 tablet:w-[663px] desktop:w-full"
+                  className="bg-[#E6F4FD] border-none loginInput py-3 tablet:w-[663px] desktop:w-full text-black"
                   placeholder=" Company"
                   size="large"
                   prefix={

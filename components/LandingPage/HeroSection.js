@@ -72,11 +72,12 @@ export default function HeroSection() {
         <div className="phone:hidden phone:relative desktop:block">
           <button
             onClick={() => {
-              router.push("/signup");
+              router.push("/login");
             }}
             className="bg-gradient-to-br from-[#003B76] to-[#00A3FF] hover:shadow hover:shadow-gray-400 text-white font-bold py-3 px-4 rounded-lg my-3"
           >
-            Register Now !
+            {/* Register Now ! */}
+            Login
           </button>
         </div>
       </nav>
