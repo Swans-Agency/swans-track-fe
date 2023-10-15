@@ -46,8 +46,8 @@ export default function Card({ card, index, showTag, setShowTag, setSelectedItem
                     onClick={() => setMinimize(!minimize)}
                 >
                     {console.log(card)}
-                    <Badge.Ribbon text={minimize ? <p className="h-2 w-5"></p> : card?.priority} color={priorityColor[card?.priority]}>
-                        {!minimize ? <div className="border px-2 pt-4 rounded-lg bg-white shadow">
+                    <Badge.Ribbon text={ card?.priority} color={priorityColor[card?.priority]}>
+                        <div className="border px-2 pt-4 rounded-lg bg-white shadow">
                             <div
                                 onClick={() => {handleUpdate(card)}}
                                 className="hover:cursor-pointer !z-[10000000000]"
@@ -67,7 +67,8 @@ export default function Card({ card, index, showTag, setShowTag, setSelectedItem
                                 </div>
 
                             </div>
-                        </div> :
+                            </div>
+                        {/* </div> :
                             <div
                                 className="border  pl-1 pt-2 rounded bg-white shadow"
                                 onClick={() => setMinimize(!minimize)}
@@ -96,8 +97,8 @@ export default function Card({ card, index, showTag, setShowTag, setSelectedItem
                                         size={['100%', '2.5px']}
                                     />
                                 </div>
-                            </div>
-                        }
+                            </div> */}
+                        {/* } */}
                     </Badge.Ribbon>
                 </div>
             )}

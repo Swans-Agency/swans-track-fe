@@ -218,13 +218,6 @@ export default function TasksComponent({ companyTasks, initialData }) {
     setIsModalOpen(true)
   }
 
-  const borderColor = {
-    "To do": "bg-red-500",
-    "In Progress": "bg-yellow-500",
-    "Completed": "bg-green-500",
-    "Idle": "bg-purple-500",
-  }
-
   return (
     <>
       <div className="flex justify-between gap-x-4 mb-3">
@@ -252,7 +245,7 @@ export default function TasksComponent({ companyTasks, initialData }) {
         }
         <button
           onClick={() => handleopenNewTask()}
-          className="flex justify-center items-center gap-x-2 bg-mainBackground hover:bg-foreignBackground text-white rounded py-[0.6rem] px-3"
+          className="min-w-fit flex justify-center items-center gap-x-2 bg-mainBackground hover:shadow-lg text-white rounded py-[0.6rem] px-3"
         >
           Add new task
         </button>

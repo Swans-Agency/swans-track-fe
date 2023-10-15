@@ -1,17 +1,16 @@
-import FloatButtonJS from '@/components/ANTD/FloatButton';
+import React from 'react';
 import SchedSettingsForm from '@/components/Sched/SchedSettingsForm';
 import { FloatButton, notification } from 'antd';
-import React from 'react';
 import cookie from "react-cookies";
-import { PlusOutlined, QuestionOutlined } from "@ant-design/icons";
+import { QuestionOutlined } from "@ant-design/icons";
 
 export default function index() {
 
-    return (
-        <div>
-            {/* <h1 className="text-3xl font-light tracking-tight text-black mb-3">Sched Settings</h1> */}
-            <SchedSettingsForm />
+    
 
+    return (
+        <>
+            <SchedSettingsForm />
             <FloatButton
                 type="primary"
                 icon={<QuestionOutlined />}
@@ -28,7 +27,25 @@ export default function index() {
                         }))
                 }}
             />
-        </div>
-
+        </>
     );
+};
+
+export const getServerSideProps = async (ctx) => {
+    let accessToken = ctx.req.cookies["AccessTokenSBS"];
+    let userPermission = ctx.req.cookies["userPermission"];
+    try {
+        if (accessToken) {
+        } else {
+            return {
+                redirect: {
+                    destination: "/401",
+                    permanent: false,
+                },
+            };
+        }
+    } catch (e) {
+        console.log(e);
+    }
+    return { props: { accessToken, userPermission } };
 };

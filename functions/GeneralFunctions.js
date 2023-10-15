@@ -6,6 +6,9 @@ import {
   NotificationLoading,
   NotificationSuccess,
 } from "./Notifications";
+import { Button, Input, Space } from "antd";
+import { SearchOutlined } from "@ant-design/icons";
+import Highlighter from "react-highlight-words";
 
 const timeZones = [
   { label: "Africa/Abidjan", value: "Africa/Abidjan" },
@@ -455,6 +458,39 @@ const timeZones = [
 ];
 
 const jobcategories = [
+  { label: <div style={{ backgroundColor: "rgba(52, 152, 219, 1)" }} className="text-white w-fit px-2 rounded-full">Web Development and Design</div>, value: "Web Development and Design" },
+  { label: <div style={{ backgroundColor: "orange" }} className="text-white w-fit px-2 rounded-full">Writing and Content</div>, value: "Writing and Content" },
+  { label: <div style={{ backgroundColor: "rgba(22, 160, 133, 1)" }} className="text-white w-fit px-2 rounded-full">Digital Marketing</div>, value: "Digital Marketing" },
+  { label: <div style={{ backgroundColor: "rgba(46, 204, 113, 1)" }} className="text-white w-fit px-2 rounded-full">Data Entry and Virtual Assistance</div>, value: "Data Entry and Virtual Assistance" },
+  { label: <div style={{ backgroundColor: "rgba(44, 62, 80, 1)" }} className="text-white w-fit px-2 rounded-full">Translation and Language Services</div>, value: "Translation and Language Services" },
+  { label: <div style={{ backgroundColor: "rgba(169, 50, 38, 1)" }} className="text-white w-fit px-2 rounded-full">IT and Software</div>, value: "IT and Software" },
+  { label: <div style={{ backgroundColor: "rgba(142, 68, 173, 1)" }} className="text-white w-fit px-2 rounded-full">Sales and Marketing</div>, value: "Sales and Marketing" },
+  { label: <div style={{ backgroundColor: "rgba(230, 126, 34, 1)" }} className="text-white w-fit px-2 rounded-full">Video and Animation</div>, value: "Video and Animation" },
+  { label: <div style={{ backgroundColor: "rgba(41, 128, 185, 1)" }} className="text-white w-fit px-2 rounded-full">Customer Support and Service</div>, value: "Customer Support and Service" },
+  { label: <div style={{ backgroundColor: "rgba(189, 195, 199, 1)" }} className="text-white w-fit px-2 rounded-full">Consulting and Business Services</div>, value: "Consulting and Business Services" },
+  { label: <div style={{ backgroundColor: "rgba(243, 156, 18, 1)" }} className="text-white w-fit px-2 rounded-full">Engineering and Architecture</div>, value: "Engineering and Architecture" },
+  { label: <div style={{ backgroundColor: "rgba(46, 204, 113, 1)" }} className="text-white w-fit px-2 rounded-full">E-commerce</div>, value: "E-commerce" },
+  { label: <div style={{ backgroundColor: "rgba(52, 152, 219, 1)" }} className="text-white w-fit px-2 rounded-full">Video and Audio Services</div>, value: "Video and Audio Services" },
+  { label: <div style={{ backgroundColor: "rgba(44, 62, 80, 1)" }} className="text-white w-fit px-2 rounded-full">Marketing and Sales</div>, value: "Marketing and Sales" },
+  { label: <div style={{ backgroundColor: "rgba(241, 196, 15, 1)" }} className="text-white w-fit px-2 rounded-full">Education and Training</div>, value: "Education and Training" },
+  { label: <div style={{ backgroundColor: "rgba(155, 89, 182, 1)" }} className="text-white w-fit px-2 rounded-full">Healthcare and Medical Services</div>, value: "Healthcare and Medical Services" },
+  { label: <div style={{ backgroundColor: "rgba(52, 73, 94, 1)" }} className="text-white w-fit px-2 rounded-full">Legal Services</div>, value: "Legal Services" },
+  { label: <div style={{ backgroundColor: "rgba(52, 152, 219, 1)" }} className="text-white w-fit px-2 rounded-full">Accounting and Finance</div>, value: "Accounting and Finance" },
+  { label: <div style={{ backgroundColor: "rgba(230, 126, 34, 1)" }} className="text-white w-fit px-2 rounded-full">Photography and Videography</div>, value: "Photography and Videography" },
+  { label: <div style={{ backgroundColor: "rgba(142, 68, 173, 1)" }} className="text-white w-fit px-2 rounded-full">Gaming</div>, value: "Gaming" },
+  { label: <div style={{ backgroundColor: "rgba(5, 14, 42, 1)" }} className="text-white w-fit px-2 rounded-full">Art and Illustration</div>, value: "Art and Illustration" },
+  { label: <div style={{ backgroundColor: "rgba(0, 77, 64, 1)" }} className="text-white w-fit px-2 rounded-full">Travel and Lifestyle</div>, value: "Travel and Lifestyle" },
+  { label: <div style={{ backgroundColor: "rgba(46, 204, 113, 1)" }} className="text-white w-fit px-2 rounded-full">Science and Research</div>, value: "Science and Research" },
+  { label: <div style={{ backgroundColor: "rgba(169, 50, 38, 1)" }} className="text-white w-fit px-2 rounded-full">Manufacturing and Product Design</div>, value: "Manufacturing and Product Design" },
+  { label: <div style={{ backgroundColor: "rgba(44, 62, 80, 1)" }} className="text-white w-fit px-2 rounded-full">Human Resources</div>, value: "Human Resources" },
+  { label: <div style={{ backgroundColor: "rgba(52, 152, 219, 1)" }} className="text-white w-fit px-2 rounded-full">Real Estate</div>, value: "Real Estate" },
+  { label: <div style={{ backgroundColor: "rgba(46, 204, 113, 1)" }} className="text-white w-fit px-2 rounded-full">Blockchain and Cryptocurrency</div>, value: "Blockchain and Cryptocurrency" },
+  { label: <div style={{ backgroundColor: "rgba(52, 73, 94, 1)" }} className="text-white w-fit px-2 rounded-full">Food and Culinary</div>, value: "Food and Culinary" },
+  { label: <div style={{ backgroundColor: "rgba(46, 204, 113, 1)" }} className="text-white w-fit px-2 rounded-full">Environmental and Sustainability</div>, value: "Environmental and Sustainability" },
+  { label: <div style={{ backgroundColor: "rgba(44, 62, 80, 1)" }} className="text-white w-fit px-2 rounded-full">Nonprofit and Social Services</div>, value: "Nonprofit and Social Services" },
+];
+
+const jobCat = [
   { label: "Web Development and Design", value: "Web Development and Design" },
   { label: "Writing and Content", value: "Writing and Content" },
   { label: "Digital Marketing", value: "Digital Marketing" },
@@ -486,6 +522,7 @@ const jobcategories = [
   { label: "Environmental and Sustainability", value: "Environmental and Sustainability" },
   { label: "Nonprofit and Social Services", value: "Nonprofit and Social Services" }
 ]
+
 
 const currencies = [
   {
@@ -1104,6 +1141,15 @@ const currencies = [
 
 
 const jobStatus = [
+  { label: <div style={{backgroundColor: "blue"}} className="text-white w-fit px-2  rounded-full">Pre Seed</div>, value: "Pre Seed" },
+  { label: <div style={{ backgroundColor: "orange" }} className="text-white w-fit px-2  rounded-full">In Progress</div>, value: "In Progress" },
+  { label: <div style={{ backgroundColor: "rgba(22, 160, 133, 1)" }} className="text-white w-fit px-2  rounded-full">Invoiced</div>, value: "Invoiced" },
+  { label: <div style={{ backgroundColor: "rgba(46, 204, 113, 1)" }} className="text-white w-fit px-2  rounded-full">Partially Paid</div>, value: "Partially Paid" },
+  { label: <div style={{ backgroundColor: "rgba(44, 62, 80, 1)" }} className="text-white w-fit px-2  rounded-full">Closed</div>, value: "Closed" },
+  { label: <div style={{ backgroundColor: "rgba(169, 50, 38, 1)" }} className="text-white w-fit px-2  rounded-full">Canceled</div>, value: "Canceled" },
+]
+
+const jobStatusNotColored = [
   { label: "Pre Seed", value: "Pre Seed" },
   { label: "In Progress", value: "In Progress" },
   { label: "Invoiced", value: "Invoiced" },
@@ -1112,6 +1158,119 @@ const jobStatus = [
   { label: "Canceled", value: "Canceled" },
 ]
 
+const paymentTypes = [
+  { label: "Cash", value: "Cash" },
+  { label: "Cheque", value: "Cheque" },
+  { label: "Bank Transfer", value: "Bank Transfer" },
+  { label: "Money Transfer", value: "Money Transfer" },
+  { label: "CLIQ", value: "CLIQ" },
+  { label: "Paypal", value: "Paypal" },
+  { label: "Stripe", value: "Stripe" },
+  { label: "Crypto Currency", value: "Crypto Currency" },
+  { label: "Bitcoin", value: "Bitcoin" },
+  { label: "Ethereum", value: "Ethereum" },
+]
+
+const paymentColors = {
+  "Cash": "rgba(46, 204, 113, 1)",           // Green
+  "Cheque": "rgba(52, 152, 219, 1)",         // Blue
+  "Bank Transfer": "rgba(155, 89, 182, 1)",  // Purple
+  "Money Transfer": "rgba(241, 196, 15, 1)", // Yellow
+  "CLIQ": "rgba(231, 76, 60, 1)",           // Red
+  "Paypal": "rgba(44, 62, 80, 1)",          // Dark Gray
+  "Stripe": "rgba(127, 140, 141, 1)",       // Light Gray
+  "Crypto Currency": "rgba(22, 160, 133, 1)", // Turquoise
+  "Bitcoin": "rgba(243, 156, 18, 1)",       // Orange
+  "Ethereum": "rgba(169, 50, 38, 1)"        // Maroon
+};
+
+const categoryColors = {
+  "Advertising/Marketing": "#FF5733",
+  "Banking Fees": "#E74C3C",
+  "Bonus/Gifts": "#F1C40F",
+  "Business Insurance": "#3498DB",
+  "Business meetings": "#F39C12",
+  "Consulting Fees": "#E67E22",
+  "Courses/Education": "#839192",
+  "Design/Designer": "#3498DB",
+  "Electronics": "#1ABC9C",
+  "Employee Benefits": "#16A085",
+  "Freelancing job": "#2ECC71",
+  "Hosting": "#27AE60",
+  "Insurance/Health insurance": "#2E86C1",
+  "Interest fees": "#2980B9",
+  "Internet bill": "#3498DB",
+  "Legal Fees": "#2980B9",
+  "Mailing services": "#5D6D7E",
+  "Maintenance/Repairs": "#1F618D",
+  "Office equipment": "#1F618D",
+  "Office Rent": "#1F618D",
+  "Office supplies": "#1ABC9C",
+  "Payroll/Salary": "#F1C40F",
+  "Rent/Accommodation": "#F39C12",
+  "Servers": "#FF5733",
+  "Software Subscriptions": "#F7DC6F",
+  "Storage/Cloud storage": "#1ABC9C",
+  "Tax/Federal tax": "#3498DB",
+  "Training and Development": "#5499C7",
+  "Transportation": "#1ABC9C",
+  "Travel": "#3498DB",
+  "Utility bills": "#2E86C1",
+  "Website Development": "#F4D03F"
+};
+
+
+
+const expenseCategory = [
+  {
+    label: "Advertising/Marketing",
+    value: "Advertising/Marketing",
+  },
+  { label: "Banking Fees", value: "Banking Fees" },
+  { label: "Bonus/Gifts", value: "Bonus/Gifts" },
+  { label: "Business Insurance", value: "Business Insurance" },
+  { label: "Business meetings", value: "Business meetings" },
+  { label: "Consulting Fees", value: "Consulting Fees" },
+  { label: "Courses/Education", value: "Courses/Education" },
+  { label: "Design/Designer", value: "Design/Designer" },
+  { label: "Electronics", value: "Electronics" },
+  { label: "Employee Benefits", value: "Employee Benefits" },
+  { label: "Freelancing job", value: "Freelancing job" },
+  { label: "Hosting", value: "Hosting" },
+  {
+    label: "Insurance/Health insurance",
+    value: "Insurance/Health insurance",
+  },
+  { label: "Interest fees", value: "Interest fees" },
+  { label: "Internet bill", value: "Internet bill" },
+  { label: "Legal Fees", value: "Legal Fees" },
+  { label: "Mailing services", value: "Mailing services" },
+  { label: "Maintenance/Repairs", value: "Maintenance/Repairs" },
+  { label: "Office equipment", value: "Office equipment" },
+  { label: "Office Rent", value: "Office Rent" },
+  { label: "Office supplies", value: "Office supplies" },
+  { label: "Payroll/Salary", value: "Payroll/Salary" },
+  { label: "Rent/Accommodation", value: "Rent/Accommodation" },
+  { label: "Servers", value: "Servers" },
+  {
+    label: "Software Subscriptions",
+    value: "Software Subscriptions",
+  },
+  {
+    label: "Storage/Cloud storage",
+    value: "Storage/Cloud storage",
+  },
+  { label: "Tax/Federal tax", value: "Tax/Federal tax" },
+  {
+    label: "Training and Development",
+    value: "Training and Development",
+  },
+  { label: "Transportation", value: "Transportation" },
+  { label: "Travel", value: "Travel" },
+  { label: "Utility bills", value: "Utility bills" },
+  { label: "Website Development", value: "Website Development" },
+]
+ 
 const redirect = (url) => {
   window.location.href = url;
 };
@@ -1210,6 +1369,114 @@ const getObjectsFromLocalStorage = (key) => {
   return null;
 };
 
+
+const getColumnSearchProps = (dataIndex, searchInput, searchedColumn, searchText, handleSearch, handleReset, setSearchText, setSearchedColumn) => ({
+  filterDropdown: ({
+    setSelectedKeys,
+    selectedKeys,
+    confirm,
+    clearFilters,
+    close,
+  }) => (
+    <div
+      style={{
+        padding: 8,
+      }}
+      onKeyDown={(e) => e.stopPropagation()}
+    >
+      <Input
+        ref={searchInput}
+        placeholder={`Search ${dataIndex}`}
+        value={selectedKeys[0]}
+        onChange={(e) =>
+          setSelectedKeys(e.target.value ? [e.target.value] : [])
+        }
+        onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
+        style={{
+          marginBottom: 8,
+          display: "block",
+        }}
+      />
+      <Space>
+        <Button
+          onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
+          type="primary"
+          className="bg-blue-500 hover:bg-blue-600"
+          size="small"
+          style={{
+            width: 90,
+            paddingBottom: 20,
+          }}
+        >
+          <div className="flex gap-x-2 items-center justify-center">
+            <SearchOutlined /> Search
+          </div>
+        </Button>
+        <Button
+          onClick={() => clearFilters && handleReset(clearFilters)}
+          size="small"
+          style={{
+            width: 90,
+          }}
+          type="primary"
+        >
+          Reset
+        </Button>
+        <Button
+          type="link"
+          size="small"
+          onClick={() => {
+            confirm({
+              closeDropdown: false,
+            });
+            setSearchText(selectedKeys[0]);
+            setSearchedColumn(dataIndex);
+          }}
+        >
+          Filter
+        </Button>
+        <Button
+          type="link"
+          size="small"
+          onClick={() => {
+            close();
+          }}
+        >
+          close
+        </Button>
+      </Space>
+    </div>
+  ),
+  filterIcon: (filtered) => (
+    <SearchOutlined
+      style={{
+        color: filtered ? "#1677ff" : undefined,
+      }}
+    />
+  ),
+  onFilter: (value, record) =>
+    record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
+  onFilterDropdownOpenChange: (visible) => {
+    if (visible) {
+      setTimeout(() => searchInput.current?.select(), 100);
+    }
+  },
+  render: (text) =>
+    searchedColumn === dataIndex ? (
+      <Highlighter
+        highlightStyle={{
+          backgroundColor: "#ffc069",
+          padding: 0,
+        }}
+        searchWords={[searchText]}
+        autoEscape
+        textToHighlight={text ? text.toString() : ""}
+      />
+    ) : (
+      text
+    ),
+});
+
 export {
   redirect,
   login,
@@ -1217,8 +1484,15 @@ export {
   logout,
   saveToLocal,
   getObjectsFromLocalStorage,
+  getColumnSearchProps,
   timeZones,
   jobcategories,
   jobStatus,
-  currencies
+  currencies,
+  paymentTypes,
+  paymentColors,
+  categoryColors,
+  expenseCategory,
+  jobStatusNotColored,
+  jobCat
 };

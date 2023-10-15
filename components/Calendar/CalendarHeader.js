@@ -10,6 +10,9 @@ export default function CalendarHeader({
   isConnected,
   handleConnectGoogleCalendar,
   isHidden = false,
+  createNew=false,
+  setIsModalOpenNew =()=>{},
+  setClickedDate =()=>{}
 }) {
 
   return (
@@ -17,6 +20,10 @@ export default function CalendarHeader({
       <ToggleMonth
         selectedDate={selectedDate}
         setSelectedDate={setSelectedDate}
+        createNew={createNew}
+        setIsModalOpenNew={setIsModalOpenNew}
+        setClickedDate={setClickedDate}
+        
       />
       {/* <ConnectGoogleCalendar
         isConnected={isConnected}

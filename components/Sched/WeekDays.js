@@ -10,8 +10,6 @@ import cookie from "react-cookies";
 export default function WeekDays({ day, fullDay, classStyle, form}) {
     const [checked, setChecked] = useState(false);
     const [countfields, setCountFields] = useState(1);
-    const [startTime, setStartTime] = useState(0.00);
-    const [endTime, setEndTime] = useState(1.00);
     const [errorTime, setErrorTime] = useState(false);
     const [timeOptions, setTimeOptions] = useState([
         { value: "0.00", label: "00:00" },
@@ -153,41 +151,6 @@ export default function WeekDays({ day, fullDay, classStyle, form}) {
         }
         setErrorTime(false)
 
-        
-    
-
-
-
-
-
-
-
-        // if (newArr.length == 0){
-        //     setTimes([...times, value])
-        //     setErrorTime(false);
-        //     setDisableSave(false);
-        // } else {
-        //     times[key -1]
-        //     if (key <= times.length) {
-        //         if(Number(value) <= times[key - 1]) {
-        //             setErrorTime(true);
-        //             setDisableSave(true);
-        //         } else {
-        //             times[key] = Number(value)
-        //             setErrorTime(false);
-        //             setDisableSave(false);
-        //         }
-        //     } else {
-        //         if (Number(value) <= times[times.length - 1]) {
-        //             setErrorTime(true);
-        //             setDisableSave(true);
-        //         } else {
-        //             setTimes([...times, Number(value)])
-        //             setErrorTime(false);
-        //             setDisableSave(false);
-        //         }
-        //     }
-        // }
     }
 
 
@@ -213,25 +176,25 @@ export default function WeekDays({ day, fullDay, classStyle, form}) {
     }, [fullDay, checked ])
 
     return (
-        <div className={`grid grid-cols-4 justify-start ${classStyle}`}>
+        <div className={`grid tablet:grid-cols-4 phone:grid-cols-1 justify-start ${classStyle}`}>
             <div className='col-span-1'>
                 <Form.Item
                     name={["weeklySchedule", fullDay, "check"]}
                     valuePropName="checked"
-                    
                 >
                     <Checkbox onChange={onChange}>
-                        {day}
+                        {day}   
                     </Checkbox>
                 </Form.Item>
             </div>
-            {form.getFieldValue(["weeklySchedule", fullDay, "check"])  ? <div className='col-span-3 '>
+            {form.getFieldValue(["weeklySchedule", fullDay, "check"])  ? 
+            <div className='col-span-3'>
                 
                 <Form.List name={["weeklySchedule", fullDay, "schedule"]}>
                     {(fields, { add, remove }) => (
-                        <div className='grid grid-cols-2 gap-8 '>
+                            <div className='grid tablet:grid-cols-3 phone:grid-cols-4 gap-8 '>
                             {setCountFields(fields.length)}
-                            {countfields ? <div className='col-span-1'>
+                            {countfields ? <div className='tablet:col-span-2 phone:col-span-3'>
                                 {fields?.map((field, key) => (
                                         <InnerFormItem
                                             key={key}

@@ -67,11 +67,11 @@ export default function CompanyPreferencesForm() {
   }
 
   const customNotification = (type, message) => {
-      notification.info({
-        message: "Missing Company Preferences!",
-        description: "To ensure that your invoices and quotations are generated correctly, and to ensure best experience, please fill in your company preferences to continue.",
-        key: "api",
-      })
+    notification.info({
+      message: "Missing Company Preferences!",
+      description: "To ensure that your invoices and quotations are generated correctly, and to ensure best experience, please fill in your company preferences to continue.",
+      key: "api",
+    })
   }
 
   const getInvoiceTemplates = async () => {
@@ -84,7 +84,7 @@ export default function CompanyPreferencesForm() {
   };
 
   const formData = new FormData();
-  
+
   const onFinish = async (data) => {
     setIsLoading(true)
     formData.append("bankIban", data?.bankIban);
@@ -106,7 +106,7 @@ export default function CompanyPreferencesForm() {
       formData.append("signature", data.signature.file.originFileObj);
     }
     const url = `${process.env.DIGITALOCEAN}/company/company-preferences/`;
-    let companyPrefernceSavedData = await postAxios(url, formData, true, true, ()=>{});
+    let companyPrefernceSavedData = await postAxios(url, formData, true, true, () => { });
     saveToLocal("companyPreferences", companyPrefernceSavedData);
     setReloadData({});
     setIsLoading(false)
@@ -126,7 +126,6 @@ export default function CompanyPreferencesForm() {
 
   return (
     <div className="text-black">
-      {/* <h1 className="text-3xl font-light tracking-tight text-black">Company Settings</h1> */}
       <Form
         onFinish={onFinish}
         layout="vertical"
@@ -137,7 +136,7 @@ export default function CompanyPreferencesForm() {
         form={form}
         requiredMark={true}
       >
-        <div className="flex gap-x-5 w-full mt-4">
+        <div className="flex gap-x-5 w-full ">
           <Form.Item
             label="Company logo"
             className="mt-4"
@@ -267,7 +266,7 @@ export default function CompanyPreferencesForm() {
             ]}
           >
             <Select
-            size="large"
+              size="large"
               disabled={disabledSelectCurrency}
               showSearch
               defaultValue=""
@@ -298,7 +297,7 @@ export default function CompanyPreferencesForm() {
             ]}
           >
             <Select
-            size="large"
+              size="large"
               showSearch
               defaultValue=""
               style={{
@@ -319,11 +318,11 @@ export default function CompanyPreferencesForm() {
         </div>
         <div className="flex gap-x-5 w-full">
           <Form.Item label={<div><p>Payment Info <span className="text-[0.7rem] text-gray-500">this might be the IBAN, paypal or anything</span></p> </div>} name="bankIban" className="w-full" required
-          rules={[
-            {
-              required: true
-            }
-          ]}>
+            rules={[
+              {
+                required: true
+              }
+            ]}>
             <Input size="large" className="rounded-lg" />
           </Form.Item>
         </div>
@@ -355,16 +354,9 @@ export default function CompanyPreferencesForm() {
         </Form.Item>
         <Divider />
         <div className="flex gap-x-5 w-full justify-end">
-          {/* <Form.Item>
-            <FormButtons content={"save"} />
-          </Form.Item> */}
-          {!isLoading ? <Form.Item>
-            <FormButtons content="Save" />
-          </Form.Item> :
-            <div className='flex gap-3 bg-gray-200 p-4 rounded'>
-              <LoadingOutlined />
-            </div>
-          }
+          <Form.Item>
+            <FormButtons content="Save" isLoading={isLoading} />
+          </Form.Item>
         </div>
       </Form>
     </div>

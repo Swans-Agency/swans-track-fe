@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import moment from "moment";
 import {
   MoneyCollectOutlined,
@@ -21,12 +21,29 @@ import { getAxios } from "@/functions/ApiCalls";
 import FormButtons from "../ANTD/FormButtons";
 import InvoiceForm from "../invoice/InvoiceForm";
 import { NotificationError } from "@/functions/Notifications";
+import { paymentTypes } from "@/functions/GeneralFunctions";
 
 export default function IncomeForm({ setReload, onClose }) {
   const [isLoading, setIsLoading] = useState(false);
   const [form] = Form.useForm();
   const [proposalData, setProposalData] = useState([]);
   const [open, setOpen] = useState(false);
+
+  const getAllInvoice = async () => {
+    const url = `${process.env.DIGITALOCEAN}/invoice/get-all-invoices/`;
+    const invoiceData = await getAxios(url);
+    const arrData = invoiceData?.map((item) => ({
+      value: item.id,
+      label: `${item?.invoiceNo} | ${Number(item?.invoiceTotal).toFixed(2)}${JSON.parse(localStorage.getItem('companyPreferences'))?.currency}`,
+    }));
+    setProposalData(arrData);
+  };
+
+  useEffect(() => {
+    getAllInvoice()
+  }, [])
+
+
   const searchProposal = async (value) => {
     const url = `${process.env.DIGITALOCEAN}/search/invoice?search=${value}`;
     const proposalSearchData = await getAxios(url);
@@ -138,18 +155,7 @@ export default function IncomeForm({ setReload, onClose }) {
                 }}
                 allowClear={true}
                 filterOption={true}
-                options={[
-                  { label: "Cash", value: "Cash" },
-                  { label: "Cheque", value: "Cheque" },
-                  { label: "Bank Transfer", value: "Bank Transfer" },
-                  { label: "Money Transfer", value: "Money Transfer" },
-                  { label: "CLIQ", value: "CLIQ" },
-                  { label: "Paypal", value: "Paypal" },
-                  { label: "Stripe", value: "Stripe" },
-                  { label: "Crypto Currency", value: "Crypto Currency" },
-                  { label: "Bitcoin", value: "Bitcoin" },
-                  { label: "Ethereum", value: "Ethereum" },
-                ]}
+                options={paymentTypes}
               />
             </Form.Item>
             <Form.Item
@@ -171,13 +177,6 @@ export default function IncomeForm({ setReload, onClose }) {
             label={
               <div className="flex justify-between items-center gap-4 ">
                 <p>Link To Invoice</p>
-
-                {/* <button
-                  className="font-bold p-1 flex rounded-full items-center hover:bg-mainBackground hover:text-white "
-                  onClick={() => setOpen(!open)}
-                >
-                  <PlusOutlined />
-                </button> */}
               </div>
             }
             name="invoice"
@@ -200,7 +199,7 @@ export default function IncomeForm({ setReload, onClose }) {
                 options={proposalData}
               />
               <button
-                className="p-[0.75rem] flex rounded-lg items-center bg-foreignBackground hover:bg-mainBackground text-white"
+                className="p-[0.75rem] flex rounded-lg items-center bg-foreignBackground hover:shadow-lg text-white"
                 onClick={() => setOpen(!open)}
                 title="Create New Invoice"
               >
@@ -226,15 +225,8 @@ export default function IncomeForm({ setReload, onClose }) {
           <Divider />
           <div className="flex gap-x-5 w-full justify-end">
             <Form.Item>
-              <FormButtons content="Save" />
+              <FormButtons content="Save" isLoading={isLoading} />
             </Form.Item>
-              {!isLoading ? <Form.Item>
-                <FormButtons content="Save" />
-              </Form.Item> :
-                <div className='flex gap-3 bg-gray-200 p-4 rounded'>
-                  <LoadingOutlined />
-                </div>
-              }
           </div>
         </Form>
       )}

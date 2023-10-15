@@ -6,6 +6,8 @@ import Highlighter from "react-highlight-words";
 import { useRouter } from "next/router";
 import TableANTD from "../ANTD/TableANTD";
 import IncomeForm from "./IncomeForm";
+import { getColumnSearchProps, paymentColors } from "@/functions/GeneralFunctions";
+
 
 export default function Incomes({ showModal }) {
   const [searchText, setSearchText] = useState("");
@@ -24,119 +26,13 @@ export default function Incomes({ showModal }) {
     setSearchText("");
   };
 
-  const getColumnSearchProps = (dataIndex) => ({
-    filterDropdown: ({
-      setSelectedKeys,
-      selectedKeys,
-      confirm,
-      clearFilters,
-      close,
-    }) => (
-      <div
-        style={{
-          padding: 8,
-        }}
-        onKeyDown={(e) => e.stopPropagation()}
-      >
-        <Input
-          ref={searchInput}
-          placeholder={`Search ${dataIndex}`}
-          value={selectedKeys[0]}
-          onChange={(e) =>
-            setSelectedKeys(e.target.value ? [e.target.value] : [])
-          }
-          onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
-          style={{
-            marginBottom: 8,
-            display: "block",
-          }}
-        />
-        <Space>
-          <Button
-            onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
-            type="primary"
-            className="bg-blue-500 hover:bg-blue-600"
-            size="small"
-            style={{
-              width: 90,
-              paddingBottom: 20,
-            }}
-          >
-            <div className="flex gap-x-2 items-center justify-center">
-              <SearchOutlined /> Search
-            </div>
-          </Button>
-          <Button
-            onClick={() => clearFilters && handleReset(clearFilters)}
-            size="small"
-            style={{
-              width: 90,
-            }}
-            type="primary"
-          >
-            Reset
-          </Button>
-          <Button
-            type="link"
-            size="small"
-            onClick={() => {
-              confirm({
-                closeDropdown: false,
-              });
-              setSearchText(selectedKeys[0]);
-              setSearchedColumn(dataIndex);
-            }}
-          >
-            Filter
-          </Button>
-          <Button
-            type="link"
-            size="small"
-            onClick={() => {
-              close();
-            }}
-          >
-            close
-          </Button>
-        </Space>
-      </div>
-    ),
-    filterIcon: (filtered) => (
-      <SearchOutlined
-        style={{
-          color: filtered ? "#1677ff" : undefined,
-        }}
-      />
-    ),
-    onFilter: (value, record) =>
-      record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
-    onFilterDropdownOpenChange: (visible) => {
-      if (visible) {
-        setTimeout(() => searchInput.current?.select(), 100);
-      }
-    },
-    render: (text) =>
-      searchedColumn === dataIndex ? (
-        <Highlighter
-          highlightStyle={{
-            backgroundColor: "#ffc069",
-            padding: 0,
-          }}
-          searchWords={[searchText]}
-          autoEscape
-          textToHighlight={text ? text.toString() : ""}
-        />
-      ) : (
-        text
-      ),
-  });
 
   const columns = [
     {
       title: "Description",
       dataIndex: "description",
       key: "description",
-      ...getColumnSearchProps("description"),
+      ...getColumnSearchProps("description", searchInput, searchedColumn, searchText, handleSearch, handleReset, setSearchText, setSearchedColumn),
     },
     {
       title: "Reference",
@@ -149,14 +45,15 @@ export default function Incomes({ showModal }) {
       dataIndex: "amount",
       key: "amount",
       sorter: (a, b) => a.amount - b.amount,
-      ...getColumnSearchProps("amount"),
+      ...getColumnSearchProps("amount", searchInput, searchedColumn, searchText, handleSearch, handleReset, setSearchText, setSearchedColumn),
       render: (_, item) => <>{Number(item?.amount).toFixed(2)}</>,
     },
     {
       title: "Payment Method",
       dataIndex: "paymentMethod",
       key: "paymentMethod",
-      ...getColumnSearchProps("paymentMethod"),
+      ...getColumnSearchProps("paymentMethod", searchInput, searchedColumn, searchText, handleSearch, handleReset, setSearchText, setSearchedColumn),
+      render: (_, item) => { return <div style={{ backgroundColor: `${paymentColors[item?.paymentMethod]}`}} className={` text-white w-fit px-2 py-[0.15rem] rounded-full `}>{item?.paymentMethod}</div>},
     },
     {
       title: "Attachment",
@@ -193,9 +90,6 @@ export default function Incomes({ showModal }) {
 
   return (
     <>
-      {/* <h1 className="text-3xl font-light tracking-tight text-black mb-3">
-        Company Income
-      </h1> */}
       <TableANTD
         columns={columns}
         getUrl={`${process.env.DIGITALOCEAN}/invoice/get-income/`}

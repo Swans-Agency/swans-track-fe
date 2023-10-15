@@ -142,6 +142,20 @@ const postAxiosServer = async (url, data, accessToken, success) => {
   }
 };
 
+const postAxiosAllowAny = async (url, data, loading, success) => {
+  try {
+    if (loading) {
+      NotificationLoading();
+    }
+    let res = await axios.post(url, data);
+    if (success) {
+      NotificationSuccess(res?.data);
+    }
+  } catch (err) {
+    handleError(err)
+  }
+}
+
 export {
   getAxios,
   postAxios,
@@ -150,4 +164,5 @@ export {
   deleteAxios,
   getAxiosServer,
   postAxiosServer,
+  postAxiosAllowAny
 };

@@ -1,14 +1,22 @@
+import { LoadingOutlined } from "@ant-design/icons";
 import React from "react";
 
-export default function FormButtons({ content, classNames, disable=false }) {
+export default function FormButtons({ content, classNames, disable=false, isLoading=false }) {
   return (
-    <button
+    <>
+   { !isLoading ? <button
       htmlType="submit"
       type="primary"
-      className={`bg-foreignBackground hover:bg-mainBackground text-textButtons rounded ${!classNames ? "py-[0.5rem]" : ""} px-4 ${classNames}`}
+      className={`bg-foreignBackground hover:shadow-lg  text-textButtons rounded ${!classNames ? "py-[0.5rem]" : ""} px-4 ${classNames}`}
       disabled={disable}
     >
       {content}
-    </button>
+    </button>:
+        <div className='flex bg-gray-400 gap-x-3 rounded min-w-fit justify-center items-center  text-white py-[0.6rem] px-4'>
+          <LoadingOutlined /> Loading
+        </div>
+    }
+    
+    </>
   );
 }

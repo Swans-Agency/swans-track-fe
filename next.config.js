@@ -4,6 +4,8 @@ const nextConfig = {
   env: {
     DIGITALOCEAN: process.env.DIGITALOCEAN,
     STRIPE_PUBLISHABLE_KEY: process.env.STRIPE_PUBLISHABLE_KEY,
+    CALENDY_CLIENT_ID: process.env.CALENDY_CLIENT_ID,
+    REDIRECT_CALENDY_URL: process.env.REDIRECT_CALENDY_URL,
   },
   images: {
     domains: ['swansagencymain.fra1.digitaloceanspaces.com', 'img.freepik.com', 'images.unsplash.com', 'xsgames.co'],

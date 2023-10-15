@@ -35,12 +35,7 @@ export default function index() {
           <div className="phone:flex justify-center desktop:hidden">
             <Image src={"/LogoBlue.svg"} width={100} height={100} />
           </div>
-
-          <div className="desktop:pb-16 desktop:w-[100%] phone:flex phone:mt-16 phone:gap-4 phone:flex-col phone:justify-center phone:m-auto text-center">
-            <h1 className="text-[#0191E7] desktop:text-[3.0rem] desktop:text-start font-black">
-              Reset your password
-            </h1>
-          </div>
+          <h1 className="text-[#0191E7] text-center text-[3.0rem] font-black phone:mt-4 latop:mt-0">Reset password</h1>
           <div className="desktop:w-full tablet:flex tablet:justify-center desktop:block tablet:w-[100%]">
             <Form
               onFinish={onFinish}
@@ -52,6 +47,7 @@ export default function index() {
                 paddingRight: 25,
                 paddingLeft: 25,
               }}
+              className="text-black"
             >
               <Form.Item
                 name="username"
@@ -65,7 +61,7 @@ export default function index() {
                 tooltip="E-mail address used in the signing up process."
               >
                 <Input
-                  className="bg-[#E6F4FD] border-none loginInput py-3 tablet:w-[663px] desktop:w-full phone:mt-10"
+                  className="bg-[#E6F4FD] !text-black border-none loginInput py-3 tablet:w-[663px] desktop:w-full phone:mt-10"
                   placeholder=" E-mail"
                   size="large"
                   prefix={

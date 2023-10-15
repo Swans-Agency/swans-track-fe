@@ -1,13 +1,15 @@
+import FormButtons from '@/components/ANTD/FormButtons';
 import { patchAxios, postAxios } from '@/functions/ApiCalls';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { Button, Checkbox, DatePicker, Divider, Form, Input, InputNumber, Space, TimePicker } from 'antd';
 import dayjs from 'dayjs';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 
 export default function NewEventForm({ getEvents, handleClose, instance, setSelectedEvent, clickedDate }) {
     const [form] = Form.useForm();
     const { RangePicker } = DatePicker;
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         if (instance) {
@@ -21,19 +23,22 @@ export default function NewEventForm({ getEvents, handleClose, instance, setSele
     }, [instance])
 
     useEffect(() => {
-        if (clickedDate) {
-            form.setFieldsValue({ eventTime: [dayjs(clickedDate), dayjs(clickedDate).add(1, 'hour')], })
+        if (clickedDate && !instance) {
+            form.setFieldsValue({
+                eventTime: [dayjs(clickedDate), dayjs(clickedDate).add(1, 'hour')],
+            })
         }
     }, [clickedDate])
 
     const onFinish = async (values) => {
+        setIsLoading(true)
         console.log({ values })
         let data = {}
-        data.title = values.title
-        data.location = values.location
-        data.discription = values.discription
-        data.start = values.eventTime[0].format('YYYY-MM-DDTHH:mmZ')
-        data.end = values.eventTime[1].format('YYYY-MM-DDTHH:mmZ')
+        data.title = values?.title
+        data.location = values?.location
+        data.discription = values?.discription
+        data.start = values?.eventTime[0]?.format('YYYY-MM-DDTHH:mmZ')
+        data.end = values?.eventTime[1]?.format('YYYY-MM-DDTHH:mmZ')
 
         if (instance) {
             let url = `${process.env.DIGITALOCEAN}/calendar/update/${instance?.id}/`
@@ -44,6 +49,7 @@ export default function NewEventForm({ getEvents, handleClose, instance, setSele
             await postAxios(url, data, true, true, () => { getEvents(); handleClose() })
         }
         setSelectedEvent(null)
+        setIsLoading(false)
         form.resetFields()
     }
 
@@ -56,11 +62,19 @@ export default function NewEventForm({ getEvents, handleClose, instance, setSele
                 maxWidth: 600,
             }}
             form={form}
+            requiredMark={false}
         >
                 <Form.Item
                     label="Event Name"
                     name="title"
                     className="w-full"
+                    required={true}
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Please input your event name!',
+                        },
+                    ]}
                 >
                     <Input size="large" className="rounded-lg  w-full" />
                 </Form.Item>
@@ -94,13 +108,7 @@ export default function NewEventForm({ getEvents, handleClose, instance, setSele
             <Divider />
             <div className="flex gap-x-5 w-full justify-end">
                 <Form.Item>
-                    <button
-                        htmlType="submit"
-                        type="primary"
-                        className="bg-mainBackground hover:bg-foreignBackground text-textButtons rounded py-[0.5rem] px-4 "
-                    >
-                        {instance ? "Edit" : "Create"}
-                    </button>
+                    <FormButtons content={instance ? "Edit" : "Create"} isLoading={isLoading} />
                 </Form.Item>
             </div>
         </Form>

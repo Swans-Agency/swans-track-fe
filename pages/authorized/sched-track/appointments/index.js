@@ -1,10 +1,8 @@
 import React, { useRef, useState } from 'react';
 import TableANTD from '@/components/ANTD/TableANTD';
-import { SearchOutlined } from "@ant-design/icons";
-import { Button, FloatButton, Input, Space, notification } from 'antd';
-import Highlighter from 'react-highlight-words';
-import { postAxios } from '@/functions/ApiCalls';
-import { PlusOutlined, QuestionOutlined } from "@ant-design/icons";
+import { FloatButton, notification } from 'antd';
+import { QuestionOutlined } from "@ant-design/icons";
+import { getColumnSearchProps } from '@/functions/GeneralFunctions';
 
 import cookie from "react-cookies";
 
@@ -123,155 +121,32 @@ export default function index() {
         setSearchText("");
     };
 
-    const getColumnSearchProps = (dataIndex) => ({
-        filterDropdown: ({
-            setSelectedKeys,
-            selectedKeys,
-            confirm,
-            clearFilters,
-            close,
-        }) => (
-            <div
-                style={{
-                    padding: 8,
-                }}
-                onKeyDown={(e) => e.stopPropagation()}
-            >
-                <Input
-                    ref={searchInput}
-                    placeholder={`Search ${dataIndex}`}
-                    value={selectedKeys[0]}
-                    onChange={(e) =>
-                        setSelectedKeys(e.target.value ? [e.target.value] : [])
-                    }
-                    onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
-                    style={{
-                        marginBottom: 8,
-                        display: "block",
-                    }}
-                />
-                <Space>
-                    <Button
-                        onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
-                        type="primary"
-                        className="bg-blue-500 hover:bg-blue-600"
-                        size="small"
-                        style={{
-                            width: 90,
-                            paddingBottom: 20,
-                        }}
-                    >
-                        <div className="flex gap-x-2 items-center justify-center">
-                            <SearchOutlined /> Search
-                        </div>
-                    </Button>
-                    <Button
-                        onClick={() => clearFilters && handleReset(clearFilters)}
-                        size="small"
-                        type="primary"
-                        style={{
-                            width: 90,
-                        }}
-                        
-                    >
-                        Reset
-                    </Button>
-                    <Button
-                        type="link"
-                        size="small"
-                        onClick={() => {
-                            confirm({
-                                closeDropdown: false,
-                            });
-                            setSearchText(selectedKeys[0]);
-                            setSearchedColumn(dataIndex);
-                        }}
-                    >
-                        Filter
-                    </Button>
-                    <Button
-                        type="link"
-                        size="small"
-                        onClick={() => {
-                            close();
-                        }}
-                    >
-                        close
-                    </Button>
-                </Space>
-            </div>
-        ),
-        filterIcon: (filtered) => (
-            <SearchOutlined
-                style={{
-                    color: filtered ? "#1677ff" : undefined,
-                }}
-            />
-        ),
-        onFilter: (value, record) =>
-            record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
-        onFilterDropdownOpenChange: (visible) => {
-            if (visible) {
-                setTimeout(() => searchInput.current?.select(), 100);
-            }
-        },
-        render: (text) =>
-            searchedColumn === dataIndex ? (
-                <Highlighter
-                    highlightStyle={{
-                        backgroundColor: "#ffc069",
-                        padding: 0,
-                    }}
-                    searchWords={[searchText]}
-                    autoEscape
-                    textToHighlight={text ? text.toString() : ""}
-                />
-            ) : (
-                text
-            ),
-    });
-
-    const onFinish = async (values) => {
-        console.log({ values })
-        let data = {
-            "summary": values?.summary,
-            "location": "Online Meeting",
-            "description": "Online Meeting",
-            "startTime": new Date(`${values?.appointmentDate}T${timeObject[parseFloat(values?.appointmentTime).toFixed(2)]}:00`),
-            "endTime": new Date(`${values?.appointmentDate}T${timeObject[parseFloat(values?.appointmentEnd).toFixed(2)]}:00`),
-            "attendees": [values?.email]
-        }
-        console.log({ data })
-        let url = `${process.env.DIGITALOCEAN}/tasks/create-event/`;
-        let res = await postAxios(url, data, true, true, () => { });
-    };
-
     const columns = [
         {
             title: "Full Name",
             dataIndex: "firstName",
             key: "firstName",
-            ...getColumnSearchProps("firstName"),
+            ...getColumnSearchProps("firstName", searchInput, searchedColumn, searchText, handleSearch, handleReset, setSearchText, setSearchedColumn),
             render: (_, item) => <>{item?.firstName} {item?.lastName}</>,
         },
         {
             title: "E-mail",
             dataIndex: "email",
             key: "email",
-            ...getColumnSearchProps("email"),
+            ...getColumnSearchProps("email", searchInput, searchedColumn, searchText, handleSearch, handleReset, setSearchText, setSearchedColumn),
             render: (_, item) => { return (<a className='text-blue-500 hover:text-blue-600 hover:cursor-pointer' href={`mailto:${item?.email}`}>{item?.email}</a>) },
         },
         {
             title: "Appointment Date",
             dataIndex: "appointmentDate",
             key: "appointmentDate",
-            ...getColumnSearchProps("appointmentDate"),
+            ...getColumnSearchProps("appointmentDate", searchInput, searchedColumn, searchText, handleSearch, handleReset, setSearchText, setSearchedColumn),
         },
         {
             title: "Appointment Time",
             dataIndex: "appointmentTime",
             key: "appointmentTime",
-            ...getColumnSearchProps("appointmentTime"),
+            ...getColumnSearchProps("appointmentTime", searchInput, searchedColumn, searchText, handleSearch, handleReset, setSearchText, setSearchedColumn),
             render: (_, item) => {
                 console.log(timeObject[parseFloat(item?.appointmentTime).toFixed(2)])
                 return (<>{timeObject[parseFloat(item?.appointmentTime).toFixed(2)]} - {timeObject[parseFloat(item?.appointmentEnd).toFixed(2)]}</>)
@@ -281,6 +156,7 @@ export default function index() {
             title: "Summary",
             dataIndex: "summary",
             key: "summary",
+            width: "40%",
         },
         // {
         //     title: "Add to Google Calendar",
@@ -293,11 +169,9 @@ export default function index() {
         //     }
         // }
     ];
+
     return (
         <>
-            {/* <h1 className="text-3xl font-light tracking-tight text-black mb-3">
-                Appointments
-            </h1> */}
             <TableANTD
                 columns={columns}
                 getUrl={`${process.env.DIGITALOCEAN}/calendy/sched/appointments/`}

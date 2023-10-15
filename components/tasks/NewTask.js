@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
-import { Button, DatePicker, Divider, Form, Input, Select, notification } from "antd";
+import { DatePicker, Divider, Form, Input, Select } from "antd";
 import {
-  deleteAxios,
   getAxios,
   patchAxios,
   postAxios,
@@ -10,11 +9,14 @@ import {
 import Image from "next/image";
 import dayjs from "dayjs";
 import FormButtons from "../ANTD/FormButtons";
+import { LoadingOutlined } from "@ant-design/icons";
 
 export default function TaskForm({ handleNotifyTeam, selectedItem }) {
   const [form] = Form.useForm();
   const [employees, setEmployees] = useState([]);
   const [editTask, setEditTask] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingDelete, setIsLoadingDelete] = useState(false);
 
   const { TextArea } = Input;
 
@@ -70,6 +72,7 @@ export default function TaskForm({ handleNotifyTeam, selectedItem }) {
   }
 
   const onFinish = async (data) => {
+    setIsLoading(true);
     const formData = new FormData();
     formData.append("taskName", data?.taskName);
     formData.append("status", true);
@@ -82,41 +85,35 @@ export default function TaskForm({ handleNotifyTeam, selectedItem }) {
     );
     const assigneeValue = data?.assignee;
     const url = `${process.env.DIGITALOCEAN}/tasks/create-task/`;
-    // formData.append("assignee", assigneeValue);
-    // let res = await postAxios(url, formData, true, true, () => { });
 
 
     if (selectedItem) {
-      // console.log(Number(formData.get("assignee")) , selectedItem?.assignee?.id)
       if (Number.isNaN(Number(assigneeValue))) {
         formData.append('assignee', selectedItem?.assignee?.id);
       } else {
         formData.append('assignee', assigneeValue);
       }
       const url = `${process.env.DIGITALOCEAN}/tasks/edit-task/${selectedItem?.id}/`
-      let res = await patchAxios(url, formData, true, true, () => { })
+      await patchAxios(url, formData, true, true, () => { })
     } else {
       formData.append('assignee', assigneeValue);
-      let res = await postAxios(url, formData, true, true, () => { })
+      await postAxios(url, formData, true, true, () => { })
     }
 
 
     form.resetFields();
     handleNotifyTeam();
+    setIsLoading(false);
   };
 
-  const revertArchive = async (id) => {
-    const url = `${process.env.DIGITALOCEAN}/tasks/unarchive-task/${id}/`
-    await getAxios(url, true, true, () => { })
-    handleNotifyTeam()
-  }
-
   const onArchive = async () => {
+    setIsLoadingDelete(true);
     const url = `${process.env.DIGITALOCEAN}/tasks/archive-task/${selectedItem?.id}/`
-    let res = await getAxios(url, true, false, () => {})
+    let res = await getAxios(url, true, false, () => { })
     if (res) {
       handleNotifyTeam();
     }
+    setIsLoadingDelete(false);
   }
 
   return (
@@ -256,17 +253,22 @@ export default function TaskForm({ handleNotifyTeam, selectedItem }) {
 
         <Divider />
         <div className="flex gap-x-5 w-full justify-between">
-          {selectedItem  && <div>
+          {selectedItem && <div>
             <Form.Item>
-              <button 
-              className="bg-red-600 hover:bg-red-700 text-textButtons rounded py-[0.4rem] px-3"
+
+              {!isLoadingDelete ? <button
+                className="bg-red-600 hover:shadow-lg  text-textButtons rounded py-[0.5rem] px-4"
                 onClick={onArchive}
-              >Archive</button>
+              >Archive</button> :
+                <div className='flex bg-gray-400 gap-x-3 rounded min-w-fit justify-center items-center  text-white py-[0.6rem] px-4'>
+                  <LoadingOutlined /> Loading
+                </div>
+              }
             </Form.Item>
           </div>}
           <div className={`${!selectedItem ? "w-full flex justify-end" : ""}`}>
             <Form.Item>
-              <FormButtons content={selectedItem ? "Re-assign" : "Assign"} />
+              <FormButtons content={selectedItem ? "Edit" : "Assign"} isLoading={isLoading} />
             </Form.Item>
           </div>
         </div>

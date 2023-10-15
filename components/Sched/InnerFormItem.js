@@ -22,7 +22,7 @@ export default function InnerFormItem({ field, remove, handleDelete, fullDay, ti
                     ]}
                     validateStatus={errorTime ? 'error' : ''}
                     help={errorTime ? <p className='absolute min-w-max'>Error in time range</p> : ''}
-                    className='w-[85px]'
+                    className='w-[100%] min-w-[90px]'
                     >
                     <Select
                         options={timeOptions}
@@ -41,7 +41,7 @@ export default function InnerFormItem({ field, remove, handleDelete, fullDay, ti
                         },
                     ]}
                     validateStatus={errorTime ? 'error' : ''}
-                    className='w-[85px]'
+                    className='w-[100%] min-w-[90px]'
                 >
                     <Select
                         options={timeOptions}

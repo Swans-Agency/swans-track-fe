@@ -89,26 +89,23 @@ export default function TeamView({ userPermission }) {
   };
 
   return (
-    <div>
-      {/* <h1 className="text-3xl font-light tracking-tight text-black mb-3">Team Members</h1> */}
-      <TableANTD
-        columns={columns}
-        getUrl={`${process.env.DIGITALOCEAN}/account/list-employees/`}
-        multiDeleteUrl={`${process.env.DIGITALOCEAN}/account/delete-multi-employees/`}
-        addButton={true}
-        buttonTitle="Add Member"
-        addDrawer={true}
-        drawerTitle="Add New Member"
-        drawerContent={(setReload, onClose) => <CreateForm setReload={setReload} onClose={onClose} />}
-        updateModal={true}
-        updateTitle="Update Member"
-        updateFooter={null}
-        handleOkUpdate={handleOk}
-        handleCancelUpdate={handleCancel}
-        isModalOpenUpdate={isModalOpenUpdate}
-        passedItem={updateItem}
-        modalContent={(setReload) => <TeamForm updateItem={updateItem} setUpdateItem={setUpdateItem} handleOk={handleOk} setReload={setReload} />}
-      />
-    </div>
+    <TableANTD
+      columns={columns}
+      getUrl={`${process.env.DIGITALOCEAN}/account/list-employees/`}
+      multiDeleteUrl={`${process.env.DIGITALOCEAN}/account/delete-multi-employees/`}
+      addButton={true}
+      buttonTitle="Add Member"
+      addDrawer={true}
+      drawerTitle="Add New Member"
+      drawerContent={(setReload, onClose) => <CreateForm setReload={setReload} onClose={onClose} />}
+      updateModal={true}
+      updateTitle="Update Member"
+      updateFooter={null}
+      handleOkUpdate={handleOk}
+      handleCancelUpdate={handleCancel}
+      isModalOpenUpdate={isModalOpenUpdate}
+      passedItem={updateItem}
+      modalContent={(setReload) => <TeamForm updateItem={updateItem} setUpdateItem={setUpdateItem} handleOk={handleOk} setReload={setReload} />}
+    />
   );
 }

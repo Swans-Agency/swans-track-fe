@@ -28,7 +28,7 @@ export default function Profile() {
     const url = `${process.env.DIGITALOCEAN}/account/get-profile/`;
     let data = await getAxios(url);
     console.log({ data })
-    
+
     for (const key in data) {
       if (data.hasOwnProperty(key)) {
         if (typeof data[key] === 'string' && data[key].toLowerCase() === 'null') {
@@ -38,7 +38,7 @@ export default function Profile() {
       }
     }
     console.log({ data })
-    
+
     if (data) {
       data.dob = data?.dob ? dayjs(new Date(data?.dob)) : dayjs("2000-01-01");
       data.pfp = data?.pfp?.split("?")[0];
@@ -76,8 +76,8 @@ export default function Profile() {
     formData.append("facebook", data.facebook);
     formData.append("instagram", data.instagram);
     formData.append("twitter", data.twitter);
-    
-    
+
+
     if (data.pfp && data.pfp.file) {
       formData.append("pfp", data.pfp.file.originFileObj);
     }
@@ -183,9 +183,9 @@ export default function Profile() {
             <Input addonBefore="https://twitter.com/" size="large" className="rounded-lg" />
           </Form.Item>
         </div>
-          <Form.Item label="Website Link" name="website" className="w-full">
-            <Input size="large" className="rounded-lg" />
-          </Form.Item>
+        <Form.Item label="Website Link" name="website" className="w-full">
+          <Input size="large" className="rounded-lg" />
+        </Form.Item>
         <Form.Item label="Position" name="position" className="w-full">
           <Input size="large" className="rounded-lg" disabled />
         </Form.Item>
@@ -194,16 +194,9 @@ export default function Profile() {
         </p>
         <Divider />
         <div className="laptop:flex gap-x-5 w-full justify-end">
-          {/* <Form.Item>
-            <FormButtons content="Save" />
-          </Form.Item> */}
-          {!isLoading1 ? <Form.Item>
-            <FormButtons content="Save" />
-          </Form.Item> :
-            <div className='flex gap-3 bg-gray-200 p-4 rounded'>
-              <LoadingOutlined />
-            </div>
-          }
+          <Form.Item>
+            <FormButtons content="Save" isLoading={isLoading1} />
+          </Form.Item>
         </div>
       </Form>
       <Divider />
@@ -224,7 +217,7 @@ export default function Profile() {
               required: true
             }
           ]}>
-          <Input required size="large"  type="password" className="rounded-lg" />
+          <Input required size="large" type="password" className="rounded-lg" />
         </Form.Item>
         <Form.Item label="Confirm password" name="password2" className="w-full" required
           rules={[
@@ -236,16 +229,9 @@ export default function Profile() {
         </Form.Item>
         <Divider />
         <div className="laptop:flex gap-x-5 w-full justify-end">
-          {/* <Form.Item>
-            <FormButtons content="Save" />
-          </Form.Item> */}
-          {!isLoading ? <Form.Item>
-            <FormButtons content="Save" />
-          </Form.Item> :
-            <div className='flex gap-3 bg-gray-200 p-4 rounded'>
-              <LoadingOutlined />
-            </div>
-          }
+          <Form.Item>
+            <FormButtons content="Save" isLoading={isLoading} />
+          </Form.Item>
         </div>
       </Form>
       <FloatButton

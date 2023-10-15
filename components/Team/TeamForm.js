@@ -19,7 +19,7 @@ export default function TeamForm({ updateItem, setUpdateItem, setReload }) {
 
   const getUserInitialData = () => {
     if (updateItem) {
-      console.log({updateItem})
+      console.log({ updateItem })
       let initialData = {
         firstName: updateItem?.userProfile?.firstName || null,
         lastName: updateItem?.userProfile?.lastName || null,
@@ -28,7 +28,7 @@ export default function TeamForm({ updateItem, setUpdateItem, setReload }) {
         bio: updateItem?.userProfile?.bio || null,
         salary: updateItem?.userProfile?.salary || null,
         socialSecurityNumber: updateItem?.userProfile?.socialSecurityNumber || null,
-        dob: updateItem?.userProfile?.dob 
+        dob: updateItem?.userProfile?.dob
           ? dayjs(new Date(updateItem?.userProfile?.dob))
           : dayjs("1998-01-01"),
         pfp: updateItem?.userProfile?.pfp
@@ -52,7 +52,7 @@ export default function TeamForm({ updateItem, setUpdateItem, setReload }) {
     setIsLoading(true);
     const formData = new FormData();
     console.log({ data });
-    data?.firstName && formData.append("firstName", data?.firstName)  
+    data?.firstName && formData.append("firstName", data?.firstName)
     data?.lastName && formData.append("lastName", data?.lastName);
     data?.bio && formData.append("bio", data?.bio);
     data?.phoneNumber && formData.append("phoneNumber", data?.phoneNumber);
@@ -144,16 +144,9 @@ export default function TeamForm({ updateItem, setUpdateItem, setReload }) {
         <Input size="large" className="rounded-lg" />
       </Form.Item>
       <div className="flex gap-x-5 w-full justify-end">
-        {/* <Form.Item>
-          <FormButtons content="Save" />
-        </Form.Item> */}
-        {!isLoading ? <Form.Item>
-          <FormButtons content="Save" />
-        </Form.Item> :
-          <div className='flex gap-3 bg-gray-200 p-4 rounded'>
-            <LoadingOutlined />
-          </div>
-        }
+        <Form.Item>
+          <FormButtons content="Save" isLoading={isLoading} />
+        </Form.Item>
       </div>
     </Form>
   );

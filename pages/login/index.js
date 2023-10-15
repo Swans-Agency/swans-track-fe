@@ -39,7 +39,7 @@ export default function index() {
               className=""
             />
           </div>
-          <h1 className="text-[#0191E7] text-[3.75rem] text-center font-black pb-16">
+          <h1 className="text-[#0191E7] text-[3rem] text-center font-black pb-16">
             Sign In
           </h1>
           <div className="desktop:w-full tablet:flex tablet:justify-center desktop:block tablet:w-[100%]">

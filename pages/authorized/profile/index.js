@@ -1,7 +1,6 @@
 import React from "react";
 import Loading from "@/components/Loading/Loading";
 import dynamic from "next/dynamic";
-import { getAxiosServer } from "@/functions/ApiCalls";
 const Profile = dynamic(() => import("@/components/Profile/Profile"), {
   loading: () => <Loading />,
 });

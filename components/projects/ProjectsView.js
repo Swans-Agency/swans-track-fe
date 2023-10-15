@@ -1,19 +1,18 @@
 import React, { useEffect, useRef, useState } from "react";
 import TableANTD from "../ANTD/TableANTD";
-import { Button, Input, Modal, Select, Space } from "antd";
-import { SearchOutlined } from "@ant-design/icons";
-import Highlighter from "react-highlight-words";
+import { Input, Select} from "antd";
 import ExpandIcon from "./ExpandIcon";
 import { patchAxios } from "@/functions/ApiCalls";
 import ProjectForm from "./ProjectForm";
 import { useRouter } from "next/router";
-import cookie, { remove } from "react-cookies";
+import { remove } from "react-cookies";
 import { jobStatus, jobcategories } from "@/functions/GeneralFunctions";
+import { getColumnSearchProps } from "@/functions/GeneralFunctions";
+
 
 export default function ProjectsView() {
     const [searchText, setSearchText] = useState("");
     const [searchedColumn, setSearchedColumn] = useState("");
-    const [showDetails, setShowDetails] = useState({});
     const [additionalGet, setAdditionalGet] = useState(false);
     const [colorScehma, setColorScehma] = useState({
         "Pre Seed": "bg-yellow-300",
@@ -63,113 +62,7 @@ export default function ProjectsView() {
         }, 2000)
     }
 
-    const getColumnSearchProps = (dataIndex) => ({
-        filterDropdown: ({
-            setSelectedKeys,
-            selectedKeys,
-            confirm,
-            clearFilters,
-            close,
-        }) => (
-            <div
-                style={{
-                    padding: 8,
-                }}
-                onKeyDown={(e) => e.stopPropagation()}
-            >
-                <Input
-                    ref={searchInput}
-                    placeholder={`Search ${dataIndex}`}
-                    value={selectedKeys[0]}
-                    onChange={(e) =>
-                        setSelectedKeys(e.target.value ? [e.target.value] : [])
-                    }
-                    onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
-                    style={{
-                        marginBottom: 8,
-                        display: "block",
-                    }}
-                />
-                <Space>
-                    <Button
-                        onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
-                        type="primary"
-                        className="bg-blue-500 hover:bg-blue-600"
-                        size="small"
-                        style={{
-                            width: 90,
-                            paddingBottom: 20,
-                        }}
-                    >
-                        <div className="flex gap-x-2 items-center justify-center">
-                            <SearchOutlined /> Search
-                        </div>
-                    </Button>
-                    <Button
-                        onClick={() => clearFilters && handleReset(clearFilters)}
-                        className="bg-blue-500 hover:bg-blue-600"
-                        type="primary"
-                        size="small"
-                        style={{
-                            width: 90,
-                        }}
-                    >
-                        Reset
-                    </Button>
-                    <Button
-                        type="link"
-                        size="small"
-                        onClick={() => {
-                            confirm({
-                                closeDropdown: false,
-                            });
-                            setSearchText(selectedKeys[0]);
-                            setSearchedColumn(dataIndex);
-                        }}
-                    >
-                        Filter
-                    </Button>
-                    <Button
-                        type="link"
-                        size="small"
-                        onClick={() => {
-                            close();
-                        }}
-                    >
-                        close
-                    </Button>
-                </Space>
-            </div>
-        ),
-        filterIcon: (filtered) => (
-            <SearchOutlined
-                style={{
-                    color: filtered ? "#1677ff" : undefined,
-                }}
-            />
-        ),
-        onFilter: (value, record) =>
-            record[dataIndex]?.toString().toLowerCase().includes(value.toLowerCase()),
-        onFilterDropdownOpenChange: (visible) => {
-            if (visible) {
-                setTimeout(() => searchInput.current?.select(), 100);
-            }
-        },
-        render: (text) =>
-            searchedColumn === dataIndex ? (
-                <Highlighter
-                    highlightStyle={{
-                        backgroundColor: "#ffc069",
-                        padding: 0,
-                    }}
-                    searchWords={[searchText]}
-                    autoEscape
-                    textToHighlight={text ? text.toString() : ""}
-                />
-            ) : (
-                text
-            ),
-    });
+
 
     const showModalDetails = (item) => {
         localStorage.setItem('project', JSON.stringify(item))
@@ -184,13 +77,13 @@ export default function ProjectsView() {
             title: "Project Name",
             dataIndex: "projectName",
             key: "projectName",
-            ...getColumnSearchProps("projectName"),
+            ...getColumnSearchProps("projectName", searchInput, searchedColumn, searchText, handleSearch, handleReset, setSearchText, setSearchedColumn),
         },
         {
             title: "Category",
             dataIndex: "category",
             key: "category",
-            ...getColumnSearchProps("category"),
+            ...getColumnSearchProps("category", searchInput, searchedColumn, searchText, handleSearch, handleReset, setSearchText, setSearchedColumn),
             render: (_, item) => {
                 return (<div className="h-full w-full">
                     <Select
@@ -209,22 +102,27 @@ export default function ProjectsView() {
             title: "Summary",
             dataIndex: "summary",
             key: "summary",
-            ...getColumnSearchProps("summary"),
-            render: (_, item) => (
-                <div className="hover:border-b" title="Edit the summary by clicking on the text ans start typing">
-                    <Input
+            width: "20%",
+            ...getColumnSearchProps("summary", searchInput, searchedColumn, searchText, handleSearch, handleReset, setSearchText, setSearchedColumn),
+            // render only up to 50 chart, then add a button to expand
+            render: (_, item) => {
+                return (<div className="h-full w-full">
+                    <Input.TextArea
                         defaultValue={item?.summary}
                         bordered={false}
-                        onChange={(e) => { handleEditSummary(item, e.target.value) }}
+                        onChange={(e) => handleEditSummary(item, e.target.value)}
+                        autoSize={{ minRows: 1, maxRows: 2 }}
                     />
-                </div>
-            )
+                </div>)
+            }
+            
+
         },
         {
             title: "Client",
             dataIndex: "client",
             key: "client",
-            ...getColumnSearchProps("client"),
+            ...getColumnSearchProps("client", searchInput, searchedColumn, searchText, handleSearch, handleReset, setSearchText, setSearchedColumn),
             render: (_, item) => (
                 <>
                     {item?.clientObj?.firstName} {item?.clientObj?.lastName}
@@ -235,13 +133,12 @@ export default function ProjectsView() {
             title: "Start Date",
             dataIndex: "createdAt",
             key: "createdAt",
-            ...getColumnSearchProps("createdAt"),
         },
         {
             title: "Status",
             dataIndex: "status",
             key: "status",
-            ...getColumnSearchProps("status"),
+            ...getColumnSearchProps("status", searchInput, searchedColumn, searchText, handleSearch, handleReset, setSearchText, setSearchedColumn),
             render: (_, item) => {
                 return (<div className="h-full w-full">
                     <Select
@@ -275,8 +172,6 @@ export default function ProjectsView() {
 
 
     return (
-        <div>
-            {/* <h1 className="text-3xl font-light tracking-tight text-black mb-3">Projects</h1> */}
             <TableANTD
                 columns={columns}
                 getUrl={`${process.env.DIGITALOCEAN}/project/get-projects/`}
@@ -294,8 +189,6 @@ export default function ProjectsView() {
                 passedItem={{}}
                 modalContent={() => { }}
                 additionalGet={additionalGet}
-            // customClass="custom-cell"
             />
-        </div>
     );
 }

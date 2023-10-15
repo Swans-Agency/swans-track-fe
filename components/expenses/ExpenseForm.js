@@ -13,6 +13,7 @@ import {
 import { postAxios } from "@/functions/ApiCalls";
 import FormButtons from "../ANTD/FormButtons";
 import { NotificationError } from "@/functions/Notifications";
+import { expenseCategory } from "@/functions/GeneralFunctions";
 
 export default function ExoenseForm({ setReload, onClose }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -37,7 +38,7 @@ export default function ExoenseForm({ setReload, onClose }) {
     }
 
     const url = `${process.env.DIGITALOCEAN}/company/company-expenses/`;
-    let res = await postAxios(url, formData, true, true, ()=>{});
+    let res = await postAxios(url, formData, true, true, () => { });
     setReload(res);
     form.resetFields();
     onClose()
@@ -108,55 +109,7 @@ export default function ExoenseForm({ setReload, onClose }) {
             }}
             allowClear={true}
             filterOption={true}
-            options={[
-              {
-                label: "Advertising/Marketing",
-                value: "Advertising/Marketing",
-              },
-              { label: "Banking Fees", value: "Banking Fees" },
-              { label: "Bonus/Gifts", value: "Bonus/Gifts" },
-              { label: "Business Insurance", value: "Business Insurance" },
-              { label: "Business meetings", value: "Business meetings" },
-              { label: "Consulting Fees", value: "Consulting Fees" },
-              { label: "Courses/Education", value: "Courses/Education" },
-              { label: "Design/Designer", value: "Design/Designer" },
-              { label: "Electronics", value: "Electronics" },
-              { label: "Employee Benefits", value: "Employee Benefits" },
-              { label: "Freelancing job", value: "Freelancing job" },
-              { label: "Hosting", value: "Hosting" },
-              {
-                label: "Insurance/Health insurance",
-                value: "Insurance/Health insurance",
-              },
-              { label: "Interest fees", value: "Interest fees" },
-              { label: "Internet bill", value: "Internet bill" },
-              { label: "Legal Fees", value: "Legal Fees" },
-              { label: "Mailing services", value: "Mailing services" },
-              { label: "Maintenance/Repairs", value: "Maintenance/Repairs" },
-              { label: "Office equipment", value: "Office equipment" },
-              { label: "Office Rent", value: "Office Rent" },
-              { label: "Office supplies", value: "Office supplies" },
-              { label: "Payroll/Salary", value: "Payroll/Salary" },
-              { label: "Rent/Accommodation", value: "Rent/Accommodation" },
-              { label: "Servers", value: "Servers" },
-              {
-                label: "Software Subscriptions",
-                value: "Software Subscriptions",
-              },
-              {
-                label: "Storage/Cloud storage",
-                value: "Storage/Cloud storage",
-              },
-              { label: "Tax/Federal tax", value: "Tax/Federal tax" },
-              {
-                label: "Training and Development",
-                value: "Training and Development",
-              },
-              { label: "Transportation", value: "Transportation" },
-              { label: "Travel", value: "Travel" },
-              { label: "Utility bills", value: "Utility bills" },
-              { label: "Website Development", value: "Website Development" },
-            ]}
+            options={expenseCategory}
           />
         </Form.Item>
         <Form.Item label="Expense Date" name="date" className="w-full" required>
@@ -184,16 +137,9 @@ export default function ExoenseForm({ setReload, onClose }) {
       </Form.Item>
       <Divider />
       <div className="flex gap-x-5 w-full justify-end">
-        {/* <Form.Item>
-          <FormButtons content="Save" />
-        </Form.Item> */}
-        {!isLoading ? <Form.Item>
-          <FormButtons content="Save" />
-        </Form.Item> :
-          <div className='flex gap-3 bg-gray-200 p-4 rounded'>
-            <LoadingOutlined />
-          </div>
-        }
+        <Form.Item>
+          <FormButtons content="Save" isLoading={isLoading} />
+        </Form.Item>
       </div>
     </Form>
   );

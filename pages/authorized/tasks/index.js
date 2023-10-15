@@ -10,10 +10,7 @@ export default function index({ companyTasks }) {
     columnOrder: ["toDo", "inProgress", "completed", "idle"],
   };
   return (
-    <div className="">
-      {/* <TasksHeader /> */}
-      <TasksComponent companyTasks={companyTasks} initialData={initialData} />
-    </div>
+    <TasksComponent companyTasks={companyTasks} initialData={initialData} />
   );
 }
 

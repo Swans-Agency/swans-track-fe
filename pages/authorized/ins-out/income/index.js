@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import dynamic from "next/dynamic";
 import Loading from "@/components/Loading/Loading";
-import IncomeForm from "@/components/income/IncomeForm";
-import DrawerANTD from "@/components/ANTD/DrawerANTD";
-import { getAxiosServer } from "@/functions/ApiCalls";
 const Incomes = dynamic(() => import("@/components/income/Incomes"), {
   loading: () => <Loading />,
 });

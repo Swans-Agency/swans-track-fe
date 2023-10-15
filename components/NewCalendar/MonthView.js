@@ -40,7 +40,7 @@ export default function MonthView({ calendarEvents, setClickedDate, setIsModalOp
                             className={`text-center  bg-gray-100  h-[10rem] px-1 `}
                             onClick={() => setClickedDate(dayjs(date))}
                         >
-                            <div className={`${today == render ? "" : ""} w-full hover:cursor-crosshair flex justify-center text-center`} onClick={() => { setClickedDate(dayjs(date)); setIsModalOpenNew(true) }}>
+                            <div className={`${today == render ? "" : ""} w-full hover:cursor-crosshair flex justify-center text-center`} onClick={() => { setClickedDate(dayjs(new Date(date))); setIsModalOpenNew(true) }}>
                                 <p className={`${today == render ? "text-blue-600 font-bold" : ""} w-7 h-7 mt-1 rounded-full flex justify-center items-center text-center`}>
                                     {dayjs(date).format('DD')}
                                 </p>

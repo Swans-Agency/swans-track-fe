@@ -26,19 +26,26 @@ module.exports = {
         // calendarBackground: "#6C737A",
         // textIcons: "#ACBBC7",
 
-        // sidebar: "#0B2447",
-        // navbar: "#0B2447",
-        // mainBackground: "#19376D",
+        sidebar: "#0B2447",
+        navbar: "#0B2447",
+        mainBackground: "#19376D",
+        foreignBackground: "#19376D",
+        calendarBackground: "#6C737A",
+        textIcons: "#ACBBC7",
+
+        // sidebar: "#19376D",
+        // navbar: "#19376D",
+        // mainBackground: "#015BA1",
         // foreignBackground: "#337CCF",
         // calendarBackground: "#6C737A",
         // textIcons: "#ACBBC7",
 
-        sidebar: "#19376D",
-        navbar: "#19376D",
-        mainBackground: "#015BA1",
-        foreignBackground: "#337CCF",
-        calendarBackground: "#6C737A",
-        textIcons: "#ACBBC7",
+        // sidebar: "#282A3A",
+        // navbar: "#282A3A",
+        // mainBackground: "#015BA1",
+        // foreignBackground: "#337CCF",
+        // calendarBackground: "#6C737A",
+        // textIcons: "#ACBBC7",
 
 
 

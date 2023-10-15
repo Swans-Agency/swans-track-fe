@@ -1,12 +1,4 @@
 import React from "react";
-import {
-  LoginOutlined,
-  LogoutOutlined,
-  ReconciliationOutlined,
-  MedicineBoxOutlined,
-  ProfileOutlined,
-  UnorderedListOutlined,
-} from "@ant-design/icons";
 import { getAxios } from "@/functions/ApiCalls";
 import { NotificationLoading } from "@/functions/Notifications";
 import CardANTD from "../ANTD/CardANTD";
@@ -84,10 +76,11 @@ export default function ReportComponent() {
   };
 
   return (
-    <div className="flex flex-wrap items-center desktop:justify-start phone:justify-center gap-4">
+    <div className="flex flex-wrap flex-grow items-center desktop:justify-start phone:justify-center gap-4">
       {panels?.map((content, index) => {
         return (
           <CardANTD
+          className=""
             key={index}
             title={
               <div className="flex gap-x-2 items-center">

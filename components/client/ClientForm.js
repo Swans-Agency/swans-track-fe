@@ -17,7 +17,7 @@ export default function ClientForm({ setReload, onClose }) {
     const url = `${process.env.DIGITALOCEAN}/client/get-clients/`;
     let res = await postAxios(url, data, true, true);
     form.resetFields()
-    setReload(res) 
+    setReload(res)
     onClose()
     setIsLoading(false);
   };
@@ -34,60 +34,60 @@ export default function ClientForm({ setReload, onClose }) {
       form={form}
     >
       <div className="flex gap-x-5 w-full">
-        <Form.Item 
-        rules={[
-          {
-            required: true
-          }
-        ]} label="First name" name="firstName" className="w-full">
-          <Input size="large"  className="rounded-lg" />
+        <Form.Item
+          rules={[
+            {
+              required: true
+            }
+          ]} label="First name" name="firstName" className="w-full">
+          <Input size="large" className="rounded-lg" />
         </Form.Item>
-        <Form.Item 
-        rules={[
-          {
-            required: true
-          }
-        ]} label="Last name" name="lastName" className="w-full">
+        <Form.Item
+          rules={[
+            {
+              required: true
+            }
+          ]} label="Last name" name="lastName" className="w-full">
           <Input size="large" className="rounded-lg" />
         </Form.Item>
       </div>
-      <Form.Item 
-      rules={[
-        {
-          required: true
-        }
-      ]} label="Client address" name="clientAddress" className="w-full">
-        <Input size="large" className="rounded-lg" />
-      </Form.Item>
-      <div className="flex gap-x-5 w-full">
-        <Form.Item 
+      <Form.Item
         rules={[
           {
             required: true
           }
-        ]}
+        ]} label="Client address" name="clientAddress" className="w-full">
+        <Input size="large" className="rounded-lg" />
+      </Form.Item>
+      <div className="flex gap-x-5 w-full">
+        <Form.Item
+          rules={[
+            {
+              required: true
+            }
+          ]}
           label="E-mail"
           name="email"
           className="w-full"
         >
           <Input size="large" className="rounded-lg" />
         </Form.Item>
-        <Form.Item 
-        rules={[
-          {
-            required: true
-          }
-        ]} label="Phone number" name="phoneNumber" className="w-full">
+        <Form.Item
+          rules={[
+            {
+              required: true
+            }
+          ]} label="Phone number" name="phoneNumber" className="w-full">
           <Input size="large" className="rounded-lg" />
         </Form.Item>
       </div>
       <div className="flex gap-x-5 w-full">
-        <Form.Item 
-        rules={[
-          {
-            required: true
-          }
-        ]}
+        <Form.Item
+          rules={[
+            {
+              required: true
+            }
+          ]}
           label="Ineterest level"
           name="interestLevel"
           className="w-full"
@@ -110,12 +110,12 @@ export default function ClientForm({ setReload, onClose }) {
             ]}
           />
         </Form.Item>
-        <Form.Item 
-        rules={[
-          {
-            required: true
-          }
-        ]}
+        <Form.Item
+          rules={[
+            {
+              required: true
+            }
+          ]}
           label="Referral source"
           name="referralSource"
           className="w-full"
@@ -151,30 +151,18 @@ export default function ClientForm({ setReload, onClose }) {
           />
         </Form.Item>
       </div>
-      <Form.Item 
-      rules={[
-        {
-          required: true
-        }
-      ]} label="Acquire Date" name="createdAt">
-        <DatePicker size="large" className="rounded-lg w-full" placeholder="" />
-      </Form.Item>
-      <div className="flex gap-x-5 w-full justify-end">
-        {/* <Form.Item 
+      <Form.Item
         rules={[
           {
             required: true
           }
-        ]}>
-          <FormButtons content="Save" />
-        </Form.Item> */}
-        {!isLoading ? <Form.Item>
-          <FormButtons content="Save" />
-        </Form.Item> :
-          <div className='flex gap-3 bg-gray-200 p-4 rounded'>
-            <LoadingOutlined />
-          </div>
-        }
+        ]} label="Acquire Date" name="createdAt">
+        <DatePicker size="large" className="rounded-lg w-full" placeholder="" />
+      </Form.Item>
+      <div className="flex gap-x-5 w-full justify-end">
+        <Form.Item>
+          <FormButtons content="Save" isLoading={isLoading} />
+        </Form.Item>
       </div>
     </Form>
   );

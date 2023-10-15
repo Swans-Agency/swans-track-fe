@@ -109,27 +109,27 @@ export default function TableANTD({
     <div className="mt-2">
       {
         addButton &&
-        <div className="flex justify-end mb-3">
+        <div className="flex justify-end mb-3 gap-x-3">
+            {
+              (selectedRowKeys.length > 0) && (multiDeleteUrl) &&
+              <div
+                  className=" w-full bg-red-700 hover:shadow-lg text-white px-2 py-2 rounded text-center cursor-pointer"
+                onClick={() => handleMultDelete(selectedRowKeys)}
+              >
+                Delete {selectedRowKeys.length} {selectedRowKeys.length > 1 ? "items" : "item"}
+              </div>
+            }
           <button
             onClick={showDrawer}
-            className="flex justify-center items-center gap-x-2 bg-mainBackground hover:bg-foreignBackground text-white rounded py-[0.6rem] px-3"
+            className="min-w-fit flex justify-center items-center gap-x-2 bg-mainBackground hover:shadow-lg text-white rounded py-[0.6rem] px-3"
           >
-            {/* <PlusOutlined /> */}
             {buttonTitle}
           </button>
+            
         </div>
       }
       {data?.count ? (
         <>
-          {
-            (selectedRowKeys.length > 0) && (multiDeleteUrl) &&
-            <div
-              className="w-full bg-red-700 hover:bg-red-800 text-white px-2 py-2 rounded mb-3 text-center cursor-pointer"
-              onClick={() => handleMultDelete(selectedRowKeys)}
-            >
-              Delete {selectedRowKeys.length} {selectedRowKeys.length > 1 ? "items" : "item"}
-            </div>
-          }
           <Table
             className={`w-full ${customClass}`}
             columns={columns}

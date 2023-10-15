@@ -86,16 +86,9 @@ export default function CreateForm({ setReload, onClose }) {
       </div>
 
       <div className="flex gap-x-5 w-full justify-end">
-        {/* <Form.Item>
-          <FormButtons content="Save" />
-        </Form.Item> */}
-        {!isLoading ? <Form.Item>
-          <FormButtons content="Save" />
-        </Form.Item> :
-          <div className='flex gap-3 bg-gray-200 p-4 rounded'>
-            <LoadingOutlined />
-          </div>
-        }
+        <Form.Item>
+          <FormButtons content="Save" isLoading={isLoading} />
+        </Form.Item>
       </div>
     </Form>
   );

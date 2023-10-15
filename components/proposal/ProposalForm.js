@@ -19,7 +19,7 @@ import {
 import { getAxios, postAxios } from "@/functions/ApiCalls";
 import FormButtons from "../ANTD/FormButtons";
 
-export default function ProposalForm({ setReload, onClose, getAllProposals=()=>{}}) {
+export default function ProposalForm({ setReload, onClose, getAllProposals = () => { } }) {
   const [disabledSelectCurrency, setDisabledCurrency] = useState(false);
   const [clientData, setClientData] = useState([]);
   const [numberofItems, setNumberofItems] = useState(0);
@@ -103,7 +103,7 @@ export default function ProposalForm({ setReload, onClose, getAllProposals=()=>{
     );
 
     const url = `${process.env.DIGITALOCEAN}/invoice/create-proposal/`;
-    let res = await postAxios(url, data, true, true, ()=>{});
+    let res = await postAxios(url, data, true, true, () => { });
     getAllProposals()
     setReload(res);
     onClose()
@@ -314,16 +314,9 @@ export default function ProposalForm({ setReload, onClose, getAllProposals=()=>{
       </Form.Item>
       <Divider />
       <div className="flex gap-x-5 w-full justify-end">
-        {/* <Form.Item>
-          <FormButtons content="Save" />
-        </Form.Item> */}
-        {!isLoading ? <Form.Item>
-          <FormButtons content="Save" />
-        </Form.Item> :
-          <div className='flex gap-3 bg-gray-200 p-4 rounded'>
-            <LoadingOutlined />
-          </div>
-        }
+        <Form.Item>
+          <FormButtons content="Save" isLoading={isLoading} />
+        </Form.Item>
       </div>
     </Form>
   );

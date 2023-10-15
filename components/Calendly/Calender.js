@@ -6,7 +6,7 @@ import { Select } from "antd";
 import { timeZones } from "@/functions/GeneralFunctions";
 import { Calendar } from 'antd';
 
-export default function Calender({ data, setSelectedDay, dataTimeZone, setNewTimeZone, newTimeZone }) {
+export default function Calender({ data, setSelectedDay, dataTimeZone, setNewTimeZone, newTimeZone, setIsModalOpen }) {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [visibleLeft, setvisibleLeft] = useState("hidden");
   const [visibleRight, setvisibleRight] = useState("visible");
@@ -22,12 +22,12 @@ export default function Calender({ data, setSelectedDay, dataTimeZone, setNewTim
   const monthsAllowed = {
     "one month": new Date().getMonth() + 1,
     "this month": new Date().getMonth(),
-    "three months": new Date().getMonth() + 3,
+    "three months": new Date().getMonth() + 2,
   };
 
 
   const Allow = () => {
-    if (selectedDate.getMonth() === new Date().getMonth()) {
+    if (selectedDate.getMonth() === new Date().getMonth() && selectedDate.getFullYear() === new Date().getFullYear()) {
       setvisibleLeft("hidden");
       setvisibleRight("visible");
     }
@@ -66,6 +66,7 @@ export default function Calender({ data, setSelectedDay, dataTimeZone, setNewTim
 
   const handleClickDate = (date, key) => {
     setSelectedDay(dayjs(date)?.format("YYYY-MM-DD"))
+    setIsModalOpen(true)
     setClicked({ key: key, clicked:true})
   }
 
@@ -79,7 +80,7 @@ export default function Calender({ data, setSelectedDay, dataTimeZone, setNewTim
       />
 
       <div className="mt-7 ">
-        <div className="grid grid-cols-[1fr_1fr_1fr_1fr_1fr_1fr_1fr] tablet:gap-3 text-center">
+        <div className="grid grid-cols-7 gap-3 text-center">
           {daysWeek?.map((date, index) => {
             return(
               <div >
@@ -104,12 +105,12 @@ export default function Calender({ data, setSelectedDay, dataTimeZone, setNewTim
               <div key={index} className="w-[3rem] h-[3rem] m-auto">
                 <button
                   onClick={() => handleClickDate(date, index)}
-                  className={`text-center w-full h-full rounded-full ${data?.[DayName]?.available && !dayjs(date)?.isBefore(dayjs())
+                  className={`text-center w-full h-full rounded ${data?.weeklySchedule?.[DayName]?.check && !dayjs(date)?.isBefore(dayjs())
                     ? ` hover:bg-foreignBackground hover:text-white ${clicked?.key == index && clicked?.clicked ? "  bg-foreignBackground text-white" : "bg-gray-100"}`
                     : "text-gray-600"
                     }`
                   }
-                  disabled={data?.[DayName]?.available && !dayjs(date)?.isBefore(dayjs()) ? false : true}
+                  disabled={data?.weeklySchedule?.[DayName]?.check && !dayjs(date)?.isBefore(dayjs()) ? false : true}
                 >
                   <p>{date?.getDate()}</p>
                 </button>

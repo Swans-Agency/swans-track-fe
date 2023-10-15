@@ -1,5 +1,4 @@
 import { eachDayOfInterval, endOfMonth, startOfMonth } from 'date-fns';
-import dayjs from 'dayjs';
 import React, { useState } from 'react';
 import CalendarHeader from '../Calendar/CalendarHeader';
 import ModalANTD from '../ANTD/ModalANTD';
@@ -7,7 +6,6 @@ import EventModal from '../Calendar/SwansCalendar/EventModal';
 import { deleteAxios } from '@/functions/ApiCalls';
 import NewEventForm from '../Calendar/SwansCalendar/NewEventForm';
 import MonthView from './MonthView';
-import { Select } from 'antd';
 
 
 export default function NewCalendar({ calendarEvents, getEvents }) {
@@ -49,6 +47,9 @@ export default function NewCalendar({ calendarEvents, getEvents }) {
         selectedDate={selectedDate}
         setSelectedDate={setSelectedDate}
         isHidden={true}
+        createNew={true}
+        setIsModalOpenNew={setIsModalOpenNew}
+        setClickedDate={setClickedDate}
       />
       <MonthView
         calendarEvents={calendarEvents}

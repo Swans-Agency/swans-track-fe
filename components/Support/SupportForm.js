@@ -4,7 +4,6 @@ import { postAxios } from "@/functions/ApiCalls";
 import FormButtons from "../ANTD/FormButtons";
 import { LoadingOutlined } from "@ant-design/icons";
 
-/* eslint-disable no-template-curly-in-string */
 const validateMessages = {
   required: "${label} is required!",
   types: {
@@ -15,11 +14,11 @@ const validateMessages = {
     range: "${label} must be between ${min} and ${max}",
   },
 };
-/* eslint-enable no-template-curly-in-string */
 
 
 
-export default function SupportForm(props) {
+
+export default function SupportForm() {
   const [isLoading, setIsLoading] = useState(false);
 
   const onFinish = async (values) => {
@@ -33,7 +32,7 @@ export default function SupportForm(props) {
   return (
     <>
       <div className="text-3xl font-light tracking-tight mb-1">
-        <h1>Love to Hear from you</h1>
+        <h1>Help Us Grow</h1>
         <h1>Get in touch👋</h1>
       </div>
 
@@ -93,16 +92,9 @@ export default function SupportForm(props) {
         >
           <Input.TextArea rows={4} />
         </Form.Item>
-        {/* <Form.Item className="w-full mt-3">
-          <FormButtons content="Send" classNames="w-full py-2 font-semibold" />
-        </Form.Item> */}
-        {!isLoading ? <Form.Item>
-          <FormButtons content="Save" classNames="w-full py-2 font-semibold" />
-        </Form.Item> :
-          <div className='flex gap-3 justify-center items-center bg-gray-200 p-4 rounded'>
-            <LoadingOutlined />
-          </div>
-        }
+        <Form.Item>
+          <FormButtons content="Save" classNames="w-full py-2 font-semibold mt-2" isLoading={isLoading} />
+        </Form.Item>
       </Form>
     </>
   );

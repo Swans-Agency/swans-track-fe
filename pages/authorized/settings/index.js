@@ -5,13 +5,6 @@ import { Button, Carousel } from "antd";
 import { Badge, Card, Space } from "antd";
 
 export default function index({ plans, paymentId }) {
-  const contentStyle = {
-    height: "160px",
-    color: "#fff",
-    lineHeight: "160px",
-    textAlign: "center",
-    background: "#364d79",
-  };
   const router = useRouter();
   const [action, setAction] = useState(false);
   const [trialPeriod, setTrialPeriod] = useState(null);
@@ -72,21 +65,17 @@ export default function index({ plans, paymentId }) {
   };
 
   return (
-    <div className="overflow-hidden">
-      {/* <div className="text-3xl font-light tracking-tight text-black my-[3rem] text-center">
-        <h1>We Manage You Celebrate</h1>
-      </div> */}
-      <div className="max-w-[20rem] m-auto">
-        <Carousel autoplay dots="true">
+    
+      <div className=" m-auto flex gap-4 justify-center flex-wrap">
           {plans?.map((item, index) => {
             return (
-              <div className="w-1/4 p-2">
-                <Badge.Ribbon text={<p className="py-[0.2rem] px-[0.4rem]">Flash Discount</p>} className="Button">
+                <div className="max-w-[350px] p-2">
+                <Badge.Ribbon text={<p className="py-[0.1rem] px-[0.4rem]">Flash Discount</p>} className="bg-mainBackground py-1">
                   <div className="px-6 py-5 border rounded-lg">
-                    <div className="text-2xl font-semibold text-center mt-4">
+                    <div className="text-2xl font-semibold text-center !mt-8">
                       {item.name}
                     </div>
-                    <div className="text-[3rem] text-green-600 font-bold mb-3 text-center">
+                    <div className="text-[3.5rem] text-green-600 font-bold mb-2 text-center">
                       ${item?.price.split(".")[0]}<span className="text-[1rem]">.{item?.price.split(".")[1]}</span>
                     </div>
                     <ul className="my-[2rem]">
@@ -114,11 +103,11 @@ export default function index({ plans, paymentId }) {
                       })}
                     </ul>
                       <button
-                      className={`w-full border rounded mt-3 py-1 shadow font-bold text-white bg-[#3659d4]  ${action ? "cursor-not-allowed" : "hover:bg-[#1d2e6e]"}`}
+                      className={`w-full border rounded mt-3 py-1 shadow font-bold text-white bg-mainBackground  ${action ? "cursor-not-allowed" : "hover:bg-[#1d2e6e]"}`}
                         onClick={() => handleUpgrade(item?.stripeId)}
                         disabled={action}
                       >
-                      {trialPeriod ? <div>Your trial ends in {remainingTime}</div> : !paymentId?.subscriptionEnded ? <div>Your subscription ends in {remainingTime}</div> : "Subscribe"}
+                      {trialPeriod && !paymentId?.subscriptionEnded ? <div>Your trial ends in {remainingTime}</div> : !paymentId?.subscriptionEnded ? <div>Your subscription ends in {remainingTime}</div> : "Subscribe"}
                       </button>
                     <div className="text-xs font-light text-gray-700 mt-2 text-justify">
                       By placing this order, you agree to Swans Track's{" "}
@@ -147,9 +136,8 @@ export default function index({ plans, paymentId }) {
               </div>
             );
           })}
-        </Carousel>
       </div>
-    </div>
+  
   );
 }
 

@@ -5,22 +5,12 @@ const Expenses = dynamic(() => import("@/components/expenses/Expenses"), {
   loading: () => <Loading />,
 });
 
-export default function index({ userPermission }) {
-  const [open, setOpen] = useState(false);
+export default function index() {
 
-  const showDrawer = () => {
-    setOpen(true);
-  };
-  const onClose = () => {
-    setOpen(false);
-  };
 
   return (
-    <>
-      <div>
-        <Expenses />
-      </div>
-    </>
+    <Expenses />
+
   );
 }
 

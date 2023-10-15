@@ -1,9 +1,7 @@
 import React, { useRef, useState } from "react";
-import { SearchOutlined } from "@ant-design/icons";
-import { Button, Input, Space } from "antd";
-import Highlighter from "react-highlight-words";
 import TableANTD from "../ANTD/TableANTD";
 import ExoenseForm from "./ExpenseForm";
+import { categoryColors, getColumnSearchProps } from "@/functions/GeneralFunctions";
 
 export default function Expenses() {
   const [searchText, setSearchText] = useState("");
@@ -21,132 +19,26 @@ export default function Expenses() {
     setSearchText("");
   };
 
-  const getColumnSearchProps = (dataIndex) => ({
-    filterDropdown: ({
-      setSelectedKeys,
-      selectedKeys,
-      confirm,
-      clearFilters,
-      close,
-    }) => (
-      <div
-        style={{
-          padding: 8,
-        }}
-        onKeyDown={(e) => e.stopPropagation()}
-      >
-        <Input
-          ref={searchInput}
-          placeholder={`Search ${dataIndex}`}
-          value={selectedKeys[0]}
-          onChange={(e) =>
-            setSelectedKeys(e.target.value ? [e.target.value] : [])
-          }
-          onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
-          style={{
-            marginBottom: 8,
-            display: "block",
-          }}
-        />
-        <Space>
-          <Button
-            onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
-            type="primary"
-            className="bg-blue-500 hover:bg-blue-600"
-            size="small"
-            style={{
-              width: 90,
-              paddingBottom: 20,
-            }}
-          >
-            <div className="flex gap-x-2 items-center justify-center">
-              <SearchOutlined /> Search
-            </div>
-          </Button>
-          <Button
-            onClick={() => clearFilters && handleReset(clearFilters)}
-            size="small"
-            style={{
-              width: 90,
-            }}
-            type="primary"
-          >
-            Reset
-          </Button>
-          <Button
-            type="link"
-            size="small"
-            onClick={() => {
-              confirm({
-                closeDropdown: false,
-              });
-              setSearchText(selectedKeys[0]);
-              setSearchedColumn(dataIndex);
-            }}
-          >
-            Filter
-          </Button>
-          <Button
-            type="link"
-            size="small"
-            onClick={() => {
-              close();
-            }}
-          >
-            close
-          </Button>
-        </Space>
-      </div>
-    ),
-    filterIcon: (filtered) => (
-      <SearchOutlined
-        style={{
-          color: filtered ? "#1677ff" : undefined,
-        }}
-      />
-    ),
-    onFilter: (value, record) =>
-      record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
-    onFilterDropdownOpenChange: (visible) => {
-      if (visible) {
-        setTimeout(() => searchInput.current?.select(), 100);
-      }
-    },
-    render: (text) =>
-      searchedColumn === dataIndex ? (
-        <Highlighter
-          highlightStyle={{
-            backgroundColor: "#ffc069",
-            padding: 0,
-          }}
-          searchWords={[searchText]}
-          autoEscape
-          textToHighlight={text ? text.toString() : ""}
-        />
-      ) : (
-        text
-      ),
-  });
-
   const columns = [
     {
       title: "Description",
       dataIndex: "description",
       key: "description",
-      ...getColumnSearchProps("description"),
+      ...getColumnSearchProps("description", searchInput, searchedColumn, searchText, handleSearch, handleReset, setSearchText, setSearchedColumn),
     },
     {
       title: "Category",
-      dataIndex: "category",
-      key: "category",
-      ...getColumnSearchProps("category"),
+      dataIndex: "category.",
+      key: "category.",
+      ...getColumnSearchProps("category", searchInput, searchedColumn, searchText, handleSearch, handleReset, setSearchText, setSearchedColumn),
+      render: (_, item) => <div style={{ backgroundColor: `${categoryColors[item?.category]}` }} className="w-fit text-white px-2 py-[0.15rem] rounded-full ">{item?.category}</div>,
     },
     {
       title: "Amount",
       dataIndex: "amount",
       key: "amount",
       sorter: (a, b) => a.amount - b.amount,
-      ...getColumnSearchProps("amount"),
+      ...getColumnSearchProps("amount", searchInput, searchedColumn, searchText, handleSearch, handleReset, setSearchText, setSearchedColumn),
       render: (_, item) => <>{Number(item?.amount).toFixed(2)}</>,
     },
     {
@@ -178,15 +70,12 @@ export default function Expenses() {
       title: "Date",
       dataIndex: "date",
       key: "date",
-      ...getColumnSearchProps("date"),
+      ...getColumnSearchProps("date", searchInput, searchedColumn, searchText, handleSearch, handleReset, setSearchText, setSearchedColumn),
     },
   ];
 
   return (
     <>
-      {/* <h1 className="text-3xl font-light tracking-tight text-black mb-3">
-        Company Expenses
-      </h1> */}
       <TableANTD
         columns={columns}
         getUrl={`${process.env.DIGITALOCEAN}/company/company-paginated-expenses/`}

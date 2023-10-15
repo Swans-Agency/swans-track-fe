@@ -8,8 +8,9 @@ import moment from 'moment-timezone';
 import axios from "axios";
 import { NotificationLoading, NotificationSuccess } from "@/functions/Notifications";
 
-export default function CalendlyForm({ data, selectedDay, companyId, dataTimeZone, newTimeZone }) {
+export default function CalendlyForm({ data, selectedDay, companyId, dataTimeZone, newTimeZone, handleClose }) {
   const [options, setOptions] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
   const [form] = useForm();
@@ -19,6 +20,7 @@ export default function CalendlyForm({ data, selectedDay, companyId, dataTimeZon
   };
 
   const onFinish = async (values) => {
+    setIsLoading(true)
     NotificationLoading()
     const Data =
     {
@@ -31,18 +33,17 @@ export default function CalendlyForm({ data, selectedDay, companyId, dataTimeZon
     let res = await axios.post(url, Data);
     NotificationSuccess()
     handleReset()
+    setIsLoading(false)
+    handleClose()
+    router.reload()
   };
 
   const getOptions = async () => {
-    const url = `${process.env.DIGITALOCEAN}/calendy/sched/public/${companyId}/`
+    const url = `${process.env.DIGITALOCEAN}/calendy/sched/time-slots/${companyId}/`
     let res = await axios.post(url, { day: selectedDay })
     setOptions([])
     let arr = [];
     res?.data?.map((item) => {
-      console.log(dataTimeZone, "sss", newTimeZone, "ddd")
-
-      console.log(typeof (dataTimeZone), typeof (newTimeZone))
-
       if (dataTimeZone !== newTimeZone && dataTimeZone && newTimeZone) {
         const fromTime = moment.tz(item.fromHour, 'HH.mm', dataTimeZone);
         const toTime = moment.tz(item.toHour, 'HH.mm', dataTimeZone);
@@ -163,7 +164,7 @@ export default function CalendlyForm({ data, selectedDay, companyId, dataTimeZon
           rules={[{ required: true, message: "Time range is required" }]}
         >
           <Select
-            placeholder="Select province"
+            placeholder="Select time slot"
             size="large"
             options={options}
           />
@@ -172,8 +173,9 @@ export default function CalendlyForm({ data, selectedDay, companyId, dataTimeZon
         <div className="w-full">
           <Form.Item>
             <FormButtons
-              classNames={"w-full py-[0.55rem]"}
+              classNames={"w-full py-[0.55rem] mt-1"}
               content="Book Appointment"
+              isLoading={isLoading}
             />
           </Form.Item>
         </div>

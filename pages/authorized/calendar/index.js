@@ -62,26 +62,19 @@ export default function index() {
 
 
   return (
-    <>
-      {/* <h1 className="text-3xl font-light tracking-tight text-black">
-        Calendar
-      </h1> */}
-
-      <NewCalendar
-        calendarEvents={calendarEvents}
-        getEvents={getEvents}
-      />
-    </>
+    <NewCalendar
+      calendarEvents={calendarEvents}
+      getEvents={getEvents}
+    />
   )
 }
 
 export const getServerSideProps = async (ctx) => {
   let accessToken = ctx.req.cookies["AccessTokenSBS"];
   let userPermission = ctx.req.cookies["userPermission"];
-  let isConnected = null;
   try {
     if (accessToken) {
-     
+
     } else {
       return {
         redirect: {
@@ -93,5 +86,5 @@ export const getServerSideProps = async (ctx) => {
   } catch (e) {
     console.log({ e });
   }
-  return { props: { accessToken, userPermission,  } };
+  return { props: { accessToken, userPermission, } };
 };

@@ -780,7 +780,7 @@ export default function PrivacyPolicy() {
         <p>
           Support Team
           <br />
-          <a href="mailto:support@swanstrack.com">support@swanstrack.com</a>
+          <a href="mailto:info@swanstrack.com">info@swanstrack.com</a>
         </p>
       </div>
     </>

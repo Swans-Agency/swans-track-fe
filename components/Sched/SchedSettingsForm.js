@@ -4,14 +4,14 @@ import WeekDays from './WeekDays';
 import FormButtons from '../ANTD/FormButtons';
 import { getAxios, postAxios } from '@/functions/ApiCalls';
 import { NotificationError } from '@/functions/Notifications';
+import { LoadingOutlined } from '@ant-design/icons';
 
 
 export default function SchedSettingsForm() {
     const [form] = Form.useForm();
-    const [disableSave, setDisableSave] = useState(false);
     const [initialData, setInitialData] = useState({});
     const [initialFormData, setInitialFormData] = useState({})
-    const [disableSaveButton, setDisableSaveButton] = useState([false])
+    const [isLoading, setIsLoading] = useState(false)
 
     const weekDays = [
         { shortName: "MON", fullName: "Monday" },
@@ -117,13 +117,16 @@ export default function SchedSettingsForm() {
     }, [initialData]);
 
     const getInitialData = async () => {
-        const url = `${process.env.DIGITALOCEAN}/calendy/sched/`
+        // const url = `${process.env.DIGITALOCEAN}/calendy/sched/`
+        const url = `${process.env.DIGITALOCEAN}/calendy/sched/settings/`
         let res = await getAxios(url, false, false)
-        setInitialData(res)
+        setInitialData(res?.settings)
+        form.setFieldsValue(res?.settings)
     }
 
-    const validateTimes = async(schedule) => {
+    const validateTimes = async (schedule) => {
         for (const day in schedule) {
+            console.log(day, schedule[day])
             if (schedule.hasOwnProperty(day)) {
                 const daySchedule = schedule[day].schedule;
                 const dayCheck = schedule[day].check;
@@ -132,10 +135,14 @@ export default function SchedSettingsForm() {
                         for (let i = 1; i < daySchedule.length; i++) {
                             const previousSchedule = daySchedule[i - 1][day];
                             const currentSchedule = daySchedule[i][day];
-                            const previousEnd = parseFloat(previousSchedule.end);
-                            const currentStart = parseFloat(currentSchedule.start);
-    
-                            if (currentStart < previousEnd || currentStart > previousEnd) {
+
+                            const previousEnd = parseFloat(previousSchedule.end); // smallest
+                            const previousStart = parseFloat(previousSchedule.start); // bigger
+
+                            const currentStart = parseFloat(currentSchedule.start); // biggest
+                            const currentEnd = parseFloat(currentSchedule.end); // the biggest one
+
+                            if (previousEnd < previousStart || currentEnd < currentStart || previousEnd > currentStart) {
                                 return false;
                             }
                         }
@@ -145,19 +152,22 @@ export default function SchedSettingsForm() {
         }
         return true
     }
-
+    7
     const onFinish = async (data) => {
-        console.log({ data })
+        setIsLoading(true)
+        console.log(data.weeklySchedule)
         let isValed = await validateTimes(data.weeklySchedule)
         if (!isValed) {
             NotificationError("Invalid schedule")
         } else {
-            const url = `${process.env.DIGITALOCEAN}/calendy/sched/`
+            // const url = `${process.env.DIGITALOCEAN}/calendy/sched/`
+            const url = `${process.env.DIGITALOCEAN}/calendy/sched/settings/`
             let res = await postAxios(url, data, true, true)
             if (res) {
                 getInitialData()
             }
         }
+        setIsLoading(false)
     };
 
     return (
@@ -212,7 +222,7 @@ export default function SchedSettingsForm() {
             </Form.Item>
             <div className="flex gap-x-5 w-full justify-end">
                 <Form.Item>
-                    <FormButtons content="Save" disable={disableSave} />
+                    <FormButtons content="Save" isLoading={isLoading} />
                 </Form.Item>
             </div>
         </Form>

@@ -1,7 +1,6 @@
 import React from "react";
 import dynamic from "next/dynamic";
 import Loading from "@/components/Loading/Loading";
-import { getAxiosServer } from "@/functions/ApiCalls";
 const ClientView = dynamic(() => import("@/components/client/ClientView"), {
   loading: () => <Loading />,
 });

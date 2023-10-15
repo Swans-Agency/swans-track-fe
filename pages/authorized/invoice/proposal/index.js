@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import dynamic from "next/dynamic";
-import ProposalForm from "@/components/proposal/ProposalForm";
 import Loading from "@/components/Loading/Loading";
-import DrawerANTD from "@/components/ANTD/DrawerANTD";
 const Proposals = dynamic(() => import("@/components/proposal/Proposals"), {
   loading: () => <Loading />,
 });
