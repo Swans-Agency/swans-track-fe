@@ -12,7 +12,7 @@ export default function List({ cards, listId, showTag, setShowTag, setSelectedIt
                     {...provided.droppableProps}
                     ref={provided.innerRef}
                     isDraggingOver={snapshot.isDraggingOver}
-                    className={`flex flex-col gap-y-2 ${snapshot.isDraggingOver && "drag-over"} min-h-[5px] mb-1`}
+                    className={`flex flex-col gap-y-2 ${snapshot.isDraggingOver && "drag-over"} min-h-[5px] mb-4`}
                 >
                     {cards?.length ?
                         <>   {cards?.map((card, index) => (

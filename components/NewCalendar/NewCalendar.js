@@ -6,6 +6,7 @@ import EventModal from '../Calendar/SwansCalendar/EventModal';
 import { deleteAxios } from '@/functions/ApiCalls';
 import NewEventForm from '../Calendar/SwansCalendar/NewEventForm';
 import MonthView from './MonthView';
+import DrawerANTD from '../ANTD/DrawerANTD';
 
 
 export default function NewCalendar({ calendarEvents, getEvents }) {
@@ -67,14 +68,25 @@ export default function NewCalendar({ calendarEvents, getEvents }) {
         handleOk={handleClose}
         renderComponent={<EventModal selectedEvent={selectedEvent} handleDeleteEvent={handleDeleteEvent} setIsModalOpenNew={setIsModalOpenNew} setSelectedEvent={setSelectedEvent} />}
       />
-      {clickedDate && <ModalANTD
+      {clickedDate && !selectedEvent && <DrawerANTD
         title={"New Event"}
-        isModalOpen={isModalOpenNew}
+        open={isModalOpenNew}
         footer={null}
-        handleCancel={handleClose}
-        handleOk={handleClose}
-        renderComponent={<NewEventForm getEvents={getEvents} handleClose={handleClose} instance={selectedEvent} setSelectedEvent={setSelectedEvent} clickedDate={clickedDate} />}
+        onClose={handleClose}
+        // handleOk={handleClose}
+        children={<NewEventForm getEvents={getEvents} handleClose={handleClose} instance={selectedEvent} setSelectedEvent={setSelectedEvent} clickedDate={clickedDate} />}
       />}
+
+      {clickedDate && selectedEvent &&
+        <ModalANTD
+          title={selectedEvent?.title}
+          isModalOpen={isModalOpenNew}
+          footer={null}
+          handleCancel={handleClose}
+          handleOk={handleClose}
+          renderComponent={<NewEventForm getEvents={getEvents} handleClose={handleClose} instance={selectedEvent} setSelectedEvent={setSelectedEvent} clickedDate={clickedDate} />}
+        />
+      }
     </>
 
   );

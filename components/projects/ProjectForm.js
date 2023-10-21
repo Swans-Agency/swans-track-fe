@@ -4,6 +4,7 @@ import moment from "moment";
 import FormButtons from "../ANTD/FormButtons";
 import { getAxios, postAxios } from "@/functions/ApiCalls";
 import { jobCat, jobStatus, jobStatusNotColored } from "@/functions/GeneralFunctions";
+import CustomEditor from "../Tiny/Editor";
 
 export default function ProjectForm({ setReload, onClose }) {
     const [clientData, setClientData] = React.useState([]);
@@ -78,7 +79,8 @@ export default function ProjectForm({ setReload, onClose }) {
                         required: true
                     }
                 ]} label="Project Summary" name="summary" className="w-full">
-                <Input.TextArea maxLength={255} className="rounded-lg" rows={4} />
+                {/* <Input.TextArea maxLength={255} className="rounded-lg" rows={4} /> */}
+                <CustomEditor form={form} fieldName="summary" /> 
             </Form.Item>
             <div className="flex gap-x-5 w-full">
                 <Form.Item

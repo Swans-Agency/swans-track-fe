@@ -51,7 +51,7 @@ export default function MenuItem({ item, index, userPermission, toggleCollapsed,
     <>
       <div key={index} className={`${hide} `}>
         <div
-          className={`flex font-extralight justify-between gap-x-3 items-center text-[1rem] hover:bg-mainBackground hover:cursor-pointer px-2 py-2 rounded-lg ${selectedTab === item?.key ? "bg-mainBackground" : ""} `}
+          className={`flex font-extralight justify-between gap-x-3 items-center text-[1rem] element hover:cursor-pointer px-2 py-2 rounded-lg ${selectedTab === item?.key ? "element1" : ""} `}
           onClick={() => handleClick(item)}
         >
           <div className="flex gap-x-3 items-center text-[15px]">
@@ -68,7 +68,7 @@ export default function MenuItem({ item, index, userPermission, toggleCollapsed,
             return (
               <div
                 key={cIndex}
-                className="flex gap-x-3 items-center  text-[15px] hover:bg-foreignBackground hover:text-white hover:cursor-pointer pl-8 px-2 py-2 rounded-lg"
+                className="flex gap-x-3 items-center  text-[15px] element hover:text-white hover:cursor-pointer pl-8 px-2 py-2 rounded-lg"
                 onClick={() => {handleClick(child); handleSelectParent(item?.key)}}
               >
                 {child?.icon}

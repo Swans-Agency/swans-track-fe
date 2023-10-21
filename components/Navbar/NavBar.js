@@ -239,7 +239,7 @@ export default function Navbar({ userPermission }) {
       </div>
 
 
-      <div className="sticky top-0 left-0 !z-[500]">
+      <div className="sticky top-0 left-0 !z-[500] ">
         <div className="absolute !z-[500]">
           <div
             className={`${!collapsed ? "hidden" : "left-0 h-[100vh] top-0 w-[30px]"} text-white p-1 bg-navbar flex items-center hover:cursor-pointer`}
@@ -271,7 +271,7 @@ export default function Navbar({ userPermission }) {
 
               <div className="absolute bottom-0 left-0 w-full  border-t">
                 <div
-                  className={`flex py-4 px-4 font-extralight justify-between gap-x-3 items-center text-[1rem] hover:bg-mainBackground hover:cursor-pointer`}
+                  className={`flex py-4 px-4 font-extralight justify-between gap-x-3 items-center text-[1rem] element hover:cursor-pointer`}
                   onClick={() => logout()}
                 >
                   <div className="flex gap-x-3 items-center  text-[15px]">

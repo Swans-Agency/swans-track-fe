@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
-import { DatePicker, Divider, Form, Input, Select } from "antd";
+import { Button, Checkbox, DatePicker, Divider, Form, Input, Popconfirm, Select } from "antd";
 import {
+  deleteAxios,
   getAxios,
   patchAxios,
   postAxios,
@@ -10,14 +11,23 @@ import Image from "next/image";
 import dayjs from "dayjs";
 import FormButtons from "../ANTD/FormButtons";
 import { LoadingOutlined } from "@ant-design/icons";
+import CustomEditor from "../Tiny/Editor";
+import SubTask from "./SubTask";
+import CheckList from "./CheckList";
+import AllCheckLists from "./AllCheckLists";
+
+
 
 export default function TaskForm({ handleNotifyTeam, selectedItem }) {
   const [form] = Form.useForm();
   const [employees, setEmployees] = useState([]);
-  const [editTask, setEditTask] = useState({});
+  const [taskDescription, setTaskDescription] = useState("<p></p>");
+  const [showEditor, setShowEditor] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingDelete, setIsLoadingDelete] = useState(false);
-
+  const [checklistName, setChecklistName] = useState("")
+  const [checkLists, setCheckLists] = useState([])
+  const [showInput, setShowInput] = useState(false);
   const { TextArea } = Input;
 
   const getAllEmployees = async () => {
@@ -52,10 +62,12 @@ export default function TaskForm({ handleNotifyTeam, selectedItem }) {
   useEffect(() => { handleInitialValues() }, [selectedItem]);
 
   const handleInitialValues = () => {
-    console.log({ selectedItem })
     if (selectedItem) {
+      getCheckLists()
+
       form.setFieldValue("taskName", selectedItem?.taskName);
       form.setFieldValue("taskDescription", selectedItem?.taskDescription !== "undefined" ? selectedItem?.taskDescription : "");
+      setTaskDescription(selectedItem?.taskDescription !== "undefined" ? selectedItem?.taskDescription : "<p>No description</p>")
       form.setFieldValue("taskStatus", selectedItem?.taskStatus);
       form.setFieldValue("priority", selectedItem?.priority);
       form.setFieldValue("dueDate", dayjs(new Date(selectedItem?.dueDate ? selectedItem?.dueDate : null)));
@@ -116,8 +128,40 @@ export default function TaskForm({ handleNotifyTeam, selectedItem }) {
     setIsLoadingDelete(false);
   }
 
+  const handleAddChecklistInput = () => {
+    setShowInput(true)
+  }
+
+  const handlehideInput = () => {
+    setShowInput(false)
+  }
+
+  const getCheckLists = async () => {
+    console.log(selectedItem?.id)
+    const url = `${process.env.DIGITALOCEAN}/tasks/check-list/${selectedItem?.id}/`
+    const res = await getAxios(url, false, false, () => { })
+    setCheckLists(res)
+    console.log({ res })
+  }
+
+  const handleCreateChecklist = async () => {
+    const data = {
+      checklistName,
+      task: selectedItem?.id
+    }
+    console.log({ data })
+
+    const url = `${process.env.DIGITALOCEAN}/tasks/check-list/`
+    await postAxios(url, data, false, false, () => { })
+    setShowInput(false)
+    setChecklistName("")
+    handleInitialValues()
+  }
+
+  
+
   return (
-    <>
+    <div>
       <Form
         onFinish={onFinish}
         layout="vertical"
@@ -136,15 +180,63 @@ export default function TaskForm({ handleNotifyTeam, selectedItem }) {
               required: true
             }
           ]}>
-          <Input size="large" className="rounded" />
+          <Input size="large" />
         </Form.Item>
         <Form.Item
           label="Description"
           name="taskDescription"
           className="w-full"
         >
-          <TextArea size="large" className="rounded w-full" rows={5} />
+          {showEditor || !selectedItem ? <CustomEditor form={form} fieldName="taskDescription" /> :
+            <div
+              onClick={() => setShowEditor(true)}
+              className="border rounded-lg p-2 hover:cursor-pointer hover:border-blue-400"
+              dangerouslySetInnerHTML={{ __html: taskDescription }}
+            />
+          }
         </Form.Item>
+
+        {selectedItem &&
+          <div className="mb-4">
+            <div className="flex justify-between mb-2">
+              <p>Checklist(s)</p>
+              <span
+                className="hover:bg-mainBackground p-1 hover:text-white rounded hover:cursor-pointer"
+                onClick={() => handleAddChecklistInput(true)}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+              </span>
+            </div>
+            {showInput &&
+              <div className="flex items-center gap-2 mb-3">
+                <Input
+                  autoFocus placeholder="Checklist name" size="large" className=""
+                  onChange={(e) => setChecklistName(e.target.value)}
+                />
+                <div className="flex gap-1">
+
+                  <div className="bg-mainBackground rounded-lg text-white hover:shadow-lg hover:cursor-pointer px-3 py-2" onClick={() => handleCreateChecklist()}>Save</div>
+                  <div className="bg-gray-400 rounded-lg text-white hover:shadow-lg hover:cursor-pointer px-3 py-2" onClick={() => handlehideInput(false)}>Cancel</div>
+                </div>
+              </div>
+            }
+
+            {!checkLists.length == 0 ? 
+            checkLists?.map((item) => {
+                return (
+                  <AllCheckLists
+                    item={item}
+                    handleInitialValues={handleInitialValues}
+                  />
+                )
+              }) :
+              <p className="text-gray-400">No checklist</p>
+              }
+          </div>
+        }
+
         <div className="flex gap-x-5 w-full mt-0">
           <Form.Item
             label="Task Status"
@@ -220,7 +312,7 @@ export default function TaskForm({ handleNotifyTeam, selectedItem }) {
               }
             ]}
           >
-            <DatePicker size="large" className="rounded w-full" placeholder="" />
+            <DatePicker size="large" className="w-full" placeholder="" />
           </Form.Item>
 
           <Form.Item
@@ -273,6 +365,6 @@ export default function TaskForm({ handleNotifyTeam, selectedItem }) {
           </div>
         </div>
       </Form>
-    </>
+    </div>
   );
 }

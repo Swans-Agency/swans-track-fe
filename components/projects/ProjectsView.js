@@ -1,19 +1,21 @@
 import React, { useEffect, useRef, useState } from "react";
 import TableANTD from "../ANTD/TableANTD";
-import { Input, Select} from "antd";
+import { Input, Select } from "antd";
 import ExpandIcon from "./ExpandIcon";
 import { patchAxios } from "@/functions/ApiCalls";
 import ProjectForm from "./ProjectForm";
 import { useRouter } from "next/router";
 import { remove } from "react-cookies";
-import { jobStatus, jobcategories } from "@/functions/GeneralFunctions";
+import { jobCat, jobStatus, jobStatusNotColored, jobcategories } from "@/functions/GeneralFunctions";
 import { getColumnSearchProps } from "@/functions/GeneralFunctions";
+import ModalANTD from "../ANTD/ModalANTD";
 
 
 export default function ProjectsView() {
     const [searchText, setSearchText] = useState("");
     const [searchedColumn, setSearchedColumn] = useState("");
     const [additionalGet, setAdditionalGet] = useState(false);
+    const [summaryModal, setSummaryModal] = useState({ summary: "", visible: false });
     const [colorScehma, setColorScehma] = useState({
         "Pre Seed": "bg-yellow-300",
         "In Progress": "bg-orange-300",
@@ -34,6 +36,10 @@ export default function ProjectsView() {
         setSearchText(selectedKeys[0]);
         setSearchedColumn(dataIndex);
     };
+
+    const handleClick = (item) => {
+        setSummaryModal({ summary: item?.summary, visible: true })
+    }
 
     const handleReset = (clearFilters) => {
         clearFilters();
@@ -84,19 +90,6 @@ export default function ProjectsView() {
             dataIndex: "category",
             key: "category",
             ...getColumnSearchProps("category", searchInput, searchedColumn, searchText, handleSearch, handleReset, setSearchText, setSearchedColumn),
-            render: (_, item) => {
-                return (<div className="h-full w-full">
-                    <Select
-                        size="small"
-                        defaultValue={item?.category}
-                        style={{ width: "100%" }}
-                        bordered={false}
-                        className={`${colorScehma[item?.category]} text-white `}
-                        onChange={(value) => handleEditStatus(item, value, "category")}
-                        options={jobcategories}
-                    />
-                </div>)
-            }
         },
         {
             title: "Summary",
@@ -104,19 +97,14 @@ export default function ProjectsView() {
             key: "summary",
             width: "20%",
             ...getColumnSearchProps("summary", searchInput, searchedColumn, searchText, handleSearch, handleReset, setSearchText, setSearchedColumn),
-            // render only up to 50 chart, then add a button to expand
             render: (_, item) => {
-                return (<div className="h-full w-full">
-                    <Input.TextArea
-                        defaultValue={item?.summary}
-                        bordered={false}
-                        onChange={(e) => handleEditSummary(item, e.target.value)}
-                        autoSize={{ minRows: 1, maxRows: 2 }}
+                return (
+                    <div
+                        onClick={() => handleClick(item)} className='hover:cursor-pointer'
+                        dangerouslySetInnerHTML={{ __html: item?.summary?.substring(0, 50) + "..." }}
                     />
-                </div>)
+                )
             }
-            
-
         },
         {
             title: "Client",
@@ -144,11 +132,11 @@ export default function ProjectsView() {
                     <Select
                         size="small"
                         defaultValue={item?.status}
-                        style={{ width: "100%", }}
+                        style={{ width: "100%", backgroundColor: colorScehma[item?.status] }}
                         bordered={false}
                         className={` text-white `}
                         onChange={(value) => handleEditStatus(item, value, "status")}
-                        options={jobStatus}
+                        options={jobStatusNotColored}
                     />
                 </div>)
             }
@@ -172,6 +160,7 @@ export default function ProjectsView() {
 
 
     return (
+        <>
             <TableANTD
                 columns={columns}
                 getUrl={`${process.env.DIGITALOCEAN}/project/get-projects/`}
@@ -190,5 +179,20 @@ export default function ProjectsView() {
                 modalContent={() => { }}
                 additionalGet={additionalGet}
             />
+
+            <ModalANTD
+                title="Project Summary"
+                footer={false}
+                isModalOpen={summaryModal?.visible}
+                handleOk={() => setSummaryModal({ summary: "", visible: false })}
+                handleCancel={() => setSummaryModal({ summary: "", visible: false })}
+                renderComponent={
+                    <div
+                        // className="border rounded-lg p-2 hover:cursor-pointer hover:border-blue-400"
+                        dangerouslySetInnerHTML={{ __html: summaryModal?.summary }}
+                    />
+                    }
+            />
+        </>
     );
 }

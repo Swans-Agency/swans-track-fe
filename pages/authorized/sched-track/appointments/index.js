@@ -5,10 +5,13 @@ import { QuestionOutlined } from "@ant-design/icons";
 import { getColumnSearchProps } from '@/functions/GeneralFunctions';
 
 import cookie from "react-cookies";
+import ModalANTD from '@/components/ANTD/ModalANTD';
 
 export default function index() {
     const [searchText, setSearchText] = useState("");
     const [searchedColumn, setSearchedColumn] = useState("");
+    const [selectedItem, setSelectedItem] = useState(null); 
+    const [modalVisible, setModalVisible] = useState(false); 
     const searchInput = useRef(null);
 
     const timeObject = {
@@ -120,6 +123,12 @@ export default function index() {
         clearFilters();
         setSearchText("");
     };
+    
+    const handleClick = (item) => {
+            setSelectedItem(item);
+            setModalVisible(true);
+        
+    }
 
     const columns = [
         {
@@ -154,20 +163,17 @@ export default function index() {
         },
         {
             title: "Summary",
-            dataIndex: "summary",
-            key: "summary",
+            dataIndex: "summary.",
+            key: "summary.",
             width: "40%",
+            render: (_, item) => {
+                return (
+                    <div onClick={() => handleClick(item)} className='hover:cursor-pointer' style={{ wordWrap: 'break-word', whiteSpace: 'pre-wrap' }}>
+                        {item?.summary?.substring(0, 100) + "..."}
+                    </div>
+                )
+            }
         },
-        // {
-        //     title: "Add to Google Calendar",
-        //     dataIndex: "q",
-        //     key: "q",
-        //     render: (_, item) => {
-        //         return <div className='text-blue-500 hover:text-blue-600 hover:cursor-pointer' onClick={() => onFinish(item)}>
-        //             Add to Google Calendar
-        //         </div>
-        //     }
-        // }
     ];
 
     return (
@@ -177,6 +183,14 @@ export default function index() {
                 getUrl={`${process.env.DIGITALOCEAN}/calendy/sched/appointments/`}
                 addButton={false}
                 addDrawer={false}
+            />
+            <ModalANTD 
+                title="Appointment Summary"
+                footer={null}
+                isModalOpen={modalVisible}
+                handleOk={() => setModalVisible(false)}
+                handleCancel={() => setModalVisible(false)}
+                renderComponent={selectedItem?.summary}
             />
             <FloatButton
                 type="primary"

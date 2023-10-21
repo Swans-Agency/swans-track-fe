@@ -1,6 +1,5 @@
 import React from "react";
 import TasksComponent from "@/components/tasks/TasksComponent";
-import TasksHeader from "@/components/tasks/TasksHeader";
 import { getAxiosServer } from "@/functions/ApiCalls";
 
 export default function index({ companyTasks }) {
@@ -9,6 +8,8 @@ export default function index({ companyTasks }) {
     },
     columnOrder: ["toDo", "inProgress", "completed", "idle"],
   };
+
+  console.log( {companyTasks});
   return (
     <TasksComponent companyTasks={companyTasks} initialData={initialData} />
   );

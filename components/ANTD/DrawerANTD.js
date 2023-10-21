@@ -9,7 +9,7 @@ export default function DrawerANTD({ title, children, onClose, open }) {
       title={title}
       onClose={onClose}
       open={open}
-      className="bg-white z-[100000000] rounded-l-xl"
+      className="bg-white z-[100000000] rounded-l-lg"
     >
       {children}
     </Drawer>

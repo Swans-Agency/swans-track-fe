@@ -3,12 +3,11 @@ import { ref, set, onValue } from "firebase/database";
 import database from "@/components/firebaseNotify/Firebase";
 import { DragDropContext } from "react-beautiful-dnd";
 import { getAxios, postAxios } from "@/functions/ApiCalls";
-import { PlusOutlined } from "@ant-design/icons";
 import List from "./List";
 import DrawerANTD from "../ANTD/DrawerANTD";
 import TaskForm from "./NewTask";
 import ModalANTD from "../ANTD/ModalANTD";
-import { Avatar, Divider, Tooltip } from 'antd';
+import { Avatar } from 'antd';
 
 export default function TasksComponent({ companyTasks, initialData }) {
   const dbRef = useRef(null);
@@ -65,10 +64,6 @@ export default function TasksComponent({ companyTasks, initialData }) {
     getAllEmployees()
   }, [])
 
-  useEffect(() => {
-    console.log({ teamMembers })
-  }, [teamMembers])
-
   const onClose = () => {
     setOpen(false);
   };
@@ -89,6 +84,7 @@ export default function TasksComponent({ companyTasks, initialData }) {
               priority: value.priority,
               createdAt: value.createdAt,
               dueDate: value.dueDate,
+              subTasks: value.subTasks,
             }
           }
         }
@@ -245,7 +241,7 @@ export default function TasksComponent({ companyTasks, initialData }) {
         }
         <button
           onClick={() => handleopenNewTask()}
-          className="min-w-fit flex justify-center items-center gap-x-2 bg-mainBackground hover:shadow-lg text-white rounded py-[0.6rem] px-3"
+          className="flex justify-center items-center gap-x-2 bg-mainBackground hover:bg-foreignBackground text-white rounded py-[0.6rem] px-3"
         >
           Add new task
         </button>

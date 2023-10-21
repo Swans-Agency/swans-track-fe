@@ -1,4 +1,5 @@
 import FormButtons from '@/components/ANTD/FormButtons';
+import CustomEditor from '@/components/Tiny/Editor';
 import { patchAxios, postAxios } from '@/functions/ApiCalls';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { Button, Checkbox, DatePicker, Divider, Form, Input, InputNumber, Space, TimePicker } from 'antd';
@@ -72,7 +73,7 @@ export default function NewEventForm({ getEvents, handleClose, instance, setSele
                     rules={[
                         {
                             required: true,
-                            message: 'Please input your event name!',
+                            message: 'Please input the event name!',
                         },
                     ]}
                 >
@@ -88,13 +89,19 @@ export default function NewEventForm({ getEvents, handleClose, instance, setSele
                 name="discription"
                 className="w-full"
             >
-                <Input.TextArea className="rounded-lg w-full" rows={4} />
+                <CustomEditor form={form} fieldName={"discription"} />
             </Form.Item>
 
             <Form.Item
                 label="Event Time"
                 name="eventTime"
                 className="w-full"
+                rules={[
+                    {
+                        required: true,
+                        message: 'Please choose event time',
+                    },
+                ]}
             >
                 <RangePicker
                     size="large"

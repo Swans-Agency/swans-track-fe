@@ -25,11 +25,6 @@ export default function CalendarHeader({
         setClickedDate={setClickedDate}
         
       />
-      {/* <ConnectGoogleCalendar
-        isConnected={isConnected}
-        handleConnectGoogleCalendar={handleConnectGoogleCalendar}
-        isHidden={isHidden}
-      /> */}
     </div>
   );
 }

@@ -113,7 +113,7 @@ export default function TableANTD({
             {
               (selectedRowKeys.length > 0) && (multiDeleteUrl) &&
               <div
-                  className=" w-full bg-red-700 hover:shadow-lg text-white px-2 py-2 rounded text-center cursor-pointer"
+                className=" w-full bg-red-700 hover:shadow-lg text-white py-[0.6rem] px-3 rounded text-center cursor-pointer"
                 onClick={() => handleMultDelete(selectedRowKeys)}
               >
                 Delete {selectedRowKeys.length} {selectedRowKeys.length > 1 ? "items" : "item"}
@@ -131,7 +131,7 @@ export default function TableANTD({
       {data?.count ? (
         <>
           <Table
-            className={`w-full ${customClass}`}
+            className={`w-full ${customClass} `}
             columns={columns}
             dataSource={data?.results}
             pagination={false}

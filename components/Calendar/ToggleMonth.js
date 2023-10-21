@@ -2,16 +2,13 @@ import React from "react";
 import { format } from "date-fns";
 import dayjs from "dayjs";
 
-export default function ToggleMonth({ setSelectedDate, selectedDate, visibleRight = "visible", visibleLeft = "visible", createNew = false, setIsModalOpenNew = () => { }, setClickedDate=()=>{} }) {
+export default function ToggleMonth({ setSelectedDate, selectedDate, visibleRight = "visible", visibleLeft = "visible", createNew = false, setIsModalOpenNew = () => { }, setClickedDate = () => { } }) {
   return (
     <div className="flex justify-between gap-x-2 items-center">
-      <p className="text-lg items-start text-black  text-center justify-center ">
-        {format(new Date(selectedDate), "MMMM yyyy")}
-      </p>
-
-      
-      
       <div className="flex gap-x-1 items-center">
+        <p className="text-lg items-start text-black  text-center justify-center ">
+          {format(new Date(selectedDate), "MMMM yyyy")}
+        </p>
         <div
           className={`w-[2rem] text-black hover:text-white text-center hover:bg-foreignBackground hover:cursor-pointer rounded-full ${visibleLeft}`}
           onClick={() => {
@@ -36,12 +33,6 @@ export default function ToggleMonth({ setSelectedDate, selectedDate, visibleRigh
             />
           </svg>
         </div>
-        
-        {createNew && <button onClick={() => { setIsModalOpenNew(true); setClickedDate(dayjs(new Date())) }} className="bg-mainBackground px-4 py-1 rounded hover:shadow-lg text-white">
-          Create New
-        </button>}
-        
-
         <div
           className={`w-[2rem] text-black hover:text-white text-center hover:bg-foreignBackground hover:cursor-pointer rounded-full ${visibleRight}`}
           onClick={() => {
@@ -64,7 +55,16 @@ export default function ToggleMonth({ setSelectedDate, selectedDate, visibleRigh
             />
           </svg>
         </div>
+
       </div>
+      {createNew &&
+        <button
+          onClick={() => { setIsModalOpenNew(true); setClickedDate(dayjs(new Date())) }}
+          className="bg-mainBackground hover:shadow-lg text-white rounded py-[0.6rem] px-3"
+        >
+          Create Event
+        </button>}
+
     </div>
   );
 }
