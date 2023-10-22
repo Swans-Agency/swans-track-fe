@@ -223,7 +223,7 @@ export default function TaskForm({ handleNotifyTeam, selectedItem }) {
               </div>
             }
 
-            {!checkLists.length == 0 ? 
+            {checkLists?.length !== 0 ? 
             checkLists?.map((item) => {
                 return (
                   <AllCheckLists
