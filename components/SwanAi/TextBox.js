@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import DOMPurify from 'dompurify';
-import { Input, Watermark } from 'antd';
+import { Input } from 'antd';
 import SendIcon from '@/components/SwanAi/SendIcon';
 import { postAxios } from '@/functions/ApiCalls';
 const { TextArea } = Input;
-import { LoadingOutlined, WechatOutlined } from '@ant-design/icons';
-import { Spin } from 'antd';
-import Chatbgimage from './Chatbgimage';
+import { LoadingOutlined } from '@ant-design/icons';
 
 export default function TextBox() {
     const [textInput, setTextInput] = useState(null);
@@ -56,7 +54,7 @@ export default function TextBox() {
     );
 
     return (
-        <div className='border rounded-lg h-[85vh] relative overflow-hidden '>
+        <div className='border rounded-lg h-full relative overflow-hidden '>
             <div className='h-[75vh] overflow-auto my-2 '>
                 {conversation?.map((message, index) => {
                     return (
@@ -72,7 +70,6 @@ export default function TextBox() {
                                 <div className=' justify-start'>
                                     <p className='pl-2 pt-2 text-xs text-gray-400 sticky top-0 bg-white'>Chat GPT</p>
                                     <div dangerouslySetInnerHTML={{ __html: message?.content }} className='bg-gray-200 text-black rounded p-2 mx-2 mb-1'>
-                                        {/* {message.content} */}
                                     </div>
                                 </div>
                             }

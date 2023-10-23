@@ -29,7 +29,7 @@ export default function TasksComponent({ companyTasks, initialData }) {
   let columns = {
     "toDo": {
       id: "toDo",
-      title: "To do",
+      title: "Backlog",
       taskIds: [],
     },
     "inProgress": {
@@ -253,7 +253,7 @@ export default function TasksComponent({ companyTasks, initialData }) {
             let columns = data?.columns?.[value];
             let tasks = columns?.taskIds?.map((value) => data?.tasks?.[value]);
             return (
-              <div className='px-1 relative  min-w-[250px] w-[300px] max-h-[75vh] mb-4 h-fit overflow-hidden'>
+              <div className='px-2 relative  min-w-[250px] w-[300px]  mb-4 max-h-full h-fit overflow-hidden bg-gray-50 rounded-xl pt-2'>
                 <div className={`text font-bold rounded text-center p-1 mb-2 sticky inset-0 `}>
                   <div className="flex justify-start items-center gap-x-2">
                     {columns?.title}
@@ -264,7 +264,7 @@ export default function TasksComponent({ companyTasks, initialData }) {
                   <p className={`mt-1 w-full h-[0.1rem] bg-gray-500 `}></p>
                 </div>
 
-                <div className='custom-scroll max-h-[71vh] overflow-y-auto p-2'>
+                <div className='custom-scroll max-h-[68vh] overflow-y-auto p-2'>
                   <List
                     key={key}
                     cards={tasks}

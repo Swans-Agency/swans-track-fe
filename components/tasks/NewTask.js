@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
-import { Button, Checkbox, DatePicker, Divider, Form, Input, Popconfirm, Select } from "antd";
+import { DatePicker, Divider, Form, Input, Select } from "antd";
 import {
-  deleteAxios,
   getAxios,
   patchAxios,
   postAxios,
@@ -12,8 +11,6 @@ import dayjs from "dayjs";
 import FormButtons from "../ANTD/FormButtons";
 import { LoadingOutlined } from "@ant-design/icons";
 import CustomEditor from "../Tiny/Editor";
-import SubTask from "./SubTask";
-import CheckList from "./CheckList";
 import AllCheckLists from "./AllCheckLists";
 
 
@@ -262,7 +259,7 @@ export default function TaskForm({ handleNotifyTeam, selectedItem }) {
               allowClear={true}
               filterOption={true}
               options={[
-                { label: "To Do", value: "To Do" },
+                { label: "Backlog", value: "To Do" },
                 { label: "In Progress", value: "In Progress" },
                 { label: "Idle", value: "Idle" },
                 { label: "Completed", value: "Completed" },

@@ -112,7 +112,7 @@ export default function Navbar({ userPermission }) {
     },
     {
       key: "tasks",
-      label: "Tasks",
+      label: "Tasks Board",
       icon: <Tasks />,
     },
     {
@@ -126,8 +126,8 @@ export default function Navbar({ userPermission }) {
       icon: <Gpt />,
     },
     {
-      key: "clients",
-      label: "Clients",
+      key: "leads",
+      label: "Leads & Clients",
       icon: <Clients />,
     },
     {

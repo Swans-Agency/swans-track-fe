@@ -107,7 +107,7 @@ export default function index({ plans, paymentId }) {
                         onClick={() => handleUpgrade(item?.stripeId)}
                         disabled={action}
                       >
-                      {trialPeriod && !paymentId?.subscriptionEnded ? <div>Your trial ends in {remainingTime}</div> : !paymentId?.subscriptionEnded ? <div>Your subscription ends in {remainingTime}</div> : "Subscribe"}
+                      {trialPeriod ? <div>{`${remainingTime > 0 ? `You trial ends in ${remainingTime}` : "Subscribe"}`}</div> : !paymentId?.subscriptionEnded ? <div>Your subscription ends in {remainingTime}</div> : "Subscribe"}
                       </button>
                     <div className="text-xs font-light text-gray-700 mt-2 text-justify">
                       By placing this order, you agree to Swans Track's{" "}

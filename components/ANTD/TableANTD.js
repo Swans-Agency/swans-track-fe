@@ -152,7 +152,7 @@ export default function TableANTD({
           </div>
         </>
       ) : (
-        <Empty />
+          <Empty description={false} />
       )}
       {
         addDrawer &&
