@@ -9,6 +9,11 @@ export default function index({ companyTasks }) {
     columnOrder: ["toDo", "inProgress", "completed", "idle"],
   };
 
+  for (let i = 0; i < companyTasks?.length; i++) {
+    companyTasks[i].start = new Date(companyTasks[i]?.start)
+    companyTasks[i].end = new Date(companyTasks[i]?.end)
+  }
+
   console.log( {companyTasks});
   return (
     <TasksComponent companyTasks={companyTasks} initialData={initialData} />
@@ -23,6 +28,7 @@ export const getServerSideProps = async (ctx) => {
   try {
     if (accessToken) {
       companyTasks = await getAxiosServer(`${process.env.DIGITALOCEAN}/tasks/active-tasks/`, accessToken, false)
+      
     } else {
       return {
         redirect: {

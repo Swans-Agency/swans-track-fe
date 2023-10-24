@@ -7,7 +7,10 @@ import List from "./List";
 import DrawerANTD from "../ANTD/DrawerANTD";
 import TaskForm from "./NewTask";
 import ModalANTD from "../ANTD/ModalANTD";
-import { Avatar } from 'antd';
+import { Avatar, Input } from 'antd';
+
+import { Gantt, Task, EventOption, StylingOption, ViewMode, DisplayOption } from 'gantt-task-react';
+import "gantt-task-react/dist/index.css";
 
 export default function TasksComponent({ companyTasks, initialData }) {
   const dbRef = useRef(null);
@@ -18,6 +21,7 @@ export default function TasksComponent({ companyTasks, initialData }) {
   const [showTag, setShowTag] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [teamMembers, setTeamMembers] = useState([])
+  const[search, setSearch] = useState("")
 
   const columnNames = {
     "To Do": "toDo",
@@ -109,9 +113,22 @@ export default function TasksComponent({ companyTasks, initialData }) {
   };
 
   const getAllTasksNew = async () => {
-    let newData = await getAxios(`${process.env.DIGITALOCEAN}/tasks/active-tasks/`, false, false, () => { })
+    let newData = await getAxios(`${process.env.DIGITALOCEAN}/tasks/active-tasks/?search=${search}`, false, false, () => { })
+    for (let i = 0; i < newData?.length; i++) {
+      newData[i].start = new Date(newData[i]?.start)
+      newData[i].end = new Date(newData[i]?.end)
+    }
+    console.log({newData})
+    
     setAllData(newData)
   }
+
+  useEffect(() => { 
+    if (search.length >= 3 || search.length === 0) {
+      getAllTasksNew()
+
+    }
+  }, [search])
 
   useEffect(() => {
     dbRef.current = ref(database, "notify");
@@ -127,7 +144,6 @@ export default function TasksComponent({ companyTasks, initialData }) {
     })
 
   }, []);
-
 
   const handleDragEnd = (result) => {
 
@@ -216,7 +232,7 @@ export default function TasksComponent({ companyTasks, initialData }) {
 
   return (
     <>
-      <div className="flex justify-between gap-x-4 mb-3">
+      <div className="flex flex-grow justify-between gap-x-4 mb-3">
         {teamMembers &&
           <Avatar.Group
             maxCount={3}
@@ -225,7 +241,7 @@ export default function TasksComponent({ companyTasks, initialData }) {
               color: 'white',
               backgroundColor: '#205295',
             }}
-            >
+          >
             {teamMembers?.map((item) => {
               return (
                 <Avatar
@@ -239,12 +255,15 @@ export default function TasksComponent({ companyTasks, initialData }) {
             })}
           </Avatar.Group>
         }
-        <button
-          onClick={() => handleopenNewTask()}
-          className="flex justify-center items-center gap-x-2 bg-mainBackground hover:bg-foreignBackground text-white rounded py-[0.6rem] px-3"
-        >
-          Add new task
-        </button>
+        <div className="flex justify-end gap-x-2 w-full">
+          <Input size="large" className="max-w-[450px]" placeholder="Search by assignee or task name" onChange={(e) => setSearch(e.target.value)} />
+          <button
+            onClick={() => handleopenNewTask()}
+            className="flex w-full max-w-[135px] justify-center items-center gap-x-2 bg-mainBackground hover:bg-foreignBackground text-white rounded py-[0.6rem] px-3"
+          >
+            Add new task
+          </button>
+        </div>
       </div>
 
       <DragDropContext onDragEnd={handleDragEnd}>

@@ -54,6 +54,20 @@ export default function NewEventForm({ getEvents, handleClose, instance, setSele
         form.resetFields()
     }
 
+    const [dateRange, setDateRange] = useState([]);
+
+    const handleDateChange = (dates) => {
+        console.log({ dates })
+        if (dates.length === 2) {
+            const [start, end] = dates;
+            const newEnd = new Date(end);
+            newEnd.setHours(newEnd?.getHours() + 1);
+
+           
+
+        }
+    };
+
     return (
         <Form
             onFinish={onFinish}

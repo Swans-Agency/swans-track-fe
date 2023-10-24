@@ -1,4 +1,4 @@
-import { Popconfirm } from 'antd';
+import { Checkbox, Popconfirm } from 'antd';
 import React, { useState } from 'react';
 
 
@@ -11,8 +11,7 @@ export default function SubTask({ itemTask, handleCheckTask, handleDeleteTask}) 
   return (
       <div className="flex justify-between hover:bg-gray-100 rounded py-1 px-7" onMouseOver={() => setMouseOver(true)} onMouseOut={() => setMouseOver(false)} >
           <div className="flex justify-start items-center gap-2">
-              <input type="checkbox" className="w-4 h-4" name={itemTask?.itemName} checked={itemTask?.status || lineThrough } onChange={(e) => { handleCheckTask(itemTask); setLineThrough(!itemTask?.status)}} />
-              <label for={itemTask?.itemName} className={`${itemTask?.status || lineThrough ? "line-through" : ""}`} >{itemTask?.itemName}</label>
+              <Checkbox checked={itemTask?.status} onChange={(e) => { handleCheckTask(itemTask)}}>{itemTask?.itemName}</Checkbox> 
           </div>
 
               <Popconfirm

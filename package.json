@@ -26,6 +26,7 @@
     "dayjs": "^1.11.8",
     "dompurify": "^3.0.5",
     "firebase": "^9.22.1",
+    "gantt-task-react": "^0.3.9",
     "lodash": "^4.17.20",
     "moment": "^2.29.4",
     "moment-timezone": "^0.5.43",
