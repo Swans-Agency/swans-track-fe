@@ -12,7 +12,7 @@ import { Avatar, Input } from 'antd';
 import { Gantt, Task, EventOption, StylingOption, ViewMode, DisplayOption } from 'gantt-task-react';
 import "gantt-task-react/dist/index.css";
 
-export default function TasksComponent({ companyTasks, initialData }) {
+export default function TasksComponent({ companyTasks, initialData, projectId=null }) {
   const dbRef = useRef(null);
   const [open, setOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
@@ -106,14 +106,20 @@ export default function TasksComponent({ companyTasks, initialData }) {
     }))
   }, [allData]);
 
-  const handleNotifyTeam = async () => {
+  const handleNotifyTeam = async (projectId) => {
     set(dbRef.current, true);
     setIsModalOpen(false);
     setOpen(false)
   };
 
-  const getAllTasksNew = async () => {
-    let newData = await getAxios(`${process.env.DIGITALOCEAN}/tasks/active-tasks/?search=${search}`, false, false, () => { })
+  const getAllTasksNew = async (projectId) => {
+    let newData = []
+    if (projectId) {
+      newData = await getAxios(`${process.env.DIGITALOCEAN}/tasks/active-tasks/?search=${search}&project=${projectId}`, false, false, () => { })
+    } else {
+
+      newData = await getAxios(`${process.env.DIGITALOCEAN}/tasks/active-tasks/?search=${search}`, false, false, () => { })
+    }
     for (let i = 0; i < newData?.length; i++) {
       newData[i].start = new Date(newData[i]?.start)
       newData[i].end = new Date(newData[i]?.end)
@@ -125,7 +131,7 @@ export default function TasksComponent({ companyTasks, initialData }) {
 
   useEffect(() => { 
     if (search.length >= 3 || search.length === 0) {
-      getAllTasksNew()
+      getAllTasksNew(projectId)
 
     }
   }, [search])
@@ -137,7 +143,7 @@ export default function TasksComponent({ companyTasks, initialData }) {
     onValue(dbRef.current, (snapshot) => {
       const dataNot = snapshot.val();
       if (dataNot === true) {
-        getAllTasksNew()
+        getAllTasksNew(projectId)
         set(dbRef.current, false)
         setSelectedItem(null)
       }
@@ -232,6 +238,8 @@ export default function TasksComponent({ companyTasks, initialData }) {
 
   return (
     <>
+      {/* <Gantt tasks={allData}
+        viewMode={"Day"} type="task" ganttHeight={300} /> */}
       <div className="flex flex-grow justify-between gap-x-4 mb-3">
         {teamMembers &&
           <Avatar.Group
@@ -283,7 +291,7 @@ export default function TasksComponent({ companyTasks, initialData }) {
                   <p className={`mt-1 w-full h-[0.1rem] bg-gray-500 `}></p>
                 </div>
 
-                <div className='custom-scroll max-h-[68vh] overflow-y-auto p-2'>
+                <div className='custom-scroll max-h-[65vh] overflow-y-auto p-2'>
                   <List
                     key={key}
                     cards={tasks}
@@ -294,6 +302,7 @@ export default function TasksComponent({ companyTasks, initialData }) {
                     setOpen={openModalUpdate}
                   />
                 </div>
+                <div className="!h-5"></div>
               </div>
             );
           })}
@@ -303,7 +312,7 @@ export default function TasksComponent({ companyTasks, initialData }) {
         title={"Add New Task"}
         onClose={onClose}
         open={open}
-        children={<TaskForm handleNotifyTeam={handleNotifyTeam} />}
+        children={<TaskForm handleNotifyTeam={handleNotifyTeam} projectId={projectId} />}
       />
       {selectedItem && <ModalANTD
         title={"Task Details"}
@@ -311,7 +320,7 @@ export default function TasksComponent({ companyTasks, initialData }) {
         isModalOpen={isModalOpen}
         handleOk={handleOkModal}
         handleCancel={handleCancelModal}
-        renderComponent={<TaskForm handleNotifyTeam={handleNotifyTeam} selectedItem={selectedItem} />}
+        renderComponent={<TaskForm handleNotifyTeam={handleNotifyTeam} selectedItem={selectedItem} projectId={projectId} />}
       />}
     </>
   );

@@ -12,9 +12,9 @@ export default function ProjectTodo({ projectTodo, handleChangeEdit, projectId, 
         setIsModalOpen(false);
     }
     return (
-        <div className='px-2 border rounded-lg max-h-[350px] pb-2'>
+        <div className='px-2 mt-4 border rounded-lg max-h-[350px]  pb-2'>
             <div className='flex justify-between items-center bg-white !z-10 '>
-                <p className='font-semibold text-md py-2 px-2'>To do</p>
+                <p className='font-semibold text-md py-2 px-2'>Checklist</p>
                 <div onClick={() => setIsModalOpen(true)}><AddIcon /></div>
             </div>
             <div className='pb-2  max-h-[275px] overflow-hidden hover:overflow-y-auto px-2 '>

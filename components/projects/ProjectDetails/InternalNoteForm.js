@@ -45,7 +45,7 @@ export default function InternalNoteForm({ projectId, getInternalNotes, handleCl
                 <Input.TextArea className="rounded-lg" rows={4} maxLength={1000} />
             </Form.Item>
 
-            <div className="flex gap-x-5 w-full justify-start mt-0">
+            <div className="flex gap-x-5 w-full justify-end mt-0">
                 {/* <Form.Item
                     rules={[
                         {
@@ -54,13 +54,9 @@ export default function InternalNoteForm({ projectId, getInternalNotes, handleCl
                     ]}>
                     <FormButtons content="Save" />
                 </Form.Item> */}
-                {!isLoading ? <Form.Item>
-                    <FormButtons content="Save" />
-                </Form.Item> :
-                    <div className='flex gap-3 bg-gray-200 p-4 rounded'>
-                        <LoadingOutlined />
-                    </div>
-                }
+                <Form.Item>
+                    <FormButtons content="Save" isLoading={isLoading} />
+                </Form.Item> 
             </div>
         </Form>
     );

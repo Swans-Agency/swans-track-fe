@@ -15,7 +15,7 @@ import AllCheckLists from "./AllCheckLists";
 
 
 
-export default function TaskForm({ handleNotifyTeam, selectedItem }) {
+export default function TaskForm({ handleNotifyTeam, selectedItem, projectId=null }) {
   const [form] = Form.useForm();
   const [employees, setEmployees] = useState([]);
   const [taskDescription, setTaskDescription] = useState("<p></p>");
@@ -61,7 +61,10 @@ export default function TaskForm({ handleNotifyTeam, selectedItem }) {
   const handleInitialValues = () => {
     if (selectedItem) {
       getCheckLists()
+      if (projectId) {
 
+        form.setFieldValue("project", selectedItem?.project);
+      }
       form.setFieldValue("taskName", selectedItem?.taskName);
       form.setFieldValue("taskDescription", selectedItem?.taskDescription !== "undefined" ? selectedItem?.taskDescription : "");
       setTaskDescription(selectedItem?.taskDescription !== "undefined" ? selectedItem?.taskDescription : "<p>No description</p>")
@@ -83,6 +86,9 @@ export default function TaskForm({ handleNotifyTeam, selectedItem }) {
   const onFinish = async (data) => {
     setIsLoading(true);
     const formData = new FormData();
+    if (projectId) {
+      formData.append("project", projectId);
+    }
     formData.append("taskName", data?.taskName);
     formData.append("status", true);
     formData.append("taskDescription", data?.taskDescription);
@@ -111,16 +117,16 @@ export default function TaskForm({ handleNotifyTeam, selectedItem }) {
 
 
     form.resetFields();
-    handleNotifyTeam();
+    handleNotifyTeam(projectId);
     setIsLoading(false);
   };
 
   const onArchive = async () => {
     setIsLoadingDelete(true);
     const url = `${process.env.DIGITALOCEAN}/tasks/archive-task/${selectedItem?.id}/`
-    let res = await getAxios(url, true, false, () => { })
+    let res = await getAxios(url, true, true, () => { })
     if (res) {
-      handleNotifyTeam();
+      handleNotifyTeam(projectId);
     }
     setIsLoadingDelete(false);
   }

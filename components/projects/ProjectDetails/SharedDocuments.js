@@ -35,13 +35,6 @@ export default function SharedDocuments({ projectId, getProjectSharedDocs, proje
                                 {item?.docName}
                             </div>
                         </div>
-                        // <a
-                        //     href={item?.doc?.split("?")[0]}
-                        //     target="_blank"
-                        //     className='text-sm bg-foreignBackground hover:bg-mainBackground w-full text-center px-4 py-1 rounded group text-white hover:cursor-pointer'
-                        // >
-                        //     {item?.docName}
-                        // </a>
                     )
                 })}
                 {!projectSharedDocs?.length && <p className='text-sm text-gray-400'>No documents</p>}

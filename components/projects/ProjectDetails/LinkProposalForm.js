@@ -136,13 +136,9 @@ export default function LinkProposalForm({ projectId, getProjectProposals, proje
                     </div>
                     <Divider />
                     <div className="flex gap-x-5 w-full justify-end">
-                        {!isLoading ? <Form.Item>
-                            <FormButtons content="Save" />
-                        </Form.Item> :
-                            <div className='flex gap-3 bg-gray-200 p-4 rounded'>
-                                <LoadingOutlined />
-                            </div>
-                        }
+                        <Form.Item>
+                            <FormButtons content="Save" isLoading={isLoading} />
+                        </Form.Item>
                     </div>
                 </Form>
             )}

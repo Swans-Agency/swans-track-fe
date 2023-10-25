@@ -4,10 +4,26 @@ import { Breadcrumb } from 'antd';
 import React from 'react';
 
 
-export default function BreadCrumbs({ router, projectObj}) {
+export default function BreadCrumbs({ router, projectObj, obj = null, handleHideBoard }) {
   return (
     <>
-        { projectObj && <Breadcrumb
+        { projectObj && obj && <Breadcrumb
+            items={[
+                {
+                    title: <div className='flex justify-center items-center gap-x-1'><HomeIcon width="w-4" height="h-4" /> <p>Swans Track</p></div>,
+                },
+                {
+                    href: '/authorized/projects/',
+                    title: <div className='flex justify-center items-center gap-x-1 '><ProjectIcons width="w-4" height="h-4" /> <p>Projects</p></div>,
+                },
+                {
+                    // href: `/authorized/projects/details/${router.query.project}`,
+                    title: <div onClick={() => handleHideBoard()} className='flex justify-center items-center gap-x-1 hover:bg-gray-100  rounded hover:cursor-pointer hover:text-black '><p>{projectObj?.projectName}</p></div>,
+                },
+                  obj
+            ]}
+        />}
+          {projectObj && !obj && <Breadcrumb
             items={[
                 {
                     title: <div className='flex justify-center items-center gap-x-1'><HomeIcon width="w-4" height="h-4" /> <p>Swans Track</p></div>,

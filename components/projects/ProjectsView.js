@@ -101,7 +101,7 @@ export default function ProjectsView() {
                 return (
                     <div
                         onClick={() => handleClick(item)} className='hover:cursor-pointer'
-                        dangerouslySetInnerHTML={{ __html: item?.summary?.substring(0, 50) + "..." }}
+                        dangerouslySetInnerHTML={{ __html: item?.summary?.substring(0, 25) + "..." }}
                     />
                 )
             }
