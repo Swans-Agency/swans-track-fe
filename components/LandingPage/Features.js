@@ -60,7 +60,7 @@ export default function Features(props) {
         image={"/Intelligent.svg"}
         title={"Intelligent Swan (ChatGPT)"}
         description={
-          "Streamline your daily routine by organizing and monitoring tasks and assignments with ease."
+          "Enhance your web experience with ChatGPT, your AI-powered conversational companion."
         }
       />
 

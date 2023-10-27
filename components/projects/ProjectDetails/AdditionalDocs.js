@@ -12,8 +12,8 @@ export default function AdditionalDocs({ projectAdditionalDocs, getProjectAdditi
         setIsModalOpen(false);
     }
     return (
-        <div className='px-2 mt-4 border rounded-lg max-h-[350px]  pb-2'>
-            <div className='flex justify-between items-center bg-white !z-10'>
+        <div className='px-2 mt-4 border dark:border-[#282828] rounded-lg max-h-[350px]  pb-2'>
+            <div className='flex justify-between items-center  !z-10'>
                 <p className='font-semibold text-md py-2 px-2'>Additional Documents</p>
                 <div onClick={() => setIsModalOpen(true)}><AddIcon /></div>
             </div>

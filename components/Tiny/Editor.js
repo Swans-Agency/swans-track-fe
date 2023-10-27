@@ -9,6 +9,8 @@ export default function CustomEditor({ form, fieldName }) {
             init={{
                 height: 300,
                 menubar: false,
+                skin: "oxide-dark",
+                content_css: "dark",
                 plugins: [
                     "advlist",
                     "autolink",
@@ -32,9 +34,10 @@ export default function CustomEditor({ form, fieldName }) {
                     "undo redo | formatselect | bold italic forecolor | alignleft aligncenter " +
                     "alignright alignjustify | bullist numlist outdent indent | " +
                     "removeformat | link | hr | codesample | blockquote",
-                content_style: "codesample { display: block; background-color: #f1f1f1; padding: 10px; }",
+                content_style: "codesample { display: block; background-color: #f1f1f1; padding: 10px; } * {background-color: #141414}",
             }}
             onEditorChange={(e) => form.setFieldValue(fieldName, e)}
+            
         />
     );
 };

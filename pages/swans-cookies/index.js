@@ -5,7 +5,7 @@ export default function index() {
   return (
     <>
       <Navbar content="Join the swans" />
-      <div className="desktop:px-[20rem] tablet:px-[10rem] phone:px-5 text-left pt-10 pb-24 text-black">
+      <div className="desktop:px-[20rem] tablet:px-[10rem] phone:px-5 text-left pt-10 pb-24 text-black dark:text-white">
         <h1 className="text-[2rem] font-black">Cookie Policy</h1>
 
         <p>

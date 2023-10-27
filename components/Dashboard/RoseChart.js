@@ -22,6 +22,9 @@ export default function RoseChart({ dataSet, type }) {
         yField: 'sum',
         seriesField: type,
         radius: 0.9,
+        label: {
+            offset: -15,
+        },
         legend: {
             position: 'bottom',
         },

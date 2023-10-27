@@ -3,6 +3,7 @@ import AuthWrapper from "@/components/Auth/Auth";
 import Layout from "@/components/Layout/Layout";
 import { NavCollapseWraper } from "@/context/NavContext";
 import { NavShowWraper } from "@/context/ShowNavContext";
+import { ConfigProvider, theme } from "antd";
 
 export default function App({ Component, pageProps }) {
 
@@ -16,7 +17,13 @@ export default function App({ Component, pageProps }) {
         <NavShowWraper>
           <NavCollapseWraper>
             <Layout>
+              <ConfigProvider
+                theme={{
+                  algorithm: theme.darkAlgorithm
+                }}
+              >
               <Component {...pageProps} />
+              </ConfigProvider>
             </Layout>
           </NavCollapseWraper>
         </NavShowWraper>

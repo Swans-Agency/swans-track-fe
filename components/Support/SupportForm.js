@@ -31,7 +31,7 @@ export default function SupportForm() {
   };
   return (
     <>
-      <div className="text-3xl font-light tracking-tight mb-1">
+      <div className="text-3xl font-light tracking-tight mb-1 dark:text-white">
         <h1>Help Us Grow</h1>
         <h1>Get in touch👋</h1>
       </div>

@@ -117,7 +117,6 @@ export default function TasksComponent({ companyTasks, initialData, projectId=nu
     if (projectId) {
       newData = await getAxios(`${process.env.DIGITALOCEAN}/tasks/active-tasks/?search=${search}&project=${projectId}`, false, false, () => { })
     } else {
-
       newData = await getAxios(`${process.env.DIGITALOCEAN}/tasks/active-tasks/?search=${search}`, false, false, () => { })
     }
     for (let i = 0; i < newData?.length; i++) {
@@ -267,7 +266,7 @@ export default function TasksComponent({ companyTasks, initialData, projectId=nu
           <Input size="large" className="max-w-[450px]" placeholder="Search by assignee or task name" onChange={(e) => setSearch(e.target.value)} />
           <button
             onClick={() => handleopenNewTask()}
-            className="flex w-full max-w-[135px] justify-center items-center gap-x-2 bg-mainBackground hover:bg-foreignBackground text-white rounded py-[0.6rem] px-3"
+            className="flex w-full max-w-[135px] justify-center items-center gap-x-2 bg-mainBackground dark:bg-[#282828]  text-white rounded py-[0.6rem] px-3"
           >
             Add new task
           </button>
@@ -280,11 +279,11 @@ export default function TasksComponent({ companyTasks, initialData, projectId=nu
             let columns = data?.columns?.[value];
             let tasks = columns?.taskIds?.map((value) => data?.tasks?.[value]);
             return (
-              <div className='px-2 relative  min-w-[250px] w-[300px]  mb-4 max-h-full h-fit overflow-hidden bg-gray-50 rounded-xl pt-2'>
+              <div className='px-2 relative  min-w-[250px] w-[300px]  mb-4 max-h-full h-fit overflow-hidden bg-gray-50 dark:bg-[#282828] dark:text-white rounded-xl pt-2'>
                 <div className={`text font-bold rounded text-center p-1 mb-2 sticky inset-0 `}>
                   <div className="flex justify-start items-center gap-x-2">
                     {columns?.title}
-                    <div className="border rounded px-2  text-[0.75rem] bg-gray-50">
+                    <div className="border dark:border-0 rounded px-2 py-[0.15rem] text-[0.75rem] bg-gray-50 dark:bg-[#141414]">
                       {tasks?.length}
                     </div>
                   </div>

@@ -4,13 +4,13 @@ import dayjs from "dayjs";
 
 export default function ToggleMonth({ setSelectedDate, selectedDate, visibleRight = "visible", visibleLeft = "visible", createNew = false, setIsModalOpenNew = () => { }, setClickedDate = () => { } }) {
   return (
-    <div className="flex justify-between gap-x-2 items-center">
+    <div className="flex justify-between gap-x-2 items-center ">
       <div className="flex gap-x-1 items-center">
-        <p className="text-lg items-start text-black  text-center justify-center ">
+        <p className="text-lg items-start text-black dark:text-white text-center justify-center ">
           {format(new Date(selectedDate), "MMMM yyyy")}
         </p>
         <div
-          className={`w-[2rem] text-black hover:text-white text-center hover:bg-foreignBackground hover:cursor-pointer rounded-full ${visibleLeft}`}
+          className={`w-[2rem] text-black hover:text-white dark:text-white text-center hover:bg-foreignBackground hover:dark:bg-[#1d1d1d] hover:cursor-pointer rounded-full ${visibleLeft}`}
           onClick={() => {
             setSelectedDate(
               (prev) => new Date(prev.getFullYear(), prev.getMonth() - 1, 1)
@@ -34,7 +34,7 @@ export default function ToggleMonth({ setSelectedDate, selectedDate, visibleRigh
           </svg>
         </div>
         <div
-          className={`w-[2rem] text-black hover:text-white text-center hover:bg-foreignBackground hover:cursor-pointer rounded-full ${visibleRight}`}
+          className={`w-[2rem] text-black dark:text-white hover:text-white text-center hover:bg-foreignBackground hover:dark:bg-[#1d1d1d] hover:cursor-pointer rounded-full ${visibleRight}`}
           onClick={() => {
             setSelectedDate((prev) => new Date(prev.getFullYear(), prev.getMonth() + 1, 1))
           }
@@ -60,7 +60,7 @@ export default function ToggleMonth({ setSelectedDate, selectedDate, visibleRigh
       {createNew &&
         <button
           onClick={() => { setIsModalOpenNew(true); setClickedDate(dayjs(new Date())) }}
-          className="bg-mainBackground hover:shadow-lg text-white rounded py-[0.6rem] px-3"
+          className="min-w-fit flex justify-center items-center gap-x-2 bg-mainBackground dark:bg-[#1d1d1d] hover:shadow-lg hover:dark:shadow-sm hover:dark:shadow-[#1d1d1d] text-white rounded py-[0.6rem] px-3"
         >
           Create Event
         </button>}

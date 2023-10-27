@@ -193,7 +193,7 @@ export default function TaskForm({ handleNotifyTeam, selectedItem, projectId=nul
           {showEditor || !selectedItem ? <CustomEditor form={form} fieldName="taskDescription" /> :
             <div
               onClick={() => setShowEditor(true)}
-              className="border rounded-lg p-2 hover:cursor-pointer hover:border-blue-400"
+              className="border dark:border-[#282828] dark:bg-[#141414] rounded-lg p-2 hover:cursor-pointer hover:border-blue-400"
               dangerouslySetInnerHTML={{ __html: taskDescription }}
             />
           }
@@ -204,7 +204,7 @@ export default function TaskForm({ handleNotifyTeam, selectedItem, projectId=nul
             <div className="flex justify-between mb-2">
               <p>Checklist(s)</p>
               <span
-                className="hover:bg-mainBackground p-1 hover:text-white rounded hover:cursor-pointer"
+                className="hover:bg-mainBackground hover:dark:bg-[#141414] p-1 hover:text-white rounded hover:cursor-pointer"
                 onClick={() => handleAddChecklistInput(true)}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
@@ -220,8 +220,8 @@ export default function TaskForm({ handleNotifyTeam, selectedItem, projectId=nul
                 />
                 <div className="flex gap-1">
 
-                  <div className="bg-mainBackground rounded-lg text-white hover:shadow-lg hover:cursor-pointer px-3 py-2" onClick={() => handleCreateChecklist()}>Save</div>
-                  <div className="bg-gray-400 rounded-lg text-white hover:shadow-lg hover:cursor-pointer px-3 py-2" onClick={() => handlehideInput(false)}>Cancel</div>
+                  <div className="bg-mainBackground dark:bg-[#141414] rounded-lg text-white hover:shadow-lg hover:cursor-pointer px-3 py-2" onClick={() => handleCreateChecklist()}>Save</div>
+                  <div className="bg-gray-400 dark:bg-gray-700 rounded-lg text-white hover:shadow-lg hover:cursor-pointer px-3 py-2" onClick={() => handlehideInput(false)}>Cancel</div>
                 </div>
               </div>
             }

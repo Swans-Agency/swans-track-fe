@@ -53,7 +53,7 @@ export default function Incomes({ showModal }) {
       dataIndex: "paymentMethod",
       key: "paymentMethod",
       ...getColumnSearchProps("paymentMethod", searchInput, searchedColumn, searchText, handleSearch, handleReset, setSearchText, setSearchedColumn),
-      render: (_, item) => { return <div style={{ backgroundColor: `${paymentColors[item?.paymentMethod]}`}} className={` text-white w-fit px-2 py-[0.15rem] rounded-full `}>{item?.paymentMethod}</div>},
+      // render: (_, item) => { return <div style={{ backgroundColor: `${paymentColors[item?.paymentMethod]}`}} className={` text-white w-fit px-2 py-[0.15rem] rounded-full `}>{item?.paymentMethod}</div>},
     },
     {
       title: "Attachment",

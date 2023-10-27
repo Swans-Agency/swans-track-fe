@@ -94,7 +94,7 @@ export default function IncomeForm({ setReload, onClose }) {
             onClick={() => {
               setOpen(false);
             }}
-            className="flex gap-3 items-center mb-5 bg-foreignBackground hover:bg-mainBackground text-white px-2 py-1 rounded-lg"
+            className="flex gap-3 items-center mb-5 bg-foreignBackground hover:bg-mainBackground hover:dark:bg-[#141414] dark:bg-[#282828] text-white px-4 py-2 rounded-lg"
           >
             <ArrowLeftOutlined />
             Back To Income
@@ -199,7 +199,7 @@ export default function IncomeForm({ setReload, onClose }) {
                 options={proposalData}
               />
               <button
-                className="p-[0.75rem] flex rounded-lg items-center bg-foreignBackground hover:shadow-lg text-white"
+                  className="p-[0.75rem] flex rounded-lg items-center bg-foreignBackground hover:dark:bg-[#141414] dark:bg-[#282828] hover:shadow-lg text-white"
                 onClick={() => setOpen(!open)}
                 title="Create New Invoice"
               >

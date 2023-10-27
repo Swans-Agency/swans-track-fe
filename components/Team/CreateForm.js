@@ -75,7 +75,7 @@ export default function CreateForm({ setReload, onClose }) {
           />
         </Form.Item>
       </div>
-      <div className="text-xs font-light tracking-wide text-black">
+      <div className="text-xs font-light tracking-wide text-black dark:text-white">
         <p>
           * Employee | Restricted access, can't edit company and account
           settings.

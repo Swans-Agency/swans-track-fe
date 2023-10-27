@@ -176,21 +176,20 @@ export default function WeekDays({ day, fullDay, classStyle, form}) {
     }, [fullDay, checked ])
 
     return (
-        <div className={`grid tablet:grid-cols-4 phone:grid-cols-1 justify-start ${classStyle}`}>
-            <div className='col-span-1'>
+        <div className={`grid tablet:grid-cols-4 phone:grid-cols-1 justify-start items-center py-3 ${classStyle}`}>
                 <Form.Item
                     name={["weeklySchedule", fullDay, "check"]}
                     valuePropName="checked"
+                    className='col-span-1 !m-0'
                 >
                     <Checkbox onChange={onChange}>
                         {day}   
                     </Checkbox>
                 </Form.Item>
-            </div>
-            {form.getFieldValue(["weeklySchedule", fullDay, "check"])  ? 
             <div className='col-span-3'>
-                
-                <Form.List name={["weeklySchedule", fullDay, "schedule"]}>
+
+            {form.getFieldValue(["weeklySchedule", fullDay, "check"])  ? 
+                    <Form.List name={["weeklySchedule", fullDay, "schedule"]} className=' !m-0'>
                     {(fields, { add, remove }) => (
                             <div className='grid tablet:grid-cols-3 phone:grid-cols-4 gap-8 '>
                             {setCountFields(fields.length)}
@@ -208,7 +207,7 @@ export default function WeekDays({ day, fullDay, classStyle, form}) {
                                         />
                                 ))}
                             </div> : "" }
-                            <div className='col-span-1'>
+                            <div className='col-span-1 m-auto'>
                                 <PlusOutlined className='text-lg' onClick={() => {
                                     handleAdd(add)
                                 }} />
@@ -216,7 +215,8 @@ export default function WeekDays({ day, fullDay, classStyle, form}) {
                         </div>
                     )}
                 </Form.List>
-            </div> : <p className='text-gray-400 py-[0.19rem]'>Unavailable</p> }
+                : <div className='text-gray-400 col-span-3'>Unavailable</div> }
+            </div>
         </div>
     );
 };

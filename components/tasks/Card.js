@@ -40,7 +40,7 @@ export default function Card({ card, index, showTag, setShowTag, setSelectedItem
                 >
                     {console.log(card)}
                     <Badge.Ribbon className="absolute top-0 left-0 w-0 h-0" color="transparent">
-                    <div className="border px-2 pt-4 rounded-lg bg-white shadow">
+                    <div className="border dark:border-0 px-2 pt-4 rounded-lg bg-white dark:bg-[#141414] dark:text-white shadow">
                         <div className="flex items-center justify-between">
                             <div
                                 onClick={() => { handleUpdate(card) }}
@@ -75,7 +75,7 @@ export default function Card({ card, index, showTag, setShowTag, setSelectedItem
                                 </div>
                             </div>}
                             <div className="py-2 flex justify-between">
-                                <div className={`flex gap-x-1 items-center ${dayjs(card?.dueDate).diff(dayjs(), 'day') < 0 && card?.taskStatus !== "Completed" ? "text-red-500" : dayjs(card?.dueDate).diff(dayjs(), 'day') < 2 && card?.taskStatus !== "Completed" ? "text-yellow-500" : card?.taskStatus !== "Completed" ? "text-green-500" : "text-black"}`}><Clock />{dayjs(card?.dueDate).format('D MMM, YYYY')}</div>
+                                <div className={`flex gap-x-1 items-center ${dayjs(card?.dueDate).diff(dayjs(), 'day') < 0 && card?.taskStatus !== "Completed" ? "text-red-500" : dayjs(card?.dueDate).diff(dayjs(), 'day') < 2 && card?.taskStatus !== "Completed" ? "text-yellow-500" : card?.taskStatus !== "Completed" ? "text-green-500" : "text-black dark:text-gray-600"}`}><Clock />{dayjs(card?.dueDate).format('D MMM, YYYY')}</div>
                                 <div className="w-[30px] h-[30px] hover:cursor-auto">
                                     <img src={card?.assignee?.pfp?.split('?')[0]} title={card?.assignee?.name} className="w-full h-full rounded-full border-2 p-1" />
                                 </div>

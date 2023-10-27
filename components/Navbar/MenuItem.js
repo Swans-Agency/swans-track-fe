@@ -1,5 +1,5 @@
 import { logout } from "@/functions/GeneralFunctions";
-import { Divider } from "antd";
+import { ConfigProvider, Divider, theme } from "antd";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import cookie, { remove } from "react-cookies";
@@ -49,9 +49,9 @@ export default function MenuItem({ item, index, userPermission, toggleCollapsed,
 
   return (
     <>
-      <div key={index} className={`${hide} `}>
+      <div key={index} className={`${hide}    `}>
         <div
-          className={`flex font-extralight justify-between gap-x-3 items-center text-[1rem] element hover:cursor-pointer px-2 py-2 rounded-lg ${selectedTab === item?.key ? "element1" : ""} `}
+          className={`flex font-extralight justify-between gap-x-3 items-center text-[1rem]  element2 hover:cursor-pointer px-2 py-2  ${selectedTab === item?.key ? "element3" : ""} `}
           onClick={() => handleClick(item)}
         >
           <div className="flex gap-x-3 items-center text-[15px]">
@@ -61,15 +61,15 @@ export default function MenuItem({ item, index, userPermission, toggleCollapsed,
           <div className="text-sm">{item?.arrow}</div>
         </div>
         <div
-          className={`${!showChildren ? "hidden" : ""
-            } bg-mainBackground rounded-lg my-1`}
+          className={`${!showChildren ? "hidden" : " dark:bg-[#141414] dark:text-white"
+            } bg-mainBackground rounded-lg my-1       `}
         >
           {item?.children?.map((child, cIndex) => {
             return (
               <div
                 key={cIndex}
-                className="flex gap-x-3 items-center  text-[15px] element hover:text-white hover:cursor-pointer pl-8 px-2 py-2 rounded-lg"
-                onClick={() => {handleClick(child); handleSelectParent(item?.key)}}
+                className="flex gap-x-3 items-center  text-[15px] element2 hover:text-white    hover:cursor-pointer pl-8 px-2 py-2 "
+                onClick={() => { handleClick(child); handleSelectParent(item?.key) }}
               >
                 {child?.icon}
                 <p>{child?.label}</p>
@@ -79,12 +79,18 @@ export default function MenuItem({ item, index, userPermission, toggleCollapsed,
         </div>
       </div>
       {item?.divider && <Divider />}
+      <ConfigProvider
+        theme={{
+          algorithm: theme.darkAlgorithm
+        }}
+      >
       <DrawerANTD
         title="ChatGPT"
         children={<TextBox />}
         onClose={() => setShowGPT(false)}
         open={showGPT}
       />
+      </ConfigProvider>
     </>
   );
 }

@@ -1,5 +1,5 @@
 import { Html, Head, Main, NextScript } from "next/document";
-import Script from "next/script";
+
 
 
 export default function Document() {
@@ -23,7 +23,7 @@ export default function Document() {
           }}
         ></script>
       </Head>
-        <body>
+      <body className="dark:bg-[#141414]">
         <Main />
         <NextScript />
       </body>

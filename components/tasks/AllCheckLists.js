@@ -64,12 +64,12 @@ export default function AllCheckLists({ item, handleInitialValues }) {
                       onChange={(e) => setTaskName(e.target.value)}
                   />
                   <div className="flex gap-1">
-                      <div className="bg-mainBackground rounded-lg text-white hover:shadow-lg hover:cursor-pointer px-3 py-1 " onClick={() => handleCreateTask(item)}>Save</div>
-                      <div className="bg-gray-400 rounded-lg text-white hover:shadow-lg hover:cursor-pointer px-3 py-1 " onClick={() => setShowInputTask(false)}>Cancel</div>
+                      <div className="bg-mainBackground dark:bg-[#141414] rounded-lg text-white hover:shadow-lg hover:cursor-pointer px-3 py-1 " onClick={() => handleCreateTask(item)}>Save</div>
+                      <div className="bg-gray-400 dark:bg-gray-700 rounded-lg text-white hover:shadow-lg hover:cursor-pointer px-3 py-1 " onClick={() => setShowInputTask(false)}>Cancel</div>
                   </div>
               </div>
           }
-          <p className="ml-7 bg-gray-400 text-white w-fit mt-2 px-3 py-1 rounded hover:shadow-lg hover:cursor-pointer" onClick={() => setShowInputTask(true)}>Add an Item</p>
+          <p className="ml-7 bg-gray-400 dark:bg-[#141414] text-white w-fit mt-2 px-3 py-1 rounded hover:shadow-lg hover:cursor-pointer" onClick={() => setShowInputTask(true)}>Add an Item</p>
       </div>
 
   );

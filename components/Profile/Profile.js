@@ -169,18 +169,18 @@ export default function Profile() {
         </div>
         <div className="laptop:flex gap-x-5 w-full">
           <Form.Item label="Instagram Username" name="instagram" className="w-full">
-            <Input addonBefore="https://instagram.com/" size="large" className="rounded-lg" />
+            <Input addonBefore="instagram.com/" size="large" className="rounded-lg" />
           </Form.Item>
           <Form.Item label="Facebook Username" name="facebook" className="w-full">
-            <Input addonBefore="https://facebook.com/" size="large" className="rounded-lg" />
+            <Input addonBefore="facebook.com/" size="large" className="rounded-lg" />
           </Form.Item>
         </div>
         <div className="laptop:flex gap-x-5 w-full">
           <Form.Item label="Linkedin Username" name="linkedin" className="w-full">
-            <Input addonBefore="https://linkedin.com/in/" size="large" className="rounded-lg" />
+            <Input addonBefore="linkedin.com/in/" size="large" className="rounded-lg" />
           </Form.Item>
           <Form.Item label="Twitter Username" name="twitter" className="w-full">
-            <Input addonBefore="https://twitter.com/" size="large" className="rounded-lg" />
+            <Input addonBefore="twitter.com/" size="large" className="rounded-lg" />
           </Form.Item>
         </div>
         <Form.Item label="Website Link" name="website" className="w-full">
@@ -200,7 +200,7 @@ export default function Profile() {
         </div>
       </Form>
       <Divider />
-      <h1 className="text-2xl font-bold text-maincl">Login Credentials</h1>
+      <h1 className="text-2xl font-bold text-maincl dark:text-white">Login Credentials</h1>
       <Form
         onFinish={onFinishPassword}
         layout="vertical"

@@ -16,7 +16,7 @@ export default function CalendarHeader({
 }) {
 
   return (
-    <div className=" sticky top-6 left-0 mt-2 pb-2 bg-white">
+    <div className=" sticky top-6 left-0 mt-2 pb-2 bg-white  dark:text-white dark:bg-[#141414] ">
       <ToggleMonth
         selectedDate={selectedDate}
         setSelectedDate={setSelectedDate}

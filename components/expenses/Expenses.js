@@ -28,10 +28,10 @@ export default function Expenses() {
     },
     {
       title: "Category",
-      dataIndex: "category.",
-      key: "category.",
+      dataIndex: "category",
+      key: "category",
       ...getColumnSearchProps("category", searchInput, searchedColumn, searchText, handleSearch, handleReset, setSearchText, setSearchedColumn),
-      render: (_, item) => <div style={{ backgroundColor: `${categoryColors[item?.category]}` }} className="w-fit text-white px-2 py-[0.15rem] rounded-full ">{item?.category}</div>,
+      // render: (_, item) => <div style={{ backgroundColor: `${categoryColors[item?.category]}` }} className="w-fit text-white px-2 py-[0.15rem] rounded-full ">{item?.category}</div>,
     },
     {
       title: "Amount",

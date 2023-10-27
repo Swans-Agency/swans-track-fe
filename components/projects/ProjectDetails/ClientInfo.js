@@ -27,12 +27,12 @@ export default function ClientInfo({ projectObj, projectId }) {
         alert('Copied to clipboard');
     }
     return (
-        <div className='border rounded-lg w-full px-4  py-4 max-h-[350px] '>
+        <div className='border dark:border-[#282828] rounded-lg w-full px-4  py-4 max-h-[350px] '>
             <div className='w-full flex flex-col items-center mb-3 px-2'>
-                <div className='p-5 flex items-center justify-center w-20 h-20 text-4xl font-bold bg-foreignBackground text-white rounded-full'>{projectObj?.clientObj?.firstName[0]}</div>
+                <div className='p-5 flex items-center justify-center w-20 h-20 text-4xl font-bold bg-foreignBackground dark:bg-[#282828] text-white rounded-full'>{projectObj?.clientObj?.firstName[0]}</div>
                 <p className='pt-1 text-2xl font-semibold'>{projectObj?.clientObj?.firstName} {projectObj?.clientObj?.lastName}</p>
             </div>
-            <div className='overflow-scroll'>
+            <div className=''>
                 <p className='font-semibold text-sm pb-1 '>Contact Info</p>
                 <div className='flex items-center justify-start gap-x-2 text-sm py-1'><MailIcon /> <a className='text-blue-500 hover:text-blue-700' href={`mailto:${projectObj?.clientObj?.email}`} target="_blank" rel="noopener noreferrer">{projectObj?.clientObj?.email}</a></div>
                 <div className='flex items-center justify-start gap-x-2 text-sm py-1'><PhoneIcon /> {projectObj?.clientObj?.phoneNumber}</div>

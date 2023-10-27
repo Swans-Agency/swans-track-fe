@@ -20,6 +20,7 @@ export default function ProjectsChart({ projectsAlltime }) {
             range: [0, 1],
             tickCount: 12,
         },
+        smooth: true,
         areaStyle: () => {
             return {
                 fill: 'l(270) 0:#ffffff 0.5:#7ec2f3 1:#1890ff',

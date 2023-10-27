@@ -206,7 +206,7 @@ export default function SchedSettingsForm() {
                                 key={index}
                                 day={day?.shortName}
                                 fullDay={day?.fullName}
-                                classStyle={`py-5 ${index % 2 !== 0 ? "border-b bg-gray-50" : "border-b "}`}
+                                classStyle={`dark:border-b-0 px-2 ${index % 2 !== 0 ? "border-b dark:border-b-0 bg-gray-50 dark:bg-[#282828]" : "border-b"}`}
                                 form={form}
                             />
                         )

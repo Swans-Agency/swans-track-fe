@@ -9,7 +9,7 @@ import {
 export default function InnerFormItem({ field, remove, handleDelete, fullDay, timeOptions, handleSelectTime, errorTime }) {
 
     return (
-        <div className='flex gap-5' key={field.key}>
+        <div className='flex gap-5 !m-0' key={field.key}>
             <div className='flex gap-x-2'>
                 <Form.Item
                     {...field}
@@ -22,7 +22,7 @@ export default function InnerFormItem({ field, remove, handleDelete, fullDay, ti
                     ]}
                     validateStatus={errorTime ? 'error' : ''}
                     help={errorTime ? <p className='absolute min-w-max'>Error in time range</p> : ''}
-                    className='w-[100%] min-w-[90px]'
+                    className='w-[100%] min-w-[90px] !m-0 !mb-2'
                     >
                     <Select
                         options={timeOptions}
@@ -41,7 +41,7 @@ export default function InnerFormItem({ field, remove, handleDelete, fullDay, ti
                         },
                     ]}
                     validateStatus={errorTime ? 'error' : ''}
-                    className='w-[100%] min-w-[90px]'
+                    className='w-[100%] min-w-[90px] !m-0  !mb-2'
                 >
                     <Select
                         options={timeOptions}
@@ -50,7 +50,7 @@ export default function InnerFormItem({ field, remove, handleDelete, fullDay, ti
                     />
                 </Form.Item>
             </div>
-            <div>
+            <div className='m-auto'>
                 <DeleteOutlined className='text-lg' onClick={() => {
                     handleDelete(remove, field, field.key)
                 }} />

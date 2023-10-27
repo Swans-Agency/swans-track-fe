@@ -225,7 +225,7 @@ export default function Navbar({ userPermission }) {
       <link href="https://fonts.cdnfonts.com/css/southernsky" rel="stylesheet" />
 
       <div
-        className={`${collapsed ? "left-[0.85rem]" : "left-[14.85rem]"} fixed top-[1rem] rounded-full p-1  !z-[1000] bg-white shadow hover:shadow-xl border hover:cursor-pointer`}
+        className={`${collapsed ? "left-[0.85rem]" : "left-[14.85rem]"} fixed top-[1rem] rounded-full p-1 dark:bg-[#141414] dark:text-white !z-[1000] bg-white  shadow hover:shadow-xl border hover:cursor-pointer`}
         onClick={toggleCollapsed}
         title={collapsed ? "Expand Sidebar" : "Collapse Sidebar"}
       >
@@ -239,23 +239,22 @@ export default function Navbar({ userPermission }) {
       </div>
 
 
-      <div className="sticky top-0 left-0 !z-[500] ">
-        <div className="absolute !z-[500]">
+      <div className="sticky top-0 left-0 !z-[500]">
+        <div className="absolute !z-[500]        ">
           <div
-            className={`${!collapsed ? "hidden" : "left-0 h-[100vh] top-0 w-[30px]"} text-white p-1 bg-navbar flex items-center hover:cursor-pointer`}
+            className={`${!collapsed ? "hidden" : "left-0 h-[100vh] top-0 w-[30px] dark:bg-[#141414] dark:text-white"} dark:border-r-[#282828] dark:border-r  text-white p-1 bg-navbar flex items-center hover:cursor-pointer`}
             onClick={toggleCollapsed}
             title={collapsed ? "Expand Sidebar" : "Collapse Sidebar"}
           >
-            {/* <Expand /> */}
           </div>
 
 
-          <div className={`bg-navbar h-[100vh] ${collapsed ? "w-[20px]  hidden" : "w-[256px] "} fixed overflow-hidden text-white font-extralight px-2`}>
+          <div className={`bg-navbar h-[100vh] ${collapsed ? "w-[20px]  hidden" : "w-[256px] dark:border-r-[#282828] dark:border-r"} dark:bg-[#141414] dark:text-white  fixed overflow-hidden text-white font-extralight px-2`}>
             <div className=" flex justify-center items-center gap-x-4 py-2 sticky top-0 inset-0">
               <Image src="/logoNew.svg" width={50} height={50} />
             </div>
 
-            <div className="h-[80vh] pr-2 overflow-y-scroll">
+            <div className="h-[80vh] pr-1 overflow-y-scroll">
               {menuItems.map((item, index) => {
                 return (
                   <MenuItem
@@ -269,12 +268,12 @@ export default function Navbar({ userPermission }) {
                 );
               })}
 
-              <div className="absolute bottom-0 left-0 w-full  border-t">
+              <div className="absolute bottom-0 left-0 w-full  border-t dark:border-t-[#282828]">
                 <div
-                  className={`flex py-4 px-4 font-extralight justify-between gap-x-3 items-center text-[1rem] element hover:cursor-pointer`}
+                  className={`flex py-4 px-4 font-extralight justify-between gap-x-3 items-center text-[1rem] element2 hover:cursor-pointer`}
                   onClick={() => logout()}
                 >
-                  <div className="flex gap-x-3 items-center  text-[15px]">
+                  <div className="flex gap-x-3 items-center text-[15px]">
                     <Logout />
                     <p>Logout</p>
                   </div>
@@ -285,23 +284,16 @@ export default function Navbar({ userPermission }) {
         </div>
       </div>
 
-
-
-
-
-
-
-
-
-
-
       <div
-        className={`${collapsed ? "w-[100%-30px] ml-[30px]" : "w-[100%-256px] ml-[256px] overflow-hidden"} !z-[500] sticky top-0 left-0 shadow bg-white h-[4rem]  px-5 flex justify-between items-center gap-x-2  text-black `}
+        className={
+          `${collapsed ? 
+            "w-[100%-30px] ml-[30px]" : 
+            "w-[100%-256px] ml-[256px] overflow-hidden"} dark:bg-[#141414] dark:text-white !z-[500] sticky top-0 left-0 shadow dark:border-b-[#282828] dark:border-b bg-white h-[4rem]  px-5 flex justify-between items-center gap-x-2  text-black `}
       >
         <div className=" flex items-center gap-x-4 py-1 sticky top-0 inset-0 ">
           <span className="text-2xl pl-5  font-light">{toTitleCase(router.pathname.split("authorized/")[1])}</span>
         </div>
-        <div className="flex items-center gap-x-2 h-full text-black ">
+        <div className="flex items-center gap-x-2 h-full text-black dark:text-white">
           <p className="laptop:block phone:hidden">Hello, {cookie.load("userFullname", { path: "/" }) || cookie.load("username", { path: "/" })}</p>
           <Avatar
             src={userPfp}
@@ -312,7 +304,7 @@ export default function Navbar({ userPermission }) {
           />
           <Popover
             placement="bottomLeft"
-            className="mr-4"
+            className="mr-4   "
             content={
               <div className="text-white">
                 {hoverItems.map((item, index) => {

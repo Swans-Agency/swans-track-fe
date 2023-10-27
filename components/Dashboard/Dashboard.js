@@ -22,14 +22,14 @@ export default function Dashboard({
   projectsAlltime
 }) {
   return (
-    <div className="grid laptop:grid-cols-3 phone:grid-cols-1 gap-4">
+    <div className="grid laptop:grid-cols-3 phone:grid-cols-1 gap-4 ">
       <Quote quotes={quotes} />
-      
+
       <CardPercent
         title="Monthly Proposals"
         main={proposals?.percentChange}
         // classes={'bg-[#d1a404]'}
-        classes={'bg-gray-200'}
+        classes={'bg-gray-200 dark:text-white dark:bg-[#282828] '}
         percent={proposals?.percentChange ? Number(proposals?.percentChange)?.toFixed(1) : 0}
         number={<>{proposals?.currentMonthProposals || 0}</>}
         color={"bg-[#947404]"}
@@ -54,7 +54,7 @@ export default function Dashboard({
       <CardPercent
         title="Monthly Invoice"
         main={invoices?.percentChange}
-        percent={invoices?.percentChange? Number(invoices?.percentChange)?.toFixed(1) : 0}
+        percent={invoices?.percentChange ? Number(invoices?.percentChange)?.toFixed(1) : 0}
         number={<>{invoices?.currentMonthInvoices || 0}</>}
         icon={
           <svg
@@ -75,7 +75,7 @@ export default function Dashboard({
         }
         color={"bg-[#00736C]"}
         // classes={"bg-[#029e95]"}
-        classes={'bg-gray-200'}
+        classes={'bg-gray-200 dark:text-white dark:bg-[#282828] '}
       />
       <CardPercent
         title="Proposals Invoices Ratio"
@@ -88,7 +88,7 @@ export default function Dashboard({
         }
         color={"bg-[#630073]"}
         // classes={"bg-[#8f02a6]"}
-        classes={'bg-gray-200'}
+        classes={'bg-gray-200 dark:text-white dark:bg-[#282828] '}
         icon={
           <svg
             width="32"
@@ -114,7 +114,7 @@ export default function Dashboard({
         number={<>{clients?.currentMonthClients || 0}</>}
         color={"bg-[#002073]"}
         // classes={"bg-[#0234b5]"}
-        classes={'bg-gray-200'}
+        classes={'bg-gray-200 dark:text-white dark:bg-[#282828] '}
         icon={
           <svg
             width="32"
@@ -140,7 +140,7 @@ export default function Dashboard({
         number={<>{Number(expenses?.currentMonthExpenses) || 0}</>}
         color={"bg-[#730000]"}
         // classes={"bg-[#a30202]"}
-        classes={'bg-gray-200'}
+        classes={'bg-gray-200 dark:text-white dark:bg-[#282828] '}
         icon={
           <svg
             width="32"
@@ -166,7 +166,7 @@ export default function Dashboard({
         number={<>{income?.currentMonthIncome || 0}</>}
         color={"bg-[#00732E]"}
         // classes={"bg-[#008a36]"}
-        classes={'bg-gray-200'}
+        classes={'bg-gray-200 dark:text-white dark:bg-[#282828] '}
         icon={
           <svg
             width="32"
@@ -186,8 +186,8 @@ export default function Dashboard({
         }
       />
 
-      <div className="rounded-2xl bg-gray-200 px-6 py-8 laptop:col-span-2 phone:col-span-3 relative">
-        <img className="!z-0 absolute top-0 right-0 h-[100%]" src={"https://demo.bootstrapdash.com/purple-admin-free/assets/images/dashboard/circle.svg"} />
+      <div className="rounded-2xl  dark:text-white dark:bg-[#282828] bg-gray-200 px-6 py-8 laptop:col-span-2 phone:col-span-3 relative">
+        {/* <img className="!z-0 absolute rounded-r-2xl top-0 right-0 h-[100%]" src={"https://demo.bootstrapdash.com/purple-admin-free/assets/images/dashboard/circle.svg"} /> */}
         <p className="font-light  text-lg">Expenses & Income All-time</p>
         <div className="pt-8">
           <ChartANtd
@@ -197,19 +197,8 @@ export default function Dashboard({
         </div>
       </div>
 
-      <div className="rounded-2xl bg-gray-200 px-6 py-8 relative laptop:col-span-1 phone:col-span-3">
-        <img className="!z-0 absolute top-0 right-0 h-[100%]" src={"https://demo.bootstrapdash.com/purple-admin-free/assets/images/dashboard/circle.svg"} />
-        <p className="font-light  text-lg">Expenses by Category</p>
-        <div className="pt-8">
-          <RoseChart
-            dataSet={expensesCategory}
-            type={"category"}
-          />
-        </div>
-      </div>
-
-      <div className="rounded-2xl bg-gray-200 px-6 py-8 relative laptop:col-span-1 phone:col-span-3">
-        <img className="!z-0 absolute top-0 right-0 h-[100%]" src={"https://demo.bootstrapdash.com/purple-admin-free/assets/images/dashboard/circle.svg"} />
+      <div className="rounded-2xl  dark:text-white dark:bg-[#282828] bg-gray-200 px-6 py-8 relative laptop:col-span-1 phone:col-span-3">
+        {/* <img className="!z-0 absolute rounded-r-2xl top-0 right-0 h-[100%]" src={"https://demo.bootstrapdash.com/purple-admin-free/assets/images/dashboard/circle.svg"} /> */}
         <p className="font-light  text-lg">Income by Payment Method</p>
         <div className="pt-8">
           <RoseChart
@@ -219,8 +208,19 @@ export default function Dashboard({
         </div>
       </div>
 
-      <div className="rounded-2xl bg-gray-200 px-6 py-8 laptop:col-span-2 phone:col-span-3 relative">
-        <img className="!z-0 absolute top-0 right-0 h-[100%]" src={"https://demo.bootstrapdash.com/purple-admin-free/assets/images/dashboard/circle.svg"} />
+      <div className="rounded-2xl  dark:text-white dark:bg-[#282828] bg-gray-200 px-6 py-8 relative laptop:col-span-1 phone:col-span-3">
+        {/* <img className="!z-0 absolute rounded-r-2xl top-0 right-0 h-[100%]" src={"https://demo.bootstrapdash.com/purple-admin-free/assets/images/dashboard/circle.svg"} /> */}
+        <p className="font-light  text-lg">Expenses by Category</p>
+        <div className="pt-8">
+          <RoseChart
+            dataSet={expensesCategory}
+            type={"category"}
+          />
+        </div>
+      </div>
+
+      <div className="rounded-2xl  dark:text-white dark:bg-[#282828] bg-gray-200 px-6 py-8 laptop:col-span-2 phone:col-span-3 relative">
+        {/* <img className="!z-0 absolute rounded-r-2xl top-0 right-0 h-[100%]" src={"https://demo.bootstrapdash.com/purple-admin-free/assets/images/dashboard/circle.svg"} /> */}
         <p className="font-light  text-lg">Clients by Referral Source</p>
         <div className="pt-8">
           <ColumnChart
@@ -229,8 +229,8 @@ export default function Dashboard({
         </div>
       </div>
 
-      <div className="rounded-2xl bg-gray-200 px-6 py-8 col-span-3 relative">
-        <img className="!z-0 absolute top-0 right-0 h-[100%]" src={"https://demo.bootstrapdash.com/purple-admin-free/assets/images/dashboard/circle.svg"} />
+      <div className="rounded-2xl  dark:text-white dark:bg-[#282828]  bg-gray-200 px-6 py-8 col-span-3 relative">
+        {/* <img className="!z-0 absolute rounded-r-2xl top-0 right-0 h-[100%]" src={"https://demo.bootstrapdash.com/purple-admin-free/assets/images/dashboard/circle.svg"} /> */}
         <p className="font-light text-lg">Projects All-time</p>
         <div className="pt-8">
           <ProjectsChart
@@ -238,7 +238,7 @@ export default function Dashboard({
           />
         </div>
       </div>
-      
+
     </div>
   );
 }

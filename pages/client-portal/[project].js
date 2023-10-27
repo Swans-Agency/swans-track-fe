@@ -68,7 +68,7 @@ export default function ClientProtal() {
     return (
         <>
             <Navbar content="Join the swans" />
-            <div className='px-[10%] py-6'>
+            <div className='px-[10%] py-6 dark:text-white'>
                 <div className='py-5 flex  justify-between'>
                     <div>
                         <h1 className='laptop:text-3xl phone:text-sm font-bold'>{projectInfo?.projectName}</h1>

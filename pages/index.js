@@ -8,7 +8,7 @@ import Footer from "@/components/LandingPage/Footer";
 export default function index() {
   return (
     <main>
-      <div className="overflow-hidden relative">
+      <div className="overflow-hidden relative dark:bg-white">
         <HeroSection />
         <OurFeatures/>
         <Service/>

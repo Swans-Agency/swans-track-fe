@@ -12,8 +12,8 @@ export default function InternalNote({ internalJobNotes, getInternalNotes, proje
         setIsModalOpen(false);
     }
     return (
-        <div className='mt-4 px-2 border rounded-lg max-h-[350px]  pb-2'>
-            <div className='flex justify-between items-center bg-white !z-10 '>
+        <div className='mt-4 px-2 border dark:border-[#282828] rounded-lg max-h-[350px]  pb-2'>
+            <div className='flex justify-between items-center !z-10 '>
                 <p className='font-semibold text-md py-2 px-2'>Internal Notes</p>
                 <div onClick={() => setIsModalOpen(true)}><AddIcon /></div>
             </div>

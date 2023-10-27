@@ -47,8 +47,72 @@
 
 /* Change the color of the scrollbar thumb when hovered */
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #205295;
+  background-color: #141414;
   cursor: pointer !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  .custom-scroll::-webkit-scrollbar-track {
+    background-color: #14141438;
+    /* border-radius: 30px; */
+    margin-left: 10px;
+  }
+
+  /* Change the color of the scrollbar thumb */
+  .custom-scroll::-webkit-scrollbar-thumb {
+    background-color: #141414;
+    /* border-radius: 30px; */
+  }
+
+  /* Change the color of the scrollbar thumb when hovered */
+  .custom-scroll::-webkit-scrollbar-thumb:hover {
+    background-color: #141414;
+    cursor: pointer !important;
+  }
+
+  /* Change the color of the scrollbar track */
+  ::-webkit-scrollbar-track {
+    background-color: #28282800;
+  }
+
+  /* Change the color of the scrollbar thumb */
+  ::-webkit-scrollbar-thumb {
+    background-color: #282828;
+  }
+
+  /* Change the color of the scrollbar thumb when hovered */
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #282828;
+  }
+
+  .tox-toolbar__primary,
+  .tox-toolbar-overlord,
+  .tox-editor-header,
+  .tox-editor-container,
+  .tox-statusbar,
+  .tox-toolbar__overflow,
+  .tox-editor-container,
+  .tox .tox-tinymce {
+    background-color: #141414 !important;
+  }
+
+  .tox-tinymce {
+    border: 1px solid #3b3b3b !important;
+  }
+
+  .element2:hover {
+    background: linear-gradient(to right, #4d80ed 0%, #3b3b3b3b 10%, #3b3b3b3b 50%, transparent 100%);
+  }
+
+  .element3 {
+    background: linear-gradient(to right, #4d80ed 0%, #3b3b3b3b 10%, #3b3b3b3b 50%, transparent 100%);
+  }
+
+  .ant-popover-inner,
+  .ant-popover-arrow::before {
+    background-color: #1f1f1f !important;
+  }
+
 }
 
 #nprogress {
@@ -102,14 +166,15 @@
   background-color: #eeeeee !important;
 }
 
-.custom-swal-container, .custom-swal-container1,
-.custom-swal-popup, .custom-swal-popup1 {
+.custom-swal-container,
+.custom-swal-container1,
+.custom-swal-popup,
+.custom-swal-popup1 {
   background-color: white;
   color: black;
-  /* height: 300px; */
 }
 
-.custom-swal-popup{
+.custom-swal-popup {
   height: 310px;
   width: 310px;
   border-radius: 15px;
@@ -241,15 +306,6 @@
   border: none;
 }
 
-/* .custom-cell td:nth-child(7) {                                                                                                               
-  padding: 0 !important;
-}
-
-.custom-cell td {                                                                                                               
-  padding-top: 0 !important;
-  padding-bottom: 0 !important;
-} */
-
 .ant-checkbox-wrapper {
   display: flex !important;
 }
@@ -271,10 +327,6 @@
   animation-delay: 0.3s;
 }
 
-/* .animate-bounce {
-    animation: bounce 1s infinite;
-} */
-
 .ant-picker-calendar-mode-switch {
   visibility: hidden !important;
   display: none !important;
@@ -282,42 +334,48 @@
 
 .a7a {
   font-family: 'Southernsky', sans-serif;
-  /* font-family: 'Seafood', sans-serif; */
 }
 
-.ant-popover-inner, .ant-popover-arrow::before {
+/* .ant-popover-inner,
+.ant-popover-arrow::before {
   background-color: #0B2447 !important;
-}
+} */
 
 .ant-watermark img {
   opacity: 0.01 !important;
 }
+
 .ServicesSection {
   opacity: 0.25;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.00) 0%, rgba(1, 145, 231, 0.73) 53.12%);
 }
-.loginInput .ant-input{
+
+.loginInput .ant-input {
   background-color: #E6F4FD !important;
   color: #000000 !important;
   border: 0 !important;
   border-radius: 5px !important;
 }
 
-.ant-table-filter-trigger{
+/* .ant-table-filter-trigger {
   color: #337CCF !important;
-}
+} */
 
-.ant-table-filter-trigger:hover {
+/* .ant-table-filter-trigger:hover {
   background-color: #337ccf23 !important;
-}
+} */
 
-.ant-table-column-sorter {
+/* .ant-table-column-sorter {
   color: #337CCF !important;
+} */
+
+.ant-table-thead tr th {
+  /* background-color: #337ccf0f !important; */
+  padding: 12px 7px !important;
 }
 
-.ant-table-thead tr th{
-  background-color: #337ccf0f !important;
-  padding: 12px 7px  !important;
+.ant-divider {
+  background-color: #141414 !important;
 }
 
 ul {
@@ -341,12 +399,13 @@ li {
 }
 
 .ant-drawer-close:hover {
-  background-color:  rgb(229, 228, 228) !important;
+  background-color: rgb(229, 228, 228) !important;
 }
 
 .element:hover {
   background: linear-gradient(to right, #0066ffa9 0%, #0066ff52 25%, #0066ff2c 50%, transparent 100%);
 }
+
 .element1 {
   background: linear-gradient(to right, #0066ffa9 0%, #0066ff52 25%, #0066ff2c 50%, transparent 100%);
 }

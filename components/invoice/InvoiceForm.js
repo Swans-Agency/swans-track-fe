@@ -141,7 +141,7 @@ export default function InvoiceForm({ setReload, onClose, getAllInvoices = () =>
             onClick={() => {
               setOpen1(false);
             }}
-            className="flex gap-3 items-center mb-5 bg-foreignBackground hover:bg-mainBackground text-white px-2 py-1 rounded-lg"
+            className="flex gap-3 items-center mb-5 bg-foreignBackground hover:bg-mainBackground hover:dark:bg-[#141414] dark:bg-[#282828] text-white px-4 py-2 rounded-lg"
           >
             <ArrowLeftOutlined />
             Back To Invoice Form
@@ -216,14 +216,6 @@ export default function InvoiceForm({ setReload, onClose, getAllInvoices = () =>
             label={
               <div className="flex justify-between items-center gap-4">
                 <p>Link to existing proposal</p>
-
-                {/* <button
-                  className="font-bold p-1 flex rounded-full items-center hover:bg-mainBackground hover:text-white "
-                  onClick={() => {
-                    setOpen1(true)}}
-                >
-                  <PlusOutlined />
-                </button> */}
               </div>
             }
             name="proposalNo"
@@ -246,7 +238,7 @@ export default function InvoiceForm({ setReload, onClose, getAllInvoices = () =>
                 options={proposalData}
               />
               <button
-                className="p-[0.75rem] flex rounded-lg items-center bg-foreignBackground hover:bg-mainBackground text-white"
+                  className="p-[0.75rem] flex rounded-lg items-center bg-foreignBackground hover:bg-mainBackground hover:dark:bg-[#141414] dark:bg-[#282828] text-white"
                 onClick={() => {
                   setOpen1(true)
                 }}

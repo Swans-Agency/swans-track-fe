@@ -20,7 +20,17 @@ export default function List({ cards, listId, showTag, setShowTag, setSelectedIt
                         ))}
                             {provided.placeholder}
                         </>
-                        : <Empty description={false} />}
+                        :
+                        <div className="flex justify-center">
+                            <Empty
+                                image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+                                imageStyle={{
+                                    height: 60,
+                                }}
+                                description={false}
+                            ></Empty>
+                        </div>
+                    }
                 </div>
             )}
         </Droppable>

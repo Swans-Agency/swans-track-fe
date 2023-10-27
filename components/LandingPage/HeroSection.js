@@ -74,9 +74,8 @@ export default function HeroSection() {
             onClick={() => {
               router.push("/login");
             }}
-            className="bg-gradient-to-br from-[#003B76] to-[#00A3FF] hover:shadow hover:shadow-gray-400 text-white font-bold py-3 px-4 rounded-lg my-3"
+            className="bg-gradient-to-br from-[#003B76] to-[#00A3FF] hover:shadow hover:shadow-gray-400 text-white font-bold py-3 px-10 rounded-lg my-3"
           >
-            {/* Register Now ! */}
             Login
           </button>
         </div>

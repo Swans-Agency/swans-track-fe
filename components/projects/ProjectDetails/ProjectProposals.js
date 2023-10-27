@@ -32,15 +32,15 @@ export default function ProjectProposals({ projectProposals, projectId, getProje
     }
 
     return (
-        <div className='border rounded-lg h-fit max-h-[380px] mt-4 px-4 py-2 relative'>
-            <div className='flex justify-between items-center bg-white !z-10 mb-3'>
+        <div className='border dark:border-[#282828] rounded-lg h-fit max-h-[380px] mt-4 px-4 py-2 relative'>
+            <div className='flex justify-between items-center !z-10 mb-3'>
                 <p className='font-semibold text-md '>Proposals</p>
                 {add && <div onClick={() => setIsModalOpen(true)}><AddIcon /></div>}
             </div>
-            <div className="max-h-[290px] hover:overflow-y-auto overflow-hidden ">
+            <div className="max-h-[290px] overflow-y-scroll pr-1">
                 {projectProposals?.map((item, index) => {
                     return (
-                        <div className={`grid grid-cols-4 items-center border rounded py-3 px-2 mb-2 ${bgColor[item?.status]} `}>
+                        <div className={`grid grid-cols-4 items-center border dark:border-[#282828] rounded py-3 px-2 mb-2 `}>
                             <div className='flex items-center justify-start gap-1'>
                                 <Proposal />
                                 <p className='laptop:text-sm phone:text-xs font-extralight'>{item?.proposal?.proposalNo}</p>

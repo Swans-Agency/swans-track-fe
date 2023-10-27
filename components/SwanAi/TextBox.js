@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import DOMPurify from 'dompurify';
-import { Input } from 'antd';
+import { ConfigProvider, Input, theme } from 'antd';
 import SendIcon from '@/components/SwanAi/SendIcon';
 import { postAxios } from '@/functions/ApiCalls';
 const { TextArea } = Input;
@@ -37,6 +37,7 @@ export default function TextBox() {
             console.log(res?.data)
             const sanitizedText = DOMPurify.sanitize(res?.data?.content);
             const formattedText = sanitizedText.replace(/\n/g, '<br/>');
+            // const formattedText2 = formattedText.replace(/([^]+)/g, '<code>$1</code>');
             res.data.content = formattedText;
             let response = [...conversation, text, res?.data]
             setConversation(response)
@@ -54,22 +55,22 @@ export default function TextBox() {
     );
 
     return (
-        <div className='border rounded-lg h-full relative overflow-hidden '>
+        <div className='border dark:border-[#282828] rounded-lg h-full relative overflow-hidden '>
             <div className='h-[75vh] overflow-auto my-2 '>
                 {conversation?.map((message, index) => {
                     return (
                         <div>
                             {message?.role === "user" ?
                                 <div className='justify-end'>
-                                    <p className='pl-2 pt-2 text-xs text-gray-400 sticky top-0 bg-white'>User</p>
-                                    <div className='bg-mainBackground text-white rounded p-2 mx-2 mb-1 text-left'>
+                                    <p className='pl-2 pt-2 text-xs text-gray-400 sticky top-0 bg-white dark:bg-[#1f1f1f] mb-1'>User</p>
+                                    <div className='bg-mainBackground dark:bg-[#282828] text-white rounded p-2 mx-2 mb-1 text-left'>
                                         {message?.content}
                                     </div>
                                 </div>
                                 :
                                 <div className=' justify-start'>
-                                    <p className='pl-2 pt-2 text-xs text-gray-400 sticky top-0 bg-white'>Chat GPT</p>
-                                    <div dangerouslySetInnerHTML={{ __html: message?.content }} className='bg-gray-200 text-black rounded p-2 mx-2 mb-1'>
+                                    <p className='pl-2 pt-2 text-xs text-gray-400 sticky top-0 bg-white dark:bg-[#1f1f1f] mb-1'>Chat GPT</p>
+                                    <div dangerouslySetInnerHTML={{ __html: message?.content }} className='bg-gray-200 dark:text-white dark:bg-[#141414] text-black rounded p-2 mx-2 mb-1'>
                                     </div>
                                 </div>
                             }
@@ -90,7 +91,7 @@ export default function TextBox() {
                     </div>
                 }
             </div>
-            <div className='absolute w-full bottom-0 bg-gray-100'>
+            <div className='absolute w-full bottom-0 bg-gray-100 dark:bg-[#141414]'>
                 <TextArea
                     className='pr-14 py-3 '
                     bordered={false}
@@ -104,7 +105,7 @@ export default function TextBox() {
                     value={textInput}
                 />
                 <button
-                    className={`absolute right-4 bottom-2 ${textInput ? "bg-mainBackground hover:bg-foreignBackground cursor-pointer" : "bg-gray-400 cursor-not-allowed"} p-1 rounded`}
+                    className={`absolute right-4 bottom-2 ${textInput ? "bg-mainBackground hover:dark:bg-[#282828] hover:bg-foreignBackground dark:bg-[#282828] cursor-pointer" : "bg-gray-400 dark:bg-[#141414] cursor-not-allowed"} p-1 rounded`}
                     disabled={!textInput}
                     onClick={handleSend}
                 >
