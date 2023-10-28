@@ -65,7 +65,7 @@ export default function AllCheckLists({ item, handleInitialValues }) {
                   />
                   <div className="flex gap-1">
                       <div className="bg-mainBackground dark:bg-[#141414] rounded-lg text-white hover:shadow-lg hover:cursor-pointer px-3 py-1 " onClick={() => handleCreateTask(item)}>Save</div>
-                      <div className="bg-gray-400 dark:bg-gray-700 rounded-lg text-white hover:shadow-lg hover:cursor-pointer px-3 py-1 " onClick={() => setShowInputTask(false)}>Cancel</div>
+                      <div className="bg-gray-400 dark:bg-[#282828] rounded-lg text-white hover:shadow-lg hover:cursor-pointer px-3 py-1 " onClick={() => setShowInputTask(false)}>Cancel</div>
                   </div>
               </div>
           }

@@ -134,41 +134,7 @@ export default function Navbar({ userPermission }) {
       key: "team",
       label: "Team Members",
       icon: <TeamMembers />,
-      // divider: true,
     },
-    // {
-    //   key: "company-preference",
-    //   label: "Company Settings",
-    //   icon: <GearIcon />,
-    //   permissions: ["Admin", "Supervisor"],
-    // },
-    // {
-    //   key: "profile",
-    //   label: "Profile",
-    //   icon: <User />,
-    //   divider: true,
-    // },
-    // {
-    //   key: "settings",
-    //   label: "Billing & Plans",
-    //   icon: <Money />,
-    //   permissions: ["Admin"],
-    // },
-    // {
-    //   key: "support",
-    //   label: "Support & Tickets",
-    //   icon: <Support />,
-    // },
-    // {
-    //   key: "collapse",
-    //   label: "Collapse Sidebar",
-    //   icon: <Collapse />,
-    // },
-    // {
-    //   key: "logout",
-    //   label: "Logout",
-    //   icon: <Logout />,
-    // },
   ];
 
   const hoverItems = [
@@ -193,13 +159,7 @@ export default function Navbar({ userPermission }) {
       key: "profile",
       label: "Profile",
       icon: <User />,
-      // divider: true,
     },
-    // {
-    //   key: "logout",
-    //   label: "Logout",
-    //   icon: <Logout />,
-    // },
   ];
 
   function toTitleCase(str) {
@@ -242,16 +202,20 @@ export default function Navbar({ userPermission }) {
       <div className="sticky top-0 left-0 !z-[500]">
         <div className="absolute !z-[500]        ">
           <div
-            className={`${!collapsed ? "hidden" : "left-0 h-[100vh] top-0 w-[30px] dark:bg-[#141414] dark:text-white"} dark:border-r-[#282828] dark:border-r  text-white p-1 bg-navbar flex items-center hover:cursor-pointer`}
+            className={`ease-in ${!collapsed ? "hidden" : "left-0 h-[100vh] top-0 w-[30px] dark:bg-[#141414] dark:text-white"} dark:border-r-[#282828] dark:border-r  text-white p-1 bg-navbar flex items-center hover:cursor-pointer`}
             onClick={toggleCollapsed}
             title={collapsed ? "Expand Sidebar" : "Collapse Sidebar"}
           >
+            <div className=" flex justify-center  gap-x-4 py-2 sticky top-0 inset-0">
+              <Image src="/Main.svg" width={50} height={50} />
+            </div>
           </div>
 
 
-          <div className={`bg-navbar h-[100vh] ${collapsed ? "w-[20px]  hidden" : "w-[256px] dark:border-r-[#282828] dark:border-r"} dark:bg-[#141414] dark:text-white  fixed overflow-hidden text-white font-extralight px-2`}>
-            <div className=" flex justify-center items-center gap-x-4 py-2 sticky top-0 inset-0">
-              <Image src="/logoNew.svg" width={50} height={50} />
+          <div className={`bg-navbar h-[100vh] ease-in ${collapsed ? "w-[20px]  hidden" : "w-[256px] dark:border-r-[#282828]  dark:border-r"} dark:bg-[#141414] dark:text-white fixed overflow-hidden text-white font-extralight px-2`}>
+            <div className=" flex justify-center w-[256px] items-center gap-x-4 h-[4rem]  sticky top-0 inset-0 ">
+              <Image src="/Main.svg" width={45} height={45} />
+              {/* <p className="text-lg font-semibold">Swans Track</p> */}
             </div>
 
             <div className="h-[80vh] pr-1 overflow-y-scroll">

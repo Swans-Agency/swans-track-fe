@@ -4,9 +4,14 @@ import Layout from "@/components/Layout/Layout";
 import { NavCollapseWraper } from "@/context/NavContext";
 import { NavShowWraper } from "@/context/ShowNavContext";
 import { ConfigProvider, theme } from "antd";
+import { useEffect } from "react";
 
 export default function App({ Component, pageProps }) {
 
+  // useEffect(() => {
+  //   const html = document.querySelector("html");
+  //   html.classList.add("dark");
+  // }, []);
 
   return (
     <>
@@ -17,6 +22,7 @@ export default function App({ Component, pageProps }) {
         <NavShowWraper>
           <NavCollapseWraper>
             <Layout>
+              {/* <div id="toggle-theme" className="absolute top-0 left-0 w-0 h-0 bg-transparent"></div> */}
               <ConfigProvider
                 theme={{
                   algorithm: theme.darkAlgorithm

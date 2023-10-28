@@ -7,12 +7,13 @@ import List from "./List";
 import DrawerANTD from "../ANTD/DrawerANTD";
 import TaskForm from "./NewTask";
 import ModalANTD from "../ANTD/ModalANTD";
-import { Avatar, Input } from 'antd';
+import { Avatar, Input, Segmented } from 'antd';
 
 import { Gantt, Task, EventOption, StylingOption, ViewMode, DisplayOption } from 'gantt-task-react';
 import "gantt-task-react/dist/index.css";
+import { AppstoreOutlined, BarsOutlined } from "@ant-design/icons";
 
-export default function TasksComponent({ companyTasks, initialData, projectId=null }) {
+export default function TasksComponent({ companyTasks, initialData, projectId = null }) {
   const dbRef = useRef(null);
   const [open, setOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
@@ -21,7 +22,7 @@ export default function TasksComponent({ companyTasks, initialData, projectId=nu
   const [showTag, setShowTag] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [teamMembers, setTeamMembers] = useState([])
-  const[search, setSearch] = useState("")
+  const [search, setSearch] = useState("")
 
   const columnNames = {
     "To Do": "toDo",
@@ -89,6 +90,7 @@ export default function TasksComponent({ companyTasks, initialData, projectId=nu
               createdAt: value.createdAt,
               dueDate: value.dueDate,
               subTasks: value.subTasks,
+              history: value.history,
             }
           }
         }
@@ -123,12 +125,12 @@ export default function TasksComponent({ companyTasks, initialData, projectId=nu
       newData[i].start = new Date(newData[i]?.start)
       newData[i].end = new Date(newData[i]?.end)
     }
-    console.log({newData})
-    
+    console.log({ newData })
+
     setAllData(newData)
   }
 
-  useEffect(() => { 
+  useEffect(() => {
     if (search.length >= 3 || search.length === 0) {
       getAllTasksNew(projectId)
 
@@ -234,11 +236,16 @@ export default function TasksComponent({ companyTasks, initialData, projectId=nu
   const openModalUpdate = () => {
     setIsModalOpen(true)
   }
+  const [selectedValue, setSelectedValue] = useState('Board'); // Set 'Board' as the default value
+
+  const handleSegmentChange = (value) => {
+    setSelectedValue(value);
+    console.log({ value })
+  };
 
   return (
     <>
-      {/* <Gantt tasks={allData}
-        viewMode={"Day"} type="task" ganttHeight={300} /> */}
+
       <div className="flex flex-grow justify-between gap-x-4 mb-3">
         {teamMembers &&
           <Avatar.Group
@@ -262,51 +269,84 @@ export default function TasksComponent({ companyTasks, initialData, projectId=nu
             })}
           </Avatar.Group>
         }
-        <div className="flex justify-end gap-x-2 w-full">
+        <div className="flex justify-end items-center gap-x-2 w-full">
+
+          {projectId && <Segmented
+            size="large"
+            options={[
+              {
+                value: 'Board',
+                icon: <AppstoreOutlined />,
+              },
+              {
+                value: 'Gantt',
+                icon: <BarsOutlined />,
+
+              },
+            ]}
+            defaultValue={selectedValue}
+            onChange={handleSegmentChange}
+          />}
           <Input size="large" className="max-w-[450px]" placeholder="Search by assignee or task name" onChange={(e) => setSearch(e.target.value)} />
           <button
             onClick={() => handleopenNewTask()}
-            className="flex w-full max-w-[135px] justify-center items-center gap-x-2 bg-mainBackground dark:bg-[#282828]  text-white rounded py-[0.6rem] px-3"
+            className="flex w-full max-w-[135px] justify-center items-center gap-x-2 bg-mainBackground dark:bg-[#282828]  text-white rounded py-[0.5rem] px-3"
           >
             Add new task
           </button>
         </div>
       </div>
-
-      <DragDropContext onDragEnd={handleDragEnd}>
-        <div className='flex justify-start gap-5 overflow-auto'>
-          {data?.columnOrder?.map((value, key) => {
-            let columns = data?.columns?.[value];
-            let tasks = columns?.taskIds?.map((value) => data?.tasks?.[value]);
-            return (
-              <div className='px-2 relative  min-w-[250px] w-[300px]  mb-4 max-h-full h-fit overflow-hidden bg-gray-50 dark:bg-[#282828] dark:text-white rounded-xl pt-2'>
-                <div className={`text font-bold rounded text-center p-1 mb-2 sticky inset-0 `}>
-                  <div className="flex justify-start items-center gap-x-2">
-                    {columns?.title}
-                    <div className="border dark:border-0 rounded px-2 py-[0.15rem] text-[0.75rem] bg-gray-50 dark:bg-[#141414]">
-                      {tasks?.length}
-                    </div>
-                  </div>
-                  <p className={`mt-1 w-full h-[0.1rem] bg-gray-500 `}></p>
-                </div>
-
-                <div className='custom-scroll max-h-[65vh] overflow-y-auto p-2'>
-                  <List
-                    key={key}
-                    cards={tasks}
-                    listId={value}
-                    showTag={showTag}
-                    setShowTag={setShowTag}
-                    setSelectedItem={setSelectedItem}
-                    setOpen={openModalUpdate}
-                  />
-                </div>
-                <div className="!h-5"></div>
-              </div>
-            );
-          })}
+      {selectedValue == "Gantt" ?
+        <div className="mt-6 overflow-x-auto">
+          <Gantt
+            tasks={allData}
+            onClick={task => { setSelectedItem(task); setIsModalOpen(true) }}
+            preStepsCount={1}
+            columnWidth={100}
+            viewMode={"Day"} 
+            barBackgroundColor="#282828"
+            barBackgroundSelectedColor="#1d1d1d"
+            todayColor="#00a2ff18"
+            type="task" />
         </div>
-      </DragDropContext>
+        :
+
+        <DragDropContext onDragEnd={handleDragEnd}>
+          <div className='flex justify-start gap-5 overflow-auto'>
+            {data?.columnOrder?.map((value, key) => {
+              let columns = data?.columns?.[value];
+              let tasks = columns?.taskIds?.map((value) => data?.tasks?.[value]);
+              return (
+                <div className='px-2 relative  min-w-[250px] w-[300px]  mb-4 max-h-full h-fit overflow-hidden bg-gray-50 dark:bg-[#282828] dark:text-white rounded-xl pt-2'>
+                  <div className={`text font-bold rounded text-center p-1 mb-2 sticky inset-0 `}>
+                    <div className="flex justify-start items-center gap-x-2">
+                      {columns?.title}
+                      <div className="border dark:border-0 rounded px-2 py-[0.15rem] text-[0.75rem] bg-gray-50 dark:bg-[#141414]">
+                        {tasks?.length}
+                      </div>
+                    </div>
+                    <p className={`mt-1 w-full h-[0.1rem] bg-gray-500 `}></p>
+                  </div>
+
+                  <div className='custom-scroll max-h-[65vh] overflow-y-auto p-2'>
+                    <List
+                      key={key}
+                      cards={tasks}
+                      listId={value}
+                      showTag={showTag}
+                      setShowTag={setShowTag}
+                      setSelectedItem={setSelectedItem}
+                      setOpen={openModalUpdate}
+                    />
+                  </div>
+                  <div className="!h-5"></div>
+                </div>
+              );
+            })}
+          </div>
+        </DragDropContext>
+      }
+
       <DrawerANTD
         title={"Add New Task"}
         onClose={onClose}

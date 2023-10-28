@@ -41,7 +41,7 @@ export default function EventModal({ selectedEvent, handleDeleteEvent, setIsModa
             }
             <div className="flex gap-x-2 justify-end  mt-3">
                 <button className="bg-red-600 text-white px-4 py-2 hover:shadow-lg rounded" onClick={() => handleDeleteEvent(selectedEvent?.id)}>Delete</button>
-                <button className="bg-blue-900 text-white px-4 py-2 hover:shadow-lg rounded" onClick={() => setIsModalOpenNew(true)}>Edit</button>
+                <button className="bg-blue-900 dark:bg-[#282828] text-white px-4 py-2 hover:shadow-lg rounded" onClick={() => setIsModalOpenNew(true)}>Edit</button>
             </div>
         </div>
     );

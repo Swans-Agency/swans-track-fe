@@ -4,10 +4,9 @@ import { Html, Head, Main, NextScript } from "next/document";
 
 export default function Document() {
   return (
-    <Html lang="en">
+    <Html lang="en" className="dark">
       <Head>
         <link rel="icon" href="/logoNew.svg" />
-
         <script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-EQF1MDFZBL"

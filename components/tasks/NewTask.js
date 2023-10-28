@@ -15,7 +15,7 @@ import AllCheckLists from "./AllCheckLists";
 
 
 
-export default function TaskForm({ handleNotifyTeam, selectedItem, projectId=null }) {
+export default function TaskForm({ handleNotifyTeam, selectedItem, projectId = null }) {
   const [form] = Form.useForm();
   const [employees, setEmployees] = useState([]);
   const [taskDescription, setTaskDescription] = useState("<p></p>");
@@ -25,6 +25,7 @@ export default function TaskForm({ handleNotifyTeam, selectedItem, projectId=nul
   const [checklistName, setChecklistName] = useState("")
   const [checkLists, setCheckLists] = useState([])
   const [showInput, setShowInput] = useState(false);
+  const [showHistory, setShowHistory] = useState(false);
   const { TextArea } = Input;
 
   const getAllEmployees = async () => {
@@ -60,6 +61,7 @@ export default function TaskForm({ handleNotifyTeam, selectedItem, projectId=nul
 
   const handleInitialValues = () => {
     if (selectedItem) {
+      console.log({ selectedItem })
       getCheckLists()
       if (projectId) {
 
@@ -161,7 +163,7 @@ export default function TaskForm({ handleNotifyTeam, selectedItem, projectId=nul
     handleInitialValues()
   }
 
-  
+
 
   return (
     <div>
@@ -190,11 +192,16 @@ export default function TaskForm({ handleNotifyTeam, selectedItem, projectId=nul
           name="taskDescription"
           className="w-full"
         >
-          {showEditor || !selectedItem ? <CustomEditor form={form} fieldName="taskDescription" /> :
+          {showEditor || !selectedItem ?
+            <div>
+              <CustomEditor form={form} fieldName="taskDescription" callBack={setTaskDescription} />
+              {selectedItem && <div onClick={() => setShowEditor(false)} className="flex justify-center mt-2 w-full bg-gray-400 dark:bg-[#282828] text-center py-2 rounded-lg hover:shadow-lg hover:cursor-pointer">Close</div>}
+            </div>
+            :
             <div
               onClick={() => setShowEditor(true)}
-              className="border dark:border-[#282828] dark:bg-[#141414] rounded-lg p-2 hover:cursor-pointer hover:border-blue-400"
-              dangerouslySetInnerHTML={{ __html: taskDescription }}
+              className="border !z-[10000] dark:border-[#424242] dark:bg-[#141414] rounded-lg p-2 hover:cursor-text hover:border-blue-400"
+              dangerouslySetInnerHTML={{ __html: taskDescription || "Click to add description" }}
             />
           }
         </Form.Item>
@@ -221,13 +228,13 @@ export default function TaskForm({ handleNotifyTeam, selectedItem, projectId=nul
                 <div className="flex gap-1">
 
                   <div className="bg-mainBackground dark:bg-[#141414] rounded-lg text-white hover:shadow-lg hover:cursor-pointer px-3 py-2" onClick={() => handleCreateChecklist()}>Save</div>
-                  <div className="bg-gray-400 dark:bg-gray-700 rounded-lg text-white hover:shadow-lg hover:cursor-pointer px-3 py-2" onClick={() => handlehideInput(false)}>Cancel</div>
+                  <div className="bg-gray-400 dark:bg-[#282828] rounded-lg text-white hover:shadow-lg hover:cursor-pointer px-3 py-2" onClick={() => handlehideInput(false)}>Cancel</div>
                 </div>
               </div>
             }
 
-            {checkLists?.length !== 0 ? 
-            checkLists?.map((item) => {
+            {checkLists?.length !== 0 ?
+              checkLists?.map((item) => {
                 return (
                   <AllCheckLists
                     item={item}
@@ -236,7 +243,7 @@ export default function TaskForm({ handleNotifyTeam, selectedItem, projectId=nul
                 )
               }) :
               <p className="text-gray-400">No checklist</p>
-              }
+            }
           </div>
         }
 
@@ -345,6 +352,34 @@ export default function TaskForm({ handleNotifyTeam, selectedItem, projectId=nul
             />
           </Form.Item>
         </div>
+
+        {selectedItem && <div>
+          <p className="mb-2">Card History</p>
+          {selectedItem?.history && Object.keys(selectedItem?.history || {}).length  ? <div className="dark:bg-[#141414] px-4 py-[0.60rem] rounded-lg dark:border dark:border-[#424242]  hover:border-blue-400">
+            
+            {showHistory ? <div>
+              {selectedItem &&
+                selectedItem?.history && Object?.entries(selectedItem?.history)?.map((item) => {
+                  return (
+                    <div className="dark:text-[#b3b3b3] mb-2 flex items-center gap-3">
+                      <div className="bg-[#282828] text-center flex items-center justify-center rounded px-2 py-1">
+                        <p className="font-bold">{item[1]?.substring(0, 2)}</p>
+                      </div>
+                      <div>
+                        <p className="font-bold">{item[1]}</p>
+                        <p className="text-xs text-gray-500">{dayjs(item[0]).format("DD-MM-YYYY HH:mm")}</p>
+                      </div>
+                    </div>
+                  )
+                })}
+            </div>: 
+              <div className="hover:cursor-pointer" onClick={() => setShowHistory(true)}>Click to view history</div>
+            }
+          </div>
+            : <p className="text-gray-400">No history</p>
+          }
+          {selectedItem && showHistory && <div onClick={() => setShowHistory(false)} className="flex justify-center mt-2 w-full bg-gray-400 dark:bg-[#282828] text-center py-2 rounded-lg hover:shadow-lg hover:cursor-pointer">Close</div>}
+        </div>}
 
         <Divider />
         <div className="flex gap-x-5 w-full justify-between">

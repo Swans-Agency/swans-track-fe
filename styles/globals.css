@@ -101,17 +101,66 @@
   }
 
   .element2:hover {
-    background: linear-gradient(to right, #4d80ed 0%, #3b3b3b3b 10%, #3b3b3b3b 50%, transparent 100%);
+    background: linear-gradient(to right, #00A3FF 0%, #3b3b3b3b 2%, #3b3b3b3b 40%, transparent 100%);
   }
 
   .element3 {
-    background: linear-gradient(to right, #4d80ed 0%, #3b3b3b3b 10%, #3b3b3b3b 50%, transparent 100%);
+    background: linear-gradient(to right, #00A3FF 0%, #3b3b3b3b 2%, #3b3b3b3b 40%, transparent 100%);
+    /* color: #00A3FF; */
   }
 
   .ant-popover-inner,
   .ant-popover-arrow::before {
     background-color: #1f1f1f !important;
   }
+
+  ._2k9Ys::-webkit-scrollbar-thumb {
+    background-color: #474747 !important;
+  }
+
+  ._2k9Ys {
+    margin: 0 !important;
+  }
+
+  ._3eULf {
+    background-color: #141414 !important;
+  }
+
+  ._3ZbQT, ._CZjuD {
+    border: none !important;
+  }
+._2B2zv {
+  border: none !important;
+}
+
+  ._3ZbQT div {
+    background-color: #282828 !important;
+  }
+
+  ._2B2zv svg {
+    background-color: #282828 !important;
+  }
+
+  ._3ZbQT:last-child {
+
+    border-bottom: 3px solid #282828 !important;
+  }
+
+  ._3_ygE {
+    background-color: #1d1d1d !important;
+    border: none !important;
+  }
+
+  ._25P-K,
+  ._25P-K:hover {
+    color: black !important;
+  }
+
+  /* ._3T42e {
+    background-color: #282828 !important;
+  } */
+
+
 
 }
 

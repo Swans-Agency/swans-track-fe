@@ -74,7 +74,7 @@ export default function CalendlyForm({ data, selectedDay, companyId, dataTimeZon
 
   return (
     <section>
-      <h1 className="text-3xl font-light tracking-tight text-black pb-7">
+      <h1 className="text-3xl font-light tracking-tight text-black dark:text-white pb-7">
         Book your {data?.duration * 100} min appointment
       </h1>
       <Form
