@@ -85,7 +85,7 @@ export default function SchedSettingsForm() {
     }, []);
 
     useEffect(() => {
-        console.log({ initialData })
+
         let weekData = {}
         initialData?.roznamiDaya?.map((day) => {
             weekData[day?.day] = {
@@ -126,7 +126,7 @@ export default function SchedSettingsForm() {
 
     const validateTimes = async (schedule) => {
         for (const day in schedule) {
-            console.log(day, schedule[day])
+
             if (schedule.hasOwnProperty(day)) {
                 const daySchedule = schedule[day].schedule;
                 const dayCheck = schedule[day].check;
@@ -155,7 +155,7 @@ export default function SchedSettingsForm() {
     7
     const onFinish = async (data) => {
         setIsLoading(true)
-        console.log(data.weeklySchedule)
+
         let isValed = await validateTimes(data.weeklySchedule)
         if (!isValed) {
             NotificationError("Invalid schedule")

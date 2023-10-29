@@ -26,7 +26,7 @@ export default function SchedTrack() {
     const url = `${process.env.DIGITALOCEAN}/calendy/sched/public-settings/${companyId}/`
     let res = await axios.get(url)
     if (res?.status === 200) {
-      console.log({ res })
+
       setCalData(res?.data?.settings)
       setDataTimeZone(res?.data?.settings?.timeZone)
     }

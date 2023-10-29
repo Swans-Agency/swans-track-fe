@@ -37,7 +37,7 @@ export default function LinkInvoiceForm({ projectId, getProjectInvoices, project
     };
 
     const onFinish = async (data) => {
-        console.log({ data })
+
         setIsLoading(true)
         const url = `${process.env.DIGITALOCEAN}/project/invoice-project/${projectId}/`;
         await postAxios(url, data, true, true);
@@ -86,7 +86,7 @@ export default function LinkInvoiceForm({ projectId, getProjectInvoices, project
                             className="w-full"
                         >
                             <Select
-                                    size="large"
+                                size="large"
                                 defaultValue=""
                                 style={{
                                     width: "100%",
@@ -108,7 +108,7 @@ export default function LinkInvoiceForm({ projectId, getProjectInvoices, project
                         >
                             <div className="flex items-center gap-1">
                                 <Select
-                                        size="large"
+                                    size="large"
                                     showSearch
                                     defaultValue=""
                                     style={{
@@ -136,9 +136,9 @@ export default function LinkInvoiceForm({ projectId, getProjectInvoices, project
                     </div>
                     <Divider />
                     <div className="flex gap-x-5 w-full justify-end">
-                            <Form.Item>
-                                <FormButtons content="Save" isLoading={isLoading} />
-                            </Form.Item> 
+                        <Form.Item>
+                            <FormButtons content="Save" isLoading={isLoading} />
+                        </Form.Item>
                     </div>
                 </Form>
             )}

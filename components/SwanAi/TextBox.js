@@ -12,13 +12,13 @@ export default function TextBox() {
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        console.log({ conversation })
+
     }, [conversation])
 
     const handleSend = async () => {
         setLoading(true)
-        console.log("dddd");
-        console.log(textInput);
+            ;
+        ;
         let text = {
             role: "user",
             content: textInput,
@@ -32,9 +32,9 @@ export default function TextBox() {
         const url = `${process.env.DIGITALOCEAN}/company/swans-gpt/`
         let res = await postAxios(url, data, false, false)
         setTextInput(null)
-        console.log({ res })
+
         if (res) {
-            console.log(res?.data)
+
             const sanitizedText = DOMPurify.sanitize(res?.data?.content);
             const formattedText = sanitizedText.replace(/\n/g, '<br/>');
             // const formattedText2 = formattedText.replace(/([^]+)/g, '<code>$1</code>');

@@ -9,9 +9,9 @@ export default function index() {
   const router = useRouter();
 
   const onFinish = async (values) => {
-    console.log(values);
+         ;
     values["username"] = values["username"]?.toLowerCase();
-    console.log({ values });
+         ;
     let loggedIn = await login(values);
     if (loggedIn) {
       router.push("/authorized/dashboard");
@@ -64,11 +64,13 @@ export default function index() {
                 ]}
                 required
                 tooltip="E-mail address used in the signing up process."
+                id="_login-input"
               >
                 <Input
-                  className="bg-[#E6F4FD] border-none loginInput py-3 tablet:w-[663px] desktop:w-full"
+                  className="bg-[#E6F4FD] border-none loginInput py-3 tablet:w-[663px] desktop:w-full text-black"
                   placeholder="  E-mail"
                   size="large"
+                  
                   prefix={
                     <svg
                       width="18"

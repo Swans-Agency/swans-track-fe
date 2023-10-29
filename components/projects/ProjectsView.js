@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import TableANTD from "../ANTD/TableANTD";
-import { Input, Select } from "antd";
+import { Select } from "antd";
 import ExpandIcon from "./ExpandIcon";
 import { patchAxios } from "@/functions/ApiCalls";
 import ProjectForm from "./ProjectForm";
 import { useRouter } from "next/router";
 import { remove } from "react-cookies";
-import { jobCat, jobStatus, jobStatusNotColored, jobcategories } from "@/functions/GeneralFunctions";
+import { jobStatusNotColored } from "@/functions/GeneralFunctions";
 import { getColumnSearchProps } from "@/functions/GeneralFunctions";
 import ModalANTD from "../ANTD/ModalANTD";
 
@@ -47,10 +47,10 @@ export default function ProjectsView() {
     };
 
     const handleEditStatus = async (item, value, type) => {
-        console.log("item", item);
-        console.log("value", value);
+        ;
+        ;
         item[type] = value;
-        console.log("item", item);
+        ;
 
         const url = `${process.env.DIGITALOCEAN}/project/patch-project/${item?.id}/`;
         await patchAxios(url, item, false, false, () => { })
@@ -58,13 +58,13 @@ export default function ProjectsView() {
     }
 
     const handleEditSummary = async (item, value) => {
-        console.log("item", item);
-        console.log("value", value);
+        ;
+        ;
         item["summary"] = value;
         setTimeout(async () => {
             const url = `${process.env.DIGITALOCEAN}/project/patch-project/${item?.id}/`;
             await patchAxios(url, item, false, false, () => { })
-            console.log("item", item);
+                ;
         }, 2000)
     }
 
@@ -72,7 +72,7 @@ export default function ProjectsView() {
 
     const showModalDetails = (item) => {
         localStorage.setItem('project', JSON.stringify(item))
-        console.log({ item })
+
         router.push(`/authorized/projects/details/${item.id}`)
     }
 
@@ -191,7 +191,7 @@ export default function ProjectsView() {
                         // className="border rounded-lg p-2 hover:cursor-pointer hover:border-blue-400"
                         dangerouslySetInnerHTML={{ __html: summaryModal?.summary }}
                     />
-                    }
+                }
             />
         </>
     );

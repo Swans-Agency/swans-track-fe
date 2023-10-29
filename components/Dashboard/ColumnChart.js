@@ -4,7 +4,7 @@ const Column = dynamic(() => import("@ant-design/plots").then((mod) => mod.Colum
 
 export default function ColumnChart({ clientsCategory }) {
     const [data, setData] = useState([]);
-    console.log({ clientsCategory })
+
     useEffect(() => {
         if (clientsCategory) {
             setData(clientsCategory)

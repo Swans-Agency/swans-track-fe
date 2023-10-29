@@ -270,7 +270,7 @@ export default function Navbar({ userPermission }) {
             placement="bottomLeft"
             className="mr-4   "
             content={
-              <div className="text-white">
+              <div className="text-black dark:text-white">
                 {hoverItems.map((item, index) => {
                   return (
                     <MenuItem

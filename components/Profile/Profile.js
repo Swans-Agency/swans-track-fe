@@ -27,7 +27,7 @@ export default function Profile() {
   const getUserInitialData = async () => {
     const url = `${process.env.DIGITALOCEAN}/account/get-profile/`;
     let data = await getAxios(url);
-    console.log({ data })
+
 
     for (const key in data) {
       if (data.hasOwnProperty(key)) {
@@ -37,7 +37,7 @@ export default function Profile() {
         }
       }
     }
-    console.log({ data })
+
 
     if (data) {
       data.dob = data?.dob ? dayjs(new Date(data?.dob)) : dayjs("2000-01-01");

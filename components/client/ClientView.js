@@ -92,7 +92,7 @@ export default function ClientView() {
   const showModalUpdate = (item) => {
     setTimeout(() => setUpdateClient(item), 100);
     setIsModalOpenUpdate(true);
-    console.log("item", item);
+    ;
   };
 
   const handleOk = () => {

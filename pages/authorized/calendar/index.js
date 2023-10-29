@@ -16,8 +16,8 @@ import CalendarHeader from "@/components/Calendar/CalendarHeader";
 
 // export default function index({ isConnected }) {
 //   useEffect(() => {
-//     console.log("index")
-//     console.log({ isConnected })
+//          
+//          
 //   }, [isConnected])
 //   return <Calendar isConnected={isConnected} />;
 // }
@@ -31,7 +31,7 @@ export default function index() {
   }, [])
 
   useEffect(() => {
-    console.log({ calendarEvents })
+
   }, [calendarEvents])
 
 
@@ -39,7 +39,7 @@ export default function index() {
   const getEvents = async () => {
     const url = `${process.env.DIGITALOCEAN}/calendar/`
     let res = await getAxios(url)
-    console.log({ res })
+
     setCalendarEvents(res)
   }
 
@@ -84,7 +84,7 @@ export const getServerSideProps = async (ctx) => {
       };
     }
   } catch (e) {
-    console.log({ e });
+    ;
   }
   return { props: { accessToken, userPermission, } };
 };

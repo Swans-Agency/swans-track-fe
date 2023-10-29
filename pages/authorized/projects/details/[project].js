@@ -83,8 +83,8 @@ export default function ProjectDetails() {
     };
 
     const handleChangeEdit = async (e, item) => {
-        console.log({ e });
-        console.log({ item });
+        ;
+        ;
         const url2 = `${process.env.DIGITALOCEAN}/project/todo-project/${item?.id}/`;
         const projectData2 = await patchAxios(url2, {
             "checked": e,

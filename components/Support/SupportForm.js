@@ -23,10 +23,10 @@ export default function SupportForm() {
 
   const onFinish = async (values) => {
     setIsLoading(true);
-    console.log(values);
+    ;
     const url = `${process.env.DIGITALOCEAN}/company/support/`;
     let response = await postAxios(url, values, true, true, () => { }, true);
-    console.log({ response });
+    ;
     setIsLoading(false);
   };
   return (
@@ -46,7 +46,7 @@ export default function SupportForm() {
         validateMessages={validateMessages}
       >
         <Form.Item
-        className="mb-1"
+          className="mb-1"
           name={"name"}
           label="Name"
           rules={[
@@ -58,7 +58,7 @@ export default function SupportForm() {
           <Input size="large" />
         </Form.Item>
         <Form.Item
-        className="mb-1"
+          className="mb-1"
           name={"email"}
           label="Email"
           rules={[
@@ -72,18 +72,18 @@ export default function SupportForm() {
           <Input size="large" />
         </Form.Item>
         <Form.Item
-        className="mb-1"
+          className="mb-1"
           name={"phone"}
           label="Phone Number"
           rules={[
             { required: true, message: "Please input your phone number!" },
           ]}
         >
-          <Input  size="large" />
+          <Input size="large" />
         </Form.Item>
 
         <Form.Item
-        className="mb-1"
+          className="mb-1"
           name={"message"}
           label="Message"
           rules={[

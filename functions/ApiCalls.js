@@ -23,7 +23,7 @@ const getAxios = async (url, loading, success, callBack) => {
   }
 };
 
-const postAxios = async (url, data, loading, success, callBack=()=>{}, fail=true, failMessage="") => {
+const postAxios = async (url, data, loading, success, callBack = () => { }, fail = true, failMessage = "") => {
   try {
     if (loading) {
       NotificationLoading();
@@ -37,9 +37,9 @@ const postAxios = async (url, data, loading, success, callBack=()=>{}, fail=true
     callBack(res?.data);
     return res?.data;
   } catch (err) {
-    console.log({err})
+
     if (fail) {
-      if (failMessage.length > 0){
+      if (failMessage.length > 0) {
         handleError(failMessage)
       } else {
         handleError(err)

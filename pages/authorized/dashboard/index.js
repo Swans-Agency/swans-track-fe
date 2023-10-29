@@ -24,6 +24,7 @@ export default function index() {
   const [incomeAlltime, setIncomeAlltime] = useState([]);
   const [expenseAlltime, setExpenseAlltime] = useState([]);
   const [projectsAlltime, setProjectsAlltime] = useState([]);
+  const [todayTasks, setTodayTasks] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [form] = Form.useForm();
 
@@ -59,7 +60,7 @@ export default function index() {
     let projects = await getAxios(
       `${process.env.DIGITALOCEAN}/company/dashboard/projects-alltime/`
     );
-    console.log({ projects })
+
     setProjectsAlltime(projects);
     let proposal = await getAxios(
       `${process.env.DIGITALOCEAN}/company/dashboard/proposals/`
@@ -69,6 +70,13 @@ export default function index() {
       `${process.env.DIGITALOCEAN}/company/dashboard/invoices/`
     );
     setInvoices(invoice);
+
+    let todayTasks = await getAxios(
+      `${process.env.DIGITALOCEAN}/company/dashboard/today-tasks/`
+    );
+    console.log({todayTasks})
+    setTodayTasks(todayTasks);
+
     let successRatios = await getAxios(
       `${process.env.DIGITALOCEAN}/company/dashboard/pi-ratio/`
     );
@@ -105,6 +113,8 @@ export default function index() {
       `${process.env.DIGITALOCEAN}/company/dashboard/income-type/`
     );
     setIncomePayment(incomePayments);
+
+
   };
   return (
     <>
@@ -123,6 +133,7 @@ export default function index() {
           incomeAlltime={incomeAlltime}
           incomePayment={incomePayment}
           projectsAlltime={projectsAlltime}
+          todayTasks={todayTasks}
         />
       </div>
       <Feedback
@@ -150,7 +161,7 @@ export const getServerSideProps = async (ctx) => {
       };
     }
   } catch (e) {
-    console.log({ e });
+    ;
   }
   return { props: { accessToken, userPermission } };
 };

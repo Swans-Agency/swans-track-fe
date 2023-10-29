@@ -20,33 +20,33 @@ export default function Calendar({ isConnected }) {
     end: endOfMonth(selectedDate),
   });
 
-  
-    const handleGoolgeAuthorize = async() => {
-      let res = await getAxios(`${process.env.DIGITALOCEAN}/tasks/authenticate-google/`, true, false, () => { }, false);
-      window.open(res?.redirectUrl, "_blank");
-    }
-  
-    const handleGetEvents = async () => {
-      let bodyData = {
-        StartMonth: moment(moment(selectedDate).startOf("month") - 1).format("YYYY-MM-DD[T00:00:00Z]"),
-        endMonth: moment(moment(selectedDate).endOf("month") + 1).format("YYYY-MM-DD[T00:00:00Z]"),
-      };
-      let url = `${process.env.DIGITALOCEAN}/tasks/authenticate-google/`;
-      let res = await postAxios(url, bodyData, false, false, () => { }, false);
-      console.log({ res });
-      if (res?.redirectUrl) {
-        console.log("reeeeeeeeeeeeeeees", { res })
-        const newTab = window.open(res?.redirectUrl, "_blank");
-        // newTab.focus();
-      } else {
-        setMonthEvents(res);
-      }
+
+  const handleGoolgeAuthorize = async () => {
+    let res = await getAxios(`${process.env.DIGITALOCEAN}/tasks/authenticate-google/`, true, false, () => { }, false);
+    window.open(res?.redirectUrl, "_blank");
+  }
+
+  const handleGetEvents = async () => {
+    let bodyData = {
+      StartMonth: moment(moment(selectedDate).startOf("month") - 1).format("YYYY-MM-DD[T00:00:00Z]"),
+      endMonth: moment(moment(selectedDate).endOf("month") + 1).format("YYYY-MM-DD[T00:00:00Z]"),
     };
+    let url = `${process.env.DIGITALOCEAN}/tasks/authenticate-google/`;
+    let res = await postAxios(url, bodyData, false, false, () => { }, false);
+    ;
+    if (res?.redirectUrl) {
+
+      const newTab = window.open(res?.redirectUrl, "_blank");
+      // newTab.focus();
+    } else {
+      setMonthEvents(res);
+    }
+  };
 
   const handleAuthorize = async (url, bodyData) => {
     await postAxios(url, bodyData, false, false, () => { }, false);
   };
-  
+
   useEffect(() => {
     handleGetEvents();
   }, [selectedDate, isConnected, authorizedNow])
@@ -64,7 +64,7 @@ export default function Calendar({ isConnected }) {
       setTimeout(() => {
         router.reload();
         window.history.replaceState({}, document.title, window.location.pathname);
-      } , 1000)
+      }, 1000)
     }
   }, []);
 

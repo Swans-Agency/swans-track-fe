@@ -28,7 +28,7 @@ export const getServerSideProps = async (ctx) => {
       };
     }
   } catch (e) {
-    console.log(e);
+    ;
   }
   return { props: { accessToken, userPermission } };
 };

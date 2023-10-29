@@ -14,7 +14,7 @@ export default function index() {
         try {
             const response = await postAxios(`${process.env.DIGITALOCEAN}/company/attach-payment/`, { paymentMethod: paymentMethodId }, true, true, () => { })
 
-            console.log(response);
+                ;
             router.push("/authorized/settings")
         } catch (error) {
             console.error('Error attaching payment method:', error);

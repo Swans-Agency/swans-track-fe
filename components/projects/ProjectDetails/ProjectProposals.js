@@ -5,12 +5,11 @@ import { Select } from 'antd';
 import { patchAxios } from '@/functions/ApiCalls';
 import Proposal from '@/components/Navbar/Icons/Proposal';
 import LinkProposalForm from './LinkProposalForm';
-import { SearchOutlined, CloudDownloadOutlined } from "@ant-design/icons";
-import Dots from './Icons/Dots';
+import { CloudDownloadOutlined } from "@ant-design/icons";
 
 
 
-export default function ProjectProposals({ projectProposals, projectId, getProjectProposals, projectCurrency, getProjectDetails, add=true }) {
+export default function ProjectProposals({ projectProposals, projectId, getProjectProposals, projectCurrency, getProjectDetails, add = true }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [bgColor, setBgColor] = useState({
         "Pending": "bg-orange-50",
@@ -24,7 +23,7 @@ export default function ProjectProposals({ projectProposals, projectId, getProje
     }
 
     const handlePatchProposal = async (item, value) => {
-        console.log({ item, value })
+
         const url = `${process.env.DIGITALOCEAN}/project/proposal-project/${item?.id}/`;
         await patchAxios(url, { "status": value, "job": projectId }, true, true);
         getProjectProposals()

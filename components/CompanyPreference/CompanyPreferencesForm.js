@@ -274,7 +274,7 @@ export default function CompanyPreferencesForm() {
                 width: "100%",
               }}
               onChange={(e) => {
-                console.log(e);
+                ;
                 form.setFieldValue("currency", e);
               }}
               filterOption={(input, option) =>
@@ -304,7 +304,7 @@ export default function CompanyPreferencesForm() {
                 width: "100%",
               }}
               onChange={(e) => {
-                console.log(e);
+                ;
                 form.setFieldValue("timeZone", e);
               }}
               filterOption={(input, option) =>

@@ -27,7 +27,7 @@ export default function CalendlyForm({ data, selectedDay, companyId, dataTimeZon
       ...values,
       appointmentDate: dayjs(selectedDay).format("YYYY-MM-DD")
     }
-    console.log(Data);
+      ;
 
     let url = `${process.env.DIGITALOCEAN}/calendy/sched/public/book/${companyId}/`;
     let res = await axios.post(url, Data);
@@ -119,7 +119,7 @@ export default function CalendlyForm({ data, selectedDay, companyId, dataTimeZon
             ]} className="w-full  mb-2">
             <Input className="rounded w-full" size="large" />
           </Form.Item>
-          
+
           <Form.Item
             label="Email"
             rules={[
@@ -134,7 +134,7 @@ export default function CalendlyForm({ data, selectedDay, companyId, dataTimeZon
             <Input className="rounded w-full" size="large" />
           </Form.Item>
 
-          
+
 
 
         </div>

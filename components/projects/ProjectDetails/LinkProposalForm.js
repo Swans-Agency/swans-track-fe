@@ -38,7 +38,7 @@ export default function LinkProposalForm({ projectId, getProjectProposals, proje
     const onFinish = async (data) => {
         setIsLoading(true)
         const url = `${process.env.DIGITALOCEAN}/project/proposal-project/${projectId}/`;
-        console.log({ data })
+
         await postAxios(url, data, true, true);
         getProjectProposals()
         getProjectDetails()

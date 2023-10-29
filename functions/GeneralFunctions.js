@@ -1141,7 +1141,7 @@ const currencies = [
 
 
 const jobStatus = [
-  { label: <div style={{backgroundColor: "blue"}} className="text-white w-fit px-2  rounded-full">Pre Seed</div>, value: "Pre Seed" },
+  { label: <div style={{ backgroundColor: "blue" }} className="text-white w-fit px-2  rounded-full">Pre Seed</div>, value: "Pre Seed" },
   { label: <div style={{ backgroundColor: "orange" }} className="text-white w-fit px-2  rounded-full">In Progress</div>, value: "In Progress" },
   { label: <div style={{ backgroundColor: "rgba(22, 160, 133, 1)" }} className="text-white w-fit px-2  rounded-full">Invoiced</div>, value: "Invoiced" },
   { label: <div style={{ backgroundColor: "rgba(46, 204, 113, 1)" }} className="text-white w-fit px-2  rounded-full">Partially Paid</div>, value: "Partially Paid" },
@@ -1270,7 +1270,7 @@ const expenseCategory = [
   { label: "Utility bills", value: "Utility bills" },
   { label: "Website Development", value: "Website Development" },
 ]
- 
+
 const redirect = (url) => {
   window.location.href = url;
 };
@@ -1321,7 +1321,7 @@ const login = async (data) => {
       NotificationSuccess();
     })
     .catch((err) => {
-      console.log(err);
+      ;
       handleError(err)
     });
 };

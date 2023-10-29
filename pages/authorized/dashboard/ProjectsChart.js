@@ -7,7 +7,7 @@ export default function ProjectsChart({ projectsAlltime }) {
 
     useEffect(() => {
         if (projectsAlltime && projectsAlltime.monthly_counts) {
-            console.log({ projectsAlltime })
+
             setData(projectsAlltime?.monthly_counts);
         }
     }, [projectsAlltime]);

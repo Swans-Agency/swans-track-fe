@@ -7,7 +7,7 @@ import Progress from "../progressBar/Progress";
 export default function Layout({ children, accessToken }) {
   const { showNav, userPermission } = useContext(NavShowContext);
   const { collapsed, marginLeft, navBarWidth, toggleCollapsed } = useContext(NavCollapse);
-  
+
   return (
     <>
       {showNav && userPermission ? (
@@ -44,7 +44,7 @@ export const getServerSideProps = async (ctx) => {
       };
     }
   } catch (e) {
-    console.log(e);
+    ;
   }
   return { props: { accessToken, userPermission } };
 };

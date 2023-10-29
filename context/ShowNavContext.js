@@ -19,6 +19,10 @@ export function NavShowWraper({ children }) {
     } else {
       setShowNav(false);
     }
+    if (window !== undefined) {
+      const html = document.querySelector("html");
+        html.classList.add("dark");
+    }
   }, [router.pathname]);
 
   useEffect(() => {

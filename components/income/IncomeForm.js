@@ -57,7 +57,7 @@ export default function IncomeForm({ setReload, onClose }) {
   const onFinish = async (data) => {
     setIsLoading(true);
     const formData = new FormData();
-    console.log({ data })
+
     formData.append("description", data?.description);
     data?.invoice && formData.append("invoice", data?.invoice);
     formData.append("paymentMethod", data?.paymentMethod);
@@ -199,7 +199,7 @@ export default function IncomeForm({ setReload, onClose }) {
                 options={proposalData}
               />
               <button
-                  className="p-[0.75rem] flex rounded-lg items-center bg-foreignBackground hover:dark:bg-[#141414] dark:bg-[#282828] hover:shadow-lg text-white"
+                className="p-[0.75rem] flex rounded-lg items-center bg-foreignBackground hover:dark:bg-[#141414] dark:bg-[#282828] hover:shadow-lg text-white"
                 onClick={() => setOpen(!open)}
                 title="Create New Invoice"
               >

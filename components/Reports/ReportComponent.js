@@ -60,7 +60,7 @@ export default function ReportComponent() {
 
   const handleDownloadReport = async (e, path) => {
     NotificationLoading();
-    console.log(e);
+    ;
     const URL = `${process.env.DIGITALOCEAN}/reports/${path}/?search=${e}`;
     let resData = await getAxios(URL);
     if (resData) {
@@ -80,7 +80,7 @@ export default function ReportComponent() {
       {panels?.map((content, index) => {
         return (
           <CardANTD
-          className=""
+            className=""
             key={index}
             title={
               <div className="flex gap-x-2 items-center">

@@ -8,7 +8,7 @@ import { getAxios, patchAxios } from '@/functions/ApiCalls';
 import { SearchOutlined, CloudDownloadOutlined } from "@ant-design/icons";
 
 
-export default function ProjectInvoices({ projectInvoices, getProjectInvoices, projectId, projectCurrency, getProjectDetails, add=true }) {
+export default function ProjectInvoices({ projectInvoices, getProjectInvoices, projectId, projectCurrency, getProjectDetails, add = true }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [bgColor, setBgColor] = useState({
         "Pending": "bg-orange-50",
@@ -21,7 +21,7 @@ export default function ProjectInvoices({ projectInvoices, getProjectInvoices, p
     }
 
     const handlePatchInvoice = async (item, value) => {
-        console.log({ item, value })
+
         const url = `${process.env.DIGITALOCEAN}/project/invoice-project/${item?.id}/`;
         await patchAxios(url, { "status": value, "job": projectId }, true, true);
         getProjectInvoices()
@@ -46,7 +46,7 @@ export default function ProjectInvoices({ projectInvoices, getProjectInvoices, p
                                 <p className='text-xs font-bold text-center'>Total</p>
                                 <p className='laptop:text-sm phone:text-xs font-extralight text-center'>{projectCurrency} {item?.invoice?.invoiceTotal ? parseFloat(item?.invoice?.invoiceTotal).toFixed(2) : 0}</p>
                             </div>
-                            
+
                             <div className='w-fit justify-self-center'>
                                 <div className="text-center">
                                     <CloudDownloadOutlined
@@ -55,7 +55,6 @@ export default function ProjectInvoices({ projectInvoices, getProjectInvoices, p
                                         onClick={
                                             () => {
                                                 window.open(item?.invoiceFile?.split("?")[0])
-                                                console.log(item?.invoice?.invoiceFile?.split("?")[0])
                                             }
                                         }
                                     />

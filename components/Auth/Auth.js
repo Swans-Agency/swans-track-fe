@@ -6,7 +6,7 @@ import { getObjectsFromLocalStorage } from "@/functions/GeneralFunctions";
 
 export default function AuthWrapper({ children }) {
   const router = useRouter();
-  
+
   useEffect(() => {
     checkAuthorization();
     handleCheckSubscribe()
@@ -24,7 +24,7 @@ export default function AuthWrapper({ children }) {
   };
 
   const checkCompanyPreferences = async () => {
-    
+
     const companyPreferences = cookie.load("companyPreferences", { path: "/" });
     // const companyPreferences1 = getObjectsFromLocalStorage("companyPreferences");
 
@@ -39,7 +39,7 @@ export default function AuthWrapper({ children }) {
     const token = cookie.load("AccessTokenSBS", { path: "/" });
     if (token && router.pathname.includes('authorized')) {
       let response = await getAxios(`${process.env.DIGITALOCEAN}/company/company/subscription/`, false, false, () => { })
-      console.log({ response })
+
       if (response?.subscribed === false) {
         const currentPath = window.location.pathname;
 

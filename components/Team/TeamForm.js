@@ -19,7 +19,7 @@ export default function TeamForm({ updateItem, setUpdateItem, setReload }) {
 
   const getUserInitialData = () => {
     if (updateItem) {
-      console.log({ updateItem })
+
       let initialData = {
         firstName: updateItem?.userProfile?.firstName || null,
         lastName: updateItem?.userProfile?.lastName || null,
@@ -51,7 +51,7 @@ export default function TeamForm({ updateItem, setUpdateItem, setReload }) {
   const onFinish = async (data) => {
     setIsLoading(true);
     const formData = new FormData();
-    console.log({ data });
+    ;
     data?.firstName && formData.append("firstName", data?.firstName)
     data?.lastName && formData.append("lastName", data?.lastName);
     data?.bio && formData.append("bio", data?.bio);

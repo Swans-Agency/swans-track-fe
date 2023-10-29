@@ -7,7 +7,7 @@ import React, { useEffect, useState } from 'react';
 import InnerFormItem from './InnerFormItem';
 import cookie from "react-cookies";
 
-export default function WeekDays({ day, fullDay, classStyle, form}) {
+export default function WeekDays({ day, fullDay, classStyle, form }) {
     const [checked, setChecked] = useState(false);
     const [countfields, setCountFields] = useState(1);
     const [errorTime, setErrorTime] = useState(false);
@@ -114,18 +114,18 @@ export default function WeekDays({ day, fullDay, classStyle, form}) {
 
 
     const handleSelectTime = (value, type, key) => {
-        console.log({key})
-        console.log({ value })
-        console.log({ type })
+
+
+
         let newArr = []
         form.getFieldValue(["weeklySchedule", fullDay, "schedule"])?.map((item) => {
             Object?.values(item)?.map((key) => {
-                { key?.start && newArr.push(Number(key?.start))}
-                { key?.end && newArr.push(Number(key?.end))}
+                { key?.start && newArr.push(Number(key?.start)) }
+                { key?.end && newArr.push(Number(key?.end)) }
             })
         })
-        console.log({times})
-        console.log({newArr})
+
+
         let index;
         if (type == "start") {
             index = key * 2
@@ -134,19 +134,19 @@ export default function WeekDays({ day, fullDay, classStyle, form}) {
         }
 
         if (index < 0 || index >= newArr.length) {
-            return 
+            return
         }
 
         for (let i = 0; i < index; i++) {
             if (newArr[i] >= value) {
                 setErrorTime(true)
-                return ;
+                return;
             }
         }
         for (let i = index + 1; i < newArr.length; i++) {
             if (newArr[i] <= value) {
                 setErrorTime(true)
-                return ;
+                return;
             }
         }
         setErrorTime(false)
@@ -155,14 +155,14 @@ export default function WeekDays({ day, fullDay, classStyle, form}) {
 
 
     const onChange = (e) => {
-        console.log('checked = ', e.target.checked);
+        ;
         setChecked(e.target.checked);
     };
 
     const handleDelete = (remove, field, value) => {
         remove(field.name)
         setCountFields(countfields - 1)
-        times.splice(value*2, 2)
+        times.splice(value * 2, 2)
         setTimes(times)
     }
 
@@ -173,28 +173,28 @@ export default function WeekDays({ day, fullDay, classStyle, form}) {
 
     useEffect(() => {
         setChecked(form.getFieldValue(["weeklySchedule", fullDay, "check"]))
-    }, [fullDay, checked ])
+    }, [fullDay, checked])
 
     return (
         <div className={`grid tablet:grid-cols-4 phone:grid-cols-1 justify-start items-center py-3 ${classStyle}`}>
-                <Form.Item
-                    name={["weeklySchedule", fullDay, "check"]}
-                    valuePropName="checked"
-                    className='col-span-1 !m-0'
-                >
-                    <Checkbox onChange={onChange}>
-                        {day}   
-                    </Checkbox>
-                </Form.Item>
+            <Form.Item
+                name={["weeklySchedule", fullDay, "check"]}
+                valuePropName="checked"
+                className='col-span-1 !m-0'
+            >
+                <Checkbox onChange={onChange}>
+                    {day}
+                </Checkbox>
+            </Form.Item>
             <div className='col-span-3'>
 
-            {form.getFieldValue(["weeklySchedule", fullDay, "check"])  ? 
+                {form.getFieldValue(["weeklySchedule", fullDay, "check"]) ?
                     <Form.List name={["weeklySchedule", fullDay, "schedule"]} className=' !m-0'>
-                    {(fields, { add, remove }) => (
+                        {(fields, { add, remove }) => (
                             <div className='grid tablet:grid-cols-3 phone:grid-cols-4 gap-8 '>
-                            {setCountFields(fields.length)}
-                            {countfields ? <div className='tablet:col-span-2 phone:col-span-3'>
-                                {fields?.map((field, key) => (
+                                {setCountFields(fields.length)}
+                                {countfields ? <div className='tablet:col-span-2 phone:col-span-3'>
+                                    {fields?.map((field, key) => (
                                         <InnerFormItem
                                             key={key}
                                             field={field}
@@ -205,17 +205,17 @@ export default function WeekDays({ day, fullDay, classStyle, form}) {
                                             handleSelectTime={handleSelectTime}
                                             errorTime={errorTime}
                                         />
-                                ))}
-                            </div> : "" }
-                            <div className='col-span-1 m-auto'>
-                                <PlusOutlined className='text-lg' onClick={() => {
-                                    handleAdd(add)
-                                }} />
+                                    ))}
+                                </div> : ""}
+                                <div className='col-span-1 m-auto'>
+                                    <PlusOutlined className='text-lg' onClick={() => {
+                                        handleAdd(add)
+                                    }} />
+                                </div>
                             </div>
-                        </div>
-                    )}
-                </Form.List>
-                : <div className='text-gray-400 col-span-3'>Unavailable</div> }
+                        )}
+                    </Form.List>
+                    : <div className='text-gray-400 col-span-3'>Unavailable</div>}
             </div>
         </div>
     );

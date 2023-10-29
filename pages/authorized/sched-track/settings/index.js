@@ -6,7 +6,7 @@ import { QuestionOutlined } from "@ant-design/icons";
 
 export default function index() {
 
-    
+
 
     return (
         <>
@@ -45,7 +45,7 @@ export const getServerSideProps = async (ctx) => {
             };
         }
     } catch (e) {
-        console.log(e);
+        ;
     }
     return { props: { accessToken, userPermission } };
 };

@@ -10,7 +10,7 @@ export default function index({ plans, paymentId }) {
   const [trialPeriod, setTrialPeriod] = useState(null);
   const [remainingTime, setRemainingTime] = useState(null);
   useEffect(() => {
-    console.log({ paymentId });
+    ;
     if (paymentId?.subscriptionEnded) {
       setAction("");
     } else {
@@ -166,7 +166,7 @@ export const getServerSideProps = async (ctx) => {
       };
     }
   } catch (e) {
-    console.log(e);
+    ;
   }
   return { props: { accessToken, userPermission, userId, plans, paymentId } };
 };

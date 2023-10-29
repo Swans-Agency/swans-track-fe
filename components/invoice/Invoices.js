@@ -28,7 +28,7 @@ export default function Invoices() {
     let response = await getAxios(
       `${process.env.DIGITALOCEAN}/invoice/download-invoice/${id}`
     );
-    console.log({ response });
+    ;
     let base64Data = response?.invoice;
     const byteString = atob(base64Data?.split(",")[1]);
     const mimeString = base64Data?.split(",")[0]?.split(":")[1]?.split(";")[0];

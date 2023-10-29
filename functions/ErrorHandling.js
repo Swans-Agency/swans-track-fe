@@ -4,7 +4,7 @@ import { NotificationError } from "./Notifications";
 
 const handleError = async (err) => {
   if (typeof window !== "undefined") {
-    console.log({err});
+    ;
     if (err?.response?.status == 401 && window.location.pathname != "/" && window.location.pathname != "/login" && window.location.pathname != "/signup") {
       Swal.fire({
         title: "Your session has end...",

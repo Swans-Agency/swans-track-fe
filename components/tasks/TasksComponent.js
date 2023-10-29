@@ -125,7 +125,7 @@ export default function TasksComponent({ companyTasks, initialData, projectId = 
       newData[i].start = new Date(newData[i]?.start)
       newData[i].end = new Date(newData[i]?.end)
     }
-    console.log({ newData })
+
 
     setAllData(newData)
   }
@@ -240,7 +240,7 @@ export default function TasksComponent({ companyTasks, initialData, projectId = 
 
   const handleSegmentChange = (value) => {
     setSelectedValue(value);
-    console.log({ value })
+
   };
 
   return (
@@ -276,10 +276,12 @@ export default function TasksComponent({ companyTasks, initialData, projectId = 
             options={[
               {
                 value: 'Board',
+                // label: 'Board',
                 icon: <AppstoreOutlined />,
               },
               {
                 value: 'Gantt',
+                // label: 'Gantt',
                 icon: <BarsOutlined />,
 
               },
@@ -303,7 +305,7 @@ export default function TasksComponent({ companyTasks, initialData, projectId = 
             onClick={task => { setSelectedItem(task); setIsModalOpen(true) }}
             preStepsCount={1}
             columnWidth={100}
-            viewMode={"Day"} 
+            viewMode={"Day"}
             barBackgroundColor="#282828"
             barBackgroundSelectedColor="#1d1d1d"
             todayColor="#00a2ff18"

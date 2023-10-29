@@ -12,7 +12,7 @@ export default function DynamicPage() {
 
 
   useEffect(() => {
-    console.log({ "dddd": "ppppppp" })
+
     setUserName(router.query.username)
     // if (router.query.username) {
     //   handleGetData(router.query.username)
@@ -20,7 +20,7 @@ export default function DynamicPage() {
   }, [router.query.username])
 
   useEffect(() => {
-    // console.log({ "dddd": "ppppppp" })
+    //      
     // setUserName(router.query.username)
     if (userName) {
       handleGetData(userName)
@@ -35,7 +35,7 @@ export default function DynamicPage() {
     }
     let res = await axios.post(url, data)
     setResponseData(res?.data)
-    console.log({ res })
+
   }
 
   return (
@@ -61,10 +61,10 @@ export default function DynamicPage() {
             <a href={`whatsapp://send?phone=${responseData?.phoneNumber}`} className='w-full bg-[#2cb742]  mt-2 py-1 px-4 rounded flex gap-x-5 justify-center items-center'>
               <img src={"/whatsapp.svg"} width="30px" height="30px" />
             </a>}
-              {userName && userName != "null" &&
-                <a href={`mailto:${userName}`} className='w-full bg-[#f8c795]  mt-2 py-1 px-4 rounded flex gap-x-5 justify-center items-center'>
-                  <img src={"/email.svg"} width="30px" height="30px" />
-                </a>}
+          {userName && userName != "null" &&
+            <a href={`mailto:${userName}`} className='w-full bg-[#f8c795]  mt-2 py-1 px-4 rounded flex gap-x-5 justify-center items-center'>
+              <img src={"/email.svg"} width="30px" height="30px" />
+            </a>}
           {responseData?.company && responseData?.company != 'null' && <p className='pt-2  font-bold text-xs text-center'>Get to know me more!</p>}
 
           {responseData?.facebook && responseData?.facebook != 'null' && <a target="_blank" href={`https://www.facebook.com/${responseData?.facebook}`} className=' mt-2 w-full bg-[#1877f2] py-1 px-4 rounded flex justify-center'>

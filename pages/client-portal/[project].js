@@ -14,7 +14,7 @@ export default function ClientProtal() {
     const [projectInfo, setProjectInfo] = useState(null);
     const router = useRouter();
 
-    console.log({ projectInfo })
+
 
     useEffect(() => {
         if (router.query.project) {
@@ -45,7 +45,7 @@ export default function ClientProtal() {
         let response = await axios.get(
             `${process.env.DIGITALOCEAN}/invoice/download-invoice/${id}`
         );
-        console.log({ response });
+        ;
         let base64Data = response?.data?.invoice;
         const byteString = atob(base64Data?.split(",")[1]);
         const mimeString = base64Data?.split(",")[0]?.split(":")[1]?.split(";")[0];
@@ -85,7 +85,7 @@ export default function ClientProtal() {
                 />
                 <ProjectInvoices
                     projectInvoices={projectInfo?.projectInvoices}
-                    getProjectInvoices={() => {}}
+                    getProjectInvoices={() => { }}
                     projectId={projectId}
                     projectCurrency={projectInfo?.projectCurrency}
                     getProjectDetails={getProjectInfo}
@@ -103,7 +103,7 @@ export default function ClientProtal() {
                 />
                 <SharedDocuments
                     projectId={projectId}
-                    getProjectSharedDocs={() => {}}
+                    getProjectSharedDocs={() => { }}
                     projectSharedDocs={projectInfo?.projectSharedDocs}
                     add={false}
                     classes={'grid-cols-6'}

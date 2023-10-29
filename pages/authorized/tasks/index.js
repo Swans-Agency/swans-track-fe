@@ -14,7 +14,7 @@ export default function index({ companyTasks }) {
     companyTasks[i].end = new Date(companyTasks[i]?.end)
   }
 
-  console.log( {companyTasks});
+  ;
   return (
     <TasksComponent companyTasks={companyTasks} initialData={initialData} />
   );
@@ -28,7 +28,7 @@ export const getServerSideProps = async (ctx) => {
   try {
     if (accessToken) {
       companyTasks = await getAxiosServer(`${process.env.DIGITALOCEAN}/tasks/active-tasks/`, accessToken, false)
-      
+
     } else {
       return {
         redirect: {
@@ -38,7 +38,7 @@ export const getServerSideProps = async (ctx) => {
       };
     }
   } catch (e) {
-    console.log(e);
+    ;
   }
   return { props: { accessToken, userPermission, userId, companyTasks } };
 };

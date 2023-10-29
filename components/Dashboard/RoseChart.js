@@ -7,7 +7,7 @@ export default function RoseChart({ dataSet, type }) {
     const [data, setData] = useState([]);
 
 
-    console.log({ dataSet })
+
 
     useEffect(() => {
         if (dataSet) {
@@ -35,10 +35,10 @@ export default function RoseChart({ dataSet, type }) {
         ],
     };
 
-  return (
-    <>
-      <Rose {...config} />
-    </>
+    return (
+        <>
+            <Rose {...config} />
+        </>
 
-  );
+    );
 };

@@ -10,8 +10,8 @@ import ModalANTD from '@/components/ANTD/ModalANTD';
 export default function index() {
     const [searchText, setSearchText] = useState("");
     const [searchedColumn, setSearchedColumn] = useState("");
-    const [selectedItem, setSelectedItem] = useState(null); 
-    const [modalVisible, setModalVisible] = useState(false); 
+    const [selectedItem, setSelectedItem] = useState(null);
+    const [modalVisible, setModalVisible] = useState(false);
     const searchInput = useRef(null);
 
     const timeObject = {
@@ -123,11 +123,11 @@ export default function index() {
         clearFilters();
         setSearchText("");
     };
-    
+
     const handleClick = (item) => {
-            setSelectedItem(item);
-            setModalVisible(true);
-        
+        setSelectedItem(item);
+        setModalVisible(true);
+
     }
 
     const columns = [
@@ -157,58 +157,58 @@ export default function index() {
             key: "appointmentTime",
             ...getColumnSearchProps("appointmentTime", searchInput, searchedColumn, searchText, handleSearch, handleReset, setSearchText, setSearchedColumn),
             render: (_, item) => {
-                console.log(timeObject[parseFloat(item?.appointmentTime).toFixed(2)])
-                return (<>{timeObject[parseFloat(item?.appointmentTime).toFixed(2)]} - {timeObject[parseFloat(item?.appointmentEnd).toFixed(2)]}</>)
-            },
+                     .toFixed(2)])
+    return (<>{timeObject[parseFloat(item?.appointmentTime).toFixed(2)]} - {timeObject[parseFloat(item?.appointmentEnd).toFixed(2)]}</>)
+},
         },
-        {
-            title: "Summary",
-            dataIndex: "summary.",
+{
+    title: "Summary",
+        dataIndex: "summary.",
             key: "summary.",
-            width: "40%",
-            render: (_, item) => {
-                return (
-                    <div onClick={() => handleClick(item)} className='hover:cursor-pointer' style={{ wordWrap: 'break-word', whiteSpace: 'pre-wrap' }}>
-                        {item?.summary?.substring(0, 100) + "..."}
-                    </div>
-                )
-            }
-        },
+                width: "40%",
+                    render: (_, item) => {
+                        return (
+                            <div onClick={() => handleClick(item)} className='hover:cursor-pointer' style={{ wordWrap: 'break-word', whiteSpace: 'pre-wrap' }}>
+                                {item?.summary?.substring(0, 100) + "..."}
+                            </div>
+                        )
+                    }
+},
     ];
 
-    return (
-        <>
-            <TableANTD
-                columns={columns}
-                getUrl={`${process.env.DIGITALOCEAN}/calendy/sched/appointments/`}
-                addButton={false}
-                addDrawer={false}
-            />
-            <ModalANTD 
-                title="Appointment Summary"
-                footer={null}
-                isModalOpen={modalVisible}
-                handleOk={() => setModalVisible(false)}
-                handleCancel={() => setModalVisible(false)}
-                renderComponent={selectedItem?.summary}
-            />
-            <FloatButton
-                type="primary"
-                icon={<QuestionOutlined />}
-                style={{ bottom: 20 }}
-                onClick={() => {
-                    return (
-                        notification.info({
-                            message: "Public Profile",
-                            description: <div>Share your calendar with others by using this link: <a
-                                href={`https://www.swanstrack.com/swans-track/${cookie.load("company", { path: "/" })}/`}
-                                className="text-blue-500 hover:text-blue-400 "
-                            >{`https://www.swanstrack.com/swans-track/${cookie.load("company", { path: "/" })}/`}</a></div>,
-                            key: "api",
-                        })
-                    )
-                }}
-            />
-        </>
-    );
+return (
+    <>
+        <TableANTD
+            columns={columns}
+            getUrl={`${process.env.DIGITALOCEAN}/calendy/sched/appointments/`}
+            addButton={false}
+            addDrawer={false}
+        />
+        <ModalANTD
+            title="Appointment Summary"
+            footer={null}
+            isModalOpen={modalVisible}
+            handleOk={() => setModalVisible(false)}
+            handleCancel={() => setModalVisible(false)}
+            renderComponent={selectedItem?.summary}
+        />
+        <FloatButton
+            type="primary"
+            icon={<QuestionOutlined />}
+            style={{ bottom: 20 }}
+            onClick={() => {
+                return (
+                    notification.info({
+                        message: "Public Profile",
+                        description: <div>Share your calendar with others by using this link: <a
+                            href={`https://www.swanstrack.com/swans-track/${cookie.load("company", { path: "/" })}/`}
+                            className="text-blue-500 hover:text-blue-400 "
+                        >{`https://www.swanstrack.com/swans-track/${cookie.load("company", { path: "/" })}/`}</a></div>,
+                        key: "api",
+                    })
+                )
+            }}
+        />
+    </>
+);
 };

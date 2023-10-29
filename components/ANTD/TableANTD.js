@@ -9,14 +9,14 @@ import DrawerANTD from "./DrawerANTD";
 import ModalANTD from "./ModalANTD";
 
 
-export default function TableANTD({ 
-  columns, 
-  getUrl, 
-  multiDeleteUrl, 
-  addButton, 
-  buttonTitle, 
-  addDrawer, 
-  drawerTitle, 
+export default function TableANTD({
+  columns,
+  getUrl,
+  multiDeleteUrl,
+  addButton,
+  buttonTitle,
+  addDrawer,
+  drawerTitle,
   drawerContent,
   updateModal,
   updateTitle,
@@ -26,10 +26,10 @@ export default function TableANTD({
   handleCancelUpdate,
   modalContent,
   passedItem,
-  additionalGet=false,
-  customClass ="",
+  additionalGet = false,
+  customClass = "",
 }) {
-    
+
   const [data, setData] = useState({});
   const [reload, setReload] = useState(false);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
@@ -59,7 +59,7 @@ export default function TableANTD({
         total: response.count,
       });
     } catch (error) {
-      console.log(error);
+
     }
   };
 
@@ -76,7 +76,7 @@ export default function TableANTD({
   };
 
   const onSelectChange = (newSelectedRowKeys) => {
-    console.log('selectedRowKeys changed: ', newSelectedRowKeys);
+
     setSelectedRowKeys(newSelectedRowKeys);
   };
 
@@ -91,9 +91,9 @@ export default function TableANTD({
   };
 
   const handleMultDelete = async (arr) => {
-    console.log({ arr });
+
     let deleted = await postAxios(multiDeleteUrl, { ids: arr }, true, true, (res) => { setReload(res) }, true)
-    setReload({"dd": deleted})
+    setReload({ "dd": deleted })
     setSelectedRowKeys([])
   }
 
@@ -110,22 +110,22 @@ export default function TableANTD({
       {
         addButton &&
         <div className="flex justify-end mb-3 gap-x-3">
-            {
-              (selectedRowKeys.length > 0) && (multiDeleteUrl) &&
-              <div
-                className=" w-full bg-red-700 hover:shadow-lg text-white py-[0.6rem] px-3 rounded text-center cursor-pointer"
-                onClick={() => handleMultDelete(selectedRowKeys)}
-              >
-                Delete {selectedRowKeys.length} {selectedRowKeys.length > 1 ? "items" : "item"}
-              </div>
-            }
+          {
+            (selectedRowKeys.length > 0) && (multiDeleteUrl) &&
+            <div
+              className=" w-full bg-red-700 hover:shadow-lg text-white py-[0.6rem] px-3 rounded text-center cursor-pointer"
+              onClick={() => handleMultDelete(selectedRowKeys)}
+            >
+              Delete {selectedRowKeys.length} {selectedRowKeys.length > 1 ? "items" : "item"}
+            </div>
+          }
           <button
             onClick={showDrawer}
-              className="min-w-fit flex justify-center items-center gap-x-2 bg-mainBackground dark:bg-[#1d1d1d] hover:shadow-lg hover:dark:shadow-sm hover:dark:shadow-[#1d1d1d] text-white rounded py-[0.6rem] px-3"
+            className="min-w-fit flex justify-center items-center gap-x-2 bg-mainBackground dark:bg-[#1d1d1d] hover:shadow-lg hover:dark:shadow-sm hover:dark:shadow-[#1d1d1d] text-white rounded py-[0.6rem] px-3"
           >
             {buttonTitle}
           </button>
-            
+
         </div>
       }
       {data?.count ? (
@@ -170,7 +170,7 @@ export default function TableANTD({
       }
       {
         updateModal && passedItem &&
-        <ModalANTD 
+        <ModalANTD
           title={updateTitle}
           footer={updateFooter}
           isModalOpen={isModalOpenUpdate}

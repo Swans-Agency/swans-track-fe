@@ -61,7 +61,7 @@ export default function TaskForm({ handleNotifyTeam, selectedItem, projectId = n
 
   const handleInitialValues = () => {
     if (selectedItem) {
-      console.log({ selectedItem })
+
       getCheckLists()
       if (projectId) {
 
@@ -142,11 +142,11 @@ export default function TaskForm({ handleNotifyTeam, selectedItem, projectId = n
   }
 
   const getCheckLists = async () => {
-    console.log(selectedItem?.id)
+
     const url = `${process.env.DIGITALOCEAN}/tasks/check-list/${selectedItem?.id}/`
     const res = await getAxios(url, false, false, () => { })
     setCheckLists(res)
-    console.log({ res })
+
   }
 
   const handleCreateChecklist = async () => {
@@ -154,7 +154,7 @@ export default function TaskForm({ handleNotifyTeam, selectedItem, projectId = n
       checklistName,
       task: selectedItem?.id
     }
-    console.log({ data })
+
 
     const url = `${process.env.DIGITALOCEAN}/tasks/check-list/`
     await postAxios(url, data, false, false, () => { })
@@ -355,8 +355,8 @@ export default function TaskForm({ handleNotifyTeam, selectedItem, projectId = n
 
         {selectedItem && <div>
           <p className="mb-2">Card History</p>
-          {selectedItem?.history && Object.keys(selectedItem?.history || {}).length  ? <div className="dark:bg-[#141414] px-4 py-[0.60rem] rounded-lg dark:border dark:border-[#424242]  hover:border-blue-400">
-            
+          {selectedItem?.history && Object.keys(selectedItem?.history || {}).length ? <div className="dark:bg-[#141414] px-4 py-[0.60rem] rounded-lg dark:border dark:border-[#424242]  hover:border-blue-400">
+
             {showHistory ? <div>
               {selectedItem &&
                 selectedItem?.history && Object?.entries(selectedItem?.history)?.map((item) => {
@@ -372,7 +372,7 @@ export default function TaskForm({ handleNotifyTeam, selectedItem, projectId = n
                     </div>
                   )
                 })}
-            </div>: 
+            </div> :
               <div className="hover:cursor-pointer" onClick={() => setShowHistory(true)}>Click to view history</div>
             }
           </div>

@@ -22,10 +22,9 @@ export default function App({ Component, pageProps }) {
         <NavShowWraper>
           <NavCollapseWraper>
             <Layout>
-              {/* <div id="toggle-theme" className="absolute top-0 left-0 w-0 h-0 bg-transparent"></div> */}
               <ConfigProvider
                 theme={{
-                  algorithm: theme.darkAlgorithm
+                  algorithm: [theme.darkAlgorithm, ]
                 }}
               >
               <Component {...pageProps} />

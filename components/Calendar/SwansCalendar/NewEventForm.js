@@ -33,7 +33,7 @@ export default function NewEventForm({ getEvents, handleClose, instance, setSele
 
     const onFinish = async (values) => {
         setIsLoading(true)
-        console.log({ values })
+
         let data = {}
         data.title = values?.title
         data.location = values?.location
@@ -57,13 +57,13 @@ export default function NewEventForm({ getEvents, handleClose, instance, setSele
     const [dateRange, setDateRange] = useState([]);
 
     const handleDateChange = (dates) => {
-        console.log({ dates })
+
         if (dates.length === 2) {
             const [start, end] = dates;
             const newEnd = new Date(end);
             newEnd.setHours(newEnd?.getHours() + 1);
 
-           
+
 
         }
     };
@@ -79,23 +79,23 @@ export default function NewEventForm({ getEvents, handleClose, instance, setSele
             form={form}
             requiredMark={false}
         >
-                <Form.Item
-                    label="Event Name"
-                    name="title"
-                    className="w-full"
-                    required={true}
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Please input the event name!',
-                        },
-                    ]}
-                >
-                    <Input size="large" className="rounded-lg  w-full" />
-                </Form.Item>
-                <Form.Item label="Event Location" name="location" className="w-full">
-                    <Input size="large"  className="rounded-lg w-full" />
-                </Form.Item>
+            <Form.Item
+                label="Event Name"
+                name="title"
+                className="w-full"
+                required={true}
+                rules={[
+                    {
+                        required: true,
+                        message: 'Please input the event name!',
+                    },
+                ]}
+            >
+                <Input size="large" className="rounded-lg  w-full" />
+            </Form.Item>
+            <Form.Item label="Event Location" name="location" className="w-full">
+                <Input size="large" className="rounded-lg w-full" />
+            </Form.Item>
             <div className="flex gap-x-5 w-full mt-0">
             </div>
             <Form.Item

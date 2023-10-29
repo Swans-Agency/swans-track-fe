@@ -48,15 +48,15 @@ const NotificationSuccess = (res) => {
 }
 
 const NotificationError = (err) => {
-    console.log({ err })
+
     let textErr = typeof (err) == "string" ? err : err?.response?.data?.detail || typeof (err?.response?.data) !== "object" && err?.response?.data || "Sorry were are unable to process your request."
-    console.log({ textErr })
+
     Swal.fire({
         title: "Error",
         text: `${textErr}`,
         icon: "error",
         allowOutsideClick: true,
-        showConfirmButton:false,
+        showConfirmButton: false,
         timer: 3000,
         customClass: {
             container: "custom-swal-container",

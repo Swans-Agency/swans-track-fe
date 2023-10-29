@@ -76,13 +76,13 @@ export default function index() {
     }
 
     useEffect(() => {
-        if (getObjectsFromLocalStorage("companyPreferences")){
+        if (getObjectsFromLocalStorage("companyPreferences")) {
             router.push("/authorized/dashboard");
         }
     }, [])
 
     useEffect(() => {
-        console.log(companyName, companyAddress, companyEmail, companyNumber, currency, timeZone, iban, logo, sig, pTerms, ITerms);
+        ;
         if (companyName && companyAddress && companyEmail && companyNumber) {
             setNextButton(false)
         }
@@ -114,7 +114,7 @@ export default function index() {
         formData.append("companyEmail", companyEmail);
         formData.append("PTermsConditions", data?.PTermsConditions);
         formData.append("ITermsConditions", data?.ITermsConditions);
-        console.log({data});
+        ;
         if (logo && logo.file) {
             formData.append("logo", logo.file.originFileObj);
         }
@@ -173,15 +173,16 @@ export default function index() {
                                 <Input size='large' placeholder='Company name' onChange={(e) => {
                                     // form.setFieldValue("companyName", e.target.value);
                                     handleChange(e.target.value, setCompanyName)
-                                    }} />
+                                }} />
                             </Form.Item>
                             <Form.Item
                                 name="companyLocation"
                                 className="w-full"
                             >
-                                <Input size='large' placeholder='Company address' onChange={(e) => { 
+                                <Input size='large' placeholder='Company address' onChange={(e) => {
                                     // form.setFieldValue("companyLocation", e.target.value); 
-                                    handleChange(e.target.value, setCompanyAddress)}} />
+                                    handleChange(e.target.value, setCompanyAddress)
+                                }} />
                             </Form.Item>
                         </div>
                         <div className="flex gap-x-5 w-full">
@@ -189,17 +190,19 @@ export default function index() {
                                 name="companyEmail"
                                 className="w-full"
                             >
-                                <Input size='large' placeholder='Company email' onChange={(e) => { 
+                                <Input size='large' placeholder='Company email' onChange={(e) => {
                                     // form.setFieldValue("companyEmail", e.target.value); 
-                                    handleChange(e.target.value, setCompanyEmail)}} />
+                                    handleChange(e.target.value, setCompanyEmail)
+                                }} />
                             </Form.Item>
                             <Form.Item
                                 name="companyNumber"
                                 className="w-full"
                             >
-                                <Input size='large' placeholder="Company number" onChange={(e) => { 
+                                <Input size='large' placeholder="Company number" onChange={(e) => {
                                     // form.setFieldValue("companyNumber", e.target.value); 
-                                    handleChange(e.target.value, setCompanyNumber)}} />
+                                    handleChange(e.target.value, setCompanyNumber)
+                                }} />
                             </Form.Item>
                         </div>
                     </div>}
@@ -220,7 +223,7 @@ export default function index() {
                                         width: "100%",
                                     }}
                                     onChange={(e) => {
-                                        console.log(e, "sssssssssssssssssssssssssssssssssssss");
+                                        ;
                                         // form.setFieldValue("currency", e);
                                         handleChange(e, setCurrency)
                                     }}
@@ -244,7 +247,7 @@ export default function index() {
                                         width: "100%",
                                     }}
                                     onChange={(e) => {
-                                        console.log(e);
+                                        ;
                                         // form.setFieldValue("timeZone", e);
                                         handleChange(e, setTimeZone)
                                     }}
@@ -274,7 +277,7 @@ export default function index() {
                                         width: "100%",
                                     }}
                                     onChange={(e) => {
-                                        console.log(e);
+                                        ;
                                         // form.setFieldValue("bankIban", e.target.value);
                                         handleChange(e.target.value, setIban)
                                     }}
@@ -303,7 +306,7 @@ export default function index() {
                                     maxCount={1}
                                     defaultFileList={[]}
                                     onChange={(e) => {
-                                        console.log("ddddd", e, e.fileList.length)
+
                                         if (e.fileList.length > 0) {
                                             handleChange(e, setLogo)
                                         }
@@ -340,7 +343,7 @@ export default function index() {
                                     maxCount={1}
                                     className=''
                                     onChange={(e) => {
-                                        console.log("ddddd", e, e.fileList.length)
+
                                         if (e.fileList.length > 0) {
                                             handleChange(e, setSig)
                                         }
@@ -409,7 +412,7 @@ export const getServerSideProps = async (ctx) => {
             };
         }
     } catch (e) {
-        console.log(e);
+        ;
     }
     return { props: { accessToken, userPermission } };
 };

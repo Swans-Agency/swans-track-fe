@@ -1,8 +1,8 @@
 import React, { useRef, useState } from "react";
-import {CloudDownloadOutlined } from "@ant-design/icons";
+import { CloudDownloadOutlined } from "@ant-design/icons";
 import { getAxios } from "@/functions/ApiCalls";
 import TableANTD from "../ANTD/TableANTD";
-import {NotificationLoading} from "@/functions/Notifications";
+import { NotificationLoading } from "@/functions/Notifications";
 import ProposalForm from "./ProposalForm";
 import { getColumnSearchProps } from "@/functions/GeneralFunctions";
 
@@ -10,7 +10,7 @@ export default function Proposals() {
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef(null);
-  
+
 
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
@@ -28,7 +28,7 @@ export default function Proposals() {
     let response = await getAxios(
       `${process.env.DIGITALOCEAN}/invoice/download-proposal/${id}`
     );
-    console.log({ response })
+
     let base64Data = response?.invoice;
     const byteString = atob(base64Data.split(",")[1]);
     const mimeString = base64Data.split(",")[0].split(":")[1].split(";")[0];

@@ -5,6 +5,8 @@ import ChartANtd from "@/pages/authorized/dashboard/ChartANtd";
 import RoseChart from "./RoseChart";
 import ColumnChart from "./ColumnChart";
 import ProjectsChart from "@/pages/authorized/dashboard/ProjectsChart";
+import { Empty } from "antd";
+import dayjs from "dayjs";
 
 export default function Dashboard({
   quotes,
@@ -19,7 +21,8 @@ export default function Dashboard({
   expenseAlltime,
   incomeAlltime,
   incomePayment,
-  projectsAlltime
+  projectsAlltime,
+  todayTasks
 }) {
   return (
     <div className="grid laptop:grid-cols-3 phone:grid-cols-1 gap-4 ">
@@ -77,6 +80,67 @@ export default function Dashboard({
         // classes={"bg-[#029e95]"}
         classes={'bg-gray-200 dark:text-white dark:bg-[#282828] '}
       />
+      <div className="laptop:row-span-3 phone:row-span-3 laptop:col-span-1 phone:col-span-3 grid gap-4 w-full dark:text-white">
+        <div className="row-span-1 bg-gray-200 dark:bg-[#282828] rounded-2xl w-full p-5 h-[21rem]">
+
+          <h1 className="text-lg font-light text-center border-b border-b-gray-500 pb-1 ">Today's Events</h1>
+          <div className="my-4 h-[15rem] custom-scroll overflow-y-auto">
+            {todayTasks?.events?.length ? <>
+              {todayTasks?.events?.map((item) => {
+                return (
+                  <div>
+                    <div className="flex justify-between items-center py-2">
+                      <div className="flex items-center gap-x-4">
+                        <div className="w-3 h-3 rounded-full bg-[#00736C]"></div>
+                        <p className="text-sm min-w-fit">{item?.title}</p>
+                      </div>
+                      <div className="">
+                        <p className="text-sm">
+                          {dayjs(item?.start).format('hh:mm')}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )
+              })}
+            </> :
+              <div className="flex justify-center items-center h-[15rem]">
+                <Empty image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+                  imageStyle={{
+                    height: 100,
+                  }} description="No events for today" />
+              </div>
+            }
+          </div>
+        </div>
+        <div className="row-span-1 bg-gray-200 dark:bg-[#282828] rounded-2xl w-full p-5 h-[21rem] ">
+          <h1 className="text-lg font-light text-center border-b border-b-gray-500 pb-1 ">Today's Assigned Tasks</h1>
+          <div className="my-4 h-[15rem] custom-scroll overflow-y-auto">
+            {todayTasks?.tasks?.length ? <>
+              {todayTasks?.tasks?.map((item) => {
+                return (
+                  <div>
+                    <div className="flex justify-between items-center py-2">
+                      <div className="flex items-center gap-x-2">
+                        <div className="w-3 h-3 rounded-full bg-[#00736C]"></div>
+                        <p className="text-sm">{item?.name}</p>
+                      </div>
+                    </div>
+                  </div>
+                )
+              })}
+            </> :
+              <div className="flex justify-center items-center h-[15rem]">
+                <Empty image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+                  imageStyle={{
+                    height: 100,
+                  }} description="No tasks assigned today" />
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+
       <CardPercent
         title="Proposals Invoices Ratio"
         main={successRatio?.successRatio}
