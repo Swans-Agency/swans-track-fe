@@ -8,7 +8,9 @@ export default function ModalANTD({
   handleOk,
   handleCancel,
   renderComponent,
-  style={top: 20}
+  style={top: 20},
+  customWidth=false,
+  width=600
 }) {
   return (
     <Modal
@@ -18,6 +20,7 @@ export default function ModalANTD({
       open={isModalOpen}
       onOk={handleOk}
       onCancel={handleCancel}
+      width={customWidth ? width : 520 }                          
     >
       {renderComponent}
     </Modal>

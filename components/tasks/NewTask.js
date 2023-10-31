@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
 import { DatePicker, Divider, Form, Input, Select } from "antd";
+import cookie, { remove } from "react-cookies";
 import {
   getAxios,
   patchAxios,
@@ -26,6 +27,8 @@ export default function TaskForm({ handleNotifyTeam, selectedItem, projectId = n
   const [checkLists, setCheckLists] = useState([])
   const [showInput, setShowInput] = useState(false);
   const [showHistory, setShowHistory] = useState(false);
+  const [showComments, setShowComments] = useState(false);
+  const [commentText, setCommentText] = useState(null);
   const { TextArea } = Input;
 
   const getAllEmployees = async () => {
@@ -51,7 +54,7 @@ export default function TaskForm({ handleNotifyTeam, selectedItem, projectId = n
     }));
     setEmployees(arrData);
   };
-
+  console.log({ selectedItem })
   useEffect(() => {
     getAllEmployees();
 
@@ -83,6 +86,16 @@ export default function TaskForm({ handleNotifyTeam, selectedItem, projectId = n
         </>,
       })
     }
+  }
+
+  const handleAddComment = async () => {
+    const url = `${process.env.DIGITALOCEAN}/tasks/add-comments/${selectedItem?.id}/`
+    const data = {
+      comment: commentText
+    }
+    await patchAxios(url, data, false, false, () => { })
+    setCommentText(null)
+    handleNotifyTeam("Comment added")
   }
 
   const onFinish = async (data) => {
@@ -172,214 +185,260 @@ export default function TaskForm({ handleNotifyTeam, selectedItem, projectId = n
         layout="vertical"
         style={{
           alignContent: "center",
-          maxWidth: 600,
+          // maxWidth: 600,
         }}
         className="custom-form"
         form={form}
         requiredMark={true}
         initialValues={form}
       >
-        <Form.Item label="Task" name="taskName" className="w-full" required
-          rules={[
-            {
-              required: true
-            }
-          ]}>
-          <Input size="large" />
-        </Form.Item>
-        <Form.Item
-          label="Description"
-          name="taskDescription"
-          className="w-full"
-        >
-          {showEditor || !selectedItem ?
-            <div>
-              <CustomEditor form={form} fieldName="taskDescription" callBack={setTaskDescription} />
-              {selectedItem && <div onClick={() => setShowEditor(false)} className="flex justify-center mt-2 w-full bg-gray-400 dark:bg-[#282828] text-center py-2 rounded-lg hover:shadow-lg hover:cursor-pointer">Close</div>}
-            </div>
-            :
-            <div
-              onClick={() => setShowEditor(true)}
-              className="border !z-[10000] dark:border-[#424242] dark:bg-[#141414] rounded-lg p-2 hover:cursor-text hover:border-blue-400"
-              dangerouslySetInnerHTML={{ __html: taskDescription || "Click to add description" }}
-            />
-          }
-        </Form.Item>
+        <div className={`${selectedItem ? "grid laptop:grid-cols-2 phone:grid-cols-1 gap-x-12 justify-between w-[100%]" : ""}`}>
 
-        {selectedItem &&
-          <div className="mb-4">
-            <div className="flex justify-between mb-2">
-              <p>Checklist(s)</p>
-              <span
-                className="hover:bg-mainBackground hover:dark:bg-[#141414] p-1 hover:text-white rounded hover:cursor-pointer"
-                onClick={() => handleAddChecklistInput(true)}
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                </svg>
-              </span>
-            </div>
-            {showInput &&
-              <div className="flex items-center gap-2 mb-3">
-                <Input
-                  autoFocus placeholder="Checklist name" size="large" className=""
-                  onChange={(e) => setChecklistName(e.target.value)}
-                />
-                <div className="flex gap-1">
-
-                  <div className="bg-mainBackground dark:bg-[#141414] rounded-lg text-white hover:shadow-lg hover:cursor-pointer px-3 py-2" onClick={() => handleCreateChecklist()}>Save</div>
-                  <div className="bg-gray-400 dark:bg-[#282828] rounded-lg text-white hover:shadow-lg hover:cursor-pointer px-3 py-2" onClick={() => handlehideInput(false)}>Cancel</div>
+          <div>
+            <Form.Item label="Task" name="taskName" className="w-full" required
+              rules={[
+                {
+                  required: true
+                }
+              ]}>
+              <Input size="large" />
+            </Form.Item>
+            <Form.Item
+              label="Description"
+              name="taskDescription"
+              className="w-full"
+            >
+              {showEditor || !selectedItem ?
+                <div>
+                  <CustomEditor form={form} fieldName="taskDescription" callBack={setTaskDescription} />
+                  {selectedItem && <div onClick={() => setShowEditor(false)} className="flex justify-center mt-2 w-full bg-gray-400 dark:bg-[#282828] text-center py-2 rounded-lg hover:shadow-lg hover:cursor-pointer">Close</div>}
                 </div>
-              </div>
-            }
+                :
+                <div
+                  onClick={() => setShowEditor(true)}
+                  className="border !z-[10000] dark:border-[#424242] dark:bg-[#141414] rounded-lg p-2 hover:cursor-text hover:border-blue-400"
+                  dangerouslySetInnerHTML={{ __html: taskDescription || "Click to add description" }}
+                />
+              }
+            </Form.Item>
 
-            {checkLists?.length !== 0 ?
-              checkLists?.map((item) => {
-                return (
-                  <AllCheckLists
-                    item={item}
-                    handleInitialValues={handleInitialValues}
-                  />
-                )
-              }) :
-              <p className="text-gray-400">No checklist</p>
-            }
+            {selectedItem &&
+              <div className="mb-4">
+                <div className="flex justify-between mb-2">
+                  <p>Checklist(s)</p>
+                  <span
+                    className="hover:bg-mainBackground hover:dark:bg-[#141414] p-1 hover:text-white rounded hover:cursor-pointer"
+                    onClick={() => handleAddChecklistInput(true)}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                    </svg>
+                  </span>
+                </div>
+                {showInput &&
+                  <div className="flex items-center gap-2 mb-3">
+                    <Input
+                      autoFocus placeholder="Checklist name" size="large" className=""
+                      onChange={(e) => setChecklistName(e.target.value)}
+                    />
+                    <div className="flex gap-1">
+
+                      <div className="bg-mainBackground dark:bg-[#141414] rounded-lg text-white hover:shadow-lg hover:cursor-pointer px-3 py-2" onClick={() => handleCreateChecklist()}>Save</div>
+                      <div className="bg-gray-400 dark:bg-[#282828] rounded-lg text-white hover:shadow-lg hover:cursor-pointer px-3 py-2" onClick={() => handlehideInput(false)}>Cancel</div>
+                    </div>
+                  </div>
+                }
+
+                {checkLists?.length !== 0 ?
+                  checkLists?.map((item) => {
+                    return (
+                      <AllCheckLists
+                        item={item}
+                        handleInitialValues={handleInitialValues}
+                      />
+                    )
+                  }) :
+                  <p className="text-gray-400">No checklist</p>
+                }
+              </div>}
+
+            <div className="flex gap-x-5 w-full mt-0">
+              <Form.Item
+                label="Task Status"
+                name="taskStatus"
+                className="w-full"
+                required
+                rules={[
+                  {
+                    required: true
+                  }
+                ]}
+              >
+                <Select
+                  size="large"
+                  showSearch
+                  defaultValue=""
+                  style={{
+                    width: "100%",
+                  }}
+                  onChange={(e) => {
+                    form.setFieldValue("taskStatus", e);
+                  }}
+                  allowClear={true}
+                  filterOption={true}
+                  options={[
+                    { label: "Backlog", value: "To Do" },
+                    { label: "In Progress", value: "In Progress" },
+                    { label: "Idle", value: "Idle" },
+                    { label: "Completed", value: "Completed" },
+                  ]}
+                />
+              </Form.Item>
+              <Form.Item
+                label="Task Priority"
+                name="priority"
+                className="w-full"
+                required
+                rules={[
+                  {
+                    required: true
+                  }
+                ]}
+              >
+                <Select
+                  size="large"
+                  showSearch
+                  defaultValue=""
+                  style={{
+                    width: "100%",
+                  }}
+                  onChange={(e) => {
+                    form.setFieldValue("priority", e);
+                  }}
+                  allowClear={true}
+                  filterOption={true}
+                  options={[
+                    { label: "Low", value: "Low" },
+                    { label: "Normal", value: "Normal" },
+                    { label: "Urgent", value: "Urgent" },
+                  ]}
+                />
+              </Form.Item>
+            </div>
+            <div className="flex gap-x-5 w-full mt-0">
+              <Form.Item
+                label="Due Date"
+                name="dueDate"
+                className="w-full"
+                required
+                rules={[
+                  {
+                    required: true
+                  }
+                ]}
+              >
+                <DatePicker size="large" className="w-full" placeholder="" />
+              </Form.Item>
+
+              <Form.Item
+                label="Assigne To"
+                name="assignee"
+                className="w-full"
+                required
+                rules={[
+                  {
+                    required: true
+                  }
+                ]}
+              >
+                <Select
+                  size="large"
+                  showSearch
+                  defaultValue=""
+                  style={{
+                    width: "100%",
+                  }}
+                  onChange={(e) => {
+                    form.setFieldValue("assignee", e);
+                  }}
+                  allowClear={true}
+                  filterOption={true}
+                  options={employees}
+                />
+              </Form.Item>
+            </div>
           </div>
-        }
 
-        <div className="flex gap-x-5 w-full mt-0">
-          <Form.Item
-            label="Task Status"
-            name="taskStatus"
-            className="w-full"
-            required
-            rules={[
-              {
-                required: true
-              }
-            ]}
-          >
-            <Select
-              size="large"
-              showSearch
-              defaultValue=""
-              style={{
-                width: "100%",
-              }}
-              onChange={(e) => {
-                form.setFieldValue("taskStatus", e);
-              }}
-              allowClear={true}
-              filterOption={true}
-              options={[
-                { label: "Backlog", value: "To Do" },
-                { label: "In Progress", value: "In Progress" },
-                { label: "Idle", value: "Idle" },
-                { label: "Completed", value: "Completed" },
-              ]}
-            />
-          </Form.Item>
-          <Form.Item
-            label="Task Priority"
-            name="priority"
-            className="w-full"
-            required
-            rules={[
-              {
-                required: true
-              }
-            ]}
-          >
-            <Select
-              size="large"
-              showSearch
-              defaultValue=""
-              style={{
-                width: "100%",
-              }}
-              onChange={(e) => {
-                form.setFieldValue("priority", e);
-              }}
-              allowClear={true}
-              filterOption={true}
-              options={[
-                { label: "Low", value: "Low" },
-                { label: "Normal", value: "Normal" },
-                { label: "Urgent", value: "Urgent" },
-              ]}
-            />
-          </Form.Item>
-        </div>
-        <div className="flex gap-x-5 w-full mt-0">
-          <Form.Item
-            label="Due Date"
-            name="dueDate"
-            className="w-full"
-            required
-            rules={[
-              {
-                required: true
-              }
-            ]}
-          >
-            <DatePicker size="large" className="w-full" placeholder="" />
-          </Form.Item>
+          <div>
+            {selectedItem && <div>
+              <p className="mb-2">Card History</p>
+              {selectedItem?.history && Object.keys(selectedItem?.history || {}).length ? <div className="dark:bg-[#141414] px-4 py-[0.60rem] rounded-lg dark:border dark:border-[#424242]  hover:border-blue-400">
 
-          <Form.Item
-            label="Assigne To"
-            name="assignee"
-            className="w-full"
-            required
-            rules={[
-              {
-                required: true
+                {showHistory ? <div>
+                  {selectedItem &&
+                    selectedItem?.history && Object?.entries(selectedItem?.history)?.map((item) => {
+                      return (
+                        <div className="dark:text-[#b3b3b3] mb-2 flex items-center gap-3">
+                          <div className="bg-[#282828] text-center flex items-center justify-center rounded px-2 py-1">
+                            <p className="font-bold">{item[1]?.substring(0, 2)}</p>
+                          </div>
+                          <div>
+                            <p className="font-bold">{item[1]}</p>
+                            <p className="text-xs text-gray-500">{dayjs(item[0]).format("DD-MM-YYYY HH:mm")}</p>
+                          </div>
+                        </div>
+                      )
+                    })}
+                </div> :
+                  <div className="hover:cursor-pointer" onClick={() => setShowHistory(true)}>Click to view history</div>
+                }
+              </div>
+                : <p className="text-gray-400">No history</p>
               }
-            ]}
-          >
-            <Select
-              size="large"
-              showSearch
-              defaultValue=""
-              style={{
-                width: "100%",
-              }}
-              onChange={(e) => {
-                form.setFieldValue("assignee", e);
-              }}
-              allowClear={true}
-              filterOption={true}
-              options={employees}
-            />
-          </Form.Item>
-        </div>
+              {selectedItem && showHistory && <div onClick={() => setShowHistory(false)} className="flex justify-center mt-2 w-full bg-gray-400 dark:bg-[#282828] text-center py-2 rounded-lg hover:shadow-lg hover:cursor-pointer">Close</div>}
+            </div>}
 
-        {selectedItem && <div>
-          <p className="mb-2">Card History</p>
-          {selectedItem?.history && Object.keys(selectedItem?.history || {}).length ? <div className="dark:bg-[#141414] px-4 py-[0.60rem] rounded-lg dark:border dark:border-[#424242]  hover:border-blue-400">
-
-            {showHistory ? <div>
-              {selectedItem &&
-                selectedItem?.history && Object?.entries(selectedItem?.history)?.map((item) => {
+            {selectedItem && <div className="mt-4">
+              <p className="mb-2">Comments</p>
+              <>
+                {Object.keys(selectedItem?.comments || {}).length ? Object?.entries(selectedItem?.comments)?.map((item) => {
                   return (
                     <div className="dark:text-[#b3b3b3] mb-2 flex items-center gap-3">
                       <div className="bg-[#282828] text-center flex items-center justify-center rounded px-2 py-1">
-                        <p className="font-bold">{item[1]?.substring(0, 2)}</p>
+                        <p title={item[1]?.user} className="font-bold">{item[1]?.user?.substring(0, 2)}</p>
                       </div>
                       <div>
-                        <p className="font-bold">{item[1]}</p>
+                        <p className="font-bold">{item[1]?.comment}</p>
                         <p className="text-xs text-gray-500">{dayjs(item[0]).format("DD-MM-YYYY HH:mm")}</p>
                       </div>
                     </div>
                   )
-                })}
-            </div> :
-              <div className="hover:cursor-pointer" onClick={() => setShowHistory(true)}>Click to view history</div>
-            }
+                })
+                  :
+                  <p className="text-gray-400"></p>
+                }
+                <div className="flex gap-x-2">
+                  <div className="bg-[#282828] text-center flex items-center h-fit justify-center rounded px-2 py-1">{cookie.load('username', { path: "/" })?.substring(0, 2)?.toUpperCase()}</div>
+                  <div className="w-full">
+                    <Input.TextArea
+                      onChange={(e) => setCommentText(e.target.value)}
+                      placeholder="Add a comment"
+                      autoSize={{
+                        minRows: 2,
+                        maxRows: 3,
+                      }} />
+                    <button disabled={commentText?.length ? false : true} onClick={handleAddComment} className={`flex justify-center mt-2 w-fit bg-gray-400 dark:bg-[#282828] text-center py-2 px-4 rounded-lg  ${!commentText?.length ? "cursor-not-allowed" : "hover:shadow-lg hover:cursor-pointer"}`}>
+                      Comment
+                    </button>
+                  </div>
+                </div>
+              </>
+
+
+
+            </div>}
           </div>
-            : <p className="text-gray-400">No history</p>
-          }
-          {selectedItem && showHistory && <div onClick={() => setShowHistory(false)} className="flex justify-center mt-2 w-full bg-gray-400 dark:bg-[#282828] text-center py-2 rounded-lg hover:shadow-lg hover:cursor-pointer">Close</div>}
-        </div>}
+        </div>
 
         <Divider />
         <div className="flex gap-x-5 w-full justify-between">

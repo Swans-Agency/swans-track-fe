@@ -7,11 +7,12 @@ import List from "./List";
 import DrawerANTD from "../ANTD/DrawerANTD";
 import TaskForm from "./NewTask";
 import ModalANTD from "../ANTD/ModalANTD";
-import { Avatar, Input, Segmented } from 'antd';
+import { Alert, Avatar, Input, Segmented } from 'antd';
 
 import { Gantt, Task, EventOption, StylingOption, ViewMode, DisplayOption } from 'gantt-task-react';
 import "gantt-task-react/dist/index.css";
 import { AppstoreOutlined, BarsOutlined } from "@ant-design/icons";
+import Swal from "sweetalert2";
 
 export default function TasksComponent({ companyTasks, initialData, projectId = null }) {
   const dbRef = useRef(null);
@@ -23,6 +24,7 @@ export default function TasksComponent({ companyTasks, initialData, projectId = 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [teamMembers, setTeamMembers] = useState([])
   const [search, setSearch] = useState("")
+  const [message, setMessage] = useState(null)
 
   const columnNames = {
     "To Do": "toDo",
@@ -91,6 +93,7 @@ export default function TasksComponent({ companyTasks, initialData, projectId = 
               dueDate: value.dueDate,
               subTasks: value.subTasks,
               history: value.history,
+              comments: value.comments,
             }
           }
         }
@@ -108,10 +111,12 @@ export default function TasksComponent({ companyTasks, initialData, projectId = 
     }))
   }, [allData]);
 
-  const handleNotifyTeam = async (projectId) => {
+  const handleNotifyTeam = async (message) => {
     set(dbRef.current, true);
     setIsModalOpen(false);
     setOpen(false)
+    setMessage(message)
+
   };
 
   const getAllTasksNew = async (projectId) => {
@@ -147,6 +152,17 @@ export default function TasksComponent({ companyTasks, initialData, projectId = 
         getAllTasksNew(projectId)
         set(dbRef.current, false)
         setSelectedItem(null)
+        // alert(message || "Tasks has been updated")
+        // Swal.fire({
+        //   icon: 'success',
+        //   title: message || "Tasks has been updated",
+        //   showConfirmButton: false,
+        //   timer: 1500,
+        //   closeButton: true,
+        //   position: 'top-end',
+        //   toast: true,
+        // })
+        setMessage(null)
       }
     })
 
@@ -362,6 +378,8 @@ export default function TasksComponent({ companyTasks, initialData, projectId = 
         handleOk={handleOkModal}
         handleCancel={handleCancelModal}
         renderComponent={<TaskForm handleNotifyTeam={handleNotifyTeam} selectedItem={selectedItem} projectId={projectId} />}
+        customWidth={true}
+        width={1000}
       />}
     </>
   );

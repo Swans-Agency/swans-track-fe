@@ -126,12 +126,14 @@
     background-color: #141414 !important;
   }
 
-  ._3ZbQT, ._CZjuD {
+  ._3ZbQT,
+  ._CZjuD {
     border: none !important;
   }
-._2B2zv {
-  border: none !important;
-}
+
+  ._2B2zv {
+    border: none !important;
+  }
 
   ._3ZbQT div {
     background-color: #282828 !important;
@@ -155,10 +157,6 @@
   ._25P-K:hover {
     color: black !important;
   }
-
-  /* ._3T42e {
-    background-color: #282828 !important;
-  } */
 
 
 

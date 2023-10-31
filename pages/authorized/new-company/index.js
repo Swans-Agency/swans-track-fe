@@ -387,8 +387,8 @@ export default function index() {
                         </div>
                     </div>}
                     <Form.Item>
-                        {current != 5 && <button onClick={() => handleNext()} disabled={nextButton} className={`py-2 px-4 rounded-lg  text-white ${nextButton ? "bg-gray-300 hover:cursor-not-allowed hover:bg-gray-300" : "bg-blue-600 hover:bg-blue-500 hover:cursor-pointer"}`}>Next</button>}
-                        {current == 5 && <button htmlType="submit" disabled={nextButton} className={`py-2 px-4 rounded-lg  text-white ${nextButton ? "bg-gray-300 hover:cursor-not-allowed hover:bg-gray-300" : "bg-blue-600 hover:bg-blue-500 hover:cursor-pointer"}`}>Submit</button>}
+                        {current != 5 && <button onClick={() => handleNext()} disabled={nextButton} className={`py-2 px-4 rounded-lg  text-white ${nextButton ? "bg-gray-300 hover:cursor-not-allowed hover:bg-gray-300 dark:bg-[#282828] dark:hover:dark:bg-[#282828]" : "bg-blue-600 hover:bg-blue-500 hover:cursor-pointer"}`}>Next</button>}
+                        {current == 5 && <button htmlType="submit" disabled={nextButton} className={`py-2 px-4 rounded-lg  text-white ${nextButton ? "bg-gray-300 hover:cursor-not-allowed hover:bg-gray-300  dark:bg-[#282828] dark:hover:dark:bg-[#282828]" : "bg-blue-600 hover:bg-blue-500 hover:cursor-pointer"}`}>Submit</button>}
                     </Form.Item>
                 </Form>
             </div>

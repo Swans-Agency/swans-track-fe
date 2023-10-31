@@ -12,6 +12,7 @@ import ClientNotes from '@/components/projects/ProjectDetails/ClientNotes';
 export default function ClientProtal() {
     const [projectId, setProjectId] = useState(null);
     const [projectInfo, setProjectInfo] = useState(null);
+    const [projectSharedDocs, setProjectSharedDocs] = useState(null);
     const router = useRouter();
 
 
@@ -33,6 +34,7 @@ export default function ClientProtal() {
         const url = `${process.env.DIGITALOCEAN}/project/client-project/${projectId}/`;
         const projectData = await axios.get(url);
         setProjectInfo(projectData?.data);
+        getProjectSharedDocs()
     };
     // const getClientNotes = async () => {
     //     const url = `${process.env.DIGITALOCEAN}/project/client-notes-project/${router.query.project}/`;
@@ -62,6 +64,12 @@ export default function ClientProtal() {
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
+    };
+    const getProjectSharedDocs = async () => {
+        const url2 = `${process.env.DIGITALOCEAN}/project/shared-docs-project-client/${projectId}/`;
+        // const projectData2 = await getAxios(url2, false, false, () => { });
+        const projectData2 = await axios.get(url2);
+        setProjectSharedDocs(projectData2?.data);
     };
 
 
@@ -103,9 +111,10 @@ export default function ClientProtal() {
                 />
                 <SharedDocuments
                     projectId={projectId}
-                    getProjectSharedDocs={() => { }}
-                    projectSharedDocs={projectInfo?.projectSharedDocs}
-                    add={false}
+                    getProjectSharedDocs={getProjectSharedDocs}
+                    // projectSharedDocs={projectInfo?.projectSharedDocs}
+                    projectSharedDocs={projectSharedDocs}
+                    add={true}
                     classes={'grid-cols-6'}
                 />
                 <ClientNotes
