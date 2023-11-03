@@ -7,12 +7,11 @@ import List from "./List";
 import DrawerANTD from "../ANTD/DrawerANTD";
 import TaskForm from "./NewTask";
 import ModalANTD from "../ANTD/ModalANTD";
-import { Alert, Avatar, Input, Segmented } from 'antd';
+import { Avatar, Input, Segmented } from 'antd';
 
-import { Gantt, Task, EventOption, StylingOption, ViewMode, DisplayOption } from 'gantt-task-react';
+import { Gantt } from 'gantt-task-react';
 import "gantt-task-react/dist/index.css";
 import { AppstoreOutlined, BarsOutlined } from "@ant-design/icons";
-import Swal from "sweetalert2";
 
 export default function TasksComponent({ companyTasks, initialData, projectId = null }) {
   const dbRef = useRef(null);
@@ -152,16 +151,7 @@ export default function TasksComponent({ companyTasks, initialData, projectId = 
         getAllTasksNew(projectId)
         set(dbRef.current, false)
         setSelectedItem(null)
-        // alert(message || "Tasks has been updated")
-        // Swal.fire({
-        //   icon: 'success',
-        //   title: message || "Tasks has been updated",
-        //   showConfirmButton: false,
-        //   timer: 1500,
-        //   closeButton: true,
-        //   position: 'top-end',
-        //   toast: true,
-        // })
+
         setMessage(null)
       }
     })
@@ -314,7 +304,7 @@ export default function TasksComponent({ companyTasks, initialData, projectId = 
           </button>
         </div>
       </div>
-      {selectedValue == "Gantt" ?
+      {selectedValue == "Gantt" && allData.length ?
         <div className="mt-6 overflow-x-auto">
           <Gantt
             tasks={allData}

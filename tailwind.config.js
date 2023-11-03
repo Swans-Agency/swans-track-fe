@@ -54,6 +54,7 @@ module.exports = {
         linkColorHover: "#3b82f6",
       },
     },
+    darkMode: 'class',
     screens: {
       'phone': '280px', // => @media (min-width: 280px) { ... }
       'tablet': '640px', // => @media (min-width: 640px) { ... }

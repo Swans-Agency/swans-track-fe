@@ -13,6 +13,7 @@ import FormButtons from "../ANTD/FormButtons";
 import { LoadingOutlined } from "@ant-design/icons";
 import CustomEditor from "../Tiny/Editor";
 import AllCheckLists from "./AllCheckLists";
+import SunEditorComponent from "../WYSWUG/SunEditorComponent";
 
 
 
@@ -208,18 +209,8 @@ export default function TaskForm({ handleNotifyTeam, selectedItem, projectId = n
               name="taskDescription"
               className="w-full"
             >
-              {showEditor || !selectedItem ?
-                <div>
-                  <CustomEditor form={form} fieldName="taskDescription" callBack={setTaskDescription} />
-                  {selectedItem && <div onClick={() => setShowEditor(false)} className="flex justify-center mt-2 w-full bg-gray-400 dark:bg-[#282828] text-center py-2 rounded-lg hover:shadow-lg hover:cursor-pointer">Close</div>}
-                </div>
-                :
-                <div
-                  onClick={() => setShowEditor(true)}
-                  className="border !z-[10000] dark:border-[#424242] dark:bg-[#141414] rounded-lg p-2 hover:cursor-text hover:border-blue-400"
-                  dangerouslySetInnerHTML={{ __html: taskDescription || "Click to add description" }}
-                />
-              }
+              <SunEditorComponent form={form} fieldName="taskDescription" callBack={setTaskDescription}  />
+              
             </Form.Item>
 
             {selectedItem &&

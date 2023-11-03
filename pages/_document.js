@@ -22,7 +22,7 @@ export default function Document() {
           }}
         ></script>
       </Head>
-      <body className="dark:bg-[#141414]">
+      <body className="dark dark:bg-[#141414]">
         <Main />
         <NextScript />
       </body>

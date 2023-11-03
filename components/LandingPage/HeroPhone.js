@@ -10,20 +10,10 @@ export default function HeroPhone() {
           Create. Manage. Succeed Effortlessly
         </h1>
         <p className="text-white text-[1.563rem] desktop:block phone:hidden">
-          Unleash your productivity with our magic powered management tool.
+          Simplify Freelance Project Management Effortlessly organize, track, and collaborate on your freelance projects.
         </p>
       </div>
-      <div className="my-[50px] w-[90%] m-auto desktop:block phone:hidden">
-        <p className="text-[1.25rem] font-extralight text-white">
-          Freelance project management tools are a unique solution for
-          organizing and streamlining freelance work. These tools empower you to
-          make the most of your freelancing skills and experience. They offer
-          easy tracking of projects and tasks, efficient calendar and schedule
-          management, and systematic organization of tasks and projects.
-          Additionally, they enable seamless collaboration with your team. In
-          “Swan track” we bring all tools in one place.
-        </p>
-      </div>
+     
       <div className="flex flex-col items-center justify-center">
         <button
           className="bg-gradient-to-br from-[#003B76] to-[#00A3FF] hover:shadow hover:shadow-gray-400 text-white font-bold py-3 px-4 rounded-lg w-[200px] my-3"

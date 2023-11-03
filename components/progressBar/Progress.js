@@ -6,7 +6,7 @@ let state;
 let activeRequests = 0;
 const delay = 250;
 
-const excludedUrls = ['/swans-track', '/shared-profile', '/authorized/projects/details', '/client-portal']; // Add URLs to exclude here
+const excludedUrls = ['/swans-track', '/shared-profile', '/authorized/projects/details', '/client-portal', '/lead-form']; // Add URLs to exclude here
 
 function shouldLoadProgress(url) {
     // Check if the URL is in the list of excluded URLs

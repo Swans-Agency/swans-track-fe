@@ -17,7 +17,7 @@ export default function index() {
   };
 
   return (
-    <section className="w-full h-screen desktop:grid desktop:grid-cols-12 dark:text-white">
+    <section className="w-full h-screen desktop:grid desktop:grid-cols-12 !bg-white text-black">
       <div
         className="col-span-4 w-full h-full desktop:block phone:hidden laptop:hidden tablet:hidden"
         style={{
@@ -232,7 +232,7 @@ export default function index() {
                     SIGN UP
                   </button>
                 </div>
-                <div className="flex gap-1 justify-center">
+                <div className="flex gap-1 justify-center text-black">
                   <h1>Already a user?</h1>
                   <Link href="/login" className="text-[#0191E7]">
                     Sign in

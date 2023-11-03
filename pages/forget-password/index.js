@@ -20,7 +20,7 @@ export default function index() {
     }
   };
   return (
-    <section className="w-full h-screen desktop:grid desktop:grid-cols-12">
+    <section className="w-full h-screen desktop:grid desktop:grid-cols-12 !bg-white">
       <div
         className="col-span-4 w-full h-screen desktop:block phone:hidden laptop:hidden tablet:hidden"
         style={{

@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Card } from 'antd';
-const { Meta } = Card;
 import { useRouter } from 'next/router';
 import axios from 'axios';
-import { postAxios } from '@/functions/ApiCalls';
 
 export default function DynamicPage() {
   const [responseData, setResponseData] = useState(null);

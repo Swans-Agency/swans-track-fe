@@ -4,7 +4,7 @@ import React from 'react';
 
 export default function MonthView({ calendarEvents, setClickedDate, setIsModalOpenNew, currentMonth, days, handleShowEvent}) {
     return (
-        <div className='grid grid-cols-7 gap-[0.05rem] '>
+        <div className='grid grid-cols-7 gap-[0.1rem] '>
             <div className='col-span-7 h-[1rem] bg-white dark:bg-[#141414] sticky top-[4rem] left-0'></div>
             {
                 days.map((day, index) => {

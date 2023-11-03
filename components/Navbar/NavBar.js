@@ -30,6 +30,8 @@ import ProjectIcons from "./Icons/ProjectIcons";
 import { Avatar, Menu, Popover } from "antd";
 import cookie from "react-cookies";
 import { logout } from "@/functions/GeneralFunctions";
+import FormIcon from "./Icons/FormIcon";
+import Leads from "./Icons/Leads";
 
 export default function Navbar({ userPermission }) {
   const { collapsed, toggleCollapsed } = useContext(NavCollapse);
@@ -128,7 +130,21 @@ export default function Navbar({ userPermission }) {
     {
       key: "leads",
       label: "Leads & Clients",
+      key: "leads",
       icon: <Clients />,
+      arrow: <DownOutlined />,
+      children: [
+        {
+          key: "leads",
+          label: "Leads",
+          icon: <Leads />,
+        },
+        {
+          key: "leads/forms",
+          label: "Form Leads",
+          icon: <FormIcon />,
+        },
+      ],
     },
     {
       key: "team",
@@ -207,14 +223,14 @@ export default function Navbar({ userPermission }) {
             title={collapsed ? "Expand Sidebar" : "Collapse Sidebar"}
           >
             <div className=" flex justify-center  gap-x-4 py-2 sticky top-0 inset-0">
-              <Image src="/Main.svg" width={50} height={50} />
+              <Image src="/logoNew.svg" width={50} height={50} />
             </div>
           </div>
 
 
           <div className={`bg-navbar h-[100vh] ease-in ${collapsed ? "w-[20px]  hidden" : "w-[256px] dark:border-r-[#282828]  dark:border-r"} dark:bg-[#141414] dark:text-white fixed overflow-hidden text-white font-extralight px-2`}>
             <div className=" flex justify-center w-[256px] items-center gap-x-4 h-[4rem]  sticky top-0 inset-0 ">
-              <Image src="/Main.svg" width={45} height={45} />
+              <Image src="/logoNew.svg" width={45} height={45} />
               {/* <p className="text-lg font-semibold">Swans Track</p> */}
             </div>
 

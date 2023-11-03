@@ -1,5 +1,6 @@
 import FormButtons from '@/components/ANTD/FormButtons';
 import CustomEditor from '@/components/Tiny/Editor';
+import SunEditorComponent from '@/components/WYSWUG/SunEditorComponent';
 import { patchAxios, postAxios } from '@/functions/ApiCalls';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { Button, Checkbox, DatePicker, Divider, Form, Input, InputNumber, Space, TimePicker } from 'antd';
@@ -54,19 +55,6 @@ export default function NewEventForm({ getEvents, handleClose, instance, setSele
         form.resetFields()
     }
 
-    const [dateRange, setDateRange] = useState([]);
-
-    const handleDateChange = (dates) => {
-
-        if (dates.length === 2) {
-            const [start, end] = dates;
-            const newEnd = new Date(end);
-            newEnd.setHours(newEnd?.getHours() + 1);
-
-
-
-        }
-    };
 
     return (
         <Form
@@ -103,7 +91,12 @@ export default function NewEventForm({ getEvents, handleClose, instance, setSele
                 name="discription"
                 className="w-full"
             >
-                <CustomEditor form={form} fieldName={"discription"} />
+                {/* <CustomEditor form={form} fieldName={"discription"} /> */}
+                <SunEditorComponent
+                    form={form}
+                    fieldName="discription"
+                    // defaultValue={form.getFieldValue("discription")}
+                />
             </Form.Item>
 
             <Form.Item

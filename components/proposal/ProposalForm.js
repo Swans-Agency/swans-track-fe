@@ -184,7 +184,7 @@ export default function ProposalForm({ setReload, onClose, getAllProposals = () 
         className="w-full"
         required
       >
-        <Input.TextArea className="rounded-lg" />
+        <Input.TextArea className="rounded-lg" rows={4} />
       </Form.Item>
 
       <div className="flex gap-x-5 w-full mt-0">

@@ -8,7 +8,7 @@ import moment from 'moment-timezone';
 import axios from "axios";
 import { NotificationLoading, NotificationSuccess } from "@/functions/Notifications";
 
-export default function CalendlyForm({ data, selectedDay, companyId, dataTimeZone, newTimeZone, handleClose }) {
+export default function CalendlyForm({ data, selectedDay, companyId, dataTimeZone, newTimeZone, handleClose, urlPassed = null, referralSource = null, calendarEventName=null }) {
   const [options, setOptions] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -25,11 +25,18 @@ export default function CalendlyForm({ data, selectedDay, companyId, dataTimeZon
     const Data =
     {
       ...values,
-      appointmentDate: dayjs(selectedDay).format("YYYY-MM-DD")
+      appointmentDate: dayjs(selectedDay).format("YYYY-MM-DD"),
+      referralSource: referralSource,
+      calendarEventName: calendarEventName
     }
       ;
 
-    let url = `${process.env.DIGITALOCEAN}/calendy/sched/public/book/${companyId}/`;
+      let url;
+    if (!urlPassed){
+      url = `${process.env.DIGITALOCEAN}/calendy/sched/public/book/${companyId}/`;
+    } else {
+      url = urlPassed
+    }
     let res = await axios.post(url, Data);
     NotificationSuccess()
     handleReset()

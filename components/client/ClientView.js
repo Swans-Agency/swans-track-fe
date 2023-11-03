@@ -24,15 +24,6 @@ export default function ClientView() {
     setSearchText("");
   };
 
-  const referralDources = {
-    "Friends&Family": <div style={{ backgroundColor: "rgba(22, 160, 133, 1)" }} className="w-fit text-white px-2 py-[0.15rem] rounded-full ">Friends & Family</div>,
-    "FacebookAds": <div style={{ backgroundColor: "rgba(52, 152, 219, 1)" }} className="w-fit text-white px-2 py-[0.15rem] rounded-full ">Facebook Ad</div>,
-    "InstagramAds": <div style={{ backgroundColor: "rgba(155, 89, 182, 1)" }} className="w-fit text-white px-2 py-[0.15rem] rounded-full ">Instagram Ad</div>,
-    "GoogleAds": <div style={{ backgroundColor: "rgba(46, 204, 113, 1)" }} className="w-fit text-white px-2 py-[0.15rem] rounded-full ">Google Ad</div>,
-    "StreetBanners": <div style={{ backgroundColor: "rgba(44, 62, 80, 1)" }} className="w-fit text-white px-2 py-[0.15rem] rounded-full ">Street Banners</div>,
-    "WordOfMouth": <div style={{ backgroundColor: "rgba(243, 156, 18, 1)" }} className="w-fit text-white px-2 py-[0.15rem] rounded-full ">Word of Mouth</div>,
-    "Sched Track": <div style={{ backgroundColor: "#144272" }} className="w-fit text-white px-2 py-[0.15rem] rounded-full ">Sched Track</div>,
-  }
 
   const columns = [
     {
@@ -110,7 +101,7 @@ export default function ClientView() {
       getUrl={`${process.env.DIGITALOCEAN}/client/get-paginated-clients/`}
       multiDeleteUrl={`${process.env.DIGITALOCEAN}/client/multi-delete-clients/`}
       addButton={true}
-      buttonTitle="Add Client"
+      buttonTitle="Add Lead"
       addDrawer={true}
       drawerTitle="Add New Client"
       drawerContent={(setReload, onClose) => <ClientForm setReload={setReload} onClose={onClose} />}
