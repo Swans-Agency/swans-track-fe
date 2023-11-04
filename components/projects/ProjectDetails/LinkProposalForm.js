@@ -53,7 +53,7 @@ export default function LinkProposalForm({ projectId, getProjectProposals, proje
                         onClick={() => {
                             setOpen1(false);
                         }}
-                        className="flex gap-3 items-center mb-5 bg-foreignBackground hover:bg-mainBackground text-white px-2 py-1 -lg"
+                        className="flex gap-3 items-center mb-5 bg-foreignBackground hover:bg-mainBackground hover:dark:bg-[#141414] dark:bg-[#282828] text-white px-2 py-1 rounded-lg"
                     >
                         <ArrowLeftOutlined />
                         Back to proposal selection
@@ -123,7 +123,7 @@ export default function LinkProposalForm({ projectId, getProjectProposals, proje
                                     options={proposalData}
                                 />
                                 <button
-                                    className="p-[0.75rem] flex rounded-lg items-center bg-foreignBackground hover:bg-mainBackground text-white"
+                                        className="p-[0.75rem] flex rounded-lg items-center bg-foreignBackground hover:bg-mainBackground hover:dark:bg-[#141414] dark:bg-[#282828] text-white"
                                     onClick={() => {
                                         setOpen1(true)
                                     }}

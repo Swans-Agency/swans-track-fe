@@ -5,7 +5,7 @@ export default function SvgLeft({ title, description, image, id }) {
   return (
     <div
       id={id}
-      className="desktop:flex desktop:justify-between tablet:mx-auto phone: desktop:w-[70%] phone:w-[90%] m-auto pt-20"
+      className="tablet:mx-auto desktop:w-[70%] phone:w-[90%] m-auto pt-20"
     >
       <div>
         <Image src={image} width={300} height={300} className="m-auto" />

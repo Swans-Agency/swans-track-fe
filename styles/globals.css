@@ -51,6 +51,15 @@
   cursor: pointer !important;
 }
 
+.scrolled {
+  color: black !important;
+}
+
+.scrolled-border {
+  border-bottom: 1px solid #797979 !important;
+}
+
+
 @media (prefers-color-scheme: dark), (prefers-color-scheme: light) {
   .custom-scroll::-webkit-scrollbar-track {
     background-color: #14141438;

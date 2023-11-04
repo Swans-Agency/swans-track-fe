@@ -1,18 +1,32 @@
 import React, { useState } from "react";
-import { ConfigProvider, Input, theme } from "antd";
+import { Input } from "antd";
 import Image from "next/image";
 import Link from "next/link";
-import { postAxios, postAxiosAllowAny } from "@/functions/ApiCalls";
+import { postAxiosAllowAny } from "@/functions/ApiCalls";
 
-export default function Footer(props) {
+export default function Footer() {
   const [email, setEmail] = useState("");
+  const [buttonDisabled, setButtonDisabled] = useState(true);
+
+  const handleSetEmail = (e) => {
+    setEmail(e.target.value)
+    if (e.target.value === "") {
+      setButtonDisabled(false)
+    } else {
+      setButtonDisabled(true)
+    }
+  }
+
   const onFinish = () => {
     let url = `${process.env.DIGITALOCEAN}/account/mailing-list/`;
     postAxiosAllowAny(url, { email: email }, true, true);
+    setButtonDisabled(true)
+    setEmail("")
   }
+  
   return (
-    <section className="bg-gradient-to-b from-[#01417E] to-[#019DF7] py-10">
-      <div className="w-[90%] m-auto desktop:flex desktop:flex-wrap desktop:justify-between phone:">
+    <section className="py-10 border-t border-t-[#282828]">
+      <div className="m-auto desktop:flex desktop:flex-wrap desktop:justify-between phone:">
         <div className=" desktop:flex gap-24">
 
           <div className="self-center phone:flex phone:justify-center phone:mb-5">
@@ -26,24 +40,17 @@ export default function Footer(props) {
           </div>
           <div>
             <h1 className="text-white text-[1.375rem] phone:text-center desktop:text-start">Stay Connected</h1>
-            <div className="desktop:flex gap-2 pt-2 phone:place-items-center phone:grid">
-              <ConfigProvider
-                theme={{
-                  algorithm: theme.defaultAlgorithm
-                }}
-              >
-                <Input
-                  placeholder="Type your email"
-                  type="email"
-                  className="max-w-[356px] desktop:w-[356px] h-[48px] rounded-lg phone:items-center desktop:m-0"
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </ConfigProvider>
-              <div className="flex justify-center phone:pt-3 desktop:pt-0">
-                <button onClick={() => onFinish()} className="border w-[117px] h-[48px] rounded-lg bg-white text-[#0191E7] font-bold text-[1.125rem]">
-                  Submit
-                </button>
-              </div>
+            <div className="desktop:flex gap-2 phone:place-items-center phone:grid">
+              <Input
+                placeholder="Type your email"
+                type="email"
+                size="large"
+                className=""
+                onChange={(e) => handleSetEmail(e.target.value)}
+              />
+              <button disabled={buttonDisabled} onClick={() => onFinish()} className={`${buttonDisabled ? "cursor-not-allowed": "cursor-pointer"} bg-white text-[#282828] hover:bg-[#bebebe] py-2 px-4 font-bold rounded-lg m-0`}>
+                Submit
+              </button>
             </div>
           </div>
         </div>

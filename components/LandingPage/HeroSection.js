@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import HeroPhone from "./HeroPhone";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -11,28 +11,52 @@ export default function HeroSection() {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  // useEffect(() => {
+  //   if (window !== undefined) {
+  //     const ul = document.querySelector("ul");
+  //     const nav = document.querySelector("nav");
+  //     const menuButton = document.getElementById("menu-button");
+
+  //     window.addEventListener("scroll", () => {
+  //       if (window.scrollY > 750) {
+  //         ul.classList.add("scrolled");
+  //         nav.classList.add("scrolled-border");
+  //         menuButton.classList.add("text-black");
+  //         menuButton.classList.remove("text-white");
+  //       } else {
+  //         ul.classList.remove("scrolled");
+  //         nav.classList.remove("scrolled-border");
+  //         menuButton.classList.remove("text-black");
+  //         menuButton.classList.add("text-white");
+  //       }
+  //     });
+  //   }
+
+  // },[])
+
   return (
     <section
       id="hero-section"
       className="w-full grid gap-0 relative"
       style={{ backgroundImage: "url(/Main.png)", backgroundPosition: "center", backgroundSize: "cover" }}
-    >
-      <nav className="desktop:flex desktop:justify-between desktop:items-center px-[10%] w-full py-6 phone:flex phone:place-content-between">
-        <div>
-          <Image src="/LogoWhite.svg" width={54} height={54} />
-          
-        </div>
 
+    >
+      <nav className="desktop:flex desktop:justify-between desktop:items-center px-[10%] phone:py-2 laptop:py-0 w-full phone:flex bg-transparent backdrop-blur-sm z-50 fixed top-0 left-0 right-0 ">
+        <div>
+          <Image src="/Main.svg" width={45} height={45} />
+
+        </div>
 
         <ul className={`${isMenuOpen ? 'flex' : 'hidden'} desktop:flex justify-between desktop:gap-10 phone:gap-5 text-white self-center`}>
           <a href="/">Home</a>
           <a href="#Features">Features</a>
           <a href="#User">User</a>
         </ul>
-  
+
         <div className="desktop:hidden phone:grid ">
           <button
             onClick={toggleMenu}
+            id="menu-button"
             className="text-white focus:outline-none"
           >
             {isMenuOpen ? (
@@ -68,7 +92,7 @@ export default function HeroSection() {
             )}
           </button>
         </div>
-        
+
         <div className="phone:hidden phone:relative desktop:block">
           <button
             onClick={() => {
