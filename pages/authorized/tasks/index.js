@@ -1,7 +1,11 @@
 import React from "react";
-import TasksComponent from "@/components/tasks/TasksComponent";
+// import TasksComponent from "@/components/tasks/TasksComponent";
 import { getAxiosServer } from "@/functions/ApiCalls";
-
+import dynamic from "next/dynamic";
+import Loading from "@/components/Loading/Loading";
+const TasksComponent = dynamic(() => import("@/components/tasks/TasksComponent"), {
+  loading: () => <Loading />,
+});
 export default function index({ companyTasks }) {
   const initialData = {
     tasks: {

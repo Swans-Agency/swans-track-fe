@@ -24,10 +24,10 @@ export default function App({ Component, pageProps }) {
             <Layout>
               <ConfigProvider
                 theme={{
-                  algorithm: [theme.darkAlgorithm, ]
+                  algorithm: [theme.darkAlgorithm,]
                 }}
               >
-              <Component {...pageProps} />
+                <Component {...pageProps} />
               </ConfigProvider>
             </Layout>
           </NavCollapseWraper>

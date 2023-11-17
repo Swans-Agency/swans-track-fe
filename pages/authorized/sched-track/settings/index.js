@@ -1,8 +1,12 @@
 import React from 'react';
-import SchedSettingsForm from '@/components/Sched/SchedSettingsForm';
+const SchedSettingsForm = dynamic(() => import("@/components/Sched/SchedSettingsForm"), {
+    loading: () => <Loading />,
+});
 import { FloatButton, notification } from 'antd';
 import cookie from "react-cookies";
 import { QuestionOutlined } from "@ant-design/icons";
+import dynamic from 'next/dynamic';
+import Loading from '@/components/Loading/Loading';
 
 export default function index() {
 

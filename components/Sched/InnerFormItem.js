@@ -1,7 +1,6 @@
 import { Form, Select } from 'antd';
 import React, { useEffect, useState } from 'react';
 import {
-    PlusOutlined,
     DeleteOutlined,
 } from "@ant-design/icons";
 

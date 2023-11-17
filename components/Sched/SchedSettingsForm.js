@@ -22,7 +22,6 @@ export default function SchedSettingsForm() {
         { shortName: "SAT", fullName: "Saturday" },
         { shortName: "SUN", fullName: "Sunday" },
     ]
-
     const monthsBooking = [
         {
             value: "this month",
@@ -37,7 +36,6 @@ export default function SchedSettingsForm() {
             label: "Three months ahead",
         },
     ]
-
     const meetingDuration = [
         {
             value: 0.15,
@@ -56,7 +54,6 @@ export default function SchedSettingsForm() {
             label: "60 min",
         },
     ]
-
     const breakDuration = [
         {
             value: "0",

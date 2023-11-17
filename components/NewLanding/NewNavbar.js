@@ -26,9 +26,10 @@ export default function NewNavbar() {
                 <ToggleMenu toggleMenu={toggleMenu} isMenuOpen={isMenuOpen} />
             </div>
 
-            <div className="phone:hidden laptop:block">
+            <div className="phone:hidden laptop:flex items-center justify-start gap-x-2">
                 <LoginButton />
-                <SignupButton />
+                <SignupButton text="Join for free" style="py-2 px-4 hover:bg-[#282828] border border-[#282828] hover:text-white" />
+
             </div>
         </nav>
     );

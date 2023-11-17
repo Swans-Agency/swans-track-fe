@@ -38,9 +38,9 @@ export default function Footer() {
             <a href="#User" className="text-white">Users</a>
             <a href="/signup" className="text-white">Sign up</a>
           </div>
-          <div>
+          <div >
             <h1 className="text-white text-[1.375rem] phone:text-center desktop:text-start">Stay Connected</h1>
-            <div className="desktop:flex gap-2 phone:place-items-center phone:grid">
+            <div className="desktop:flex pt-2 gap-2 phone:place-items-center phone:grid">
               <Input
                 placeholder="Type your email"
                 type="email"
