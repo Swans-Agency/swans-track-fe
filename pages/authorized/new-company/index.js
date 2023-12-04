@@ -23,6 +23,8 @@ export default function index() {
     const [sig, setSig] = useState(null);
     const [pTerms, setPTerms] = useState(null);
     const [ITerms, setITerms] = useState(null);
+    const [showUploadList, setShowUploadList] = useState(true);
+    const [showUploadList2, setShowUploadList2] = useState(true);
     const router = useRouter();
 
     const steps = [
@@ -131,12 +133,27 @@ export default function index() {
     };
 
     const checkFileSize = (file) => {
-        const maxSize = 1024 * 1024; // 1MB in bytes
+        const maxSize = 1024 * 1024 * 5; // 1MB in bytes
         if (file.size > maxSize) {
-            NotificationError("File size must be less than 1MB");
-            // message.error('File size must be less than 1MB');
+            NotificationError("File size must be less than 5MB");
+            // message.error('File size must be less than 5MB');
+            setShowUploadList(false);
+            form.setFieldValue("logo", []);
             return false; // Prevent upload
         }
+        setShowUploadList(true);
+        return true; // Allow upload
+    };
+    const checkFileSize2 = (file) => {
+        const maxSize = 1024 * 1024 * 5; // 5MB in bytes
+        if (file.size > maxSize) {
+            NotificationError("File size must be less than 5MB");
+            // message.error('File size must be less than 5MB');
+            setShowUploadList2(false);
+            form.setFieldValue("signature", []);
+            return false; // Prevent upload
+        }
+        setShowUploadList2(true);
         return true; // Allow upload
     };
 
@@ -305,6 +322,7 @@ export default function index() {
                                     listType="picture-card"
                                     maxCount={1}
                                     defaultFileList={[]}
+                                    showUploadList={showUploadList}
                                     onChange={(e) => {
 
                                         if (e.fileList.length > 0) {
@@ -337,9 +355,10 @@ export default function index() {
                                 required
                             >
                                 <Upload
-                                    beforeUpload={checkFileSize}
+                                    beforeUpload={checkFileSize2}
                                     listType="picture-card"
                                     defaultFileList={[]}
+                                    showUploadList={showUploadList2}
                                     maxCount={1}
                                     className=''
                                     onChange={(e) => {

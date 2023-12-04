@@ -1281,6 +1281,7 @@ const login = async (data) => {
   axios
     .post(URL, data)
     .then((res) => {
+
       clearStorageCookies()
       cookie.save("AccessTokenSBS", res?.data?.access, {
         path: "/",
@@ -1321,7 +1322,6 @@ const login = async (data) => {
       NotificationSuccess();
     })
     .catch((err) => {
-      ;
       handleError(err)
     });
 };

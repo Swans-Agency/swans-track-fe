@@ -113,7 +113,7 @@ export default function TableANTD({
           {
             (selectedRowKeys.length > 0) && (multiDeleteUrl) &&
             <div
-              className=" w-full bg-red-700 hover:shadow-lg text-white py-[0.6rem] px-3 rounded text-center cursor-pointer"
+              className=" w-full bg-red-700 hover:shadow-lg text-white py-[0.6rem] px-3 rounded-lg text-center cursor-pointer"
               onClick={() => handleMultDelete(selectedRowKeys)}
             >
               Delete {selectedRowKeys.length} {selectedRowKeys.length > 1 ? "items" : "item"}
@@ -121,7 +121,7 @@ export default function TableANTD({
           }
           <button
             onClick={showDrawer}
-            className="min-w-fit flex justify-center items-center gap-x-2 bg-mainBackground dark:bg-[#1d1d1d] hover:shadow-lg hover:dark:shadow-sm hover:dark:shadow-[#1d1d1d] text-white rounded py-[0.6rem] px-3"
+            className="min-w-fit flex justify-center items-center gap-x-2 bg-mainBackground dark:bg-[#1d1d1d] hover:shadow-lg hover:dark:shadow-sm hover:dark:shadow-[#1d1d1d] text-white rounded-lg py-[0.6rem] px-3"
           >
             {buttonTitle}
           </button>

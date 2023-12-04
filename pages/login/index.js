@@ -11,9 +11,7 @@ export default function index() {
   const router = useRouter();
 
   const onFinish = async (values) => {
-    ;
     values["username"] = values["username"]?.toLowerCase();
-    ;
     let loggedIn = await login(values);
     if (loggedIn) {
       router.push("/authorized/dashboard");

@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import cookie from "react-cookies";
 import { useRouter } from "next/router";
 import { getAxios } from "@/functions/ApiCalls";
-import { getObjectsFromLocalStorage } from "@/functions/GeneralFunctions";
 
 export default function AuthWrapper({ children }) {
   const router = useRouter();

@@ -18,6 +18,7 @@ export default function TasksComponent({ companyTasks, initialData, projectId = 
   const [open, setOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [allData, setAllData] = useState(companyTasks);
+  const [ganttData, setGanttData] = useState([]);
   const [data, setData] = useState(initialData);
   const [showTag, setShowTag] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -93,11 +94,17 @@ export default function TasksComponent({ companyTasks, initialData, projectId = 
               subTasks: value.subTasks,
               history: value.history,
               comments: value.comments,
+              startDate: value.startDate,
             }
           }
         }
       ))
     })
+
+    let filterGant = allData?.filter((task) => {
+      return task?.startDate && task?.dueDate
+    })
+    setGanttData(filterGant)
 
     allData?.forEach((value) => {
       let status = columnNames[value.taskStatus]
@@ -282,12 +289,10 @@ export default function TasksComponent({ companyTasks, initialData, projectId = 
             options={[
               {
                 value: 'Board',
-                // label: 'Board',
                 icon: <AppstoreOutlined />,
               },
               {
                 value: 'Gantt',
-                // label: 'Gantt',
                 icon: <BarsOutlined />,
 
               },
@@ -307,7 +312,7 @@ export default function TasksComponent({ companyTasks, initialData, projectId = 
       {selectedValue == "Gantt" && allData.length ?
         <div className="mt-6 overflow-x-auto">
           <Gantt
-            tasks={allData}
+            tasks={ganttData}
             onClick={task => { setSelectedItem(task); setIsModalOpen(true) }}
             preStepsCount={1}
             columnWidth={100}

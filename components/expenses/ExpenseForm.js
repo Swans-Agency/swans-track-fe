@@ -17,6 +17,7 @@ import { expenseCategory } from "@/functions/GeneralFunctions";
 
 export default function ExoenseForm({ setReload, onClose }) {
   const [isLoading, setIsLoading] = useState(false);
+  const [showUploadList, setShowUploadList] = useState(true);
   const [form] = Form.useForm();
 
   const onFinish = async (data) => {
@@ -46,12 +47,15 @@ export default function ExoenseForm({ setReload, onClose }) {
   };
 
   const checkFileSize = (file) => {
-    const maxSize = 1024 * 1024; // 1MB in bytes
+    const maxSize = 1024 * 1024 * 5; // 1MB in bytes
     if (file.size > maxSize) {
-      NotificationError("File size must be less than 1MB");
+      NotificationError("File size must be less than 5MB");
+      setShowUploadList(false);
       // message.error('File size must be less than 1MB');
+      form.setFieldValue("attachement", null);
       return false; // Prevent upload
     }
+    setShowUploadList(true);
     return true; // Allow upload
   };
 
@@ -122,7 +126,7 @@ export default function ExoenseForm({ setReload, onClose }) {
         </Form.Item>
       </div>
       <Form.Item label="Attachement" className="" name={"attachement"}>
-        <Upload listType="picture-card" maxCount={1} accept="image/*" beforeUpload={checkFileSize} >
+        <Upload listType="picture-card" maxCount={1} accept="image/*" beforeUpload={checkFileSize} showUploadList={showUploadList} >
           <div>
             <PlusOutlined />
             <div

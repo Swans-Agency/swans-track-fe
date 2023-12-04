@@ -69,7 +69,7 @@ export default function AllCheckLists({ item, handleInitialValues }) {
                   </div>
               </div>
           }
-          <p className="ml-7 bg-gray-400 dark:bg-[#141414] text-white w-fit mt-2 px-3 py-1 rounded hover:shadow-lg hover:cursor-pointer" onClick={() => setShowInputTask(true)}>Add an Item</p>
+          <p className="ml-7 bg-gray-400 dark:bg-[#141414] text-white w-fit mt-2 px-3 py-1 rounded-lg hover:shadow-lg hover:cursor-pointer" onClick={() => setShowInputTask(true)}>Add an Item</p>
       </div>
 
   );

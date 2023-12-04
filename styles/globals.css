@@ -566,3 +566,7 @@ li {
 .element1 {
   background: linear-gradient(to right, #0066ffa9 0%, #0066ff52 25%, #0066ff2c 50%, transparent 100%);
 }
+
+._custom-progress-antd-swans .ant-progress-text {
+  color: white;
+}

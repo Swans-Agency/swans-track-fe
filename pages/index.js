@@ -1,6 +1,4 @@
 import React from "react";
-import HeroSection from "@/components/LandingPage/HeroSection";
-import OurFeatures from "@/components/LandingPage/OurFeatures";
 import Service from "@/components/LandingPage/Service";
 import Join from "@/components/LandingPage/Join";
 import Footer from "@/components/LandingPage/Footer";

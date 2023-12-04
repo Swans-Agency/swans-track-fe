@@ -4,14 +4,8 @@ import Layout from "@/components/Layout/Layout";
 import { NavCollapseWraper } from "@/context/NavContext";
 import { NavShowWraper } from "@/context/ShowNavContext";
 import { ConfigProvider, theme } from "antd";
-import { useEffect } from "react";
 
 export default function App({ Component, pageProps }) {
-
-  // useEffect(() => {
-  //   const html = document.querySelector("html");
-  //   html.classList.add("dark");
-  // }, []);
 
   return (
     <>

@@ -12,7 +12,7 @@ export default function FormButtons({ content, classNames, disable=false, isLoad
     >
       {content}
     </button>:
-        <div className='flex bg-gray-400 dark:bg-[#282828] gap-x-3 rounded min-w-fit justify-center items-center  text-white py-[0.6rem] px-4'>
+        <div className='flex bg-gray-400 dark:bg-[#282828] gap-x-3 rounded-lg min-w-fit justify-center items-center  text-white py-[0.6rem] px-4'>
           <LoadingOutlined /> Loading
         </div>
     }

@@ -48,9 +48,19 @@ const NotificationSuccess = (res) => {
 }
 
 const NotificationError = (err) => {
+    console.log({ err })
+    let textErr;
 
-    let textErr = typeof (err) == "string" ? err : err?.response?.data?.detail || typeof (err?.response?.data) !== "object" && err?.response?.data || "Sorry were are unable to process your request."
-
+    if (typeof (err) == "string") {
+        textErr = err
+    } else if (err?.response?.data?.detail) {
+        textErr = err?.response?.data?.detail
+    } else if (typeof (err?.response?.data) !== "object" && err?.response?.data) {
+        textErr = err?.response?.data
+    } else {
+        textErr = "Sorry were are unable to process your request."
+    }
+    // textErr = "lll"
     Swal.fire({
         title: "Error",
         text: `${textErr}`,

@@ -8,7 +8,7 @@ const nextConfig = {
     REDIRECT_CALENDY_URL: process.env.REDIRECT_CALENDY_URL,
   },
   images: {
-    domains: ['swansagencymain.fra1.digitaloceanspaces.com', 'img.freepik.com', 'images.unsplash.com', 'xsgames.co'],
+    domains: ['swansagencymain.fra1.digitaloceanspaces.com', 'img.freepik.com', 'images.unsplash.com', 'xsgames.co', 'eu2.contabostorage.com'],
   },
 }
 

@@ -13,6 +13,8 @@ export default function CompanyPreferencesForm() {
   const [disabledSelectCurrency, setDisabledCurrency] = useState(false);
   const [reloadData, setReloadData] = useState();
   const [isLoading, setIsLoading] = useState(false);
+  const [showUploadList, setShowUploadList] = useState(true);
+  const [showUploadList2, setShowUploadList2] = useState(true);
   const [form] = Form.useForm();
   let logoPicList = [];
   let signaturePicList = [];
@@ -113,13 +115,30 @@ export default function CompanyPreferencesForm() {
   };
 
   const checkFileSize = (file) => {
-    const maxSize = 1024 * 1024; // 1MB in bytes
+    console.log({ file }, file.size)
+    const maxSize = 1024 * 1024 * 5; // 1MB in bytes
     if (file.size > maxSize) {
-      NotificationError("File size must be less than 1MB");
-      // message.error('File size must be less than 1MB');
-      logoPicList = [];
+      NotificationError("File size must be less than 5MB");
+      setShowUploadList(false);
+      form.setFieldValue("logo", []);
+      // message.error('File size must be less than 5MB');
       return false; // Prevent upload
     }
+    setShowUploadList(true);
+    return true; // Allow upload
+  };
+
+  const checkFileSize2 = (file) => {
+    console.log({ file }, file.size)
+    const maxSize = 1024 * 1024 * 5; // 5MB in bytes
+    if (file.size > maxSize) {
+      NotificationError("File size must be less than 5MB");
+      setShowUploadList2(false);
+      form.setFieldValue("signature", []);
+      // message.error('File size must be less than 5MB');
+      return false; // Prevent upload
+    }
+    setShowUploadList2(true);
     return true; // Allow upload
   };
 
@@ -154,6 +173,7 @@ export default function CompanyPreferencesForm() {
               defaultFileList={logoPicList}
               // fileList={logoPicList}
               beforeUpload={checkFileSize}
+              showUploadList={showUploadList}
             >
               <div>
                 <PlusOutlined />
@@ -182,7 +202,8 @@ export default function CompanyPreferencesForm() {
               listType="picture-card"
               maxCount={1}
               defaultFileList={signaturePicList}
-              beforeUpload={checkFileSize}
+              beforeUpload={checkFileSize2}
+              showUploadList={showUploadList2}
             >
               <div>
                 <PlusOutlined />

@@ -11,6 +11,7 @@ export default function TeamForm({ updateItem, setUpdateItem, setReload }) {
   const [form] = Form.useForm();
   const [userData, setUserData] = useState();
   const [isLoading, setIsLoading] = useState(false);
+  const [showUploadList, setShowUploadList] = useState(true);
   let initialPicList = [];
 
   useEffect(() => {
@@ -71,12 +72,15 @@ export default function TeamForm({ updateItem, setUpdateItem, setReload }) {
   };
 
   const checkFileSize = (file) => {
-    const maxSize = 1024 * 1024; // 1MB in bytes
+    const maxSize = 1024 * 1024 * 5; // 1MB in bytes
     if (file.size > maxSize) {
-      NotificationError("File size must be less than 1MB");
+      NotificationError("File size must be less than 5MB");
       // message.error('File size must be less than 1MB');
+      setShowUploadList(false);
+      form.setFieldValue("pfp", null);
       return false; // Prevent upload
     }
+    setShowUploadList(true);
     return true; // Allow upload
   };
 
@@ -96,6 +100,7 @@ export default function TeamForm({ updateItem, setUpdateItem, setReload }) {
           listType="picture-card"
           maxCount={1}
           defaultFileList={initialPicList}
+          showUploadList={showUploadList}
         >
           <div>
             <PlusOutlined />

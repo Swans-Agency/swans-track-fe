@@ -11,7 +11,6 @@ import Image from "next/image";
 import dayjs from "dayjs";
 import FormButtons from "../ANTD/FormButtons";
 import { LoadingOutlined } from "@ant-design/icons";
-import CustomEditor from "../Tiny/Editor";
 import AllCheckLists from "./AllCheckLists";
 import SunEditorComponent from "../WYSWUG/SunEditorComponent";
 
@@ -21,16 +20,13 @@ export default function TaskForm({ handleNotifyTeam, selectedItem, projectId = n
   const [form] = Form.useForm();
   const [employees, setEmployees] = useState([]);
   const [taskDescription, setTaskDescription] = useState("<p></p>");
-  const [showEditor, setShowEditor] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingDelete, setIsLoadingDelete] = useState(false);
   const [checklistName, setChecklistName] = useState("")
   const [checkLists, setCheckLists] = useState([])
   const [showInput, setShowInput] = useState(false);
   const [showHistory, setShowHistory] = useState(false);
-  const [showComments, setShowComments] = useState(false);
   const [commentText, setCommentText] = useState(null);
-  const { TextArea } = Input;
 
   const getAllEmployees = async () => {
     const url = `${process.env.DIGITALOCEAN}/account/list-employees-no-pagination/`;
@@ -41,7 +37,7 @@ export default function TaskForm({ handleNotifyTeam, selectedItem, projectId = n
         <>
           <div className="flex items-center gap-x-2">
             <Image
-              src={item?.userProfile?.pfp?.split("?")[0] || "https://swansagencymain.fra1.digitaloceanspaces.com/SBSFILES/defaultPics/user.png"}
+              src={item?.userProfile?.pfp?.split("?")[0] || "/LogoWhite.svg"}
               width={20}
               height={20}
               className="rounded-full"
@@ -55,7 +51,7 @@ export default function TaskForm({ handleNotifyTeam, selectedItem, projectId = n
     }));
     setEmployees(arrData);
   };
-  console.log({ selectedItem })
+
   useEffect(() => {
     getAllEmployees();
 
@@ -75,17 +71,19 @@ export default function TaskForm({ handleNotifyTeam, selectedItem, projectId = n
       form.setFieldValue("taskDescription", selectedItem?.taskDescription !== "undefined" ? selectedItem?.taskDescription : "");
       setTaskDescription(selectedItem?.taskDescription !== "undefined" ? selectedItem?.taskDescription : "<p>No description</p>")
       form.setFieldValue("taskStatus", selectedItem?.taskStatus);
-      form.setFieldValue("priority", selectedItem?.priority);
-      form.setFieldValue("dueDate", dayjs(new Date(selectedItem?.dueDate ? selectedItem?.dueDate : null)));
-      form.setFieldValue("assignee", {
+      selectedItem?.priority !== "undefined" && form.setFieldValue("priority", selectedItem?.priority);
+      selectedItem?.dueDate && form.setFieldValue("dueDate", dayjs(new Date(selectedItem?.dueDate ? selectedItem?.dueDate : null)));
+      selectedItem?.startDate && form.setFieldValue("startDate", dayjs(new Date(selectedItem?.startDate ? selectedItem?.startDate : null)));
+      {
+        selectedItem?.assignee?.id && form.setFieldValue("assignee", {
         value: selectedItem?.assignee?.id,
         label: <>
           <div className='flex items-center gap-x-2'>
-            <Image src={selectedItem?.assignee?.pfp?.split("?")[0]} width={20} height={20} className='rounded-full' />
+            <Image src={selectedItem?.assignee?.pfp?.split("?")[0] || '/whiteLogo.svg'} width={20} height={20} className='rounded-full' />
             <span>{selectedItem?.assignee?.name}</span>
           </div>
         </>,
-      })
+      })}
     }
   }
 
@@ -110,24 +108,39 @@ export default function TaskForm({ handleNotifyTeam, selectedItem, projectId = n
     formData.append("taskDescription", data?.taskDescription);
     formData.append("taskStatus", data?.taskStatus);
     formData.append("priority", data?.priority);
-    formData.append(
+    
+    data?.dueDate ? formData.append(
       "dueDate",
-      moment(new Date(data?.dueDate)).format("YYYY-MM-DD")
-    );
+      moment(new Date(data?.dueDate)).format("YYYY-MM-DD") 
+    ) : formData.append("dueDate", null);
+    
+    data?.startDate ? formData.append(
+      "startDate",
+      moment(new Date(data?.startDate)).format("YYYY-MM-DD") 
+    ) : formData.append("startDate", null);
+
     const assigneeValue = data?.assignee;
     const url = `${process.env.DIGITALOCEAN}/tasks/create-task/`;
-
-
     if (selectedItem) {
-      if (Number.isNaN(Number(assigneeValue))) {
-        formData.append('assignee', selectedItem?.assignee?.id);
+      if (data?.assignee == undefined) {
+        console.log("sssss")
+        formData.append('assignee', null);
       } else {
-        formData.append('assignee', assigneeValue);
+        if (Number.isNaN(Number(assigneeValue))) {
+          formData.append('assignee', assigneeValue ? selectedItem?.assignee?.id : null);
+        } else {
+          formData.append('assignee', assigneeValue);
+        }
       }
       const url = `${process.env.DIGITALOCEAN}/tasks/edit-task/${selectedItem?.id}/`
       await patchAxios(url, formData, true, true, () => { })
     } else {
-      formData.append('assignee', assigneeValue);
+      if (data?.assignee == undefined) {
+        console.log("dddddd")
+        formData.append('assignee', null);
+      } else {
+        formData.append('assignee', assigneeValue);
+      }
       await postAxios(url, formData, true, true, () => { })
     }
 
@@ -186,7 +199,6 @@ export default function TaskForm({ handleNotifyTeam, selectedItem, projectId = n
         layout="vertical"
         style={{
           alignContent: "center",
-          // maxWidth: 600,
         }}
         className="custom-form"
         form={form}
@@ -209,8 +221,7 @@ export default function TaskForm({ handleNotifyTeam, selectedItem, projectId = n
               name="taskDescription"
               className="w-full"
             >
-              <SunEditorComponent form={form} fieldName="taskDescription" callBack={setTaskDescription}  />
-              
+              <SunEditorComponent form={form} fieldName="taskDescription" callBack={setTaskDescription} />
             </Form.Item>
 
             {selectedItem &&
@@ -233,7 +244,6 @@ export default function TaskForm({ handleNotifyTeam, selectedItem, projectId = n
                       onChange={(e) => setChecklistName(e.target.value)}
                     />
                     <div className="flex gap-1">
-
                       <div className="bg-mainBackground dark:bg-[#141414] rounded-lg text-white hover:shadow-lg hover:cursor-pointer px-3 py-2" onClick={() => handleCreateChecklist()}>Save</div>
                       <div className="bg-gray-400 dark:bg-[#282828] rounded-lg text-white hover:shadow-lg hover:cursor-pointer px-3 py-2" onClick={() => handlehideInput(false)}>Cancel</div>
                     </div>
@@ -289,12 +299,6 @@ export default function TaskForm({ handleNotifyTeam, selectedItem, projectId = n
                 label="Task Priority"
                 name="priority"
                 className="w-full"
-                required
-                rules={[
-                  {
-                    required: true
-                  }
-                ]}
               >
                 <Select
                   size="large"
@@ -318,46 +322,44 @@ export default function TaskForm({ handleNotifyTeam, selectedItem, projectId = n
             </div>
             <div className="flex gap-x-5 w-full mt-0">
               <Form.Item
-                label="Due Date"
-                name="dueDate"
+                label="Start Date"
+                name="startDate"
                 className="w-full"
-                required
-                rules={[
-                  {
-                    required: true
-                  }
-                ]}
               >
                 <DatePicker size="large" className="w-full" placeholder="" />
               </Form.Item>
-
               <Form.Item
-                label="Assigne To"
-                name="assignee"
+                label="Due Date"
+                name="dueDate"
                 className="w-full"
-                required
-                rules={[
-                  {
-                    required: true
-                  }
-                ]}
               >
-                <Select
-                  size="large"
-                  showSearch
-                  defaultValue=""
-                  style={{
-                    width: "100%",
-                  }}
-                  onChange={(e) => {
-                    form.setFieldValue("assignee", e);
-                  }}
-                  allowClear={true}
-                  filterOption={true}
-                  options={employees}
-                />
+                <DatePicker size="large" className="w-full" placeholder="" disabledDate={(current) => {
+                  const startDate = form.getFieldValue("startDate");
+                  return current && (current < moment().startOf("day") || current < startDate);
+                }} />
               </Form.Item>
+
             </div>
+            <Form.Item
+              label="Assignee"
+              name="assignee"
+              className="w-full"
+            >
+              <Select
+                size="large"
+                showSearch
+                defaultValue=""
+                style={{
+                  width: "100%",
+                }}
+                onChange={(e) => {
+                  form.setFieldValue("assignee", e);
+                }}
+                allowClear={true}
+                filterOption={true}
+                options={employees}
+              />
+            </Form.Item>
           </div>
 
           <div>
@@ -437,10 +439,10 @@ export default function TaskForm({ handleNotifyTeam, selectedItem, projectId = n
             <Form.Item>
 
               {!isLoadingDelete ? <button
-                className="bg-red-600 hover:shadow-lg  text-textButtons rounded py-[0.5rem] px-4"
+                className="bg-red-600 hover:shadow-lg  text-textButtons rounded-lg py-[0.5rem] px-4"
                 onClick={onArchive}
               >Archive</button> :
-                <div className='flex bg-gray-400 gap-x-3 rounded min-w-fit justify-center items-center  text-white py-[0.6rem] px-4'>
+                <div className='flex bg-gray-400 gap-x-3 rounded-lg min-w-fit justify-center items-center  text-white py-[0.6rem] px-4'>
                   <LoadingOutlined /> Loading
                 </div>
               }
@@ -448,7 +450,7 @@ export default function TaskForm({ handleNotifyTeam, selectedItem, projectId = n
           </div>}
           <div className={`${!selectedItem ? "w-full flex justify-end" : ""}`}>
             <Form.Item>
-              <FormButtons content={selectedItem ? "Edit" : "Assign"} isLoading={isLoading} />
+              <FormButtons content={selectedItem ? "Save" : "Create"} isLoading={isLoading} />
             </Form.Item>
           </div>
         </div>

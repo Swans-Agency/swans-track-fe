@@ -28,6 +28,7 @@ export default function IncomeForm({ setReload, onClose }) {
   const [form] = Form.useForm();
   const [proposalData, setProposalData] = useState([]);
   const [open, setOpen] = useState(false);
+  const [showUploadList, setShowUploadList] = useState(false);
 
   const getAllInvoice = async () => {
     const url = `${process.env.DIGITALOCEAN}/invoice/get-all-invoices/`;
@@ -77,13 +78,24 @@ export default function IncomeForm({ setReload, onClose }) {
   };
 
   const checkFileSize = (file) => {
-    const maxSize = 1024 * 1024; // 1MB in bytes
+    console.log({ file }, file.size)
+    const maxSize = 1024 * 1024 * 5; // 1MB in bytes
     if (file.size > maxSize) {
-      NotificationError("File size must be less than 1MB");
+      NotificationError("File size must be less than 5MB");
+      setShowUploadList(false);
+      form.setFieldValue("attachment", []);
       // message.error('File size must be less than 1MB');
       return false; // Prevent upload
     }
+    setShowUploadList(true);
     return true; // Allow upload
+  };
+
+  const normfile = (e) => {
+    if (array.isarray(e)) {
+      return e;
+    }
+    return e && e.filelist;
   };
 
   return (
@@ -208,8 +220,8 @@ export default function IncomeForm({ setReload, onClose }) {
             </div>
           </Form.Item>
 
-          <Form.Item label="Attachment" className="" name={"attachment"}>
-            <Upload listType="picture-card" maxCount={1} accept="image/*" beforeUpload={checkFileSize}>
+            <Form.Item label="Attachment" className="" name={"attachment"}>
+              <Upload listType="picture-card" maxCount={1} accept="image/*" beforeUpload={checkFileSize} showUploadList={showUploadList} >
               <div>
                 <PlusOutlined />
                 <div

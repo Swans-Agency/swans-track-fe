@@ -5,6 +5,7 @@ import { Badge, Progress } from 'antd';
 import dayjs from "dayjs";
 import DotIcon from "./dotIcon";
 import Clock from "./Clock";
+import Image from "next/image";
 
 export default function Card({ card, index, showTag, setShowTag, setSelectedItem, setOpen }) {
     const [minimize, setMinimize] = useState(false);
@@ -22,7 +23,7 @@ export default function Card({ card, index, showTag, setShowTag, setSelectedItem
         setOpen(true);
     }
 
-
+    console.log({ card })
 
 
     return (
@@ -40,7 +41,7 @@ export default function Card({ card, index, showTag, setShowTag, setSelectedItem
                 >
                     { }
                     <Badge.Ribbon className="absolute top-0 left-0 w-0 h-0" color="transparent">
-                        <div className="border dark:border-0 px-2 pt-4 rounded-lg bg-white dark:bg-[#141414] dark:text-white shadow">
+                        <div className={`border dark:border-0 px-2 pt-4 rounded-lg bg-white dark:bg-[#141414] dark:text-white shadow  py-2`}>
                             <div className="flex items-center justify-between">
                                 <div
                                     onClick={() => { handleUpdate(card) }}
@@ -74,12 +75,15 @@ export default function Card({ card, index, showTag, setShowTag, setSelectedItem
                                         {card?.subTasks}
                                     </div>
                                 </div>}
-                                <div className="py-2 flex justify-between">
-                                    <div className={`flex gap-x-1 items-center ${dayjs(card?.dueDate).diff(dayjs(), 'day') < 0 && card?.taskStatus !== "Completed" ? "text-red-500" : dayjs(card?.dueDate).diff(dayjs(), 'day') < 2 && card?.taskStatus !== "Completed" ? "text-yellow-500" : card?.taskStatus !== "Completed" ? "text-green-500" : "text-black dark:text-gray-600"}`}><Clock />{dayjs(card?.dueDate).format('D MMM, YYYY')}</div>
-                                    <div className="w-[30px] h-[30px] hover:cursor-auto">
-                                        <img src={card?.assignee?.pfp?.split('?')[0]} title={card?.assignee?.name} className="w-full h-full rounded-full border-2 p-1" />
-                                    </div>
-                                </div>
+                                {card?.assignee?.name && <div className="py-2 flex justify-between">
+                                    {card?.dueDate && <div 
+                                    className={`flex gap-x-1 items-center ${dayjs(card?.dueDate).diff(dayjs(), 'day') < 0 && card?.taskStatus !== "Completed" ? "text-red-500" : dayjs(card?.dueDate).diff(dayjs(), 'day') < 2 && card?.taskStatus !== "Completed" ? "text-yellow-500" : card?.taskStatus !== "Completed" ? "text-green-500" : "text-black dark:text-gray-600"}`}><Clock />{dayjs(card?.dueDate).format('D MMM, YYYY')}</div>}
+
+                                    {card?.assignee?.name && <div className="w-[30px] h-[30px] hover:cursor-auto ml-auto">
+                                        {card?.assignee?.pfp?.split('?')[1] ? <img  src={card?.assignee?.pfp?.split('?')[0]} title={card?.assignee?.name} className="w-full h-full rounded-full border-2 p-1" /> :
+                                        <Image width={20} height={20}  src={"/LogoWhite.svg"} title={card?.assignee?.name} className="w-full h-full rounded-full border-2 p-1" /> }
+                                    </div>}
+                                </div>}
 
                             </div>
                         </div>

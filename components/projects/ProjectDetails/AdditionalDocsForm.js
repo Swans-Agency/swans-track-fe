@@ -9,6 +9,7 @@ import { NotificationError } from "@/functions/Notifications";
 export default function AdditionalDocsForm({ projectId, getProjectAdditionalDocs, handleCloseModal }) {
     const [form] = Form.useForm();
     const [isLoading, setIsLoading] = useState(false);
+    const [showUploadList, setShowUploadList] = useState(true);
 
 
 
@@ -33,12 +34,15 @@ export default function AdditionalDocsForm({ projectId, getProjectAdditionalDocs
         setIsLoading(false)
     };
     const checkFileSize = (file) => {
-        const maxSize = 1024 * 1024; // 1MB in bytes
+        const maxSize = 1024 * 1024 * 20; // 1MB in bytes
         if (file.size > maxSize) {
-            NotificationError("File size must be less than 1MB");
+            NotificationError("File size must be less than 20MB");
+            setShowUploadList(false);
             // message.error('File size must be less than 1MB');
+            form.setFieldValue("doc", null);
             return false; // Prevent upload
         }
+        setShowUploadList(true);
         return true; // Allow upload
     };
 
@@ -63,7 +67,7 @@ export default function AdditionalDocsForm({ projectId, getProjectAdditionalDocs
                     },
                 ]}
                 label="Document(s)" className="" name={"doc"}>
-                <Upload listType="picture-card" multiple accept="*/*" beforeUpload={checkFileSize}>
+                <Upload listType="picture-card" multiple accept="*/*" beforeUpload={checkFileSize} showUploadList={showUploadList} >
                     <div>
                         <PlusOutlined />
                         <div

@@ -27,7 +27,7 @@ import Booked from "./Icons/Booked";
 import SchedIcon from "./Icons/SchedIcon";
 import Gpt from "./Icons/Gpt";
 import ProjectIcons from "./Icons/ProjectIcons";
-import { Avatar, Menu, Popover } from "antd";
+import { Avatar, Menu, Popover, Progress } from "antd";
 import cookie from "react-cookies";
 import { logout } from "@/functions/GeneralFunctions";
 import FormIcon from "./Icons/FormIcon";
@@ -245,7 +245,7 @@ export default function Navbar({ userPermission }) {
                     selectedTab={selectedTab}
                     setSelectedTab={setSelectedTab}
                   />
-                );
+                ); 
               })}
 
               <div className="absolute bottom-0 left-0 w-full  border-t dark:border-t-[#282828]">

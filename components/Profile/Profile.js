@@ -18,6 +18,7 @@ export default function Profile() {
   const [userCreateDate, setUserCreateDate] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [isLoading1, setIsLoading1] = useState(false);
+  const [showUploadList, setShowUploadList] = useState(true);
   let initialPicList = [];
 
   useEffect(() => {
@@ -96,12 +97,15 @@ export default function Profile() {
   };
 
   const checkFileSize = (file) => {
-    const maxSize = 1024 * 1024; // 1MB in bytes
+    const maxSize = 1024 * 1024 * 5; // 1MB in bytes
     if (file.size > maxSize) {
-      NotificationError("File size must be less than 1MB");
+      NotificationError("File size must be less than 5MB");
       // message.error('File size must be less than 1MB');
+      setShowUploadList(false);
+      form.setFieldValue("pfp", []);
       return false; // Prevent upload
     }
+    setShowUploadList(true);
     return true; // Allow upload
   };
 
@@ -124,6 +128,7 @@ export default function Profile() {
             listType="picture-card"
             maxCount={1}
             defaultFileList={initialPicList}
+            showUploadList={showUploadList}
           >
             <div>
               <PlusOutlined className="text-black" />
