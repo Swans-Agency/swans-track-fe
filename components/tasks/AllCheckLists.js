@@ -26,7 +26,7 @@ export default function AllCheckLists({ item, handleInitialValues }) {
 
     const handleDeleteChecklist = async (id) => {
         const url = `${process.env.DIGITALOCEAN}/tasks/check-list/${id}/`
-        await deleteAxios(url, false, false, () => { })
+        await deleteAxios(url, true, true, () => { })
         handleInitialValues()
     }
 
@@ -38,7 +38,7 @@ export default function AllCheckLists({ item, handleInitialValues }) {
 
     const handleDeleteTask = async (id) => {
         const url = `${process.env.DIGITALOCEAN}/tasks/items-list/${id}/`
-        await deleteAxios(url, false, false, () => { })
+        await deleteAxios(url, true, true, () => { })
         handleInitialValues()
     }
 
@@ -54,6 +54,7 @@ export default function AllCheckLists({ item, handleInitialValues }) {
                       itemTask={itemTask}
                       handleCheckTask={handleCheckTask}
                       handleDeleteTask={handleDeleteTask}
+                      
                   />
               )
           })}
