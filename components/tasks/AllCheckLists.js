@@ -5,7 +5,7 @@ import { Input } from 'antd';
 import { deleteAxios, patchAxios, postAxios } from '@/functions/ApiCalls';
 
 
-export default function AllCheckLists({ item, handleInitialValues }) {
+export default function AllCheckLists({ item, handleInitialValues, handleNotifyTeam }) {
     const [showInputTask, setShowInputTask] = useState(false);
     
     
@@ -47,6 +47,7 @@ export default function AllCheckLists({ item, handleInitialValues }) {
           <CheckList
               item={item}
               handleDeleteChecklist={handleDeleteChecklist}
+              handleNotifyTeam={handleNotifyTeam}
           />
           {item?.checkListItems?.map((itemTask) => {
               return (
@@ -54,7 +55,8 @@ export default function AllCheckLists({ item, handleInitialValues }) {
                       itemTask={itemTask}
                       handleCheckTask={handleCheckTask}
                       handleDeleteTask={handleDeleteTask}
-                      
+                      handleNotifyTeam={handleNotifyTeam}
+
                   />
               )
           })}

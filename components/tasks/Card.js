@@ -56,9 +56,9 @@ export default function Card({ card, index, showTag, setShowTag, setSelectedItem
                                     {minTag ? card?.priority : ""}</p>
                             </div>
                             <div className="pt-1">
-                                <p className=" font-medium " style={{ wordWrap: 'break-word', whiteSpace: 'pre-wrap' }}>{card.taskName}</p>
+                                <p className=" font-medium " style={{ wordWrap: 'break-word', whiteSpace: 'pre-wrap' }}>{card?.taskName}</p>
                                 <p className="text-justify text-gray-400">
-                                    {card?.taskDescription != "undefined" && card?.taskDescription.length > 2 &&
+                                    {card?.taskDescription != "undefined" && card?.taskDescription?.length > 2 &&
                                         <div
                                             style={{ wordWrap: 'break-word', whiteSpace: 'pre-wrap' }}
                                             dangerouslySetInnerHTML={{ __html: card?.taskDescription?.substring(0, 150) }}
@@ -69,9 +69,7 @@ export default function Card({ card, index, showTag, setShowTag, setSelectedItem
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z" />
                                     </svg>
-
                                     <div>
-
                                         {card?.subTasks}
                                     </div>
                                 </div>}

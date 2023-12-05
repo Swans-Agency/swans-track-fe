@@ -12,7 +12,7 @@ import {
 } from '@ant-design/icons';
 
 
-export default function CheckList({ item, handleDeleteChecklist }) {
+export default function CheckList({ item, handleDeleteChecklist, handleNotifyTeam }) {
     const [showInput, setShowInput] = useState(false);
     const [checkListName, setCheckListName] = useState(item?.checklistName)
     const [showLists, setShowLists] = useState(false)
@@ -30,6 +30,7 @@ export default function CheckList({ item, handleDeleteChecklist }) {
             }
             setShowInput(false)
             await patchAxios(url, data, false, false, () => { })
+            handleNotifyTeam()
         }
     }
 
@@ -48,16 +49,25 @@ export default function CheckList({ item, handleDeleteChecklist }) {
     const getAllCompanyTasks = async () => {
         const url = `${process.env.DIGITALOCEAN}/tasks/list-tasks/`
         if (!companyTasks) {
-
             let response = await getAxios(url, false, false, () => { })
             setCompanyTasks(response)
         }
+    }
 
-
+    const replaceHttpWithHttps = (link) => {
+        const index = link.indexOf("/?");
+        if (index !== -1) {
+            const result = link.substring(index);
+            return result
+        } else {
+            return link
+        }
     }
 
     const loadMoreTasks = async () => {
-        const url = companyTasks?.next
+        const filters = replaceHttpWithHttps(companyTasks?.next)
+        const url = `${process.env.DIGITALOCEAN}/tasks/list-tasks${filters}`
+        console.log({ companyTasks })
         setLoadingMore(true)
         let response = await getAxios(url, false, false, () => { })
         setCompanyTasks({
@@ -71,13 +81,13 @@ export default function CheckList({ item, handleDeleteChecklist }) {
     const cloneChecklist = async (id) => {
         const url = `${process.env.DIGITALOCEAN}/tasks/clone-checklist/`
         await postAxios(url, { checklistId: item?.id, destinationId: id }, true, true, () => { })
+        handleNotifyTeam()
     }
 
 
 
     const handleClose = () => {
         setIsModalOpen(false)
-
     };
 
     return (

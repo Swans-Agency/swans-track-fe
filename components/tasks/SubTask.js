@@ -4,7 +4,7 @@ import ModalANTD from '../ANTD/ModalANTD';
 import { postAxios } from '@/functions/ApiCalls';
 
 
-export default function SubTask({ itemTask, handleCheckTask, handleDeleteTask }) {
+export default function SubTask({ itemTask, handleCheckTask, handleDeleteTask, handleNotifyTeam }) {
     const [mouseOver, setMouseOver] = useState(false)
     const [lineThrough, setLineThrough] = useState(false)
     const [isModalOpen, setIsModalOpen] = useState(false)
@@ -21,6 +21,7 @@ export default function SubTask({ itemTask, handleCheckTask, handleDeleteTask })
 
         let url = `${process.env.DIGITALOCEAN}/tasks/create-task/`
         await postAxios(url, formData, true, true, () => { })
+        handleNotifyTeam()
     }
 
     return (

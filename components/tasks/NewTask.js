@@ -256,6 +256,7 @@ export default function TaskForm({ handleNotifyTeam, selectedItem, projectId = n
                       <AllCheckLists
                         item={item}
                         handleInitialValues={handleInitialValues}
+                        handleNotifyTeam={handleNotifyTeam}
                       />
                     )
                   }) :
@@ -426,9 +427,6 @@ export default function TaskForm({ handleNotifyTeam, selectedItem, projectId = n
                   </div>
                 </div>
               </>
-
-
-
             </div>}
           </div>
         </div>
