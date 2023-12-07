@@ -3,42 +3,51 @@ import CheckList from './CheckList';
 import SubTask from './SubTask';
 import { Input } from 'antd';
 import { deleteAxios, patchAxios, postAxios } from '@/functions/ApiCalls';
+import { useRouter } from 'next/router';
 
 
 export default function AllCheckLists({ item, handleInitialValues, handleNotifyTeam }) {
     const [showInputTask, setShowInputTask] = useState(false);
-    
+    const router = useRouter()
     
     const [taskName, setTaskName] = useState("")
 
     
 
     const handleCreateTask = async (item) => {
+        let pathname = router.pathname.startsWith("/invited-project") ? true : false
+
         const url = `${process.env.DIGITALOCEAN}/tasks/items-list/`
         const data = {
             itemName: taskName,
             checklist: item?.id
         }
-        await postAxios(url, data, false, false, () => { })
+        await postAxios(url, data, false, false, () => { }, pathname)
         handleInitialValues()
         setShowInputTask(false)
     }
 
     const handleDeleteChecklist = async (id) => {
         const url = `${process.env.DIGITALOCEAN}/tasks/check-list/${id}/`
-        await deleteAxios(url, true, true, () => { })
+        let pathname = router.pathname.startsWith("/invited-project") ? true : false
+
+        await deleteAxios(url, true, true, () => { }, pathname)
         handleInitialValues()
     }
 
     const handleCheckTask = async (item) => {
         const url = `${process.env.DIGITALOCEAN}/tasks/items-list/${item?.id}/`
-        await patchAxios(url, {}, false, false, () => { })
+        let pathname = router.pathname.startsWith("/invited-project") ? true : false
+
+        await patchAxios(url, {}, false, false, () => { }, pathname)
         handleInitialValues()
     }
 
     const handleDeleteTask = async (id) => {
         const url = `${process.env.DIGITALOCEAN}/tasks/items-list/${id}/`
-        await deleteAxios(url, true, true, () => { })
+        let pathname = router.pathname.startsWith("/invited-project") ? true : false
+
+        await deleteAxios(url, true, true, () => { }, pathname)
         handleInitialValues()
     }
 

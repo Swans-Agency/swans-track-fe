@@ -2,13 +2,14 @@ import { Checkbox, Popconfirm } from 'antd';
 import React, { useState } from 'react';
 import ModalANTD from '../ANTD/ModalANTD';
 import { postAxios } from '@/functions/ApiCalls';
+import { useRouter } from 'next/router';
 
 
 export default function SubTask({ itemTask, handleCheckTask, handleDeleteTask, handleNotifyTeam }) {
     const [mouseOver, setMouseOver] = useState(false)
     const [lineThrough, setLineThrough] = useState(false)
     const [isModalOpen, setIsModalOpen] = useState(false)
-
+    const router = useRouter()
     const handleClose = () => {
         setIsModalOpen(false)
     }
@@ -20,7 +21,9 @@ export default function SubTask({ itemTask, handleCheckTask, handleDeleteTask, h
         formData.append("status", true)
 
         let url = `${process.env.DIGITALOCEAN}/tasks/create-task/`
-        await postAxios(url, formData, true, true, () => { })
+        let pathname = router.pathname.startsWith("/invited-project") ? true : false
+
+        await postAxios(url, formData, true, true, () => { }, pathname)
         handleNotifyTeam()
     }
 

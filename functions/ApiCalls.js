@@ -3,13 +3,19 @@ import axios from "axios";
 import { NotificationLoading, NotificationSuccess } from "./Notifications";
 import { handleError } from "./ErrorHandling";
 
-const getAxios = async (url, loading, success, callBack) => {
+const getAxios = async (url, loading, success, callBack, dontSendToken=false) => {
   try {
     if (loading) {
       NotificationLoading();
     }
     let accessToken = cookie.load("AccessTokenSBS", { path: "/" });
-    let auth = { headers: { Authorization: `Bearer ${accessToken}` } };
+    let invitedEmail = cookie.load("invited-email", { path: "/" });
+    let invitedProjectId = cookie.load("invited-project", { path: "/" });
+    let params = {
+      email: invitedEmail,
+      projectId: invitedProjectId
+    }
+    let auth = dontSendToken ? { params: params } : { headers: { Authorization: `Bearer ${accessToken}` }, params: params };
     let res = await axios.get(url, auth);
     if (callBack) {
       callBack(res?.data);
@@ -23,13 +29,19 @@ const getAxios = async (url, loading, success, callBack) => {
   }
 };
 
-const postAxios = async (url, data, loading, success, callBack = () => { }, fail = true, failMessage = "") => {
+const postAxios = async (url, data, loading, success, callBack = () => { }, fail = true, failMessage = "", dontSendToken = false) => {
   try {
     if (loading) {
       NotificationLoading();
     }
     let accessToken = cookie.load("AccessTokenSBS", { path: "/" });
-    let auth = { headers: { Authorization: `Bearer ${accessToken}` } };
+    let invitedEmail = cookie.load("invited-email", { path: "/" });
+    let invitedProjectId = cookie.load("invited-project", { path: "/" });
+    let params = {
+      email: invitedEmail,
+      projectId: invitedProjectId
+    }
+    let auth = dontSendToken ? { params: params } : { headers: { Authorization: `Bearer ${accessToken}` }, params: params };
     let res = await axios.post(url, data, auth);
     if (success) {
       NotificationSuccess(res?.data);
@@ -48,13 +60,19 @@ const postAxios = async (url, data, loading, success, callBack = () => { }, fail
   }
 };
 
-const putAxios = async (url, data, loading, success, callBack) => {
+const putAxios = async (url, data, loading, success, callBack, dontSendToken = false) => {
   try {
     if (loading) {
       NotificationLoading();
     }
     let accessToken = cookie.load("AccessTokenSBS", { path: "/" });
-    let auth = { headers: { Authorization: `Bearer ${accessToken}` } };
+    let invitedEmail = cookie.load("invited-email", { path: "/" });
+    let invitedProjectId = cookie.load("invited-project", { path: "/" });
+    let params = {
+      email: invitedEmail,
+      projectId: invitedProjectId
+    }
+    let auth = dontSendToken ? { params: params } : { headers: { Authorization: `Bearer ${accessToken}` }, params: params };
     let res = await axios.put(url, data, auth);
     if (callBack) {
       callBack(res?.data);
@@ -68,13 +86,19 @@ const putAxios = async (url, data, loading, success, callBack) => {
   }
 };
 
-const patchAxios = async (url, data, loading, success, callBack) => {
+const patchAxios = async (url, data, loading, success, callBack, dontSendToken = false) => {
   try {
     if (loading) {
       NotificationLoading();
     }
     let accessToken = cookie.load("AccessTokenSBS", { path: "/" });
-    let auth = { headers: { Authorization: `Bearer ${accessToken}` } };
+    let invitedEmail = cookie.load("invited-email", { path: "/" });
+    let invitedProjectId = cookie.load("invited-project", { path: "/" });
+    let params = {
+      email: invitedEmail,
+      projectId: invitedProjectId
+    }
+    let auth = dontSendToken ? { params: params } : { headers: { Authorization: `Bearer ${accessToken}` }, params: params };
     let res = await axios.patch(url, data, auth);
     if (callBack) {
       callBack(res?.data);
@@ -88,13 +112,19 @@ const patchAxios = async (url, data, loading, success, callBack) => {
   }
 };
 
-const deleteAxios = async (url, loading, success, callBack) => {
+const deleteAxios = async (url, loading, success, callBack, dontSendToken = false) => {
   try {
     if (loading) {
       NotificationLoading();
     }
     let accessToken = cookie.load("AccessTokenSBS", { path: "/" });
-    let auth = { headers: { Authorization: `Bearer ${accessToken}` } };
+    let invitedEmail = cookie.load("invited-email", { path: "/" });
+    let invitedProjectId = cookie.load("invited-project", { path: "/" });
+    let params = {
+      email: invitedEmail,
+      projectId: invitedProjectId
+    }
+    let auth = dontSendToken ? { params: params } : { headers: { Authorization: `Bearer ${accessToken}` }, params: params };
     let res = await axios.delete(url, auth);
     if (callBack) {
       callBack(res?.data);

@@ -23,7 +23,7 @@ export default function AdditionalDocs({ projectAdditionalDocs, getProjectAdditi
                         <div className="relative w-full h-0 hover:cursor-pointer" style={{ paddingTop: "100%" }} onClick={() => window.open(item?.doc?.split("?")[0])}>
                             <img
                                 src={item?.doc?.split("?")[0] || "/docs.png"}
-                                className="absolute top-0 left-0 w-full h-full object-cover border rounded-lg shadow"
+                                className="absolute top-0 left-0 w-full h-full object-cover border rounded-lg shadow dark:border-[#282828]" 
                                 onError={(e) => {
                                     e.target.onerror = null; // Prevent infinite loop
                                     e.target.src = "/docs.png"; // Replace with a fallback image or set a default
@@ -37,7 +37,7 @@ export default function AdditionalDocs({ projectAdditionalDocs, getProjectAdditi
                         </div>
                     )
                 })}
-                {!projectAdditionalDocs.length && <p className='text-sm text-gray-400'>No documents</p>}
+                {!projectAdditionalDocs?.length && <p className='text-sm text-gray-400'>No documents</p>}
             </div>
             <ModalANTD
                 title="Add Additional Documents"

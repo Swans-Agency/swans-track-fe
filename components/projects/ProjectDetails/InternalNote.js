@@ -22,11 +22,11 @@ export default function InternalNote({ internalJobNotes, getInternalNotes, proje
                     return (
                         <>
                             <div className='text-justify'>{item?.jobNote}</div>
-                            {internalJobNotes.length !== index + 1 && <Divider className='my-1' />}
+                            {internalJobNotes?.length !== index + 1 && <Divider className='my-1' />}
                         </>
                     )
                 })}
-                {!internalJobNotes.length && <p className='text-sm text-gray-400'>No notes</p>}
+                {!internalJobNotes?.length && <p className='text-sm text-gray-400'>No notes</p>}
             </div>
             <ModalANTD
                 title="Add Internal Note"

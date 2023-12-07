@@ -4,13 +4,14 @@ import { Form, Input, Upload } from "antd";
 import { postAxios } from "@/functions/ApiCalls";
 import FormButtons from "@/components/ANTD/FormButtons";
 import { NotificationError } from "@/functions/Notifications";
+import { useRouter } from "next/router";
 
 
 export default function AdditionalDocsForm({ projectId, getProjectAdditionalDocs, handleCloseModal }) {
     const [form] = Form.useForm();
     const [isLoading, setIsLoading] = useState(false);
     const [showUploadList, setShowUploadList] = useState(true);
-
+    const router = useRouter()
 
 
     const onFinish = async (data) => {
@@ -27,7 +28,9 @@ export default function AdditionalDocsForm({ projectId, getProjectAdditionalDocs
         }
 
         const url = `${process.env.DIGITALOCEAN}/project/additional-docs-project/${projectId}/`;
-        let res = await postAxios(url, formData, true, true, () => { });
+        let pathname = router.pathname.startsWith("/invited-project") ? true : false
+
+        let res = await postAxios(url, formData, true, true, () => { }, pathname);
         form.resetFields();
         getProjectAdditionalDocs()
         handleCloseModal()
@@ -84,7 +87,7 @@ export default function AdditionalDocsForm({ projectId, getProjectAdditionalDocs
             <div className="flex gap-x-5 w-full justify-end">
                 <Form.Item>
                     <FormButtons content="Save" isLoading={isLoading} />
-                </Form.Item> 
+                </Form.Item>
             </div>
         </Form>
     );

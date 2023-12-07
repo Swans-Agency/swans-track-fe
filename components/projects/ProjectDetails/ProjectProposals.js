@@ -31,7 +31,7 @@ export default function ProjectProposals({ projectProposals, projectId, getProje
     }
 
     return (
-        <div className='border dark:border-[#282828] rounded-lg h-fit max-h-[380px] mt-4 px-4 py-2 relative'>
+        <div className='border dark:border-[#282828] rounded-lg h-fit max-h-[350px] mt-4 px-4 py-2 relative'>
             <div className='flex justify-between items-center !z-10 mb-3'>
                 <p className='font-semibold text-md '>Proposals</p>
                 {add && <div onClick={() => setIsModalOpen(true)}><AddIcon /></div>}

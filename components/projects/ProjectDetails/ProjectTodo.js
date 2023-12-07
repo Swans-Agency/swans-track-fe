@@ -23,7 +23,7 @@ export default function ProjectTodo({ projectTodo, handleChangeEdit, projectId, 
                         <>
                             <Checkbox
                                 className={`pb-1 ${item?.checked ? 'line-through' : ''} `}
-                                onChange={(e) => handleChangeEdit(e.target.checked, item)}
+                                onChange={(e) => handleChangeEdit(e?.target?.checked, item)}
                                 checked={item?.checked}
                             >
                                 <span className={`!pt-0 !mt-0 !inset-0 ${item?.checked ? "text-gray-400" : ""} `}>{item?.todo}</span>
@@ -31,7 +31,7 @@ export default function ProjectTodo({ projectTodo, handleChangeEdit, projectId, 
                         </>
                     )
                 })}
-                {!projectTodo.length && <p className='text-sm text-gray-400'>No to dos</p>}
+                {!projectTodo?.length && <p className='text-sm text-gray-400'>No to dos</p>}
             </div>
             <ModalANTD
                 title="Add Job Todo"

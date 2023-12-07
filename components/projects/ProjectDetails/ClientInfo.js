@@ -27,7 +27,7 @@ export default function ClientInfo({ projectObj, projectId }) {
         alert('Copied to clipboard');
     }
     return (
-        <div className='border dark:border-[#282828] rounded-lg w-full px-4  py-4 max-h-[350px] '>
+        <div className='border dark:border-[#282828] rounded-lg w-full px-4  py-4 h-[350px] '>
             <div className='w-full flex flex-col items-center mb-3 px-2'>
                 <div className='p-5 flex items-center justify-center w-20 h-20 text-4xl font-bold bg-foreignBackground dark:bg-[#282828] text-white rounded-full'>{projectObj?.clientObj?.firstName[0]}</div>
                 <p className='pt-1 text-2xl font-semibold'>{projectObj?.clientObj?.firstName} {projectObj?.clientObj?.lastName}</p>

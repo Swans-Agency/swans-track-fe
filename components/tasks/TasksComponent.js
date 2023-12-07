@@ -12,6 +12,7 @@ import { Avatar, Input, Segmented } from 'antd';
 import { Gantt } from 'gantt-task-react';
 import "gantt-task-react/dist/index.css";
 import { AppstoreOutlined, BarsOutlined } from "@ant-design/icons";
+import { useRouter } from "next/router";
 
 export default function TasksComponent({ companyTasks, initialData, projectId = null }) {
   const dbRef = useRef(null);
@@ -25,7 +26,8 @@ export default function TasksComponent({ companyTasks, initialData, projectId = 
   const [teamMembers, setTeamMembers] = useState([])
   const [search, setSearch] = useState("")
   const [message, setMessage] = useState(null)
-
+  const [dontShowSwitch, setDontShowSwitch] = useState(false)
+  const router = useRouter()
   const columnNames = {
     "To Do": "toDo",
     "In Progress": "inProgress",
@@ -58,7 +60,8 @@ export default function TasksComponent({ companyTasks, initialData, projectId = 
 
   const getAllEmployees = async () => {
     const url = `${process.env.DIGITALOCEAN}/account/list-employees-no-pagination/`;
-    const employeeData = await getAxios(url);
+    let pathname = router.pathname.startsWith("/invited-project") ? true : false
+    const employeeData = await getAxios(url, false, false, () => { }, pathname);
     const arrData = employeeData?.map((item) => {
       return (
         item
@@ -83,18 +86,18 @@ export default function TasksComponent({ companyTasks, initialData, projectId = 
           tasks: {
             ...data.tasks,
             [value.id]: {
-              id: value.id,
-              taskName: value.taskName,
-              taskDescription: value.taskDescription,
-              assignee: value.assignee,
-              taskStatus: value.taskStatus,
-              priority: value.priority,
-              createdAt: value.createdAt,
-              dueDate: value.dueDate,
-              subTasks: value.subTasks,
-              history: value.history,
-              comments: value.comments,
-              startDate: value.startDate,
+              id: value?.id,
+              taskName: value?.taskName,
+              taskDescription: value?.taskDescription,
+              assignee: value?.assignee,
+              taskStatus: value?.taskStatus,
+              priority: value?.priority,
+              createdAt: value?.createdAt,
+              dueDate: value?.dueDate,
+              subTasks: value?.subTasks,
+              history: value?.history,
+              comments: value?.comments,
+              startDate: value?.startDate,
             }
           }
         }
@@ -102,9 +105,14 @@ export default function TasksComponent({ companyTasks, initialData, projectId = 
     })
 
     let filterGant = allData?.filter((task) => {
-      return task?.startDate && task?.dueDate
+      return task.startDate && task.dueDate
     })
-    setGanttData(filterGant)
+    if (filterGant?.length >0){
+      setDontShowSwitch(false)
+      setGanttData(filterGant)
+    } else {
+      setDontShowSwitch(true)
+    }
 
     allData?.forEach((value) => {
       let status = columnNames[value.taskStatus]
@@ -127,10 +135,12 @@ export default function TasksComponent({ companyTasks, initialData, projectId = 
 
   const getAllTasksNew = async (projectId) => {
     let newData = []
+    let pathname = router.pathname.startsWith("/invited-project") ? true : false
+
     if (projectId) {
-      newData = await getAxios(`${process.env.DIGITALOCEAN}/tasks/active-tasks/?search=${search}&project=${projectId}`, false, false, () => { })
+      newData = await getAxios(`${process.env.DIGITALOCEAN}/tasks/active-tasks/?search=${search}&project=${projectId}`, false, false, () => { }, pathname)
     } else {
-      newData = await getAxios(`${process.env.DIGITALOCEAN}/tasks/active-tasks/?search=${search}`, false, false, () => { })
+      newData = await getAxios(`${process.env.DIGITALOCEAN}/tasks/active-tasks/?search=${search}`, false, false, () => { }, pathname)
     }
     for (let i = 0; i < newData?.length; i++) {
       newData[i].start = new Date(newData[i]?.start)
@@ -227,7 +237,9 @@ export default function TasksComponent({ companyTasks, initialData, projectId = 
   };
 
   const reorderList = async (result, url) => {
-    await postAxios(`${process.env.DIGITALOCEAN}/tasks/${url}`, result, false, false, () => { })
+    let pathname = router.pathname.startsWith("/invited-project") ? true : false
+
+    await postAxios(`${process.env.DIGITALOCEAN}/tasks/${url}`, result, false, false, () => { }, pathname)
     handleNotifyTeam()
   }
 
@@ -284,7 +296,7 @@ export default function TasksComponent({ companyTasks, initialData, projectId = 
         }
         <div className="flex justify-end items-center gap-x-2 w-full">
 
-          {projectId && <Segmented
+          {projectId && !dontShowSwitch && <Segmented
             size="large"
             options={[
               {

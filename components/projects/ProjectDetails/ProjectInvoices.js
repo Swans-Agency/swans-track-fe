@@ -10,10 +10,6 @@ import { SearchOutlined, CloudDownloadOutlined } from "@ant-design/icons";
 
 export default function ProjectInvoices({ projectInvoices, getProjectInvoices, projectId, projectCurrency, getProjectDetails, add = true }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [bgColor, setBgColor] = useState({
-        "Pending": "bg-orange-50",
-        "Paid": "bg-green-50",
-    });
     const [invoiceStatus, setInvoiceStatus] = useState(["Paid"])
 
     const handleCloseModal = () => {
@@ -29,7 +25,7 @@ export default function ProjectInvoices({ projectInvoices, getProjectInvoices, p
     }
 
     return (
-        <div className='border dark:border-[#282828] rounded-lg h-fit max-h-[380px] mt-4 px-4 py-2 '>
+        <div className='border dark:border-[#282828] rounded-lg h-fit max-h-[350px] mt-4 px-4 py-2 '>
             <div className='flex justify-between items-center !z-10 mb-3'>
                 <p className='font-semibold text-md '>Invoices</p>
                 {add && <div onClick={() => setIsModalOpen(true)}><AddIcon /></div>}

@@ -13,6 +13,7 @@ import FormButtons from "../ANTD/FormButtons";
 import { LoadingOutlined } from "@ant-design/icons";
 import AllCheckLists from "./AllCheckLists";
 import SunEditorComponent from "../WYSWUG/SunEditorComponent";
+import { useRouter } from "next/router";
 
 
 
@@ -27,10 +28,13 @@ export default function TaskForm({ handleNotifyTeam, selectedItem, projectId = n
   const [showInput, setShowInput] = useState(false);
   const [showHistory, setShowHistory] = useState(false);
   const [commentText, setCommentText] = useState(null);
+  const router = useRouter();
 
   const getAllEmployees = async () => {
     const url = `${process.env.DIGITALOCEAN}/account/list-employees-no-pagination/`;
-    const employeeData = await getAxios(url);
+    let pathname = router.pathname.startsWith("/invited-project") ? true : false
+
+    const employeeData = await getAxios(url, false, false, () => { }, pathname);
     const arrData = employeeData?.map((item) => ({
       value: item?.id,
       label: (
@@ -92,7 +96,9 @@ export default function TaskForm({ handleNotifyTeam, selectedItem, projectId = n
     const data = {
       comment: commentText
     }
-    await patchAxios(url, data, false, false, () => { })
+    let pathname = router.pathname.startsWith("/invited-project") ? true : false
+
+    await patchAxios(url, data, false, false, () => { }, pathname)
     setCommentText(null)
     handleNotifyTeam("Comment added")
   }
@@ -121,6 +127,8 @@ export default function TaskForm({ handleNotifyTeam, selectedItem, projectId = n
 
     const assigneeValue = data?.assignee;
     const url = `${process.env.DIGITALOCEAN}/tasks/create-task/`;
+    let pathname = router.pathname.startsWith("/invited-project") ? true : false
+
     if (selectedItem) {
       if (data?.assignee == undefined) {
         console.log("sssss")
@@ -133,7 +141,7 @@ export default function TaskForm({ handleNotifyTeam, selectedItem, projectId = n
         }
       }
       const url = `${process.env.DIGITALOCEAN}/tasks/edit-task/${selectedItem?.id}/`
-      await patchAxios(url, formData, true, true, () => { })
+      await patchAxios(url, formData, true, true, () => { }, pathname)
     } else {
       if (data?.assignee == undefined) {
         console.log("dddddd")
@@ -141,7 +149,7 @@ export default function TaskForm({ handleNotifyTeam, selectedItem, projectId = n
       } else {
         formData.append('assignee', assigneeValue);
       }
-      await postAxios(url, formData, true, true, () => { })
+      await postAxios(url, formData, true, true, () => { }, pathname)
     }
 
 
@@ -153,7 +161,9 @@ export default function TaskForm({ handleNotifyTeam, selectedItem, projectId = n
   const onArchive = async () => {
     setIsLoadingDelete(true);
     const url = `${process.env.DIGITALOCEAN}/tasks/archive-task/${selectedItem?.id}/`
-    let res = await getAxios(url, true, true, () => { })
+    let pathname = router.pathname.startsWith("/invited-project") ? true : false
+
+    let res = await getAxios(url, true, true, () => { }, pathname)
     if (res) {
       handleNotifyTeam(projectId);
     }
@@ -171,7 +181,9 @@ export default function TaskForm({ handleNotifyTeam, selectedItem, projectId = n
   const getCheckLists = async () => {
 
     const url = `${process.env.DIGITALOCEAN}/tasks/check-list/${selectedItem?.id}/`
-    const res = await getAxios(url, false, false, () => { })
+    let pathname = router.pathname.startsWith("/invited-project") ? true : false
+
+    const res = await getAxios(url, false, false, () => { }, pathname)
     setCheckLists(res)
 
   }
@@ -184,7 +196,9 @@ export default function TaskForm({ handleNotifyTeam, selectedItem, projectId = n
 
 
     const url = `${process.env.DIGITALOCEAN}/tasks/check-list/`
-    await postAxios(url, data, false, false, () => { })
+    let pathname = router.pathname.startsWith("/invited-project") ? true : false
+
+    await postAxios(url, data, false, false, () => { }, pathname)
     setShowInput(false)
     setChecklistName("")
     handleInitialValues()

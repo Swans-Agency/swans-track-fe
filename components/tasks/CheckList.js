@@ -10,6 +10,7 @@ import {
     SmileOutlined,
     SyncOutlined,
 } from '@ant-design/icons';
+import { useRouter } from 'next/router';
 
 
 export default function CheckList({ item, handleDeleteChecklist, handleNotifyTeam }) {
@@ -20,16 +21,18 @@ export default function CheckList({ item, handleDeleteChecklist, handleNotifyTea
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [companyTasks, setCompanyTasks] = useState(null)
     const [loadingMore, setLoadingMore] = useState(false)
-
+    const router = useRouter()
 
     const handleChangeName = async () => {
         if (checkListName !== "") {
             const url = `${process.env.DIGITALOCEAN}/tasks/check-list/${item?.id}/`
+            let pathname = router.pathname.startsWith("/invited-project") ? true : false
+
             const data = {
                 checklistName: checkListName
             }
             setShowInput(false)
-            await patchAxios(url, data, false, false, () => { })
+            await patchAxios(url, data, false, false, () => { }, pathname)
             handleNotifyTeam()
         }
     }
@@ -48,8 +51,10 @@ export default function CheckList({ item, handleDeleteChecklist, handleNotifyTea
 
     const getAllCompanyTasks = async () => {
         const url = `${process.env.DIGITALOCEAN}/tasks/list-tasks/`
+        let pathname = router.pathname.startsWith("/invited-project") ? true : false
+
         if (!companyTasks) {
-            let response = await getAxios(url, false, false, () => { })
+            let response = await getAxios(url, false, false, () => { }, pathname)
             setCompanyTasks(response)
         }
     }
@@ -67,9 +72,11 @@ export default function CheckList({ item, handleDeleteChecklist, handleNotifyTea
     const loadMoreTasks = async () => {
         const filters = replaceHttpWithHttps(companyTasks?.next)
         const url = `${process.env.DIGITALOCEAN}/tasks/list-tasks${filters}`
+        let pathname = router.pathname.startsWith("/invited-project") ? true : false
+
         console.log({ companyTasks })
         setLoadingMore(true)
-        let response = await getAxios(url, false, false, () => { })
+        let response = await getAxios(url, false, false, () => { }, pathname)
         setCompanyTasks({
             ...companyTasks,
             results: [...companyTasks?.results, ...response?.results],
@@ -80,7 +87,9 @@ export default function CheckList({ item, handleDeleteChecklist, handleNotifyTea
 
     const cloneChecklist = async (id) => {
         const url = `${process.env.DIGITALOCEAN}/tasks/clone-checklist/`
-        await postAxios(url, { checklistId: item?.id, destinationId: id }, true, true, () => { })
+        let pathname = router.pathname.startsWith("/invited-project") ? true : false
+
+        await postAxios(url, { checklistId: item?.id, destinationId: id }, true, true, () => { }, pathname)
         handleNotifyTeam()
     }
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import cookie, { remove } from "react-cookies";
-import { getAxios, patchAxios } from '@/functions/ApiCalls';
+import { getAxios, patchAxios, postAxios } from '@/functions/ApiCalls';
 import ClientInfo from '@/components/projects/ProjectDetails/ClientInfo';
 import ClientNotes from '@/components/projects/ProjectDetails/ClientNotes';
 import BreadCrumbs from '@/components/projects/ProjectDetails/BreadCrumbs';
@@ -15,6 +15,12 @@ import ProjectProposals from '@/components/projects/ProjectDetails/ProjectPropos
 import { getObjectsFromLocalStorage } from '@/functions/GeneralFunctions';
 import AddIcon from './icons/AddIcon';
 import TasksComponent from '@/components/tasks/TasksComponent';
+import { FloatButton, Form, Input } from 'antd';
+import { UserAddOutlined } from '@ant-design/icons';
+import ProjectTasksBoard from '@/components/projects/ProjectDetails/ProjectTasksBoard';
+import ModalANTD from '@/components/ANTD/ModalANTD';
+import FormButtons from '@/components/ANTD/FormButtons';
+import { NotificationError } from '@/functions/Notifications';
 
 
 
@@ -31,7 +37,15 @@ export default function ProjectDetails() {
     const [projectProposals, setProjectProposals] = useState([]);
     const [projectInvoices, setProjectInvoices] = useState([]);
     const [projectRoute, setProjectRoute] = useState(null);
+    const [showInviteModal, setShowInviteModal] = useState(false);
     const [showBoard, setShowBoard] = useState(false);
+    const[isLoading, setIsLoading] = useState(false);
+    const initialData = {
+        tasks: {
+        },
+        columnOrder: ["toDo", "inProgress", "completed", "idle"],
+    };
+    const [tasksData, setTasksData] = useState();
     const router = useRouter();
 
     const getClientNotes = async () => {
@@ -54,7 +68,9 @@ export default function ProjectDetails() {
 
     const getProjectAdditionalDocs = async () => {
         const url2 = `${process.env.DIGITALOCEAN}/project/additional-docs-project/${router.query.project}/`;
-        const projectData2 = await getAxios(url2, false, false, () => { });
+        let pathname = router.pathname.startsWith("/invited-project") ? true : false
+
+        const projectData2 = await getAxios(url2, false, false, () => { }, pathname);
         setProjectAdditionalDocs(projectData2);
     };
 
@@ -123,12 +139,7 @@ export default function ProjectDetails() {
         setProjectRoute(null)
         setShowBoard(false)
     }
-    const initialData = {
-        tasks: {
-        },
-        columnOrder: ["toDo", "inProgress", "completed", "idle"],
-    };
-    const [tasksData, setTasksData] = useState();
+
     const getTasks = async () => {
         let companyTasks = await getAxios(`${process.env.DIGITALOCEAN}/tasks/active-tasks/?project=${projectId}`, false, false)
         setTasksData(companyTasks)
@@ -147,6 +158,25 @@ export default function ProjectDetails() {
             tasksData[i].end = new Date(tasksData[i]?.end)
         }
     }, [tasksData])
+
+    const [form] = Form.useForm();
+
+    const inviteToProject = async (data) => {
+        setIsLoading(true)
+        const url = `${process.env.DIGITALOCEAN}/project/project-invite/`;
+        let emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        let isValid = emailRegex.test(data?.email);
+
+        if (isValid) {
+            data.projectId = projectId;
+            console.log({data})
+            let res = await postAxios(url, data, true, true);
+            form.resetFields();
+        } else{
+            NotificationError("Please enter a valid email address")
+        }
+        setIsLoading(false)
+    }
 
     return (
         <div className='bg-white dark:bg-[#141414] dark:text-white'>
@@ -223,17 +253,9 @@ export default function ProjectDetails() {
                     </div>
 
                     <div className=''>
-                        <div className='px-2 border dark:border-[#282828] rounded-lg max-h-[350px] pb-2'>
-                            <div className='flex justify-between items-center !z-10 '>
-                                <p className='font-semibold text-md py-2 px-2'>Tasks Board</p>
-                                <div onClick={() => { handleShowBoard() }} >
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 hover:cursor-pointer hover:bg-foreignBackground hover:dark:bg-[#282828] hover:text-white rounded-full p-1">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
-                                    </svg>
-                                </div>
-                            </div>
-                            <p className='text-sm text-gray-400 px-2 '>Expand to view relative tasks and schedule</p>
-                        </div>
+                        <ProjectTasksBoard
+                            handleShowBoard={handleShowBoard}
+                        />
                         <ProjectTodo
                             projectTodo={projectTodo}
                             handleChangeEdit={handleChangeEdit}
@@ -252,6 +274,56 @@ export default function ProjectDetails() {
                         />
                     </div>
                 </div>
+
+                <ModalANTD
+                    title="Invite a user to this project"
+                    footer={null}
+                    isModalOpen={showInviteModal}
+                    handleOk={() => { setShowInviteModal(false) }}
+                    handleCancel={() => { setShowInviteModal(false) }}
+                    renderComponent={
+                        <div>
+                            <Form
+                                layout="vertical"
+                                form={form}
+                                onFinish={inviteToProject}
+                            >
+                                <div className="flex gap-x-1 w-full justify-start">
+                                <Form.Item
+                                    name="email"
+                                    rules={[
+                                        {
+                                            required: true,
+                                            message: 'Please input an email!',
+                                        },
+                                    ]}
+                                        className='w-full m-0'
+                                >
+                                    <Input type="email" name="email" id="email" size='large' placeholder='Enter an E-mail address to invite' />
+                                </Form.Item>
+                                <Form.Item>
+                                    <FormButtons content="Invite" isLoading={isLoading} />
+                                </Form.Item>
+                                </div>
+                            </Form>
+                            <p className='text-xs font-light text-gray-400'>By inviting a user, you are granting him access for 30 days to your project tasks, checklist, additional documents, shared documents, client notes, and internal notes.</p>
+
+                        </div>
+                    }
+                />
+
+
+                <FloatButton
+                    icon={<UserAddOutlined />}
+                    type="primary"
+                    title="Invite a user to this project"
+                    style={{
+                        right: 24,
+                        bottom: 24,
+                    }}
+                    onClick={() => { setShowInviteModal(true) }}
+                />
+
             </> :
                 <TasksComponent companyTasks={tasksData} initialData={initialData} projectId={projectId} />
             }
