@@ -122,7 +122,7 @@ export default function Invitedproject() {
         ).catch(
             (err) => {
                 setIsAuth(false)
-                NotificationError()
+                NotificationError("Invalid email or password, or perhaps you don't have permission to access this project. Contact your project manager for more information.")
             }
         ).finally(
             () => {

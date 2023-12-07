@@ -3,7 +3,7 @@ import axios from "axios";
 import { NotificationLoading, NotificationSuccess } from "./Notifications";
 import { handleError } from "./ErrorHandling";
 
-const getAxios = async (url, loading, success, callBack, dontSendToken=false) => {
+const getAxios = async (url, loading, success, callBack, dontSendToken = false) => {
   try {
     if (loading) {
       NotificationLoading();
@@ -41,7 +41,9 @@ const postAxios = async (url, data, loading, success, callBack = () => { }, fail
       email: invitedEmail,
       projectId: invitedProjectId
     }
+    console.log({ dontSendToken})
     let auth = dontSendToken ? { params: params } : { headers: { Authorization: `Bearer ${accessToken}` }, params: params };
+    console.log({ auth })
     let res = await axios.post(url, data, auth);
     if (success) {
       NotificationSuccess(res?.data);

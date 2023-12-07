@@ -9,10 +9,10 @@ import { useRouter } from 'next/router';
 export default function AllCheckLists({ item, handleInitialValues, handleNotifyTeam }) {
     const [showInputTask, setShowInputTask] = useState(false);
     const router = useRouter()
-    
+
     const [taskName, setTaskName] = useState("")
 
-    
+
 
     const handleCreateTask = async (item) => {
         let pathname = router.pathname.startsWith("/invited-project") ? true : false
@@ -22,7 +22,7 @@ export default function AllCheckLists({ item, handleInitialValues, handleNotifyT
             itemName: taskName,
             checklist: item?.id
         }
-        await postAxios(url, data, false, false, () => { }, pathname)
+        await postAxios(url, data, false, false, () => { }, false, "", pathname)
         handleInitialValues()
         setShowInputTask(false)
     }
@@ -51,38 +51,38 @@ export default function AllCheckLists({ item, handleInitialValues, handleNotifyT
         handleInitialValues()
     }
 
-  return (
-      <div className="mb-4">
-          <CheckList
-              item={item}
-              handleDeleteChecklist={handleDeleteChecklist}
-              handleNotifyTeam={handleNotifyTeam}
-          />
-          {item?.checkListItems?.map((itemTask) => {
-              return (
-                  <SubTask
-                      itemTask={itemTask}
-                      handleCheckTask={handleCheckTask}
-                      handleDeleteTask={handleDeleteTask}
-                      handleNotifyTeam={handleNotifyTeam}
+    return (
+        <div className="mb-4">
+            <CheckList
+                item={item}
+                handleDeleteChecklist={handleDeleteChecklist}
+                handleNotifyTeam={handleNotifyTeam}
+            />
+            {item?.checkListItems?.map((itemTask) => {
+                return (
+                    <SubTask
+                        itemTask={itemTask}
+                        handleCheckTask={handleCheckTask}
+                        handleDeleteTask={handleDeleteTask}
+                        handleNotifyTeam={handleNotifyTeam}
 
-                  />
-              )
-          })}
-          {showInputTask &&
-              <div className="flex items-center gap-2 ml-7 mt-1">
-                  <Input
-                      autoFocus placeholder="Task name" size="" className=""
-                      onChange={(e) => setTaskName(e.target.value)}
-                  />
-                  <div className="flex gap-1">
-                      <div className="bg-mainBackground dark:bg-[#141414] rounded-lg text-white hover:shadow-lg hover:cursor-pointer px-3 py-1 " onClick={() => handleCreateTask(item)}>Save</div>
-                      <div className="bg-gray-400 dark:bg-[#282828] rounded-lg text-white hover:shadow-lg hover:cursor-pointer px-3 py-1 " onClick={() => setShowInputTask(false)}>Cancel</div>
-                  </div>
-              </div>
-          }
-          <p className="ml-7 bg-gray-400 dark:bg-[#141414] text-white w-fit mt-2 px-3 py-1 rounded-lg hover:shadow-lg hover:cursor-pointer" onClick={() => setShowInputTask(true)}>Add an Item</p>
-      </div>
+                    />
+                )
+            })}
+            {showInputTask &&
+                <div className="flex items-center gap-2 ml-7 mt-1">
+                    <Input
+                        autoFocus placeholder="Task name" size="" className=""
+                        onChange={(e) => setTaskName(e.target.value)}
+                    />
+                    <div className="flex gap-1">
+                        <div className="bg-mainBackground dark:bg-[#141414] rounded-lg text-white hover:shadow-lg hover:cursor-pointer px-3 py-1 " onClick={() => handleCreateTask(item)}>Save</div>
+                        <div className="bg-gray-400 dark:bg-[#282828] rounded-lg text-white hover:shadow-lg hover:cursor-pointer px-3 py-1 " onClick={() => setShowInputTask(false)}>Cancel</div>
+                    </div>
+                </div>
+            }
+            <p className="ml-7 bg-gray-400 dark:bg-[#141414] text-white w-fit mt-2 px-3 py-1 rounded-lg hover:shadow-lg hover:cursor-pointer" onClick={() => setShowInputTask(true)}>Add an Item</p>
+        </div>
 
-  );
+    );
 };

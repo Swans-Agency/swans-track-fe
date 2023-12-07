@@ -39,7 +39,7 @@ export default function ProjectDetails() {
     const [projectRoute, setProjectRoute] = useState(null);
     const [showInviteModal, setShowInviteModal] = useState(false);
     const [showBoard, setShowBoard] = useState(false);
-    const[isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const initialData = {
         tasks: {
         },
@@ -169,10 +169,10 @@ export default function ProjectDetails() {
 
         if (isValid) {
             data.projectId = projectId;
-            console.log({data})
+            console.log({ data })
             let res = await postAxios(url, data, true, true);
             form.resetFields();
-        } else{
+        } else {
             NotificationError("Please enter a valid email address")
         }
         setIsLoading(false)
@@ -289,21 +289,21 @@ export default function ProjectDetails() {
                                 onFinish={inviteToProject}
                             >
                                 <div className="flex gap-x-1 w-full justify-start">
-                                <Form.Item
-                                    name="email"
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message: 'Please input an email!',
-                                        },
-                                    ]}
+                                    <Form.Item
+                                        name="email"
+                                        rules={[
+                                            {
+                                                required: true,
+                                                message: 'Please input an email!',
+                                            },
+                                        ]}
                                         className='w-full m-0'
-                                >
-                                    <Input type="email" name="email" id="email" size='large' placeholder='Enter an E-mail address to invite' />
-                                </Form.Item>
-                                <Form.Item>
-                                    <FormButtons content="Invite" isLoading={isLoading} />
-                                </Form.Item>
+                                    >
+                                        <Input type="email" name="email" id="email" size='large' placeholder='Enter an E-mail address to invite' />
+                                    </Form.Item>
+                                    <Form.Item>
+                                        <FormButtons content="Invite" isLoading={isLoading} />
+                                    </Form.Item>
                                 </div>
                             </Form>
                             <p className='text-xs font-light text-gray-400'>By inviting a user, you are granting him access for 30 days to your project tasks, checklist, additional documents, shared documents, client notes, and internal notes.</p>

@@ -89,7 +89,7 @@ export default function CheckList({ item, handleDeleteChecklist, handleNotifyTea
         const url = `${process.env.DIGITALOCEAN}/tasks/clone-checklist/`
         let pathname = router.pathname.startsWith("/invited-project") ? true : false
 
-        await postAxios(url, { checklistId: item?.id, destinationId: id }, true, true, () => { }, pathname)
+        await postAxios(url, { checklistId: item?.id, destinationId: id }, true, true, () => { }, false, "", pathname)
         handleNotifyTeam()
     }
 
@@ -175,8 +175,8 @@ export default function CheckList({ item, handleDeleteChecklist, handleNotifyTea
                                         )
                                     }
                                 })}
-                                {companyTasks?.next && <p className={`w-full text-center pt-6 text-blue-400 underline hover:cursor-pointer ${!loadingMore ? "pb-2" : ""}`} onClick={() => loadMoreTasks()}>Load more</p>}
-                                {loadingMore && <div className='w-full text-center text-xl '><SyncOutlined spin/></div>}
+                                {companyTasks?.next && !loadingMore && <p className={`w-full text-center pt-6 text-blue-400 underline hover:cursor-pointer ${!loadingMore ? "pb-2" : ""}`} onClick={() => loadMoreTasks()}>Load more</p>}
+                                {loadingMore && <div className='w-full text-center text-xl '><SyncOutlined spin /></div>}
                             </div>
                         }
                         <div id="_deleteChecklist" className='flex justify-start items-center gap-x-3 px-2 py-2 hover:cursor-pointer hover:text-red-400 rounded-lg hover:bg-[#141414]' onClick={() => handleDeleteChecklist(item?.id)}>

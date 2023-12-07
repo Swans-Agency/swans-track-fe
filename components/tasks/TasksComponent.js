@@ -107,7 +107,7 @@ export default function TasksComponent({ companyTasks, initialData, projectId = 
     let filterGant = allData?.filter((task) => {
       return task.startDate && task.dueDate
     })
-    if (filterGant?.length >0){
+    if (filterGant?.length > 0) {
       setDontShowSwitch(false)
       setGanttData(filterGant)
     } else {
@@ -238,8 +238,8 @@ export default function TasksComponent({ companyTasks, initialData, projectId = 
 
   const reorderList = async (result, url) => {
     let pathname = router.pathname.startsWith("/invited-project") ? true : false
-
-    await postAxios(`${process.env.DIGITALOCEAN}/tasks/${url}`, result, false, false, () => { }, pathname)
+    console.log(router.pathname.startsWith("/invited-project"))
+    await postAxios(`${process.env.DIGITALOCEAN}/tasks/${url}`, result, false, false, () => { }, false, "", pathname)
     handleNotifyTeam()
   }
 

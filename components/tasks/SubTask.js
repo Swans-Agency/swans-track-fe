@@ -23,7 +23,7 @@ export default function SubTask({ itemTask, handleCheckTask, handleDeleteTask, h
         let url = `${process.env.DIGITALOCEAN}/tasks/create-task/`
         let pathname = router.pathname.startsWith("/invited-project") ? true : false
 
-        await postAxios(url, formData, true, true, () => { }, pathname)
+        await postAxios(url, formData, true, true, () => { }, false, "", pathname)
         handleNotifyTeam()
     }
 

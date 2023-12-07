@@ -30,7 +30,7 @@ export default function AdditionalDocsForm({ projectId, getProjectAdditionalDocs
         const url = `${process.env.DIGITALOCEAN}/project/additional-docs-project/${projectId}/`;
         let pathname = router.pathname.startsWith("/invited-project") ? true : false
 
-        let res = await postAxios(url, formData, true, true, () => { }, pathname);
+        let res = await postAxios(url, formData, true, true, () => { }, false,  "", pathname);
         form.resetFields();
         getProjectAdditionalDocs()
         handleCloseModal()

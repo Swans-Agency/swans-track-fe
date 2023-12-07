@@ -23,8 +23,6 @@ export default function Card({ card, index, showTag, setShowTag, setSelectedItem
         setOpen(true);
     }
 
-    console.log({ card })
-
 
     return (
         <Draggable draggableId={`${card.id}`} index={index} key={index} isDragDisabled={false}>

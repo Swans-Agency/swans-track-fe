@@ -80,14 +80,15 @@ export default function TaskForm({ handleNotifyTeam, selectedItem, projectId = n
       selectedItem?.startDate && form.setFieldValue("startDate", dayjs(new Date(selectedItem?.startDate ? selectedItem?.startDate : null)));
       {
         selectedItem?.assignee?.id && form.setFieldValue("assignee", {
-        value: selectedItem?.assignee?.id,
-        label: <>
-          <div className='flex items-center gap-x-2'>
-            <Image src={selectedItem?.assignee?.pfp?.split("?")[0] || '/whiteLogo.svg'} width={20} height={20} className='rounded-full' />
-            <span>{selectedItem?.assignee?.name}</span>
-          </div>
-        </>,
-      })}
+          value: selectedItem?.assignee?.id,
+          label: <>
+            <div className='flex items-center gap-x-2'>
+              <Image src={selectedItem?.assignee?.pfp?.split("?")[0] || '/whiteLogo.svg'} width={20} height={20} className='rounded-full' />
+              <span>{selectedItem?.assignee?.name}</span>
+            </div>
+          </>,
+        })
+      }
     }
   }
 
@@ -114,15 +115,15 @@ export default function TaskForm({ handleNotifyTeam, selectedItem, projectId = n
     formData.append("taskDescription", data?.taskDescription);
     formData.append("taskStatus", data?.taskStatus);
     formData.append("priority", data?.priority);
-    
+
     data?.dueDate ? formData.append(
       "dueDate",
-      moment(new Date(data?.dueDate)).format("YYYY-MM-DD") 
+      moment(new Date(data?.dueDate)).format("YYYY-MM-DD")
     ) : formData.append("dueDate", null);
-    
+
     data?.startDate ? formData.append(
       "startDate",
-      moment(new Date(data?.startDate)).format("YYYY-MM-DD") 
+      moment(new Date(data?.startDate)).format("YYYY-MM-DD")
     ) : formData.append("startDate", null);
 
     const assigneeValue = data?.assignee;
@@ -149,7 +150,7 @@ export default function TaskForm({ handleNotifyTeam, selectedItem, projectId = n
       } else {
         formData.append('assignee', assigneeValue);
       }
-      await postAxios(url, formData, true, true, () => { }, pathname)
+      await postAxios(url, formData, true, true, () => { },false, "", pathname)
     }
 
 
@@ -182,7 +183,7 @@ export default function TaskForm({ handleNotifyTeam, selectedItem, projectId = n
 
     const url = `${process.env.DIGITALOCEAN}/tasks/check-list/${selectedItem?.id}/`
     let pathname = router.pathname.startsWith("/invited-project") ? true : false
-
+    console.log({ pathname })
     const res = await getAxios(url, false, false, () => { }, pathname)
     setCheckLists(res)
 
@@ -198,7 +199,7 @@ export default function TaskForm({ handleNotifyTeam, selectedItem, projectId = n
     const url = `${process.env.DIGITALOCEAN}/tasks/check-list/`
     let pathname = router.pathname.startsWith("/invited-project") ? true : false
 
-    await postAxios(url, data, false, false, () => { }, pathname)
+    await postAxios(url, data, false, false, () => { }, false, "", pathname)
     setShowInput(false)
     setChecklistName("")
     handleInitialValues()
