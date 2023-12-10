@@ -11,20 +11,8 @@ const Dashboard = dynamic(() => import("@/components/Dashboard/Dashboard"), {
 });
 
 export default function index() {
-  const [proposals, setProposals] = useState([]);
   const [quotes, setQuotes] = useState([]);
-  const [invoices, setInvoices] = useState([]);
-  const [clients, setClients] = useState([]);
-  const [expenses, setExpenses] = useState([]);
-  const [expensesCategory, setExpensesCategory] = useState([]);
-  const [clientsCategory, setClientsCategory] = useState([]);
-  const [successRatio, setSuccessRatio] = useState([]);
-  const [income, setIncome] = useState([]);
-  const [incomePayment, setIncomePayment] = useState([]);
-  const [incomeAlltime, setIncomeAlltime] = useState([]);
-  const [expenseAlltime, setExpenseAlltime] = useState([]);
-  const [projectsAlltime, setProjectsAlltime] = useState([]);
-  const [todayTasks, setTodayTasks] = useState([]);
+  const [dashboardData, setDashboardData] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [form] = Form.useForm();
 
@@ -57,83 +45,18 @@ export default function index() {
       `${process.env.DIGITALOCEAN}/company/dashboard/daily-quote/`
     );
     setQuotes(quote);
-    let projects = await getAxios(
-      `${process.env.DIGITALOCEAN}/company/dashboard/projects-alltime/`
-    );
 
-    setProjectsAlltime(projects);
-    let proposal = await getAxios(
-      `${process.env.DIGITALOCEAN}/company/dashboard/proposals/`
+    let dashbaordRes = await getAxios(
+      `${process.env.DIGITALOCEAN}/company/dashboard/dashboard-view/`
     );
-    setProposals(proposal);
-    let invoice = await getAxios(
-      `${process.env.DIGITALOCEAN}/company/dashboard/invoices/`
-    );
-    setInvoices(invoice);
-
-    let todayTasks = await getAxios(
-      `${process.env.DIGITALOCEAN}/company/dashboard/today-tasks/`
-    );
-    console.log({todayTasks})
-    setTodayTasks(todayTasks);
-
-    let successRatios = await getAxios(
-      `${process.env.DIGITALOCEAN}/company/dashboard/pi-ratio/`
-    );
-    setSuccessRatio(successRatios);
-    let client = await getAxios(
-      `${process.env.DIGITALOCEAN}/company/dashboard/clients/`
-    );
-    setClients(client);
-    let expense = await getAxios(
-      `${process.env.DIGITALOCEAN}/company/dashboard/expenses/`
-    );
-    setExpenses(expense);
-    let incomes = await getAxios(
-      `${process.env.DIGITALOCEAN}/company/dashboard/income/`
-    );
-    setIncome(incomes);
-    let expensesCategories = await getAxios(
-      `${process.env.DIGITALOCEAN}/company/dashboard/expenses-referral/`
-    );
-    setExpensesCategory(expensesCategories);
-    let clientsCategories = await getAxios(
-      `${process.env.DIGITALOCEAN}/company/dashboard/clients-referral/`
-    );
-    setClientsCategory(clientsCategories);
-    let incomeAlltimes = await getAxios(
-      `${process.env.DIGITALOCEAN}/company/dashboard/income-alltime/`
-    );
-    setIncomeAlltime(incomeAlltimes);
-    let expenseAlltimes = await getAxios(
-      `${process.env.DIGITALOCEAN}/company/dashboard/expense-alltime/`
-    );
-    setExpenseAlltime(expenseAlltimes);
-    let incomePayments = await getAxios(
-      `${process.env.DIGITALOCEAN}/company/dashboard/income-type/`
-    );
-    setIncomePayment(incomePayments);
-
-
+    setDashboardData(dashbaordRes);
   };
   return (
     <>
       <div className="">
         <Dashboard
           quotes={quotes}
-          proposals={proposals}
-          invoices={invoices}
-          successRatio={successRatio}
-          clients={clients}
-          expenses={expenses}
-          income={income}
-          expensesCategory={expensesCategory}
-          clientsCategory={clientsCategory}
-          expenseAlltime={expenseAlltime}
-          incomeAlltime={incomeAlltime}
-          incomePayment={incomePayment}
-          projectsAlltime={projectsAlltime}
-          todayTasks={todayTasks}
+          dashboardData={dashboardData}
         />
       </div>
       <Feedback

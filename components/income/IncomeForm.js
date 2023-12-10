@@ -78,7 +78,6 @@ export default function IncomeForm({ setReload, onClose }) {
   };
 
   const checkFileSize = (file) => {
-    console.log({ file }, file.size)
     const maxSize = 1024 * 1024 * 5; // 1MB in bytes
     if (file.size > maxSize) {
       NotificationError("File size must be less than 5MB");

@@ -57,11 +57,6 @@ export default function Calender({ data, setSelectedDay, dataTimeZone, setNewTim
 
   useEffect(() => {
     Allow();
-    console.log(
-      monthsAllowed[data?.dateRange],
-      new Date().getMonth(),
-      selectedDate.getMonth()
-    );
   }, [visibleLeft, visibleRight, monthsAllowed, selectedDate]);
 
   const handleClickDate = (date, key) => {

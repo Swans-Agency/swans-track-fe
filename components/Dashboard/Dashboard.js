@@ -10,19 +10,8 @@ import dayjs from "dayjs";
 
 export default function Dashboard({
   quotes,
-  proposals,
-  invoices,
-  successRatio,
-  clients,
-  expenses,
-  income,
-  expensesCategory,
-  clientsCategory,
-  expenseAlltime,
-  incomeAlltime,
-  incomePayment,
-  projectsAlltime,
-  todayTasks
+  dashboardData,
+
 }) {
   return (
     <div className="grid laptop:grid-cols-3 phone:grid-cols-1 gap-4 ">
@@ -30,11 +19,10 @@ export default function Dashboard({
 
       <CardPercent
         title="Monthly Proposals"
-        main={proposals?.percentChange}
-        // classes={'bg-[#d1a404]'}
+        main={dashboardData?.percentChangePropsal}
         classes={'bg-gray-200 dark:text-white dark:bg-[#282828] '}
-        percent={proposals?.percentChange ? Number(proposals?.percentChange)?.toFixed(1) : 0}
-        number={<>{proposals?.currentMonthProposals || 0}</>}
+        percent={dashboardData?.percentChangePropsal ? Number(dashboardData?.percentChangePropsal)?.toFixed(1) : 0}
+        number={<>{dashboardData?.currentMonthProposals || 0}</>}
         color={"bg-[#947404]"}
         icon={
           <svg
@@ -56,9 +44,9 @@ export default function Dashboard({
       />
       <CardPercent
         title="Monthly Invoice"
-        main={invoices?.percentChange}
-        percent={invoices?.percentChange ? Number(invoices?.percentChange)?.toFixed(1) : 0}
-        number={<>{invoices?.currentMonthInvoices || 0}</>}
+        main={dashboardData?.percentChangeInvoice}
+        percent={dashboardData?.percentChangeInvoice ? Number(dashboardData?.percentChangeInvoice)?.toFixed(1) : 0}
+        number={<>{dashboardData?.currentMonthInvoices || 0}</>}
         icon={
           <svg
             width="32"
@@ -77,16 +65,14 @@ export default function Dashboard({
           </svg>
         }
         color={"bg-[#00736C]"}
-        // classes={"bg-[#029e95]"}
         classes={'bg-gray-200 dark:text-white dark:bg-[#282828] '}
       />
       <div className="laptop:row-span-3 phone:row-span-3 laptop:col-span-1 phone:col-span-3 grid gap-4 w-full dark:text-white">
         <div className="row-span-1 bg-gray-200 dark:bg-[#282828] rounded-2xl w-full p-5 h-[21rem]">
-
           <h1 className="text-lg font-light text-center border-b border-b-gray-500 pb-1 ">Today's Events</h1>
           <div className="my-4 h-[15rem] custom-scroll overflow-y-auto">
-            {todayTasks?.events?.length ? <>
-              {todayTasks?.events?.map((item) => {
+            {dashboardData?.events?.length ? <>
+              {dashboardData?.events?.map((item) => {
                 return (
                   <div>
                     <div className="flex justify-between items-center py-2">
@@ -112,12 +98,12 @@ export default function Dashboard({
               </div>
             }
           </div>
-        </div>
+        </div>     
         <div className="row-span-1 bg-gray-200 dark:bg-[#282828] rounded-2xl w-full p-5 h-[21rem] ">
           <h1 className="text-lg font-light text-center border-b border-b-gray-500 pb-1 ">Today's Assigned Tasks</h1>
           <div className="my-4 h-[15rem] custom-scroll overflow-y-auto">
-            {todayTasks?.tasks?.length ? <>
-              {todayTasks?.tasks?.map((item) => {
+            {dashboardData?.tasks?.length ? <>
+              {dashboardData?.tasks?.map((item) => {
                 return (
                   <div>
                     <div className="flex justify-between items-center py-2">
@@ -143,15 +129,14 @@ export default function Dashboard({
 
       <CardPercent
         title="Proposals Invoices Ratio"
-        main={successRatio?.successRatio}
-        percent={successRatio?.successRatio ? Number(successRatio?.successRatio)?.toFixed(1) : 0}
+        main={dashboardData?.successRatio}
+        percent={dashboardData?.successRatio ? Number(dashboardData?.successRatio)?.toFixed(1) : 0}
         number={
           <>
-            {successRatio?.invoices || 0}/{successRatio?.proposals || 0}
+            {dashboardData?.invoices || 0}/{dashboardData?.proposals || 0}
           </>
         }
         color={"bg-[#630073]"}
-        // classes={"bg-[#8f02a6]"}
         classes={'bg-gray-200 dark:text-white dark:bg-[#282828] '}
         icon={
           <svg
@@ -173,11 +158,10 @@ export default function Dashboard({
       />
       <CardPercent
         title="Customer Aquisition"
-        main={clients?.percentChange}
-        percent={clients?.percentChange ? Number(clients?.percentChange)?.toFixed(1) : 0}
-        number={<>{clients?.currentMonthClients || 0}</>}
+        main={dashboardData?.percentChangeClients}
+        percent={dashboardData?.percentChangeClients ? Number(dashboardData?.percentChangeClients)?.toFixed(1) : 0}
+        number={<>{dashboardData?.currentMonthClients || 0}</>}
         color={"bg-[#002073]"}
-        // classes={"bg-[#0234b5]"}
         classes={'bg-gray-200 dark:text-white dark:bg-[#282828] '}
         icon={
           <svg
@@ -199,11 +183,10 @@ export default function Dashboard({
       />
       <CardPercent
         title="Monthly Expenses"
-        main={expenses?.percentChange || 0}
-        percent={expenses?.percentChange ? Number(expenses?.percentChange)?.toFixed(1) : 0}
-        number={<>{Number(expenses?.currentMonthExpenses) || 0}</>}
+        main={dashboardData?.percentChangeExpenses || 0}
+        percent={dashboardData?.percentChangeExpenses ? Number(dashboardData?.percentChangeExpenses)?.toFixed(1) : 0}
+        number={<>{Number(dashboardData?.currentMonthExpenses) || 0}</>}
         color={"bg-[#730000]"}
-        // classes={"bg-[#a30202]"}
         classes={'bg-gray-200 dark:text-white dark:bg-[#282828] '}
         icon={
           <svg
@@ -225,11 +208,10 @@ export default function Dashboard({
       />
       <CardPercent
         title="Monthly Income"
-        main={income?.percentChange}
-        percent={income?.percentChange ? Number(income?.percentChange)?.toFixed(1) : 0}
-        number={<>{income?.currentMonthIncome || 0}</>}
+        main={dashboardData?.percentChangeIncome}
+        percent={dashboardData?.percentChangeIncome ? Number(dashboardData?.percentChangeIncome)?.toFixed(1) : 0}
+        number={<>{dashboardData?.currentMonthIncome || 0}</>}
         color={"bg-[#00732E]"}
-        // classes={"bg-[#008a36]"}
         classes={'bg-gray-200 dark:text-white dark:bg-[#282828] '}
         icon={
           <svg
@@ -251,54 +233,49 @@ export default function Dashboard({
       />
 
       <div className="rounded-2xl  dark:text-white dark:bg-[#282828] bg-gray-200 px-6 py-8 laptop:col-span-2 phone:col-span-3 relative">
-        {/* <img className="!z-0 absolute rounded-r-2xl top-0 right-0 h-[100%]" src={"https://demo.bootstrapdash.com/purple-admin-free/assets/images/dashboard/circle.svg"} /> */}
         <p className="font-light  text-lg">Expenses & Income All-time</p>
         <div className="pt-8">
           <ChartANtd
-            expenseAlltime={expenseAlltime}
-            incomeAlltime={incomeAlltime}
+            expenseAlltime={dashboardData?.expensesData}
+            incomeAlltime={dashboardData?.incomeData}
           />
         </div>
       </div>
 
       <div className="rounded-2xl  dark:text-white dark:bg-[#282828] bg-gray-200 px-6 py-8 relative laptop:col-span-1 phone:col-span-3">
-        {/* <img className="!z-0 absolute rounded-r-2xl top-0 right-0 h-[100%]" src={"https://demo.bootstrapdash.com/purple-admin-free/assets/images/dashboard/circle.svg"} /> */}
         <p className="font-light  text-lg">Income by Payment Method</p>
         <div className="pt-8">
           <RoseChart
-            dataSet={incomePayment}
+            dataSet={dashboardData?.groupedIncome}
             type={"paymentMethod"}
           />
         </div>
       </div>
 
       <div className="rounded-2xl  dark:text-white dark:bg-[#282828] bg-gray-200 px-6 py-8 relative laptop:col-span-1 phone:col-span-3">
-        {/* <img className="!z-0 absolute rounded-r-2xl top-0 right-0 h-[100%]" src={"https://demo.bootstrapdash.com/purple-admin-free/assets/images/dashboard/circle.svg"} /> */}
         <p className="font-light  text-lg">Expenses by Category</p>
         <div className="pt-8">
           <RoseChart
-            dataSet={expensesCategory}
+            dataSet={dashboardData?.groupedExpenses}
             type={"category"}
           />
         </div>
       </div>
 
       <div className="rounded-2xl  dark:text-white dark:bg-[#282828] bg-gray-200 px-6 py-8 laptop:col-span-2 phone:col-span-3 relative">
-        {/* <img className="!z-0 absolute rounded-r-2xl top-0 right-0 h-[100%]" src={"https://demo.bootstrapdash.com/purple-admin-free/assets/images/dashboard/circle.svg"} /> */}
         <p className="font-light  text-lg">Clients by Referral Source</p>
         <div className="pt-8">
           <ColumnChart
-            clientsCategory={clientsCategory}
+            clientsCategory={dashboardData?.groupedClients}
           />
         </div>
       </div>
 
       <div className="rounded-2xl  dark:text-white dark:bg-[#282828]  bg-gray-200 px-6 py-8 col-span-3 relative">
-        {/* <img className="!z-0 absolute rounded-r-2xl top-0 right-0 h-[100%]" src={"https://demo.bootstrapdash.com/purple-admin-free/assets/images/dashboard/circle.svg"} /> */}
         <p className="font-light text-lg">Projects All-time</p>
         <div className="pt-8">
           <ProjectsChart
-            projectsAlltime={projectsAlltime}
+            projectsAlltime={dashboardData?.monthly_counts}
           />
         </div>
       </div>

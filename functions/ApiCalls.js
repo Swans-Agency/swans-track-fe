@@ -41,9 +41,7 @@ const postAxios = async (url, data, loading, success, callBack = () => { }, fail
       email: invitedEmail,
       projectId: invitedProjectId
     }
-    console.log({ dontSendToken})
     let auth = dontSendToken ? { params: params } : { headers: { Authorization: `Bearer ${accessToken}` }, params: params };
-    console.log({ auth })
     let res = await axios.post(url, data, auth);
     if (success) {
       NotificationSuccess(res?.data);

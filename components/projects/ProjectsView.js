@@ -47,10 +47,7 @@ export default function ProjectsView() {
     };
 
     const handleEditStatus = async (item, value, type) => {
-        ;
-        ;
         item[type] = value;
-        ;
 
         const url = `${process.env.DIGITALOCEAN}/project/patch-project/${item?.id}/`;
         await patchAxios(url, item, false, false, () => { })
@@ -58,13 +55,10 @@ export default function ProjectsView() {
     }
 
     const handleEditSummary = async (item, value) => {
-        ;
-        ;
         item["summary"] = value;
         setTimeout(async () => {
             const url = `${process.env.DIGITALOCEAN}/project/patch-project/${item?.id}/`;
             await patchAxios(url, item, false, false, () => { })
-                ;
         }, 2000)
     }
 

@@ -238,7 +238,6 @@ export default function TasksComponent({ companyTasks, initialData, projectId = 
 
   const reorderList = async (result, url) => {
     let pathname = router.pathname.startsWith("/invited-project") ? true : false
-    console.log(router.pathname.startsWith("/invited-project"))
     await postAxios(`${process.env.DIGITALOCEAN}/tasks/${url}`, result, false, false, () => { }, false, "", pathname)
     handleNotifyTeam()
   }

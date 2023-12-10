@@ -169,7 +169,6 @@ export default function ProjectDetails() {
 
         if (isValid) {
             data.projectId = projectId;
-            console.log({ data })
             let res = await postAxios(url, data, true, true);
             form.resetFields();
         } else {

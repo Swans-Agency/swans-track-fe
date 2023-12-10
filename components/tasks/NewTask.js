@@ -132,7 +132,6 @@ export default function TaskForm({ handleNotifyTeam, selectedItem, projectId = n
 
     if (selectedItem) {
       if (data?.assignee == undefined) {
-        console.log("sssss")
         formData.append('assignee', null);
       } else {
         if (Number.isNaN(Number(assigneeValue))) {
@@ -145,7 +144,6 @@ export default function TaskForm({ handleNotifyTeam, selectedItem, projectId = n
       await patchAxios(url, formData, true, true, () => { }, pathname)
     } else {
       if (data?.assignee == undefined) {
-        console.log("dddddd")
         formData.append('assignee', null);
       } else {
         formData.append('assignee', assigneeValue);
@@ -183,7 +181,6 @@ export default function TaskForm({ handleNotifyTeam, selectedItem, projectId = n
 
     const url = `${process.env.DIGITALOCEAN}/tasks/check-list/${selectedItem?.id}/`
     let pathname = router.pathname.startsWith("/invited-project") ? true : false
-    console.log({ pathname })
     const res = await getAxios(url, false, false, () => { }, pathname)
     setCheckLists(res)
 

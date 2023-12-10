@@ -115,7 +115,6 @@ export default function CompanyPreferencesForm() {
   };
 
   const checkFileSize = (file) => {
-    console.log({ file }, file.size)
     const maxSize = 1024 * 1024 * 5; // 1MB in bytes
     if (file.size > maxSize) {
       NotificationError("File size must be less than 5MB");
@@ -129,7 +128,6 @@ export default function CompanyPreferencesForm() {
   };
 
   const checkFileSize2 = (file) => {
-    console.log({ file }, file.size)
     const maxSize = 1024 * 1024 * 5; // 5MB in bytes
     if (file.size > maxSize) {
       NotificationError("File size must be less than 5MB");

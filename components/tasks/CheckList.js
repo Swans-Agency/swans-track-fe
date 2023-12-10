@@ -39,14 +39,12 @@ export default function CheckList({ item, handleDeleteChecklist, handleNotifyTea
 
     const handleHideInput = () => {
         setShowInput(false)
-        console.log("hide")
     }
 
     const handleRightClick = (e) => {
         setMousePosition({ position: "fixed", left: e.clientX, top: e.clientY })
         setIsModalOpen(true)
         getAllCompanyTasks()
-        console.log("right click")
     }
 
     const getAllCompanyTasks = async () => {
@@ -73,8 +71,6 @@ export default function CheckList({ item, handleDeleteChecklist, handleNotifyTea
         const filters = replaceHttpWithHttps(companyTasks?.next)
         const url = `${process.env.DIGITALOCEAN}/tasks/list-tasks${filters}`
         let pathname = router.pathname.startsWith("/invited-project") ? true : false
-
-        console.log({ companyTasks })
         setLoadingMore(true)
         let response = await getAxios(url, false, false, () => { }, pathname)
         setCompanyTasks({

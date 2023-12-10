@@ -58,7 +58,7 @@ export default function MenuItem({ item, index, userPermission, toggleCollapsed,
             {item?.icon}
             <p>{item?.label}</p>
           </div>
-          <div className="text-sm">{item?.arrow}</div>
+          <div className={`text-sm ${showChildren ? "rotate-180" : ""}`}>{item?.arrow}</div>
         </div>
         <div
           className={`${!showChildren ? "hidden" : " dark:bg-[#141414] dark:text-white"
@@ -68,7 +68,7 @@ export default function MenuItem({ item, index, userPermission, toggleCollapsed,
             return (
               <div
                 key={cIndex}
-                className="flex gap-x-3 items-center  text-[15px] element2 hover:text-white    hover:cursor-pointer pl-8 px-2 py-2 "
+                className="flex gap-x-3 items-center  text-[15px] element2 hover:text-white hover:cursor-pointer pl-8 px-2 py-2 "
                 onClick={() => { handleClick(child); handleSelectParent(item?.key) }}
               >
                 {child?.icon}

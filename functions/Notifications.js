@@ -48,7 +48,6 @@ const NotificationSuccess = (res) => {
 }
 
 const NotificationError = (err) => {
-    console.log({ err })
     let textErr;
 
     if (typeof (err) == "string") {

@@ -71,7 +71,7 @@ export default function Card({ card, index, showTag, setShowTag, setSelectedItem
                                         {card?.subTasks}
                                     </div>
                                 </div>}
-                                {card?.assignee?.name && <div className="py-2 flex justify-between">
+                                {<div className="py-2 flex justify-between">
                                     {card?.dueDate && <div 
                                     className={`flex gap-x-1 items-center ${dayjs(card?.dueDate).diff(dayjs(), 'day') < 0 && card?.taskStatus !== "Completed" ? "text-red-500" : dayjs(card?.dueDate).diff(dayjs(), 'day') < 2 && card?.taskStatus !== "Completed" ? "text-yellow-500" : card?.taskStatus !== "Completed" ? "text-green-500" : "text-black dark:text-gray-600"}`}><Clock />{dayjs(card?.dueDate).format('D MMM, YYYY')}</div>}
 
