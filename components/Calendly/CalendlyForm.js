@@ -106,7 +106,7 @@ export default function CalendlyForm({ data, selectedDay, companyId, dataTimeZon
               },
             ]}
           >
-            <Input className="rounded w-full" size="large" />
+            <Input className="rounded-lg w-full" size="large" />
           </Form.Item>
           <Form.Item label="Last name" name="lastName" required
             rules={[
@@ -114,7 +114,7 @@ export default function CalendlyForm({ data, selectedDay, companyId, dataTimeZon
                 required: true,
               },
             ]} className="w-full  mb-2">
-            <Input className="rounded w-full" size="large" />
+            <Input className="rounded-lg w-full" size="large" />
           </Form.Item>
         </div>
         <div className="flex gap-x-5 w-full mt-0">
@@ -124,7 +124,7 @@ export default function CalendlyForm({ data, selectedDay, companyId, dataTimeZon
                 required: true,
               },
             ]} className="w-full  mb-2">
-            <Input className="rounded w-full" size="large" />
+            <Input className="rounded-lg w-full" size="large" />
           </Form.Item>
 
           <Form.Item
@@ -138,7 +138,7 @@ export default function CalendlyForm({ data, selectedDay, companyId, dataTimeZon
             name="email"
             className="w-full mb-2"
           >
-            <Input className="rounded w-full" size="large" />
+            <Input className="rounded-lg w-full" size="large" />
           </Form.Item>
 
 
@@ -157,6 +157,7 @@ export default function CalendlyForm({ data, selectedDay, companyId, dataTimeZon
           className="mb-2"
         >
           <Input.TextArea
+          className="rounded-lg"
             autoSize={{
               minRows: 4,
               maxRows: 4,
@@ -172,6 +173,7 @@ export default function CalendlyForm({ data, selectedDay, companyId, dataTimeZon
         >
           <Select
             placeholder="Select time slot"
+            className="rounded-lg"
             size="large"
             options={options}
           />
