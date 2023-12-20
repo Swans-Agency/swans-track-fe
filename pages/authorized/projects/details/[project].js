@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import cookie, { remove } from "react-cookies";
 import { getAxios, patchAxios, postAxios } from '@/functions/ApiCalls';
 import ClientInfo from '@/components/projects/ProjectDetails/ClientInfo';
 import ClientNotes from '@/components/projects/ProjectDetails/ClientNotes';
@@ -43,8 +42,31 @@ export default function ProjectDetails() {
     const initialData = {
         tasks: {
         },
-        columnOrder: ["toDo", "inProgress", "completed", "idle"],
+        columnOrder: ["To Do", "In Progress", "Completed", "Idle"],
     };
+    
+    let columnsObj = {
+        "To Do": {
+            id: "To Do",
+            title: "Backlog",
+            taskIds: [],
+        },
+        "In Progress": {
+            id: "In Progress",
+            title: "In Progress",
+            taskIds: [],
+        },
+        "Completed": {
+            id: "Completed",
+            title: "Completed",
+            taskIds: [],
+        },
+        "Idle": {
+            id: "Idle",
+            title: "Idle",
+            taskIds: [],
+        },
+    }
     const [tasksData, setTasksData] = useState();
     const router = useRouter();
 
@@ -99,8 +121,6 @@ export default function ProjectDetails() {
     };
 
     const handleChangeEdit = async (e, item) => {
-        ;
-        ;
         const url2 = `${process.env.DIGITALOCEAN}/project/todo-project/${item?.id}/`;
         const projectData2 = await patchAxios(url2, {
             "checked": e,
@@ -152,7 +172,6 @@ export default function ProjectDetails() {
     }, [showBoard])
 
     useEffect(() => {
-
         for (let i = 0; i < tasksData?.length; i++) {
             tasksData[i].start = new Date(tasksData[i]?.start)
             tasksData[i].end = new Date(tasksData[i]?.end)
@@ -305,8 +324,7 @@ export default function ProjectDetails() {
                                     </Form.Item>
                                 </div>
                             </Form>
-                            <p className='text-xs font-light text-gray-400'>By inviting a user, you are granting him access for 30 days to your project tasks, checklist, additional documents, shared documents, client notes, and internal notes.</p>
-
+                            <p className='text-xs font-light text-gray-400'>By inviting a user, you are granting him access to your project tasks, checklist, additional documents, shared documents, client notes, and internal notes.</p>
                         </div>
                     }
                 />
@@ -324,7 +342,7 @@ export default function ProjectDetails() {
                 />
 
             </> :
-                <TasksComponent companyTasks={tasksData} initialData={initialData} projectId={projectId} />
+                <TasksComponent companyTasks={tasksData} initialData={initialData} projectId={projectId} columns={columnsObj} />
             }
         </div>
 

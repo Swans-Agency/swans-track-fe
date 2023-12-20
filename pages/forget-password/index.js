@@ -83,7 +83,7 @@ export default function index() {
                   >
                     Reset Password
                   </button>
-                  <div>Do not have an account? <Link className="w-full text-[#0191E7]" href="/signup">Signup</Link></div>
+                  <div className="text-white">Do not have an account? <Link className="w-full text-[#0191E7]" href="/signup">Signup</Link></div>
                 </div>
               </Form.Item>
             </Form>

@@ -87,7 +87,7 @@ export default function index() {
                     title: "Your password.",
                   }}
                 >
-                  <Input
+                  <Input.Password
                     type="password"
                     className="bg-[#E6F4FD] border-none loginInput py-3 tablet:w-[663px] desktop:w-full"
                     placeholder="  Password"
