@@ -7,6 +7,7 @@ import {
 } from "@ant-design/icons";
 import DrawerANTD from "./DrawerANTD";
 import ModalANTD from "./ModalANTD";
+import NextCrypto from "next-crypto";
 
 
 export default function TableANTD({
@@ -34,11 +35,23 @@ export default function TableANTD({
   const [reload, setReload] = useState(false);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [open, setOpen] = useState(false);
+  const [userPermission, setUserPermission] = useState();
   const [pagination, setPagination] = useState({
     current: 1,
     pageSize: 10,
     total: 0,
   });
+
+  const handleGetUserPermission = async () => {
+    let permissionCookie = cookie.load("userPermission", { path: "/" });
+    setUserPermission(permissionCookie);
+  }
+
+  useEffect(() => {
+    handleGetUserPermission();
+  }, []);
+
+  
 
   const fetchData = async (page = 1, pageSize = 10) => {
     try {
@@ -136,7 +149,7 @@ export default function TableANTD({
             dataSource={data?.results}
             pagination={false}
             size="small"
-            rowSelection={((cookie.load("userPermission", { path: "/" }) !== "Employee") && multiDeleteUrl) ? rowSelection : null}
+            rowSelection={((userPermission !== "Employee") && multiDeleteUrl) ? rowSelection : null}
             style={{
               overflowX: "auto",
             }}

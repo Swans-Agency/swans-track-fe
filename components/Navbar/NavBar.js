@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { DownOutlined, PieChartOutlined } from "@ant-design/icons";
+import { DownOutlined } from "@ant-design/icons";
 import Image from "next/image";
 import { NavCollapse } from "@/context/NavContext";
 import MenuItem from "./MenuItem";
@@ -19,9 +19,7 @@ import TeamMembers from "./Icons/TeamMembers";
 import User from "./Icons/User";
 import Money from "./Icons/Money";
 import Support from "./Icons/Support";
-import Collapse from "./Icons/Collapse";
 import Logout from "./Icons/Logout";
-import Expand from "./Icons/Expand";
 import GearIcon from "./Icons/GearIcon";
 import Booked from "./Icons/Booked";
 import SchedIcon from "./Icons/SchedIcon";
@@ -32,15 +30,30 @@ import cookie from "react-cookies";
 import { logout } from "@/functions/GeneralFunctions";
 import FormIcon from "./Icons/FormIcon";
 import Leads from "./Icons/Leads";
+import secureLocalStorage from "react-secure-storage";
 
-export default function Navbar({ userPermission }) {
+export default function Navbar({ userPermission, plan }) {
   const { collapsed, toggleCollapsed } = useContext(NavCollapse);
   const [selectedTab, setSelectedTab] = useState("dashboard");
   const [userPfp, setUserPfp] = useState("https://xsgames.co/randomusers/avatar.php?g=pixel&key=1");
+  const [storagePercent, setStoragePercent] = useState(0);
+  const [titleStorage, setTitleStorage] = useState()
+  const router = useRouter();
 
   useEffect(() => {
     setUserPfp(cookie.load("userImage", { path: "/" }).split("?")[0])
+    CalculateStorage()
   }, [userPermission])
+
+  const CalculateStorage = () => {
+    let storage = secureLocalStorage.getItem("storage")
+    let maxStorage = secureLocalStorage.getItem("maxStorage")
+    let percent = ((storage / maxStorage) * 100).toFixed(2)
+    setTitleStorage(`${(storage / 1000000000).toFixed(2)} used of ${(maxStorage / 1000000000).toFixed(2) } GB`)
+    setStoragePercent(percent)
+  }
+
+  
 
   const menuItems = [
     {
@@ -70,6 +83,7 @@ export default function Navbar({ userPermission }) {
       key: "reports",
       label: "Reports",
       icon: <Chart />,
+      plan:['Solo']
     },
     {
       label: "Proposals & Invoices",
@@ -126,6 +140,7 @@ export default function Navbar({ userPermission }) {
       key: "swan-ai",
       label: "ChatGPT",
       icon: <Gpt />,
+      plan: ['Solo']
     },
     {
       key: "leads",
@@ -150,6 +165,7 @@ export default function Navbar({ userPermission }) {
       key: "team",
       label: "Team Members",
       icon: <TeamMembers />,
+      plan: ['Solo']
     },
   ];
 
@@ -190,11 +206,6 @@ export default function Navbar({ userPermission }) {
       })
       .join(' ');
   }
-
-  const router = useRouter();
-
-
-
 
   return (
     <>
@@ -241,13 +252,13 @@ export default function Navbar({ userPermission }) {
                     item={item}
                     index={index}
                     userPermission={userPermission}
+                    plan={plan}
                     toggleCollapsed={toggleCollapsed}
                     selectedTab={selectedTab}
                     setSelectedTab={setSelectedTab}
                   />
                 ); 
               })}
-
               <div className="absolute bottom-0 left-0 w-full  border-t dark:border-t-[#282828]">
                 <div
                   className={`flex py-4 px-4 font-extralight justify-between gap-x-3 items-center text-[1rem] element2 hover:cursor-pointer`}
@@ -293,12 +304,18 @@ export default function Navbar({ userPermission }) {
                       item={item}
                       index={index}
                       userPermission={userPermission}
+                      plan={plan}
                       toggleCollapsed={toggleCollapsed}
                       selectedTab={selectedTab}
                       setSelectedTab={setSelectedTab}
                     />
                   );
                 })}
+
+                <div className="w-full flex flex-col items-center justify-center gap-2 py-5 text-white" title={titleStorage}>
+                  <p className=" text-[15px] font-extralight">Storage consumption </p>
+                  <Progress percent={storagePercent} type="circle" trailColor="#282828" status="active"  />
+                </div>
 
               </div>
             } >

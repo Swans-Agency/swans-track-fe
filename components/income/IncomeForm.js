@@ -21,7 +21,7 @@ import { getAxios } from "@/functions/ApiCalls";
 import FormButtons from "../ANTD/FormButtons";
 import InvoiceForm from "../invoice/InvoiceForm";
 import { NotificationError } from "@/functions/Notifications";
-import { paymentTypes } from "@/functions/GeneralFunctions";
+import { getObjectsFromLocalStorage, paymentTypes } from "@/functions/GeneralFunctions";
 
 export default function IncomeForm({ setReload, onClose }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -35,7 +35,7 @@ export default function IncomeForm({ setReload, onClose }) {
     const invoiceData = await getAxios(url);
     const arrData = invoiceData?.map((item) => ({
       value: item.id,
-      label: `${item?.invoiceNo} | ${Number(item?.invoiceTotal).toFixed(2)}${JSON.parse(localStorage.getItem('companyPreferences'))?.currency}`,
+      label: `${item?.invoiceNo} | ${Number(item?.invoiceTotal).toFixed(2)}${getObjectsFromLocalStorage('companyPreferences')?.currency}`,
     }));
     setProposalData(arrData);
   };
@@ -50,7 +50,7 @@ export default function IncomeForm({ setReload, onClose }) {
     const proposalSearchData = await getAxios(url);
     const arrData = proposalSearchData?.map((item) => ({
       value: item.id,
-      label: `${item?.invoiceNo} | ${Number(item?.invoiceTotal).toFixed(2)}${JSON.parse(localStorage.getItem('companyPreferences'))?.currency}`,
+      label: `${item?.invoiceNo} | ${Number(item?.invoiceTotal).toFixed(2)}${getObjectsFromLocalStorage('companyPreferences')?.currency}`,
     }));
     setProposalData(arrData);
   };

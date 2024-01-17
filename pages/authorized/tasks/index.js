@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { getAxiosServer } from "@/functions/ApiCalls";
+import React, { useEffect, useRef, useState } from "react";
+import { getAxiosServer, getAxios } from "@/functions/ApiCalls";
 import dynamic from "next/dynamic";
 import Loading from "@/components/Loading/Loading";
 const TasksComponent = dynamic(() => import("@/components/tasks/TasksComponent"), {
@@ -7,35 +7,48 @@ const TasksComponent = dynamic(() => import("@/components/tasks/TasksComponent")
 });
 
 
-export default function index({ companyTasks }) {
-  const initialData = {
-    tasks: {
-    },
-    columnOrder: ["To Do", "In Progress", "Completed", "Idle"],
-  };
+export default function index() {
+  const [companyTasks, setCompanyTasks] = useState(null)
+  const [initialData, setInitialData] = useState(null)
+  const [columns, setColumns] = useState(null)
 
-  let columnsObj = {
-    "To Do": {
-      id: "To Do",
-      title: "Backlog",
-      taskIds: [],
-    },
-    "In Progress": {
-      id: "In Progress",
-      title: "In Progress",
-      taskIds: [],
-    },
-    "Completed": {
-      id: "Completed",
-      title: "Completed",
-      taskIds: [],
-    },
-    "Idle": {
-      id: "Idle",
-      title: "Idle",
-      taskIds: [],
-    },
+  useEffect(() => {
+    getTasks()
+  }, [])
+
+  useEffect(() => {
+    getColumns()
+  }, [companyTasks]);
+
+  const getColumns = async () => {
+    let url = `${process.env.DIGITALOCEAN}/tasks/tasks-columns/`
+    let data = await getAxios(url, false, false, () => { }, false)
+    let columnsOrder = data?.map((item) => item?.columnName)
+    setInitialData({
+      tasks: {},
+      columnOrder: columnsOrder
+    })
+
+    let columnObj = {}
+    console.log({ data })
+    let dataLoop = data?.forEach((item) => {
+      return (
+        columnObj[item?.columnName] = {
+          id: item?.columnName,
+          title: item?.columnName,
+          taskIds: []
+        }
+      )
+    })
+    setColumns(columnObj)
   }
+
+  const getTasks = async () => {
+    let url = `${process.env.DIGITALOCEAN}/tasks/active-tasks/`
+    let tasks = await getAxios(url, false, false, () => { }, false)
+    setCompanyTasks(tasks)
+  }
+
 
   for (let i = 0; i < companyTasks?.length; i++) {
     companyTasks[i].start = new Date(companyTasks[i]?.start)
@@ -43,7 +56,7 @@ export default function index({ companyTasks }) {
   }
 
   return (
-    initialData && <TasksComponent companyTasks={companyTasks} initialData={initialData} columns={columnsObj} />
+    initialData && columns && <TasksComponent companyTasks={companyTasks} initialData={initialData} columnsObj={columns} />
   );
 }
 
@@ -54,7 +67,7 @@ export const getServerSideProps = async (ctx) => {
   let companyTasks = [];
   try {
     if (accessToken) {
-      companyTasks = await getAxiosServer(`${process.env.DIGITALOCEAN}/tasks/active-tasks/`, accessToken, false)
+      // companyTasks = await getAxiosServer(`${process.env.DIGITALOCEAN}/tasks/active-tasks/`, accessToken, false)
 
     } else {
       return {

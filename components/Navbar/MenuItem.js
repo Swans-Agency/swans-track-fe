@@ -1,14 +1,15 @@
 import { logout } from "@/functions/GeneralFunctions";
-import { ConfigProvider, Divider, theme } from "antd";
+import { ConfigProvider, Divider, Progress, theme } from "antd";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import cookie, { remove } from "react-cookies";
 import DrawerANTD from "../ANTD/DrawerANTD";
 import TextBox from "../SwanAi/TextBox";
 
-export default function MenuItem({ item, index, userPermission, toggleCollapsed, selectedTab, setSelectedTab }) {
+export default function MenuItem({ item, index, userPermission, plan, toggleCollapsed, selectedTab, setSelectedTab }) {
   const [showChildren, setShowChildren] = useState(false);
   const [hide, setHide] = useState("");
+  const [hideChild, setHideChild] = useState("");
   const [showGPT, setShowGPT] = useState(false);
   const router = useRouter();
 
@@ -45,6 +46,13 @@ export default function MenuItem({ item, index, userPermission, toggleCollapsed,
     } else {
       setHide("");
     }
+
+    if (item?.plan && item?.plan?.includes(plan)) {
+      setHide("hidden");
+    } else {
+      setHide("");
+    }
+
   }, [userPermission]);
 
   return (
@@ -77,6 +85,7 @@ export default function MenuItem({ item, index, userPermission, toggleCollapsed,
             );
           })}
         </div>
+        
       </div>
       {item?.divider && <Divider />}
       <ConfigProvider

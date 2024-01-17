@@ -570,3 +570,7 @@ li {
 ._custom-progress-antd-swans .ant-progress-text {
   color: white;
 }
+
+.ant-popover *{
+  color: white !important;
+}

@@ -1,6 +1,9 @@
 # Use an official Node.js runtime as the base image
 FROM node:18
 
+#create container name
+LABEL name="swanstrack-fe"
+
 # Set the working directory inside the container
 WORKDIR /app
 
@@ -11,6 +14,7 @@ COPY package*.json ./
 ARG CONTAINER_NAME=swans-track-fe
 
 ARG DIGITALOCEAN=https://backend-swans.click
+# ARG DIGITALOCEAN=http://localhost:8000
 ENV DIGITALOCEAN=${DIGITALOCEAN}
 
 # Install project dependencies

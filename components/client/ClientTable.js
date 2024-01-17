@@ -5,9 +5,11 @@ import {
   QuestionCircleOutlined,
   SearchOutlined,
 } from "@ant-design/icons";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { NotificationPermission } from "@/functions/ApiCalls";
 import Highlighter from "react-highlight-words";
+import cookie from "react-cookies";
+import NextCrypto from "next-crypto";
 
 export default function ClientTable({
   clientsData,
@@ -17,6 +19,7 @@ export default function ClientTable({
 }) {
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
+  const [permission, setPermission] = useState();
   const searchInput = useRef(null);
 
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
@@ -24,6 +27,15 @@ export default function ClientTable({
     setSearchText(selectedKeys[0]);
     setSearchedColumn(dataIndex);
   };
+
+  useEffect(() => {
+    handleGetUserPermission();
+  }, [userPermission]);
+
+  const handleGetUserPermission = async () => {
+    setPermission(userPermission);
+
+  }
 
   const handleReset = (clearFilters) => {
     clearFilters();

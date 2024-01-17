@@ -34,29 +34,60 @@ export default function EventModal({ selectedEvent, handleDeleteEvent, setIsModa
         window.open(url, '_blank')
     }
 
+    // const addToAppleCalendar = () => {
+    //     const title = selectedEvent?.title;
+    //     const description = selectedEvent?.description;
+    //     const location = selectedEvent?.location;
+    //     const startTime = dayjs(selectedEvent?.start).format('YYYYMMDDTHHmmss[Z]')
+    //     const endTime = dayjs(selectedEvent?.end).format('YYYYMMDDTHHmmss[Z]')
+
+    //     const url = `data:text/calendar;charset=utf-8,BEGIN:VCALENDAR
+    //                 VERSION:2.0
+    //                 BEGIN:VEVENT
+    //                 SUMMARY:${title}
+    //                 DESCRIPTION:${description}
+    //                 LOCATION:${location}
+    //                 DTSTART:${startTime}
+    //                 DTEND:${endTime}
+    //                 END:VEVENT
+    //                 END:VCALENDAR`;
+
+    //     const blob = new Blob([url], { type: 'text/calendar' });
+    //     const data = URL.createObjectURL(blob);
+
+    //     window.open(data, '_blank');
+    // };
+
     const addToAppleCalendar = () => {
         const title = selectedEvent?.title;
         const description = selectedEvent?.description;
         const location = selectedEvent?.location;
-        const startTime = dayjs(selectedEvent?.start).format('YYYYMMDDTHHmmss[Z]')
-        const endTime = dayjs(selectedEvent?.end).format('YYYYMMDDTHHmmss[Z]')
+        const startTime = dayjs(selectedEvent?.start).format('YYYYMMDDTHHmmss[Z]');
+        const endTime = dayjs(selectedEvent?.end).format('YYYYMMDDTHHmmss[Z]');
 
-        const url = `data:text/calendar;charset=utf-8,BEGIN:VCALENDAR
-                    VERSION:2.0
-                    BEGIN:VEVENT
-                    SUMMARY:${title}
-                    DESCRIPTION:${description}
-                    LOCATION:${location}
-                    DTSTART:${startTime}
-                    DTEND:${endTime}
-                    END:VEVENT
-                    END:VCALENDAR`;
+        const calendarData = `BEGIN:VCALENDAR
+        VERSION:2.0
+        BEGIN:VEVENT
+        SUMMARY:${title}
+        DESCRIPTION:${description}
+        LOCATION:${location}
+        DTSTART:${startTime}
+        DTEND:${endTime}
+        END:VEVENT
+        END:VCALENDAR`;
 
-        const blob = new Blob([url], { type: 'text/calendar' });
+        const blob = new Blob([calendarData], { type: 'text/calendar;charset=utf-8' });
         const data = URL.createObjectURL(blob);
 
-        window.open(data, '_blank');
+        // Create a temporary anchor element and trigger a click to download the file
+        const downloadLink = document.createElement('a');
+        downloadLink.href = data;
+        downloadLink.download = 'event.ics';
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
     };
+
 
     const addToCalendar = (value) => {
         switch (value) {

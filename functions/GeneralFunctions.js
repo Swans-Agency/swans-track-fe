@@ -1274,13 +1274,14 @@ const expenseCategory = [
 const redirect = (url) => {
   window.location.href = url;
 };
-
+import secureLocalStorage from "react-secure-storage";
+import NextCrypto from "next-crypto";
 const login = async (data) => {
   NotificationLoading();
   const URL = `${process.env.DIGITALOCEAN}/api/token/`;
   axios
     .post(URL, data)
-    .then((res) => {
+    .then(async(res) => {
 
       clearStorageCookies()
       cookie.save("AccessTokenSBS", res?.data?.access, {
@@ -1307,13 +1308,18 @@ const login = async (data) => {
       cookie.save("userId", res?.data?.id, {
         path: "/",
       });
+      
+      secureLocalStorage.setItem("plan", res?.data?.plan);
+      secureLocalStorage.setItem("storage", res?.data?.storage);
+      secureLocalStorage.setItem("maxStorage", res?.data?.maxStorage);
+
       if (!res?.data?.companyPreferences || !res?.data?.companyCurrency) {
         redirect("/authorized/new-company");
       } else {
         cookie.save("companyPreferences", res?.data?.companyPreferences, {
           path: "/",
         });
-        localStorage.setItem("companyPreferences", JSON.stringify(res?.data?.companyPreferencesObj));
+        secureLocalStorage.setItem("companyPreferences", JSON.stringify(res?.data?.companyPreferencesObj));
         cookie.save("companyCurrency", res?.data?.companyCurrency, {
           path: "/",
         });
@@ -1338,6 +1344,8 @@ const signup = async (data) => {
 };
 
 const logout = async () => {
+  //clear all the cookies, localstorage and session storage
+  
   clearStorageCookies()
   redirect("/");
 };
@@ -1354,17 +1362,21 @@ const clearStorageCookies = () => {
   remove("userPermission", { path: "/" });
   remove("companyCurrency", { path: "/" });
   remove("companyPreferences", { path: "/" });
+  remove("accessToken", { path: "/" });
+  remove("invited-email", { path: "/" });
+  remove("invited-project", { path: "/" });
   localStorage.clear();
+  secureLocalStorage.clear();
 }
 
 const saveToLocal = (key, value) => {
-  localStorage.setItem(key, JSON.stringify(value));
+  secureLocalStorage.setItem(key, JSON.stringify(value));
 };
 
 const getObjectsFromLocalStorage = (key) => {
-  let localStorageCheck = localStorage?.getItem(key) || null;
+  let localStorageCheck = secureLocalStorage?.getItem(key) || null;
   if (localStorageCheck) {
-    return JSON?.parse(localStorage?.getItem(key) || {});
+    return JSON?.parse(secureLocalStorage?.getItem(key) || {});
   }
   return null;
 };
@@ -1476,6 +1488,8 @@ const getColumnSearchProps = (dataIndex, searchInput, searchedColumn, searchText
       text
     ),
 });
+
+
 
 export {
   redirect,

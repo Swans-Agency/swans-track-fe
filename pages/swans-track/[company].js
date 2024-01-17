@@ -8,12 +8,13 @@ import axios from "axios";
 import NewCalendar from "@/components/NewCalendar/NewCalendar";
 import ModalANTD from "@/components/ANTD/ModalANTD";
 import Footer from "@/components/Footer/Footer";
+import NextCrypto from "next-crypto";
 
 export default function SchedTrack() {
   const router = useRouter();
 
   const [calData, setCalData] = useState({});
-  const [companyId, setCompanyId] = useState(router.query.company);
+  const [companyId, setCompanyId] = useState();
   const [selectedDay, setSelectedDay] = useState([]);
   const [dataTimeZone, setDataTimeZone] = useState("");
   const [newTimeZone, setNewTimeZone] = useState(dataTimeZone);
@@ -34,11 +35,19 @@ export default function SchedTrack() {
   };
 
   useEffect(() => {
-    setCompanyId(router.query.company);
-    if (router.query.company) {
-      getCalData(router.query.company);
-    }
+    saveCompanyId(router.query.company)
   }, [router.query.company, companyId]);
+
+  const saveCompanyId = async (id) => {
+    if (id) {
+      const crypto = new NextCrypto(`${process.env.ENCRYPTION_KEY}`);
+      const decodedValue = decodeURIComponent(id);
+      const decrypted = await crypto.decrypt(decodedValue);
+  
+      setCompanyId(decrypted);
+      getCalData(decrypted);
+    }
+  }
 
   return (
     <section>

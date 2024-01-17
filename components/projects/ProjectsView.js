@@ -6,9 +6,10 @@ import { patchAxios } from "@/functions/ApiCalls";
 import ProjectForm from "./ProjectForm";
 import { useRouter } from "next/router";
 import { remove } from "react-cookies";
-import { jobStatusNotColored } from "@/functions/GeneralFunctions";
+import { encrypt, jobStatusNotColored, saveToLocal } from "@/functions/GeneralFunctions";
 import { getColumnSearchProps } from "@/functions/GeneralFunctions";
 import ModalANTD from "../ANTD/ModalANTD";
+import NextCrypto from 'next-crypto';
 
 
 export default function ProjectsView() {
@@ -64,10 +65,14 @@ export default function ProjectsView() {
 
 
 
-    const showModalDetails = (item) => {
-        localStorage.setItem('project', JSON.stringify(item))
+    const showModalDetails = async(item) => {
+        saveToLocal('project', item)
 
-        router.push(`/authorized/projects/details/${item.id}`)
+        const crypto = new NextCrypto(`${process.env.ENCRYPTION_KEY}`);
+        const encryptedBuffer = await crypto.encrypt(item?.id);
+        const encodedValue = encodeURIComponent(encryptedBuffer);
+
+        router.push(`/authorized/projects/details/${encodedValue}`)
     }
 
 

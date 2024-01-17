@@ -21,6 +21,7 @@ import {
 import { getAxios, postAxios } from "@/functions/ApiCalls";
 import FormButtons from "../ANTD/FormButtons";
 import ProposalForm from "../proposal/ProposalForm";
+import { getObjectsFromLocalStorage } from "@/functions/GeneralFunctions";
 
 export default function InvoiceForm({ setReload, onClose, getAllInvoices = () => { } }) {
   const [disabledSelectCurrency, setDisabledCurrency] = useState(false);
@@ -94,7 +95,7 @@ export default function InvoiceForm({ setReload, onClose, getAllInvoices = () =>
     const proposalSearchData = await getAxios(url);
     const arrData = proposalSearchData?.map((item) => ({
       value: item.id,
-      label: `${item?.proposalNo} | ${Number(item?.proposalTotal).toFixed(2)}${JSON.parse(localStorage.getItem('companyPreferences'))?.currency}`,
+      label: `${item?.proposalNo} | ${Number(item?.proposalTotal).toFixed(2)}${getObjectsFromLocalStorage('companyPreferences')?.currency}`,
     }));
     setProposalData(arrData);
   };
@@ -104,7 +105,7 @@ export default function InvoiceForm({ setReload, onClose, getAllInvoices = () =>
     const proposalSearchData = await getAxios(url);
     const arrData = proposalSearchData?.map((item) => ({
       value: item.id,
-      label: `${item?.proposalNo} | ${Number(item?.proposalTotal).toFixed(2)}${JSON.parse(localStorage.getItem('companyPreferences'))?.currency}`,
+      label: `${item?.proposalNo} | ${Number(item?.proposalTotal).toFixed(2)}${getObjectsFromLocalStorage('companyPreferences')?.currency}`,
     }));
     setProposalData(arrData);
   };

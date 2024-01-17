@@ -6,6 +6,7 @@ import ModalANTD from '@/components/ANTD/ModalANTD';
 import CalendlyForm from '@/components/Calendly/CalendlyForm';
 import Calender from '@/components/Calendly/Calender';
 import axios from 'axios';
+import NextCrypto from 'next-crypto';
 
 
 export default function index() {
@@ -22,32 +23,58 @@ export default function index() {
     const [showCalendar, setShowCalendar] = useState(false);
 
 
-    useEffect(() => {
-        setConfigData({
-            id: router.query.id,
-            company: router.query.company
-        })
+    const handleDecodeIds = async (company, id) => {
+        const crypto = new NextCrypto(`${process.env.ENCRYPTION_KEY}`);
+        const decodedCompany = decodeURIComponent(company);
+        const decryptedCompany = await crypto.decrypt(decodedCompany);
 
+        const decodedId = decodeURIComponent(id);
+        const decryptedId = await crypto.decrypt(decodedId);
+
+        setConfigData({
+            id: decryptedId,
+            company: decryptedCompany
+        })
+    }
+
+    useEffect(() => {
+        handleDecodeIds(router.query.company, router.query.id)
     }, [router.query.id, router.query.company])
+
+    const handleGetLeadData = async (id) => {
+        const crypto = new NextCrypto(`${process.env.ENCRYPTION_KEY}`);
+        const decodedId = decodeURIComponent(id);
+        const idValue = await crypto.decrypt(decodedId);
+
+        let url = `${process.env.DIGITALOCEAN}/client/lead-form/${idValue}`
+        axios.get(url).then(res => {
+
+            setLeadData(res?.data)
+            if (res?.data?.active === "Unactive") {
+                router.push('/')
+            }
+        })
+    }
 
     useEffect(() => {
         if (router.query.id && router.query.company) {
-            let url = `${process.env.DIGITALOCEAN}/client/lead-form/${router.query.id}`
-            axios.get(url).then(res => {
-
-                setLeadData(res?.data)
-                if (res?.data?.active === "Unactive") {
-                    router.push('/')
-                }
-            })
+            handleGetLeadData(router.query.id)
         }
     }, [router.query.id, router.query.company])
 
-    useEffect(() => {
-        setCompanyId(router.query.companyId);
-        if (router.query.companyId) {
-            getCalData(router.query.companyId);
+    const handleSaveId = async (id) => {
+        const crypto = new NextCrypto(`${process.env.ENCRYPTION_KEY}`);
+        const decodedId = decodeURIComponent(id);
+        const decryptedId = await crypto.decrypt(decodedId);
+    
+        if (decryptedId) {
+            setCompanyId(decryptedId);
+            getCalData(decryptedId);
         }
+    }
+
+    useEffect(() => {
+        handleSaveId(router.query.companyId)
     }, [router.query.companyId, companyId]);
 
     const handleClose = () => {

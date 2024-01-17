@@ -4,6 +4,7 @@ import { EditOutlined } from "@ant-design/icons";
 import { getColumnSearchProps } from "@/functions/GeneralFunctions";
 import LeadForm from "./LeadForm";
 import UpdateLead from "./UpdateLead";
+import NextCrypto from "next-crypto";
 
 
 export default function LeadsView() {
@@ -25,6 +26,15 @@ export default function LeadsView() {
         setSearchText("");
     };
 
+    const handleCreateLink = async(item) => {
+        const crypto = new NextCrypto(`${process.env.ENCRYPTION_KEY}`);
+        const companyIdEncrypt = await crypto.encrypt(item?.companyObj?.id);
+        const companyId = encodeURIComponent(companyIdEncrypt);
+        const itemIdEncrypt = await crypto.encrypt(item?.id);
+        const itemId = encodeURIComponent(itemIdEncrypt);
+        window.open(`https://www.swanstrack.com/lead-form/${item?.companyObj?.companyName}/${companyId}/${itemId}`, "_blank")
+    }
+
     const columns = [
         {
             title: "Title",
@@ -42,12 +52,7 @@ export default function LeadsView() {
             title: "Sharaeble Link",
             dataIndex: "shareableLink",
             key: "shareableLink",
-            render: (_, item) => (
-                <a
-                    className="text-blue-500 "
-                    href={`https://www.swanstrack.com/lead-form/${item?.companyObj?.companyName}/${item?.companyObj?.id}/${item?.id}`} target="_blank">
-                    swanstrack.com/lead-form/{item?.companyObj?.companyName}/{item?.companyObj?.id}/{item?.id}
-                </a>),
+            render: (_, item) => <a className="text-blue-500 " onClick={()=>handleCreateLink(item)} >Go to form</a>
         },
         {
             title: "Created At",

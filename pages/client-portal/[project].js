@@ -7,6 +7,7 @@ import ProjectInvoices from '@/components/projects/ProjectDetails/ProjectInvoice
 import ProjectProposals from '@/components/projects/ProjectDetails/ProjectProposals';
 import SharedDocuments from '@/components/projects/ProjectDetails/SharedDocuments';
 import ClientNotes from '@/components/projects/ProjectDetails/ClientNotes';
+import NextCrypto from 'next-crypto';
 
 
 export default function ClientProtal() {
@@ -15,12 +16,17 @@ export default function ClientProtal() {
     const [projectSharedDocs, setProjectSharedDocs] = useState(null);
     const router = useRouter();
 
-
+    const saveProjectId = async (id) => {
+        if (id) {
+            const crypto = new NextCrypto(`${process.env.ENCRYPTION_KEY}`);
+            const decodedValue = decodeURIComponent(id);
+            const decrypted = await crypto.decrypt(decodedValue);
+            setProjectId(decrypted);
+        }
+    }
 
     useEffect(() => {
-        if (router.query.project) {
-            setProjectId(router.query.project);
-        }
+        saveProjectId(router.query.project)
     }, [router.query.project]);
 
     useEffect(() => {

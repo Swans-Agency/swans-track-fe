@@ -13,8 +13,11 @@ import { Gantt } from 'gantt-task-react';
 import "gantt-task-react/dist/index.css";
 import { AppstoreOutlined, BarsOutlined } from "@ant-design/icons";
 import { useRouter } from "next/router";
+import ManageColumns from "@/components/tasks/ManageColumns"
+import cookie from "react-cookies";
 
-export default function TasksComponent({ companyTasks, initialData, projectId = null }) {
+
+export default function TasksComponent({ companyTasks, initialData, columnsObj, projectId = null }) {
   const dbRef = useRef(null);
   const [open, setOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
@@ -28,29 +31,29 @@ export default function TasksComponent({ companyTasks, initialData, projectId = 
   const [message, setMessage] = useState(null)
   const [dontShowSwitch, setDontShowSwitch] = useState(false)
   const router = useRouter()
-
-  let columns = {
-    "To Do": {
-      id: "To Do",
-      title: "Backlog",
-      taskIds: [],
-    },
-    "In Progress": {
-      id: "In Progress",
-      title: "In Progress",
-      taskIds: [],
-    },
-    "Completed": {
-      id: "Completed",
-      title: "Completed",
-      taskIds: [],
-    },
-    "Idle": {
-      id: "Idle",
-      title: "Idle",
-      taskIds: [],
-    },
-  }
+  const [columns, setColumns] = useState(columnsObj)
+  // let columns = {
+  //   "To Do": {
+  //     id: "To Do",
+  //     title: "Backlog",
+  //     taskIds: [],
+  //   },
+  //   "In Progress": {
+  //     id: "In Progress",
+  //     title: "In Progress",
+  //     taskIds: [],
+  //   },
+  //   "Completed": {
+  //     id: "Completed",
+  //     title: "Completed",
+  //     taskIds: [],
+  //   },
+  //   "Idle": {
+  //     id: "Idle",
+  //     title: "Idle",
+  //     taskIds: [],
+  //   },
+  // }
 
   const getAllEmployees = async () => {
     const url = `${process.env.DIGITALOCEAN}/account/list-employees-no-pagination/`;
@@ -73,12 +76,13 @@ export default function TasksComponent({ companyTasks, initialData, projectId = 
   };
 
   useEffect(() => {
+    setData(null)
     allData?.forEach((value) => {
       setData((data) => (
         {
           ...data,
           tasks: {
-            ...data.tasks,
+            ...data?.tasks,
             [value.id]: {
               id: value?.id,
               taskName: value?.taskName,
@@ -110,8 +114,7 @@ export default function TasksComponent({ companyTasks, initialData, projectId = 
 
     allData?.forEach((value) => {
       let status = value.taskStatus
-      console.log({ columns })
-      columns[status]?.taskIds?.push(value?.id)
+      columns?.[status]?.taskIds?.push(value?.id)
     })
 
     setData((data) => ({
@@ -262,6 +265,11 @@ export default function TasksComponent({ companyTasks, initialData, projectId = 
 
   };
 
+  const [openColumns, setOpenColumns] = useState(false)
+
+  const handleCloseColumns = async() => {
+    setOpenColumns(false)
+  }
   return (
     <>
 
@@ -309,10 +317,16 @@ export default function TasksComponent({ companyTasks, initialData, projectId = 
           <Input size="large" className="max-w-[450px]" placeholder="Search by assignee or task name" onChange={(e) => setSearch(e.target.value)} />
           <button
             onClick={() => handleopenNewTask()}
-            className="flex w-full max-w-[135px] justify-center items-center gap-x-2 bg-mainBackground dark:bg-[#282828]  text-white rounded py-[0.5rem] px-3"
+            className="flex justify-center items-center gap-x-2 bg-mainBackground dark:bg-[#282828]  text-white rounded py-[0.5rem] px-3"
           >
             Add new task
           </button>
+          {(cookie.load("userPermission", { path: "/" }) !== "Employee") && <button
+            onClick={() => setOpenColumns(true)}
+            className="flex justify-center items-center gap-x-2 bg-mainBackground dark:bg-[#282828]  text-white rounded py-[0.5rem] px-3"
+          >
+            Manage columns
+          </button>}
         </div>
       </div>
       {selectedValue == "Gantt" && allData.length ?
@@ -332,19 +346,11 @@ export default function TasksComponent({ companyTasks, initialData, projectId = 
 
         <DragDropContext onDragEnd={handleDragEnd}>
           <div className='flex justify-start gap-5 overflow-auto'>
-            {console.log("dfdfdfdf", { data })}
             {initialData?.columnOrder?.map((value, key) => {
               let columns = data?.columns?.[value];
               let tasks = columns?.taskIds?.map((value) => data?.tasks?.[value]);
-              console.log({
-                "In Turkey": "In Turkey",
-                initialData,
-                value,
-                columns,
-                tasks
-              })
               return (
-                <div className='px-2 relative  min-w-[250px] w-[300px]  mb-4 max-h-full h-fit overflow-hidden bg-gray-50 dark:bg-[#282828] dark:text-white rounded-xl pt-2'>
+                <div className='px-2 relative  min-w-[300px] w-[300px]  mb-4 max-h-full h-fit overflow-hidden bg-gray-50 dark:bg-[#282828] dark:text-white rounded-xl pt-2'>
                   <div className={`text font-bold rounded text-center p-1 mb-2 sticky inset-0 `}>
                     <div className="flex justify-start items-center gap-x-2">
                       {columns?.title}
@@ -354,7 +360,6 @@ export default function TasksComponent({ companyTasks, initialData, projectId = 
                     </div>
                     <p className={`mt-1 w-full h-[0.1rem] bg-gray-500 `}></p>
                   </div>
-
                   <div className='custom-scroll max-h-[65vh] overflow-y-auto p-2'>
                     <List
                       key={key}
@@ -379,6 +384,12 @@ export default function TasksComponent({ companyTasks, initialData, projectId = 
         onClose={onClose}
         open={open}
         children={<TaskForm handleNotifyTeam={handleNotifyTeam} projectId={projectId} />}
+      />
+      <DrawerANTD
+        title={"Manage columns"}
+        onClose={handleCloseColumns}
+        open={openColumns}
+        children={<ManageColumns handleNotifyTeam={handleNotifyTeam} />}
       />
       {selectedItem && <ModalANTD
         title={"Task Details"}

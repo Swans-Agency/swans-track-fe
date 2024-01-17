@@ -7,9 +7,18 @@ import cookie from "react-cookies";
 import { QuestionOutlined } from "@ant-design/icons";
 import dynamic from 'next/dynamic';
 import Loading from '@/components/Loading/Loading';
+import NextCrypto from 'next-crypto';
 
 export default function index() {
 
+    const redirectToSchedTrack = async () => {
+        let companyId = cookie.load("company", { path: "/" })
+        const crypto = new NextCrypto(`${process.env.ENCRYPTION_KEY}`);
+        const encryptedBuffer = await crypto.encrypt(companyId);
+        const encodedValue = encodeURIComponent(encryptedBuffer);
+
+        window.open(`/swans-track/${encodedValue}`, '_blank');
+    }
 
 
     return (
@@ -24,9 +33,9 @@ export default function index() {
                         notification.info({
                             message: "Public Profile",
                             description: <div>Share your calendar with others by using this link: <a
-                                href={`https://www.swanstrack.com/swans-track/${cookie.load("company", { path: "/" })}/`}
+                                onClick={() => redirectToSchedTrack()}
                                 className="text-blue-500 hover:text-blue-400 "
-                            >{`https://www.swanstrack.com/swans-track/${cookie.load("company", { path: "/" })}/`}</a></div>,
+                            >Click here</a></div>,
                             key: "api",
                         }))
                 }}

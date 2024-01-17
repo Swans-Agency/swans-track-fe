@@ -5,14 +5,14 @@ import Navbar from "../Navbar/NavBar";
 import Progress from "../progressBar/Progress";
 
 export default function Layout({ children, accessToken }) {
-  const { showNav, userPermission } = useContext(NavShowContext);
+  const { showNav, userPermission, plan } = useContext(NavShowContext);
   const { collapsed, marginLeft, navBarWidth, toggleCollapsed } = useContext(NavCollapse);
 
   return (
     <>
       {showNav && userPermission ? (
         <div className="">
-          <Navbar userPermission={userPermission} />
+          <Navbar userPermission={userPermission} plan={plan} />
           <div
             className={`tablet:px-10 phone:px-5 py-5  ${!collapsed ? "desktop:ml-[256px]" : "phone:ml-[25px]"} `}
           >
@@ -29,6 +29,8 @@ export default function Layout({ children, accessToken }) {
     </>
   );
 }
+
+
 
 export const getServerSideProps = async (ctx) => {
   let accessToken = ctx.req.cookies["AccessTokenSBS"];

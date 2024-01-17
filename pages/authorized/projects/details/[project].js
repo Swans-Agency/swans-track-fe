@@ -20,6 +20,7 @@ import ProjectTasksBoard from '@/components/projects/ProjectDetails/ProjectTasks
 import ModalANTD from '@/components/ANTD/ModalANTD';
 import FormButtons from '@/components/ANTD/FormButtons';
 import { NotificationError } from '@/functions/Notifications';
+import NextCrypto from 'next-crypto';
 
 
 
@@ -39,57 +40,102 @@ export default function ProjectDetails() {
     const [showInviteModal, setShowInviteModal] = useState(false);
     const [showBoard, setShowBoard] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const initialData = {
-        tasks: {
-        },
-        columnOrder: ["To Do", "In Progress", "Completed", "Idle"],
-    };
-    
-    let columnsObj = {
-        "To Do": {
-            id: "To Do",
-            title: "Backlog",
-            taskIds: [],
-        },
-        "In Progress": {
-            id: "In Progress",
-            title: "In Progress",
-            taskIds: [],
-        },
-        "Completed": {
-            id: "Completed",
-            title: "Completed",
-            taskIds: [],
-        },
-        "Idle": {
-            id: "Idle",
-            title: "Idle",
-            taskIds: [],
-        },
-    }
+    const [initialData, setInitialData] = useState(null);
+    const [columns, setColumns] = useState(null)
+
+
+    // const initialData = {
+    //     tasks: {
+    //     },
+    //     columnOrder: ["To Do", "In Progress", "Completed", "Idle"],
+    // };
+
+    // let columnsObj = {
+    //     "To Do": {
+    //         id: "To Do",
+    //         title: "Backlog",
+    //         taskIds: [],
+    //     },
+    //     "In Progress": {
+    //         id: "In Progress",
+    //         title: "In Progress",
+    //         taskIds: [],
+    //     },
+    //     "Completed": {
+    //         id: "Completed",
+    //         title: "Completed",
+    //         taskIds: [],
+    //     },
+    //     "Idle": {
+    //         id: "Idle",
+    //         title: "Idle",
+    //         taskIds: [],
+    //     },
+    // }
     const [tasksData, setTasksData] = useState();
     const router = useRouter();
 
+
     const getClientNotes = async () => {
-        const url = `${process.env.DIGITALOCEAN}/project/client-notes-project/${router.query.project}/`;
+        const crypto = new NextCrypto(`${process.env.ENCRYPTION_KEY}`);
+        const decrypted = await crypto.decrypt(router.query.project);
+
+        const decodedValue = decodeURIComponent(router.query.project);
+
+        // Decode the base64 string to a buffer
+        const encryptedBuffer = Buffer.from(decodedValue, 'base64');
+
+        // Now you can decrypt the buffer using your decryption logic
+        const decryptedId = await crypto.decrypt(decodedValue);
+        const url = `${process.env.DIGITALOCEAN}/project/client-notes-project/${decryptedId}/`;
         const projectData = await getAxios(url, false, false, () => { });
         setClientJobNotes(projectData);
     };
 
     const getInternalNotes = async () => {
-        const url2 = `${process.env.DIGITALOCEAN}/project/internal-notes-project/${router.query.project}/`;
+        const crypto = new NextCrypto(`${process.env.ENCRYPTION_KEY}`);
+        const decrypted = await crypto.decrypt(router.query.project);
+
+        const decodedValue = decodeURIComponent(router.query.project);
+
+        // Decode the base64 string to a buffer
+        const encryptedBuffer = Buffer.from(decodedValue, 'base64');
+
+        // Now you can decrypt the buffer using your decryption logic
+        const decryptedId = await crypto.decrypt(decodedValue);
+        const url2 = `${process.env.DIGITALOCEAN}/project/internal-notes-project/${decryptedId}/`;
         const projectData2 = await getAxios(url2, false, false, () => { });
         setInternalJobNotes(projectData2);
     };
 
     const getProjectTodos = async () => {
-        const url2 = `${process.env.DIGITALOCEAN}/project/todo-project/${router.query.project}/`;
+        const crypto = new NextCrypto(`${process.env.ENCRYPTION_KEY}`);
+        const decrypted = await crypto.decrypt(router.query.project);
+
+        const decodedValue = decodeURIComponent(router.query.project);
+
+        // Decode the base64 string to a buffer
+        const encryptedBuffer = Buffer.from(decodedValue, 'base64');
+
+        // Now you can decrypt the buffer using your decryption logic
+        const decryptedId = await crypto.decrypt(decodedValue);
+        const url2 = `${process.env.DIGITALOCEAN}/project/todo-project/${decryptedId}/`;
         const projectData2 = await getAxios(url2, false, false, () => { });
         setProjectTodo(projectData2);
     };
 
     const getProjectAdditionalDocs = async () => {
-        const url2 = `${process.env.DIGITALOCEAN}/project/additional-docs-project/${router.query.project}/`;
+        const crypto = new NextCrypto(`${process.env.ENCRYPTION_KEY}`);
+        const decrypted = await crypto.decrypt(router.query.project);
+
+        const decodedValue = decodeURIComponent(router.query.project);
+
+        // Decode the base64 string to a buffer
+        const encryptedBuffer = Buffer.from(decodedValue, 'base64');
+
+        // Now you can decrypt the buffer using your decryption logic
+        const decryptedId = await crypto.decrypt(decodedValue);
+        const url2 = `${process.env.DIGITALOCEAN}/project/additional-docs-project/${decryptedId}/`;
         let pathname = router.pathname.startsWith("/invited-project") ? true : false
 
         const projectData2 = await getAxios(url2, false, false, () => { }, pathname);
@@ -97,25 +143,65 @@ export default function ProjectDetails() {
     };
 
     const getProjectSharedDocs = async () => {
-        const url2 = `${process.env.DIGITALOCEAN}/project/shared-docs-project/${router.query.project}/`;
+        const crypto = new NextCrypto(`${process.env.ENCRYPTION_KEY}`);
+        const decrypted = await crypto.decrypt(router.query.project);
+
+        const decodedValue = decodeURIComponent(router.query.project);
+
+        // Decode the base64 string to a buffer
+        const encryptedBuffer = Buffer.from(decodedValue, 'base64');
+
+        // Now you can decrypt the buffer using your decryption logic
+        const decryptedId = await crypto.decrypt(decodedValue);
+        const url2 = `${process.env.DIGITALOCEAN}/project/shared-docs-project/${decryptedId}/`;
         const projectData2 = await getAxios(url2, false, false, () => { });
         setProjectSharedDocs(projectData2);
     };
 
     const getProjectDetails = async () => {
-        const url2 = `${process.env.DIGITALOCEAN}/project/details-project/${router.query.project}/`;
+        const crypto = new NextCrypto(`${process.env.ENCRYPTION_KEY}`);
+        const decrypted = await crypto.decrypt(router.query.project);
+
+        const decodedValue = decodeURIComponent(router.query.project);
+
+        // Decode the base64 string to a buffer
+        const encryptedBuffer = Buffer.from(decodedValue, 'base64');
+
+        // Now you can decrypt the buffer using your decryption logic
+        const decryptedId = await crypto.decrypt(decodedValue);
+        const url2 = `${process.env.DIGITALOCEAN}/project/details-project/${decryptedId}/`;
         const projectData2 = await getAxios(url2, false, false, () => { });
         setProjectDetails(projectData2);
     };
 
     const getProjectProposals = async () => {
-        const url2 = `${process.env.DIGITALOCEAN}/project/proposal-project/${router.query.project}/`;
+        const crypto = new NextCrypto(`${process.env.ENCRYPTION_KEY}`);
+        const decrypted = await crypto.decrypt(router.query.project);
+
+        const decodedValue = decodeURIComponent(router.query.project);
+
+        // Decode the base64 string to a buffer
+        const encryptedBuffer = Buffer.from(decodedValue, 'base64');
+
+        // Now you can decrypt the buffer using your decryption logic
+        const decryptedId = await crypto.decrypt(decodedValue);
+        const url2 = `${process.env.DIGITALOCEAN}/project/proposal-project/${decryptedId}/`;
         const projectData2 = await getAxios(url2, false, false, () => { });
         setProjectProposals(projectData2);
     };
 
     const getProjectInvoices = async () => {
-        const url2 = `${process.env.DIGITALOCEAN}/project/invoice-project/${router.query.project}/`;
+        const crypto = new NextCrypto(`${process.env.ENCRYPTION_KEY}`);
+        const decrypted = await crypto.decrypt(router.query.project);
+
+        const decodedValue = decodeURIComponent(router.query.project);
+
+        // Decode the base64 string to a buffer
+        const encryptedBuffer = Buffer.from(decodedValue, 'base64');
+
+        // Now you can decrypt the buffer using your decryption logic
+        const decryptedId = await crypto.decrypt(decodedValue);
+        const url2 = `${process.env.DIGITALOCEAN}/project/invoice-project/${decryptedId}/`;
         const projectData2 = await getAxios(url2, false, false, () => { });
         setProjectInvoices(projectData2);
     };
@@ -128,11 +214,24 @@ export default function ProjectDetails() {
         getProjectTodos()
     }
 
-    useEffect(() => {
-        if (router.query.project) {
-            setProjectId(router.query.project)
+    useEffect(async () => {
+        const crypto = new NextCrypto(`${process.env.ENCRYPTION_KEY}`);
+        const decodedValue = decodeURIComponent(router.query.project);
+        const decryptedId = await crypto.decrypt(decodedValue);
+
+        if (decryptedId) {
+            let projectObj = getObjectsFromLocalStorage("project")
+            setProjectId(decryptedId)
             if (typeof window !== 'undefined') {
-                setProjectObj(JSON.parse(localStorage.getItem('project')))
+                setProjectObj(projectObj)
+            }
+            console.log({ projectObj })
+            console.log({ decryptedId })
+            if (projectObj["id"] != decryptedId) {
+                NotificationError("Sorry, you do not have access to view this project")
+                setTimeout(() => {
+                    router.push("/authorized/projects")
+                }, 2000)
             }
             setProjectCurrency(getObjectsFromLocalStorage("companyPreferences")?.currency)
 
@@ -168,7 +267,6 @@ export default function ProjectDetails() {
         if (projectId) {
             getTasks()
         }
-
     }, [showBoard])
 
     useEffect(() => {
@@ -177,6 +275,34 @@ export default function ProjectDetails() {
             tasksData[i].end = new Date(tasksData[i]?.end)
         }
     }, [tasksData])
+
+    useEffect(() => {
+        getColumns()
+    }, [tasksData]);
+
+    const getColumns = async () => {
+        let url = `${process.env.DIGITALOCEAN}/tasks/tasks-columns/`
+        let data = await getAxios(url, false, false, () => { }, false)
+        let columnsOrder = data?.map((item) => item?.columnName)
+        setInitialData({
+            tasks: {},
+            columnOrder: columnsOrder
+        })
+
+        let columnObj = {}
+        console.log({ data })
+        let dataLoop = data?.forEach((item) => {
+            return (
+                columnObj[item?.columnName] = {
+                    id: item?.columnName,
+                    title: item?.columnName,
+                    taskIds: []
+                }
+            )
+        })
+        setColumns(columnObj)
+        console.log({ columnObj })
+    }
 
     const [form] = Form.useForm();
 
@@ -188,6 +314,10 @@ export default function ProjectDetails() {
 
         if (isValid) {
             data.projectId = projectId;
+            const crypto = new NextCrypto(`${process.env.ENCRYPTION_KEY}`);
+            const encryptedBuffer = await crypto.encrypt(projectId);
+            const encodedValue = encodeURIComponent(encryptedBuffer);
+            data.encryptedId = encodedValue;
             let res = await postAxios(url, data, true, true);
             form.resetFields();
         } else {
@@ -204,42 +334,24 @@ export default function ProjectDetails() {
                 obj={projectRoute}
                 handleHideBoard={handleHideBoard}
             />
-            {!showBoard ? <>
-                <div className='py-5 flex justify-between'>
-                    <div>
-                        <h1 className='laptop:text-3xl phone:text-sm font-bold'>{projectObj?.projectName}</h1>
-                        <p className='text-gray-400  phone:text-sm font-light'>{projectObj?.category}</p>
+            {!showBoard ?
+                <>
+                    <div className='py-5 flex justify-between'>
+                        <div>
+                            <h1 className='laptop:text-3xl phone:text-sm font-bold'>{projectObj?.projectName}</h1>
+                            <p className='text-gray-400  phone:text-sm font-light'>{projectObj?.category}</p>
+                        </div>
+                        <div className='laptop:text-xl font-light phone:text-sm '>
+                            <p>
+                                Project Total: {" "}
+                                <span className='font-bold laptop:text-xl phone:text-sm'>
+                                    {projectDetails ? projectCurrency : ""} {projectDetails?.jobTotal ? parseFloat(projectDetails?.jobTotal).toFixed(2) : 0}
+                                </span>
+                            </p>
+                        </div>
                     </div>
-                    <div className='laptop:text-xl font-light phone:text-sm '>
-                        <p>
-                            Project Total: {" "}
-                            <span className='font-bold laptop:text-xl phone:text-sm'>
-                                {projectDetails ? projectCurrency : ""} {projectDetails?.jobTotal ? parseFloat(projectDetails?.jobTotal).toFixed(2) : 0}
-                            </span>
-                        </p>
-                    </div>
-                </div>
-                <div className='grid laptop:grid-cols-[1fr_3fr_1fr] gap-4'>
-                    <div className='laptop:block phone:hidden'>
-                        <ClientInfo
-                            projectObj={projectObj}
-                            projectId={projectId}
-                        />
-                        <ClientNotes
-                            clientJobNotes={clientJobNotes}
-                        />
-                        <InternalNote
-                            internalJobNotes={internalJobNotes}
-                            projectId={projectId}
-                            getInternalNotes={getInternalNotes}
-                        />
-                    </div>
-                    <div>
-                        <ProjectMoney
-                            projectDetails={projectDetails}
-                            projectCurrency={projectCurrency}
-                        />
-                        <div className='laptop:hidden phone:block phone:mt-4'>
+                    <div className='grid laptop:grid-cols-[1fr_3fr_1fr] gap-4'>
+                        <div className='laptop:block phone:hidden'>
                             <ClientInfo
                                 projectObj={projectObj}
                                 projectId={projectId}
@@ -253,96 +365,115 @@ export default function ProjectDetails() {
                                 getInternalNotes={getInternalNotes}
                             />
                         </div>
-                        <ProjectInvoices
-                            projectInvoices={projectInvoices}
-                            getProjectInvoices={getProjectInvoices}
-                            projectId={projectId}
-                            projectCurrency={projectCurrency}
-                            getProjectDetails={getProjectDetails}
-                        />
-                        <ProjectProposals
-                            projectProposals={projectProposals}
-                            getProjectProposals={getProjectProposals}
-                            projectId={projectId}
-                            projectCurrency={projectCurrency}
-                            getProjectDetails={getProjectDetails}
-                        />
-
-                    </div>
-
-                    <div className=''>
-                        <ProjectTasksBoard
-                            handleShowBoard={handleShowBoard}
-                        />
-                        <ProjectTodo
-                            projectTodo={projectTodo}
-                            handleChangeEdit={handleChangeEdit}
-                            getProjectTodos={getProjectTodos}
-                            projectId={projectId}
-                        />
-                        <AdditionalDocs
-                            projectAdditionalDocs={projectAdditionalDocs}
-                            getProjectAdditionalDocs={getProjectAdditionalDocs}
-                            projectId={projectId}
-                        />
-                        <SharedDocuments
-                            projectId={projectId}
-                            getProjectSharedDocs={getProjectSharedDocs}
-                            projectSharedDocs={projectSharedDocs}
-                        />
-                    </div>
-                </div>
-
-                <ModalANTD
-                    title="Invite a user to this project"
-                    footer={null}
-                    isModalOpen={showInviteModal}
-                    handleOk={() => { setShowInviteModal(false) }}
-                    handleCancel={() => { setShowInviteModal(false) }}
-                    renderComponent={
                         <div>
-                            <Form
-                                layout="vertical"
-                                form={form}
-                                onFinish={inviteToProject}
-                            >
-                                <div className="flex gap-x-1 w-full justify-start">
-                                    <Form.Item
-                                        name="email"
-                                        rules={[
-                                            {
-                                                required: true,
-                                                message: 'Please input an email!',
-                                            },
-                                        ]}
-                                        className='w-full m-0'
-                                    >
-                                        <Input type="email" name="email" id="email" size='large' placeholder='Enter an E-mail address to invite' />
-                                    </Form.Item>
-                                    <Form.Item>
-                                        <FormButtons content="Invite" isLoading={isLoading} />
-                                    </Form.Item>
-                                </div>
-                            </Form>
-                            <p className='text-xs font-light text-gray-400'>By inviting a user, you are granting him access to your project tasks, checklist, additional documents, shared documents, client notes, and internal notes.</p>
+                            <ProjectMoney
+                                projectDetails={projectDetails}
+                                projectCurrency={projectCurrency}
+                            />
+                            <div className='laptop:hidden phone:block phone:mt-4'>
+                                <ClientInfo
+                                    projectObj={projectObj}
+                                    projectId={projectId}
+                                />
+                                <ClientNotes
+                                    clientJobNotes={clientJobNotes}
+                                />
+                                <InternalNote
+                                    internalJobNotes={internalJobNotes}
+                                    projectId={projectId}
+                                    getInternalNotes={getInternalNotes}
+                                />
+                            </div>
+                            <ProjectInvoices
+                                projectInvoices={projectInvoices}
+                                getProjectInvoices={getProjectInvoices}
+                                projectId={projectId}
+                                projectCurrency={projectCurrency}
+                                getProjectDetails={getProjectDetails}
+                            />
+                            <ProjectProposals
+                                projectProposals={projectProposals}
+                                getProjectProposals={getProjectProposals}
+                                projectId={projectId}
+                                projectCurrency={projectCurrency}
+                                getProjectDetails={getProjectDetails}
+                            />
+
                         </div>
-                    }
-                />
 
+                        <div className=''>
+                            <ProjectTasksBoard
+                                handleShowBoard={handleShowBoard}
+                            />
+                            <ProjectTodo
+                                projectTodo={projectTodo}
+                                handleChangeEdit={handleChangeEdit}
+                                getProjectTodos={getProjectTodos}
+                                projectId={projectId}
+                            />
+                            <AdditionalDocs
+                                projectAdditionalDocs={projectAdditionalDocs}
+                                getProjectAdditionalDocs={getProjectAdditionalDocs}
+                                projectId={projectId}
+                            />
+                            <SharedDocuments
+                                projectId={projectId}
+                                getProjectSharedDocs={getProjectSharedDocs}
+                                projectSharedDocs={projectSharedDocs}
+                            />
+                        </div>
+                    </div>
 
-                <FloatButton
-                    icon={<UserAddOutlined />}
-                    type="primary"
-                    title="Invite a user to this project"
-                    style={{
-                        right: 24,
-                        bottom: 24,
-                    }}
-                    onClick={() => { setShowInviteModal(true) }}
-                />
+                    <ModalANTD
+                        title="Invite a user to this project"
+                        footer={null}
+                        isModalOpen={showInviteModal}
+                        handleOk={() => { setShowInviteModal(false) }}
+                        handleCancel={() => { setShowInviteModal(false) }}
+                        renderComponent={
+                            <div>
+                                <Form
+                                    layout="vertical"
+                                    form={form}
+                                    onFinish={inviteToProject}
+                                >
+                                    <div className="flex gap-x-1 w-full justify-start">
+                                        <Form.Item
+                                            name="email"
+                                            rules={[
+                                                {
+                                                    required: true,
+                                                    message: 'Please input an email!',
+                                                },
+                                            ]}
+                                            className='w-full m-0'
+                                        >
+                                            <Input type="email" name="email" id="email" size='large' placeholder='Enter an E-mail address to invite' />
+                                        </Form.Item>
+                                        <Form.Item>
+                                            <FormButtons content="Invite" isLoading={isLoading} />
+                                        </Form.Item>
+                                    </div>
+                                </Form>
+                                <p className='text-xs font-light text-gray-400'>By inviting a user, you are granting him access to your project tasks, checklist, additional documents, shared documents, client notes, and internal notes.</p>
+                            </div>
+                        }
+                    />
+                    <FloatButton
+                        icon={<UserAddOutlined />}
+                        type="primary"
+                        title="Invite a user to this project"
+                        style={{
+                            right: 24,
+                            bottom: 24,
+                        }}
+                        onClick={() => { setShowInviteModal(true) }}
+                    />
 
-            </> :
-                <TasksComponent companyTasks={tasksData} initialData={initialData} projectId={projectId} columns={columnsObj} />
+                </> :
+                <>
+                    {initialData && columns && <TasksComponent companyTasks={tasksData} initialData={initialData} projectId={projectId} columnsObj={columns} />}
+                </>
             }
         </div>
 
