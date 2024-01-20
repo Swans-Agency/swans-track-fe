@@ -200,7 +200,7 @@ export default function Invitedproject() {
       if (invitedProjectId != decrypted) {
         NotificationError("Sorry, you do not have access to view this project")
         setTimeout(() => {
-          router.push("/")
+          // router.push("/")
         }, 2000)
       }
     }
@@ -221,6 +221,8 @@ export default function Invitedproject() {
   useEffect(() => {
     getColumns()
   }, [tasksData]);
+
+  // let columns;
 
   const getColumns = async () => {
     let url = `${process.env.DIGITALOCEAN}/tasks/tasks-columns/`
@@ -243,6 +245,7 @@ export default function Invitedproject() {
       )
     })
     setColumns(columnObj)
+    // columns = columnObj
   }
 
   useEffect(() => {
@@ -294,22 +297,26 @@ export default function Invitedproject() {
                     projectAdditionalDocs={projectAdditionalDocs}
                     getProjectAdditionalDocs={getProjectAdditionalDocs}
                     projectId={projectId}
+                    classes={'grid-cols-6'}
+
                   />
                   <SharedDocuments
                     projectId={projectId}
                     getProjectSharedDocs={getProjectSharedDocs}
                     projectSharedDocs={projectSharedDocs}
+                    classes={'grid-cols-6'}
+
                   />
                 </div>
               </>
             ) : (
               <div className="pt-[1rem]">
                 {
-                  columns && initialData &&
+                  initialData &&
                   <TasksComponent
                     companyTasks={tasksData}
                     initialData={initialData}
-                    columnsObj={columns}
+                      columns={columns}
                     projectId={projectId}
                   />
                 }

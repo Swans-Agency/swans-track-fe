@@ -14,6 +14,7 @@ import { useRouter } from "next/router";
 export default function TaskForm({
   handleNotifyTeam,
   selectedItem,
+  getAllTasksNew,
   projectId = null,
 }) {
   const [form] = Form.useForm();
@@ -193,6 +194,7 @@ export default function TaskForm({
 
     form.resetFields();
     handleNotifyTeam(projectId);
+    getAllTasksNew(projectId);
     setIsLoading(false);
   };
 

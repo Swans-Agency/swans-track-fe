@@ -14,7 +14,6 @@ import { AppstoreOutlined, BarsOutlined } from "@ant-design/icons";
 import { useRouter } from "next/router";
 import ManageColumns from "@/components/tasks/ManageColumns"
 import cookie from "react-cookies";
-import Loading from "../Loading/Loading";
 
 
 export default function TasksComponent({ companyTasks, initialData, columns, projectId = null }) {
@@ -57,49 +56,39 @@ export default function TasksComponent({ companyTasks, initialData, columns, pro
   //   },
   // }
 
-  useEffect(() => {
-    getAllEmployees();
-  }, []);
+
 
   useEffect(() => {
-    if (search.length >= 3 || search.length === 0) {
-      getAllTasksNew(projectId);
-    }
-  }, [search]);
-
+    getAllEmployees()
+  }, [])
 
   useEffect(() => {
 
     setData(null)
-    let newData = {};
-
     allData?.forEach((value) => {
-      newData = {
-        ...newData,
-        [value.id]: {
-          id: value?.id,
-          taskName: value?.taskName,
-          taskDescription: value?.taskDescription,
-          assignee: value?.assignee,
-          taskStatus: value?.taskStatus,
-          priority: value?.priority,
-          createdAt: value?.createdAt,
-          dueDate: value?.dueDate,
-          subTasks: value?.subTasks,
-          history: value?.history,
-          comments: value?.comments,
-          startDate: value?.startDate,
+      setData((data) => (
+        {
+          ...data,
+          tasks: {
+            ...data?.tasks,
+            [value.id]: {
+              id: value?.id,
+              taskName: value?.taskName,
+              taskDescription: value?.taskDescription,
+              assignee: value?.assignee,
+              taskStatus: value?.taskStatus,
+              priority: value?.priority,
+              createdAt: value?.createdAt,
+              dueDate: value?.dueDate,
+              subTasks: value?.subTasks,
+              history: value?.history,
+              comments: value?.comments,
+              startDate: value?.startDate,
+            }
+          }
         }
-      };
-    });
-
-    setData((data) => ({
-      ...data,
-      tasks: {
-        ...data?.tasks,
-        ...newData
-      }
-    }));
+      ))
+    })
 
     let filterGant = allData?.filter((task) => {
       return task.startDate && task.dueDate
@@ -122,6 +111,30 @@ export default function TasksComponent({ companyTasks, initialData, columns, pro
     }))
   }, [allData]);
 
+  useEffect(() => {
+    if (search.length >= 3 || search.length === 0) {
+      getAllTasksNew(projectId)
+
+    }
+  }, [search])
+
+  useEffect(() => {
+    dbRef.current = ref(database, "notify");
+    set(dbRef.current, false);
+
+    onValue(dbRef.current, (snapshot) => {
+      const dataNot = snapshot.val();
+      if (dataNot === true) {
+        // getAllTasksNew(projectId)
+        set(dbRef.current, false)
+        setSelectedItem(null)
+
+        setMessage(null)
+      }
+    })
+
+  }, []);
+
   const onClose = () => {
     setOpen(false);
   };
@@ -139,7 +152,7 @@ export default function TasksComponent({ companyTasks, initialData, columns, pro
   };
 
   const handleNotifyTeam = async (message) => {
-    // set(dbRef.current, true);
+    set(dbRef.current, true);
     setIsModalOpen(false);
     setOpen(false)
     setMessage(message)
@@ -302,14 +315,14 @@ export default function TasksComponent({ companyTasks, initialData, columns, pro
             defaultValue={selectedValue}
             onChange={handleSegmentChange}
           />}
-          {/* <Input size="large" className="max-w-[450px]" placeholder="Search by assignee or task name" onChange={(e) => setSearch(e.target.value)} /> */}
+          <Input size="large" className="max-w-[450px]" placeholder="Search by assignee or task name" onChange={(e) => setSearch(e.target.value)} />
           <button
             onClick={() => handleopenNewTask()}
             className="flex justify-center items-center gap-x-2 bg-mainBackground dark:bg-[#282828]  text-white rounded py-[0.5rem] px-3"
           >
             Add new task
           </button>
-          {(cookie.load("userPermission", { path: "/" }) !== "Employee") && !router.pathname.startsWith("/invited-project") && <button
+          {(cookie.load("userPermission", { path: "/" }) !== "Employee") && <button
             onClick={() => setOpenColumns(true)}
             className="flex justify-center items-center gap-x-2 bg-mainBackground dark:bg-[#282828]  text-white rounded py-[0.5rem] px-3"
           >
@@ -332,39 +345,40 @@ export default function TasksComponent({ companyTasks, initialData, columns, pro
         </div>
         :
         <div>
-          {data && allData ? <DragDropContext onDragEnd={handleDragEnd}>
-            <div className='flex justify-start gap-5 overflow-auto'>
-              {initialData?.columnOrder?.map((value, key) => {
-                let columns = data?.columns?.[value];
-                let tasks = columns?.taskIds?.map((value) => data?.tasks?.[value]);
-                return (
-                  <div className='px-2 relative  min-w-[300px] w-[300px]  mb-4 max-h-full h-fit overflow-hidden bg-gray-50 dark:bg-[#282828] dark:text-white rounded-xl pt-2'>
-                    <div className={`text font-bold rounded text-center p-1 mb-2 sticky inset-0 `}>
-                      <div className="flex justify-start items-center gap-x-2">
-                        {columns?.title}
-                        <div className="border dark:border-0 rounded px-2 py-[0.15rem] text-[0.75rem] bg-gray-50 dark:bg-[#141414]">
-                          {tasks?.length}
+
+                <DragDropContext onDragEnd={handleDragEnd}>
+                  <div className='flex justify-start gap-5 overflow-auto'>
+                    {initialData?.columnOrder?.map((value, key) => {
+                      let columns = data?.columns?.[value];
+                      let tasks = columns?.taskIds?.map((value) => data?.tasks?.[value]);
+                      return (
+                        <div className='px-2 relative  min-w-[300px] w-[300px]  mb-4 max-h-full h-fit overflow-hidden bg-gray-50 dark:bg-[#282828] dark:text-white rounded-xl pt-2'>
+                          <div className={`text font-bold rounded text-center p-1 mb-2 sticky inset-0 `}>
+                            <div className="flex justify-start items-center gap-x-2">
+                              {columns?.title}
+                              <div className="border dark:border-0 rounded px-2 py-[0.15rem] text-[0.75rem] bg-gray-50 dark:bg-[#141414]">
+                                {tasks?.length}
+                              </div>
+                            </div>
+                            <p className={`mt-1 w-full h-[0.1rem] bg-gray-500 `}></p>
+                          </div>
+                          <div className='custom-scroll max-h-[65vh] overflow-y-auto p-2'>
+                            <List
+                              key={key}
+                              cards={tasks}
+                              listId={value}
+                              showTag={showTag}
+                              setShowTag={setShowTag}
+                              setSelectedItem={setSelectedItem}
+                              setOpen={openModalUpdate}
+                            />
+                          </div>
+                          <div className="!h-5"></div>
                         </div>
-                      </div>
-                      <p className={`mt-1 w-full h-[0.1rem] bg-gray-500 `}></p>
-                    </div>
-                    <div className='custom-scroll max-h-[65vh] overflow-y-auto p-2'>
-                      <List
-                        key={key}
-                        cards={tasks}
-                        listId={value}
-                        showTag={showTag}
-                        setShowTag={setShowTag}
-                        setSelectedItem={setSelectedItem}
-                        setOpen={openModalUpdate}
-                      />
-                    </div>
-                    <div className="!h-5"></div>
+                      );
+                    })}
                   </div>
-                );
-              })}
-            </div>
-          </DragDropContext> : <Loading />}
+                </DragDropContext>
         </div>
 
 

@@ -5,7 +5,7 @@ import AdditionalDocsForm from './AdditionalDocsForm';
 import Image from 'next/image';
 
 
-export default function AdditionalDocs({ projectAdditionalDocs, getProjectAdditionalDocs, projectId }) {
+export default function AdditionalDocs({ projectAdditionalDocs, getProjectAdditionalDocs, projectId, classes ="grid-cols-[1fr_1fr]" }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleCloseModal = () => {
@@ -17,7 +17,7 @@ export default function AdditionalDocs({ projectAdditionalDocs, getProjectAdditi
                 <p className='font-semibold text-md py-2 px-2'>Additional Documents</p>
                 <div onClick={() => setIsModalOpen(true)}><AddIcon /></div>
             </div>
-            <div className={`pb-2 grid grid-cols-[1fr_1fr] gap-2 max-h-[275px] overflow-hidden hover:overflow-y-auto px-2`}>
+            <div className={`pb-2 grid ${classes} gap-2 max-h-[275px] overflow-hidden hover:overflow-y-auto px-2`}>
                 {projectAdditionalDocs?.map((item, index) => {
                     return (
                         <div className="relative w-full h-0 hover:cursor-pointer" style={{ paddingTop: "100%" }} onClick={() => window.open(item?.doc?.split("?")[0])}>

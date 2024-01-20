@@ -56,7 +56,7 @@ export default function index() {
   }
 
   return (
-    initialData && columns && <TasksComponent companyTasks={companyTasks} initialData={initialData} columnsObj={columns} />
+    initialData && columns && <TasksComponent companyTasks={companyTasks} initialData={initialData} columns={columns} />
   );
 }
 

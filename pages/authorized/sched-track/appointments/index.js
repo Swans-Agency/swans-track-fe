@@ -208,7 +208,7 @@ export default function index() {
                 onClick={() => {
                     return (
                         notification.info({
-                            message: "Public Profile",
+                            message: "Booking Calendar",
                             description: <div>Share your calendar with others by using this link: <a
                                 onClick={() => redirectToSchedTrack()}
                                 className="text-blue-500 hover:text-blue-400 "

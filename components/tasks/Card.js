@@ -25,15 +25,15 @@ export default function Card({ card, index, showTag, setShowTag, setSelectedItem
 
 
     return (
-        <Draggable draggableId={`${card.id}`} index={index} key={index} isDragDisabled={false}>
+        <Draggable draggableId={`${card?.id}`} index={index} key={index} isDragDisabled={false}>
             {(provided, snapshot) => (
 
                 <div
                     className="pr-1"
-                    {...provided.draggableProps}
-                    {...provided.dragHandleProps}
-                    ref={provided.innerRef}
-                    isDragging={snapshot.isDragging}
+                    {...provided?.draggableProps}
+                    {...provided?.dragHandleProps}
+                    ref={provided?.innerRef}
+                    isDragging={snapshot?.isDragging}
                     isDragDisabled={false}
                     onClick={() => setMinimize(!minimize)}
                 >

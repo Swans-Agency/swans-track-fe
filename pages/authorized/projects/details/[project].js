@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import { getAxios, patchAxios, postAxios } from '@/functions/ApiCalls';
 import ClientInfo from '@/components/projects/ProjectDetails/ClientInfo';
@@ -41,45 +41,12 @@ export default function ProjectDetails() {
     const [showBoard, setShowBoard] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [initialData, setInitialData] = useState(null);
-    const [columns, setColumns] = useState(null)
-
-
-    // const initialData = {
-    //     tasks: {
-    //     },
-    //     columnOrder: ["To Do", "In Progress", "Completed", "Idle"],
-    // };
-
-    // let columnsObj = {
-    //     "To Do": {
-    //         id: "To Do",
-    //         title: "Backlog",
-    //         taskIds: [],
-    //     },
-    //     "In Progress": {
-    //         id: "In Progress",
-    //         title: "In Progress",
-    //         taskIds: [],
-    //     },
-    //     "Completed": {
-    //         id: "Completed",
-    //         title: "Completed",
-    //         taskIds: [],
-    //     },
-    //     "Idle": {
-    //         id: "Idle",
-    //         title: "Idle",
-    //         taskIds: [],
-    //     },
-    // }
     const [tasksData, setTasksData] = useState();
     const router = useRouter();
 
 
     const getClientNotes = async () => {
         const crypto = new NextCrypto(`${process.env.ENCRYPTION_KEY}`);
-        const decrypted = await crypto.decrypt(router.query.project);
-
         const decodedValue = decodeURIComponent(router.query.project);
 
         // Decode the base64 string to a buffer
@@ -94,8 +61,6 @@ export default function ProjectDetails() {
 
     const getInternalNotes = async () => {
         const crypto = new NextCrypto(`${process.env.ENCRYPTION_KEY}`);
-        const decrypted = await crypto.decrypt(router.query.project);
-
         const decodedValue = decodeURIComponent(router.query.project);
 
         // Decode the base64 string to a buffer
@@ -110,8 +75,6 @@ export default function ProjectDetails() {
 
     const getProjectTodos = async () => {
         const crypto = new NextCrypto(`${process.env.ENCRYPTION_KEY}`);
-        const decrypted = await crypto.decrypt(router.query.project);
-
         const decodedValue = decodeURIComponent(router.query.project);
 
         // Decode the base64 string to a buffer
@@ -126,8 +89,6 @@ export default function ProjectDetails() {
 
     const getProjectAdditionalDocs = async () => {
         const crypto = new NextCrypto(`${process.env.ENCRYPTION_KEY}`);
-        const decrypted = await crypto.decrypt(router.query.project);
-
         const decodedValue = decodeURIComponent(router.query.project);
 
         // Decode the base64 string to a buffer
@@ -144,8 +105,6 @@ export default function ProjectDetails() {
 
     const getProjectSharedDocs = async () => {
         const crypto = new NextCrypto(`${process.env.ENCRYPTION_KEY}`);
-        const decrypted = await crypto.decrypt(router.query.project);
-
         const decodedValue = decodeURIComponent(router.query.project);
 
         // Decode the base64 string to a buffer
@@ -160,8 +119,6 @@ export default function ProjectDetails() {
 
     const getProjectDetails = async () => {
         const crypto = new NextCrypto(`${process.env.ENCRYPTION_KEY}`);
-        const decrypted = await crypto.decrypt(router.query.project);
-
         const decodedValue = decodeURIComponent(router.query.project);
 
         // Decode the base64 string to a buffer
@@ -176,8 +133,6 @@ export default function ProjectDetails() {
 
     const getProjectProposals = async () => {
         const crypto = new NextCrypto(`${process.env.ENCRYPTION_KEY}`);
-        const decrypted = await crypto.decrypt(router.query.project);
-
         const decodedValue = decodeURIComponent(router.query.project);
 
         // Decode the base64 string to a buffer
@@ -192,8 +147,6 @@ export default function ProjectDetails() {
 
     const getProjectInvoices = async () => {
         const crypto = new NextCrypto(`${process.env.ENCRYPTION_KEY}`);
-        const decrypted = await crypto.decrypt(router.query.project);
-
         const decodedValue = decodeURIComponent(router.query.project);
 
         // Decode the base64 string to a buffer
@@ -210,39 +163,42 @@ export default function ProjectDetails() {
         const url2 = `${process.env.DIGITALOCEAN}/project/todo-project/${item?.id}/`;
         const projectData2 = await patchAxios(url2, {
             "checked": e,
-        }, true, true, () => { });
+        }, true, true);
         getProjectTodos()
     }
 
-    useEffect(async () => {
+    const getDatafromStorage = async() => {
         const crypto = new NextCrypto(`${process.env.ENCRYPTION_KEY}`);
         const decodedValue = decodeURIComponent(router.query.project);
         const decryptedId = await crypto.decrypt(decodedValue);
+    
+        // if (decryptedId) {
+        let projectObj = getObjectsFromLocalStorage("project")
+        setProjectId(decryptedId)
+        if (typeof window !== 'undefined') {
+            setProjectObj(projectObj)
+        }
+        if (projectObj["id"] != decryptedId) {
+            NotificationError("Sorry, you do not have access to view this project")
+            setTimeout(() => {
+                router.push("/authorized/projects")
+            }, 2000)
+        }
+        setProjectCurrency(getObjectsFromLocalStorage("companyPreferences")?.currency)
 
-        if (decryptedId) {
-            let projectObj = getObjectsFromLocalStorage("project")
-            setProjectId(decryptedId)
-            if (typeof window !== 'undefined') {
-                setProjectObj(projectObj)
-            }
-            console.log({ projectObj })
-            console.log({ decryptedId })
-            if (projectObj["id"] != decryptedId) {
-                NotificationError("Sorry, you do not have access to view this project")
-                setTimeout(() => {
-                    router.push("/authorized/projects")
-                }, 2000)
-            }
-            setProjectCurrency(getObjectsFromLocalStorage("companyPreferences")?.currency)
+    }
 
-            getClientNotes();
-            getInternalNotes();
-            getProjectTodos();
-            getProjectAdditionalDocs();
-            getProjectSharedDocs();
-            getProjectDetails();
-            getProjectProposals();
-            getProjectInvoices();
+    useEffect(() => {
+        if (typeof window !== 'undefined' && router.query.project) {
+        getDatafromStorage();
+        getClientNotes();
+        getInternalNotes();
+        getProjectTodos();
+        getProjectAdditionalDocs();
+        getProjectSharedDocs();
+        getProjectDetails();
+        getProjectProposals();
+        getProjectInvoices();
         }
     }, [router.query.project]);
 
@@ -260,8 +216,8 @@ export default function ProjectDetails() {
     }
 
     const getTasks = async () => {
-        let companyTasks = await getAxios(`${process.env.DIGITALOCEAN}/tasks/active-tasks/?project=${projectId}`, false, false)
-        setTasksData(companyTasks)
+        let companyTasks = await getAxios(`${process.env.DIGITALOCEAN}/tasks/active-tasks/?project=${projectId}`, false, false,)
+        setTasksData(() => companyTasks)
     }
     useEffect(() => {
         if (projectId) {
@@ -277,8 +233,11 @@ export default function ProjectDetails() {
     }, [tasksData])
 
     useEffect(() => {
-        getColumns()
+        getColumns();
     }, [tasksData]);
+
+    let columns = useRef(null);
+
 
     const getColumns = async () => {
         let url = `${process.env.DIGITALOCEAN}/tasks/tasks-columns/`
@@ -300,7 +259,8 @@ export default function ProjectDetails() {
                 }
             )
         })
-        setColumns(columnObj)
+        // setColumns(columnObj)
+        columns.current = columnObj
         console.log({ columnObj })
     }
 
@@ -472,7 +432,7 @@ export default function ProjectDetails() {
 
                 </> :
                 <>
-                    {initialData && columns && <TasksComponent companyTasks={tasksData} initialData={initialData} projectId={projectId} columnsObj={columns} />}
+                    {initialData && <TasksComponent companyTasks={tasksData} initialData={initialData} projectId={projectId} columns={columns.current} />}
                 </>
             }
         </div>
