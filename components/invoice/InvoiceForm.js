@@ -167,7 +167,15 @@ export default function InvoiceForm({ setReload, onClose, getAllInvoices = () =>
           requiredMark={true}
         >
           <div className="flex gap-x-5 w-full mt-0">
-            <Form.Item label="Client" name="client" className="w-full" required>
+            <Form.Item label="Client" name="client" className="w-full" 
+            required
+            rules={[
+            {
+              required: true,
+              message: "This field must be filled"
+            }
+          ]}
+            >
               <Select
                 size="large"
                 showSearch
@@ -189,6 +197,12 @@ export default function InvoiceForm({ setReload, onClose, getAllInvoices = () =>
               name="toCompanyEmail"
               className="w-full"
               required
+              rules={[
+            {
+              required: true,
+              message: "This field must be filled"
+            }
+          ]}
             >
               <Input size="large" className="rounded-lg" />
             </Form.Item>
@@ -200,6 +214,12 @@ export default function InvoiceForm({ setReload, onClose, getAllInvoices = () =>
               name="toCompanyName"
               className="w-full"
               required
+              rules={[
+            {
+              required: true,
+              message: "This field must be filled"
+            }
+          ]}
             >
               <Input size="large" className="rounded-lg" />
             </Form.Item>
@@ -208,6 +228,12 @@ export default function InvoiceForm({ setReload, onClose, getAllInvoices = () =>
               name="toCompanyLocation"
               className="w-full"
               required
+              rules={[
+            {
+              required: true,
+              message: "This field must be filled"
+            }
+          ]}
             >
               <Input size="large" className="rounded-lg" />
             </Form.Item>
@@ -256,6 +282,12 @@ export default function InvoiceForm({ setReload, onClose, getAllInvoices = () =>
               name="invoiceDate"
               className="w-full"
               required
+              rules={[
+            {
+              required: true,
+              message: "This field must be filled"
+            }
+          ]}
             >
               <DatePicker size="large" className="rounded-lg w-full" placeholder="" />
             </Form.Item>
@@ -266,6 +298,12 @@ export default function InvoiceForm({ setReload, onClose, getAllInvoices = () =>
               name="discountAmount"
               className="w-full"
               required
+              rules={[
+            {
+              required: true,
+              message: "This field must be filled"
+            }
+          ]}
             >
               <InputNumber
                 size="large"
@@ -279,6 +317,12 @@ export default function InvoiceForm({ setReload, onClose, getAllInvoices = () =>
               name="taxPercentage"
               className="w-full"
               required
+              rules={[
+            {
+              required: true,
+              message: "This field must be filled"
+            }
+          ]}
             >
               <InputNumber
                 size="large"
@@ -293,6 +337,12 @@ export default function InvoiceForm({ setReload, onClose, getAllInvoices = () =>
             name="invoiceItems"
             className="w-full"
             required
+            rules={[
+            {
+              required: true,
+              message: "This field must be filled"
+            }
+          ]}
           >
             <Form.List name="invoiceItems">
               {(fields, { add, remove }) => (

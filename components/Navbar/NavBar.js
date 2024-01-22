@@ -25,7 +25,7 @@ import Booked from "./Icons/Booked";
 import SchedIcon from "./Icons/SchedIcon";
 import Gpt from "./Icons/Gpt";
 import ProjectIcons from "./Icons/ProjectIcons";
-import { Avatar, Menu, Popover, Progress } from "antd";
+import { Avatar, ConfigProvider, Menu, Popover, Progress, theme } from "antd";
 import cookie from "react-cookies";
 import { logout } from "@/functions/GeneralFunctions";
 import FormIcon from "./Icons/FormIcon";
@@ -293,6 +293,11 @@ export default function Navbar({ userPermission, plan }) {
               border: "1px solid gray"
             }}
           />
+          <ConfigProvider
+            theme={{
+              algorithm: [theme.darkAlgorithm,]
+            }}
+          >
           <Popover
             placement="bottomLeft"
             className="mr-4   "
@@ -323,6 +328,7 @@ export default function Navbar({ userPermission, plan }) {
               <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
             </svg>
           </Popover>
+          </ConfigProvider>
         </div>
       </div>
     </>

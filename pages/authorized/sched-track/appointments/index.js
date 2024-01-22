@@ -203,8 +203,10 @@ export default function index() {
             />
             <FloatButton
                 type="primary"
-                icon={<QuestionOutlined />}
-                style={{ bottom: 20 }}
+                // icon={<QuestionOutlined />}
+                description="Share your calendar"
+                shape="square"
+                style={{ bottom: 20, "width": 100 }}
                 onClick={() => {
                     return (
                         notification.info({

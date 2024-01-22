@@ -130,6 +130,12 @@ export default function IncomeForm({ setReload, onClose }) {
               name="description"
               className="w-full"
               required
+              rules={[
+            {
+              required: true,
+              message: "This field must be filled"
+            }
+          ]}
             >
               <Input size="large" className="rounded-lg" />
             </Form.Item>
@@ -138,6 +144,12 @@ export default function IncomeForm({ setReload, onClose }) {
               name="amount"
               className="w-full"
               required
+              rules={[
+            {
+              required: true,
+              message: "This field must be filled"
+            }
+          ]}
             >
               <InputNumber
                 size="large"
@@ -153,6 +165,12 @@ export default function IncomeForm({ setReload, onClose }) {
               name="paymentMethod"
               className="w-full"
               required
+              rules={[
+            {
+              required: true,
+              message: "This field must be filled"
+            }
+          ]}
             >
               <Select
                 size="large"
@@ -174,6 +192,12 @@ export default function IncomeForm({ setReload, onClose }) {
               name="date"
               className="w-full"
               required
+              rules={[
+            {
+              required: true,
+              message: "This field must be filled"
+            }
+          ]}
             >
               <DatePicker
                 size="large"

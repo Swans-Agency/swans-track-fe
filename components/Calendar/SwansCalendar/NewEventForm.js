@@ -39,8 +39,8 @@ export default function NewEventForm({ getEvents, handleClose, instance, setSele
         data.title = values?.title
         data.location = values?.location
         data.discription = values?.discription
-        data.start = values?.eventTime[0]?.format('YYYY-MM-DDTHH:mmZ')
-        data.end = values?.eventTime[1]?.format('YYYY-MM-DDTHH:mmZ')
+        data.start = values?.eventTime[0]?.format('YYYY-MM-DDTHH:mm')
+        data.end = values?.eventTime[1]?.format('YYYY-MM-DDTHH:mm')
 
         if (instance) {
             let url = `${process.env.DIGITALOCEAN}/calendar/update/${instance?.id}/`

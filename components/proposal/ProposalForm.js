@@ -122,7 +122,12 @@ export default function ProposalForm({ setReload, onClose, getAllProposals = () 
       requiredMark={true}
     >
       <div className="flex gap-x-5 w-full mt-0">
-        <Form.Item label="Client" name="client" className="w-full" required>
+        <Form.Item label="Client" name="client" className="w-full" required rules={[
+          {
+            required: true,
+            message: "This field must be filled"
+          }
+        ]}>
           <Select
             size="large"
             showSearch
@@ -144,6 +149,12 @@ export default function ProposalForm({ setReload, onClose, getAllProposals = () 
           name="toCompanyEmail"
           className="w-full"
           required
+          rules={[
+            {
+              required: true,
+              message: "This field must be filled"
+            }
+          ]}
         >
           <Input size="large" className="rounded-lg" />
         </Form.Item>
@@ -155,6 +166,12 @@ export default function ProposalForm({ setReload, onClose, getAllProposals = () 
           name="toCompanyName"
           className="w-full"
           required
+          rules={[
+            {
+              required: true,
+              message: "This field must be filled"
+            }
+          ]}
         >
           <Input size="large" className="rounded-lg" />
         </Form.Item>
@@ -163,6 +180,12 @@ export default function ProposalForm({ setReload, onClose, getAllProposals = () 
           name="toCompanyLocation"
           className="w-full"
           required
+          rules={[
+            {
+              required: true,
+              message: "This field must be filled"
+            }
+          ]}
         >
           <Input size="large" className="rounded-lg" />
         </Form.Item>
@@ -174,6 +197,12 @@ export default function ProposalForm({ setReload, onClose, getAllProposals = () 
           name="proposalDate"
           className="w-full"
           required
+          rules={[
+            {
+              required: true,
+              message: "This field must be filled"
+            }
+          ]}
         >
           <DatePicker size="large" className="rounded-lg w-full" placeholder="" />
         </Form.Item>
@@ -183,6 +212,12 @@ export default function ProposalForm({ setReload, onClose, getAllProposals = () 
         name="projectDescription"
         className="w-full"
         required
+        rules={[
+          {
+            required: true,
+            message: "This field must be filled"
+          }
+        ]}
       >
         <Input.TextArea className="rounded-lg" rows={4} />
       </Form.Item>
@@ -193,6 +228,12 @@ export default function ProposalForm({ setReload, onClose, getAllProposals = () 
           name="discountAmount"
           className="w-full"
           required
+          rules={[
+            {
+              required: true,
+              message: "This field must be filled"
+            }
+          ]}
         >
           <InputNumber
             size="large"
@@ -206,6 +247,12 @@ export default function ProposalForm({ setReload, onClose, getAllProposals = () 
           name="taxPercentage"
           className="w-full"
           required
+          rules={[
+            {
+              required: true,
+              message: "This field must be filled"
+            }
+          ]}
         >
           <InputNumber
             size="large"
@@ -220,6 +267,12 @@ export default function ProposalForm({ setReload, onClose, getAllProposals = () 
         name="proposalItems"
         className="w-full"
         required
+        rules={[
+          {
+            required: true,
+            message: "This field must be filled"
+          }
+        ]}
       >
         <Form.List name="ProposalItems">
           {(fields, { add, remove }) => (

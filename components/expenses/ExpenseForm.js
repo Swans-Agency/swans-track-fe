@@ -77,6 +77,13 @@ export default function ExoenseForm({ setReload, onClose }) {
           name="description"
           className="w-full"
           required
+          rules={[
+            {
+              required: true,
+              message: "This field must be filled"
+            }
+          ]}
+
         >
           <Input size="large" className="rounded-lg" />
         </Form.Item>
@@ -85,6 +92,13 @@ export default function ExoenseForm({ setReload, onClose }) {
           name="amount"
           className="w-full"
           required
+          rules={[
+            {
+              required: true,
+              message: "This field must be filled"
+            }
+          ]}
+
         >
           <InputNumber
             size="large"
@@ -100,6 +114,13 @@ export default function ExoenseForm({ setReload, onClose }) {
           name="category"
           className="w-full"
           required
+          rules={[
+            {
+              required: true,
+              message: "This field must be filled"
+            }
+          ]}
+
         >
           <Select
             size="large"
@@ -116,7 +137,14 @@ export default function ExoenseForm({ setReload, onClose }) {
             options={expenseCategory}
           />
         </Form.Item>
-        <Form.Item label="Expense Date" name="date" className="w-full" required>
+        <Form.Item label="Expense Date" name="date" className="w-full" required
+          rules={[
+            {
+              required: true,
+              message: "This field must be filled"
+            }
+          ]}
+        >
           <DatePicker
             size="large"
             format="YYYY-MM-DD"

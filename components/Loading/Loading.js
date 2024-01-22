@@ -1,6 +1,8 @@
 import React from "react";
 import { LoadingOutlined } from "@ant-design/icons";
 import { Spin } from "antd";
+import Image from 'next/image'
+
 
 export default function Loading() {
   const antIcon = (
@@ -13,10 +15,14 @@ export default function Loading() {
   );
   return (
     <div className="w-full flex flex-col items-center justify-center align-middle mt-[15rem]">
-      <h1 className="text-3xl font-light mb-4 text-white">
-        Content Loading...
+      <h1 className="text-3xl font-light mb-10">
+        {/* Content Loading */}
+        <Image src="/logoNew.svg" width={100} height={100} />
+
       </h1>
-      <Spin indicator={antIcon} style={{ color: "white" }} />
+      {/* <Spin indicator={antIcon} style={{ color: "white" }} /> */}
+      <div className="loader h-fit  "></div>
     </div>
+
   );
 }

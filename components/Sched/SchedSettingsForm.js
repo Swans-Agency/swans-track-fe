@@ -56,7 +56,7 @@ export default function SchedSettingsForm() {
     ]
     const breakDuration = [
         {
-            value: "0",
+            value: 0.0,
             label: "No breaks",
         },
         {
@@ -159,7 +159,7 @@ export default function SchedSettingsForm() {
         } else {
             // const url = `${process.env.DIGITALOCEAN}/calendy/sched/`
             const url = `${process.env.DIGITALOCEAN}/calendy/sched/settings/`
-            let res = await postAxios(url, data, true, true)
+            let res = await postAxios(url, data, true, true, ()=>{}, true)
             if (res) {
                 getInitialData()
             }
