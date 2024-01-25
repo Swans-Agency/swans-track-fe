@@ -267,12 +267,12 @@ export default function ProposalForm({ setReload, onClose, getAllProposals = () 
         name="proposalItems"
         className="w-full"
         required
-        rules={[
-          {
-            required: true,
-            message: "This field must be filled"
-          }
-        ]}
+        // rules={[
+        //   {
+        //     required: true,
+        //     message: "This field must be filled"
+        //   }
+        // ]}
       >
         <Form.List name="ProposalItems">
           {(fields, { add, remove }) => (

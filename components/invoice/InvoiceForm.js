@@ -337,12 +337,12 @@ export default function InvoiceForm({ setReload, onClose, getAllInvoices = () =>
             name="invoiceItems"
             className="w-full"
             required
-            rules={[
-            {
-              required: true,
-              message: "This field must be filled"
-            }
-          ]}
+          //   rules={[
+          //   {
+          //     required: true,
+          //     message: "This field must be filled"
+          //   }
+          // ]}
           >
             <Form.List name="invoiceItems">
               {(fields, { add, remove }) => (

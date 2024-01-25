@@ -29,7 +29,7 @@ const getAxios = async (url, loading, success, callBack, dontSendToken = false) 
   }
 };
 
-const postAxios = async (url, data, loading, success, callBack = () => { }, fail = true, failMessage = "", dontSendToken = false) => {
+const postAxios = async (url, data, loading, success, callBack = () => { }, fail = true, failMessage = "", dontSendToken = false, successMessage = null) => {
   try {
     if (loading) {
       NotificationLoading();
@@ -44,7 +44,11 @@ const postAxios = async (url, data, loading, success, callBack = () => { }, fail
     let auth = dontSendToken ? { params: params } : { headers: { Authorization: `Bearer ${accessToken}` }, params: params };
     let res = await axios.post(url, data, auth);
     if (success) {
-      NotificationSuccess(res?.data);
+      if (successMessage) {
+        NotificationSuccess(successMessage, true);
+      } else {
+        NotificationSuccess(res?.data);
+      }
     }
     callBack(res?.data);
     return res?.data;

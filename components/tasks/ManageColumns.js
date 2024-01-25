@@ -8,7 +8,7 @@ import { useRouter } from 'next/router';
 const ManageColumnsForm = dynamic(() => import("./ManageColumnsForm"), {
   loading: () => <Loading />,
 });
-export default function ManageColumns({ handleNotifyTeam }) {
+export default function ManageColumns({ handleNotifyTeam, columnsObj }) {
   const [columns, setColumns] = useState([]);
   const [statuses, setStatuses] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -38,6 +38,7 @@ export default function ManageColumns({ handleNotifyTeam }) {
     handleNotifyTeam()
     // getColumns()
     // columnForm.resetFields()
+    
     setIsLoading(false)
     router.reload()
   }

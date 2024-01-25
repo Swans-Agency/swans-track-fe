@@ -32,10 +32,10 @@ const NotificationPermission = () => {
     })
 }
 
-const NotificationSuccess = (res) => {
+const NotificationSuccess = (res, custom=false) => {
     Swal.fire({
         title: "Success",
-        text: `Your request has been processed`,
+        text: `${!custom ? "Your request has been processed" : res} `,
         icon: "success",
         allowOutsideClick: true,
         showConfirmButton: false,

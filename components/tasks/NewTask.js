@@ -208,6 +208,7 @@ export default function TaskForm({
     let res = await getAxios(url, true, true, () => {}, pathname);
     if (res) {
       handleNotifyTeam(projectId);
+      getAllTasksNew(projectId)
     }
     setIsLoadingDelete(false);
   };

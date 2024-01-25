@@ -15,6 +15,7 @@ import { useRouter } from "next/router";
 import ManageColumns from "@/components/tasks/ManageColumns"
 import cookie from "react-cookies";
 import Loading from "../Loading/Loading";
+import ListHeader from "./ListHeader";
 
 
 export default function TasksComponent({ companyTasks, initialData, columns, projectId = null }) {
@@ -69,14 +70,13 @@ export default function TasksComponent({ companyTasks, initialData, columns, pro
 
 
   useEffect(() => {
+    if (allData?.length > 0) {
 
-    setData(null)
-    let newData = {};
+      // setData(null)
+      let newData = {};
 
-    allData?.forEach((value) => {
-      newData = {
-        ...newData,
-        [value.id]: {
+      allData?.forEach((value) => {
+        newData[value.id] = {
           id: value?.id,
           taskName: value?.taskName,
           taskDescription: value?.taskDescription,
@@ -89,37 +89,50 @@ export default function TasksComponent({ companyTasks, initialData, columns, pro
           history: value?.history,
           comments: value?.comments,
           startDate: value?.startDate,
-        }
-      };
-    });
+        };
+      });
 
-    setData((data) => ({
-      ...data,
-      tasks: {
-        ...data?.tasks,
-        ...newData
+      // setData((data) => ({
+      //   ...data,
+      //   tasks: newData
+      // }));
+
+      // data.tasks = newData
+      console.log({ newData })
+      console.log({ data })
+      setData((prevState) => ({
+        ...prevState,
+        tasks: newData
+      }));
+
+
+
+      let filterGant = allData?.filter((task) => {
+        return task.startDate && task.dueDate
+      })
+      if (filterGant?.length > 0) {
+        setDontShowSwitch(false)
+        setGanttData(filterGant)
+      } else {
+        setDontShowSwitch(true)
       }
-    }));
 
-    let filterGant = allData?.filter((task) => {
-      return task.startDate && task.dueDate
-    })
-    if (filterGant?.length > 0) {
-      setDontShowSwitch(false)
-      setGanttData(filterGant)
-    } else {
-      setDontShowSwitch(true)
+      Object.keys(columns).forEach((key) => {
+        columns[key].taskIds = [];
+      });
+
+      allData?.forEach((value) => {
+        let status = value.taskStatus;
+        if (!columns[status]?.taskIds?.includes(value.id)) {
+          columns[status]?.taskIds?.push(value.id);
+        }
+      });
+
+      setData((data) => ({
+        ...data,
+        columns: columns
+      }))
     }
-
-    allData?.forEach((value) => {
-      let status = value.taskStatus
-      columns?.[status]?.taskIds?.push(value?.id)
-    })
-
-    setData((data) => ({
-      ...data,
-      columns: columns
-    }))
   }, [allData]);
 
   const onClose = () => {
@@ -159,7 +172,6 @@ export default function TasksComponent({ companyTasks, initialData, columns, pro
       newData[i].start = new Date(newData[i]?.start)
       newData[i].end = new Date(newData[i]?.end)
     }
-
 
     setAllData(newData)
   }
@@ -230,6 +242,22 @@ export default function TasksComponent({ companyTasks, initialData, columns, pro
     await postAxios(`${process.env.DIGITALOCEAN}/tasks/${url}`, result, false, false, () => { }, false, "", pathname)
     handleNotifyTeam()
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   const handleopenNewTask = () => {
     setSelectedItem(null)
@@ -317,6 +345,8 @@ export default function TasksComponent({ companyTasks, initialData, columns, pro
           </button>}
         </div>
       </div>
+
+
       {selectedValue == "Gantt" && allData.length ?
         <div className="mt-6 overflow-x-auto">
           <Gantt
@@ -339,15 +369,7 @@ export default function TasksComponent({ companyTasks, initialData, columns, pro
                 let tasks = columns?.taskIds?.map((value) => data?.tasks?.[value]);
                 return (
                   <div className='px-2 relative  min-w-[300px] w-[300px]  mb-4 max-h-full h-fit overflow-hidden bg-gray-50 dark:bg-[#282828] dark:text-white rounded-xl pt-2'>
-                    <div className={`text font-bold rounded text-center p-1 mb-2 sticky inset-0 `}>
-                      <div className="flex justify-start items-center gap-x-2">
-                        {columns?.title}
-                        <div className="border dark:border-0 rounded px-2 py-[0.15rem] text-[0.75rem] bg-gray-50 dark:bg-[#141414]">
-                          {tasks?.length}
-                        </div>
-                      </div>
-                      <p className={`mt-1 w-full h-[0.1rem] bg-gray-500 `}></p>
-                    </div>
+                    <ListHeader columns={columns} tasks={tasks} />
                     <div className='custom-scroll max-h-[65vh] overflow-y-auto p-2'>
                       <List
                         key={key}
@@ -366,9 +388,12 @@ export default function TasksComponent({ companyTasks, initialData, columns, pro
             </div>
           </DragDropContext> : <Loading />}
         </div>
-
-
       }
+
+
+
+
+
 
       <DrawerANTD
         title={"Add New Task"}
@@ -381,7 +406,7 @@ export default function TasksComponent({ companyTasks, initialData, columns, pro
         title={"Manage columns"}
         onClose={handleCloseColumns}
         open={openColumns}
-        children={<ManageColumns handleNotifyTeam={handleNotifyTeam} />}
+        children={<ManageColumns handleNotifyTeam={handleNotifyTeam} columnsObj={columns} />}
       />
 
       {selectedItem && <ModalANTD
@@ -390,7 +415,7 @@ export default function TasksComponent({ companyTasks, initialData, columns, pro
         isModalOpen={isModalOpen}
         handleOk={handleOkModal}
         handleCancel={handleCancelModal}
-        renderComponent={<TaskForm handleNotifyTeam={handleNotifyTeam} selectedItem={selectedItem} projectId={projectId} />}
+        renderComponent={<TaskForm handleNotifyTeam={handleNotifyTeam} selectedItem={selectedItem} projectId={projectId} getAllTasksNew={getAllTasksNew} />}
         customWidth={true}
         width={1000}
       />}
