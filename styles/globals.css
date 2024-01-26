@@ -638,3 +638,7 @@ li {
     inset: 0 35px 35px 0;
   }
 }
+
+.ant-progress-text {
+  color: white !important;
+}

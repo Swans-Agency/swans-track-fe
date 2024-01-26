@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
-import { Divider, Form, Input, Select, Upload, notification } from "antd";
+import { Divider, Form, Input, Progress, Select, Upload, notification } from "antd";
 import FormButtons from "../ANTD/FormButtons";
 import { getAxios, postAxios } from "@/functions/ApiCalls";
 import { currencies, getObjectsFromLocalStorage, saveToLocal, timeZones } from "@/functions/GeneralFunctions";
 import cookie, { remove } from "react-cookies";
 import { NotificationError } from "@/functions/Notifications";
+import secureLocalStorage from "react-secure-storage";
 
 export default function CompanyPreferencesForm() {
   const [invoiceTemplates, setInvoiceTemplates] = useState([]);
@@ -15,6 +16,9 @@ export default function CompanyPreferencesForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [showUploadList, setShowUploadList] = useState(true);
   const [showUploadList2, setShowUploadList2] = useState(true);
+  const [storagePercent, setStoragePercent] = useState(0);
+  const [titleStorage, setTitleStorage] = useState()
+
   const [form] = Form.useForm();
   let logoPicList = [];
   let signaturePicList = [];
@@ -27,7 +31,17 @@ export default function CompanyPreferencesForm() {
 
   useEffect(() => {
     checkforCompanyPreferences()
+    CalculateStorage()
   }, [])
+
+  const CalculateStorage = () => {
+    let storage = secureLocalStorage.getItem("storage")
+    let maxStorage = secureLocalStorage.getItem("maxStorage")
+    console.log("storage", storage, "maxStorage", maxStorage)
+    let percent = ((storage / maxStorage) * 100).toFixed(2)
+    setTitleStorage(`${(storage / 1000000000).toFixed(2)} used of ${(maxStorage / 1000000000).toFixed(2)} GB`)
+    setStoragePercent(percent)
+  }
 
   const getUserInitialData = async () => {
     const url = `${process.env.DIGITALOCEAN}/company/company-preferences/`;
@@ -70,7 +84,7 @@ export default function CompanyPreferencesForm() {
 
   const customNotification = (type, message) => {
     notification.info({
-      message: "Missing Company Preferences!",
+      message: "Missing Company Settings!",
       description: "To ensure that your invoices and quotations are generated correctly, and to ensure best experience, please fill in your company preferences to continue.",
       key: "api",
     })
@@ -378,6 +392,10 @@ export default function CompanyPreferencesForm() {
           </Form.Item>
         </div>
       </Form>
+      <div className="w-full flex flex-col gap-2 py-5 text-white mt-2" title={titleStorage}>
+        <p className=" text-[15px] font-extralight">Storage consumption </p>
+        <Progress percent={storagePercent}  trailColor="#282828" status="active" />
+      </div>
     </div>
   );
 }

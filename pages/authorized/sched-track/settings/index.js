@@ -8,6 +8,7 @@ import { QuestionOutlined } from "@ant-design/icons";
 import dynamic from 'next/dynamic';
 import Loading from '@/components/Loading/Loading';
 import NextCrypto from 'next-crypto';
+import Share from '@/components/Icons/Share';
 
 export default function index() {
 
@@ -26,10 +27,14 @@ export default function index() {
             <SchedSettingsForm />
             <FloatButton
                 type="primary"
-                // icon={<QuestionOutlined />}
-                description="Share your calendar"
-                shape="square"
-                style={{ bottom: 20, "width":100 }}
+                icon={
+                    <div className='flex justify-center items-center'>
+                        <Share />
+                    </div>
+                }
+                // description="Share your calendar"
+                // shape="square"
+                // style={{ bottom: 20, "width":100 }}
                 onClick={() => {
                     return (
                         notification.info({

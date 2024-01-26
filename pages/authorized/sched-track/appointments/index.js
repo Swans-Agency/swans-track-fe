@@ -7,6 +7,7 @@ import { getColumnSearchProps } from '@/functions/GeneralFunctions';
 import cookie from "react-cookies";
 import ModalANTD from '@/components/ANTD/ModalANTD';
 import NextCrypto from 'next-crypto';
+import Share from '@/components/Icons/Share';
 
 export default function index() {
     const [searchText, setSearchText] = useState("");
@@ -203,10 +204,9 @@ export default function index() {
             />
             <FloatButton
                 type="primary"
-                // icon={<QuestionOutlined />}
-                description="Share your calendar"
-                shape="square"
-                style={{ bottom: 20, "width": 100 }}
+                icon={<div className='flex justify-center items-center'>
+                    <Share />
+                </div>}
                 onClick={() => {
                     return (
                         notification.info({

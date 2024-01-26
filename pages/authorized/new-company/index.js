@@ -123,7 +123,7 @@ export default function index() {
         if (sig && sig.file) {
             formData.append("signature", sig.file.originFileObj);
         }
-        const url = `${process.env.DIGITALOCEAN}/company/company-preferences/`;
+        const url = `${process.env.DIGITALOCEAN}/company/company-settingss/`;
         let companyPrefernceSavedData = await postAxios(url, formData, true, true, () => { });
         saveToLocal("companyPreferences", companyPrefernceSavedData);
         cookie.save("companyPreferences", companyPrefernceSavedData?.id, {
