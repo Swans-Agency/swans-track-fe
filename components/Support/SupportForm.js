@@ -40,13 +40,14 @@ export default function SupportForm() {
         layout="vertical"
         name="nest-messages"
         onFinish={onFinish}
-        style={{
-          maxWidth: 600,
-        }}
+        // style={{
+        //   maxWidth: 600,
+        // }}
         validateMessages={validateMessages}
       >
+        <div className="flex gap-x-5 w-full ">
         <Form.Item
-          className="mb-1"
+          className="mb-1 w-full"
           name={"name"}
           label="Name"
           rules={[
@@ -58,7 +59,7 @@ export default function SupportForm() {
           <Input size="large" />
         </Form.Item>
         <Form.Item
-          className="mb-1"
+          className="mb-1 w-full"
           name={"email"}
           label="Email"
           rules={[
@@ -71,6 +72,8 @@ export default function SupportForm() {
         >
           <Input size="large" />
         </Form.Item>
+
+        </div>
         <Form.Item
           className="mb-1"
           name={"phone"}

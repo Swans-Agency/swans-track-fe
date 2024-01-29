@@ -8,7 +8,7 @@ import moment from 'moment-timezone';
 import axios from "axios";
 import { NotificationLoading, NotificationSuccess } from "@/functions/Notifications";
 
-export default function CalendlyForm({ data, selectedDay, companyId, dataTimeZone, newTimeZone, handleClose, urlPassed = null, referralSource = null, calendarEventName=null }) {
+export default function CalendlyForm({ data, selectedDay, companyId, dataTimeZone, newTimeZone, handleClose, urlPassed = null, referralSource = null, calendarEventName = null }) {
   const [options, setOptions] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -29,10 +29,9 @@ export default function CalendlyForm({ data, selectedDay, companyId, dataTimeZon
       referralSource: referralSource,
       calendarEventName: calendarEventName
     }
-      ;
 
-      let url;
-    if (!urlPassed){
+    let url;
+    if (!urlPassed) {
       url = `${process.env.DIGITALOCEAN}/calendy/sched/public/book/${companyId}/`;
     } else {
       url = urlPassed
@@ -157,7 +156,7 @@ export default function CalendlyForm({ data, selectedDay, companyId, dataTimeZon
           className="mb-2"
         >
           <Input.TextArea
-          className="rounded-lg"
+            className="rounded-lg"
             autoSize={{
               minRows: 4,
               maxRows: 4,

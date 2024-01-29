@@ -304,9 +304,9 @@ export default function Navbar({ userPermission, plan }) {
                 })}
               </div>
               <div className="py-1">
-                <div className="flex justify-between items-center mb-1 hover:cursor-pointer " onClick={() => setShowManagement(!showManagement)}>
+                <div className="flex justify-between items-center mb-1 hover:cursor-pointer" onClick={() => setShowManagement(!showManagement)}>
                   <p className="text-sm text-gray-400">Management</p>
-                  <Dots classes="w-4 h-4 text-gray-400" />
+                  <Dots classes="w-4 h-4 text-gray-400  " />
                 </div>
                 {showManagement && <div className="pl-2">
                   {managements.map((item, index) => {
@@ -424,7 +424,7 @@ export default function Navbar({ userPermission, plan }) {
               border: "1px solid gray"
             }}
           />
-          
+
         </div>
       </div>
     </>

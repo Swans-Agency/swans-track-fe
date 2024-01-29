@@ -115,10 +115,11 @@ export default function CompanyPreferencesForm() {
     formData.append("ITermsConditions", data?.ITermsConditions);
     formData.append("CLIQ", data?.CLIQ);
 
-    if (data.logo && data.logo.file) {
-      formData.append("logo", data.logo.file.originFileObj);
+    if (data?.logo && data?.logo?.file) {
+      console.log("data.logo.file", data)
+      formData.append("logo", data?.logo?.file?.originFileObj);
     }
-    if (data.signature && data.signature.file) {
+    if (data?.signature && data?.signature?.file) {
       formData.append("signature", data.signature.file.originFileObj);
     }
     const url = `${process.env.DIGITALOCEAN}/company/company-preferences/`;
@@ -163,7 +164,7 @@ export default function CompanyPreferencesForm() {
         style={{
           alignContent: "center",
         }}
-        className="desktop:max-w-[600px]"
+        className="desktop:max-w-full"
         form={form}
         requiredMark={true}
       >
@@ -185,6 +186,7 @@ export default function CompanyPreferencesForm() {
               defaultFileList={logoPicList}
               // fileList={logoPicList}
               beforeUpload={checkFileSize}
+              accept="image/png, image/jpeg"
               showUploadList={showUploadList}
             >
               <div>
@@ -216,6 +218,7 @@ export default function CompanyPreferencesForm() {
               defaultFileList={signaturePicList}
               beforeUpload={checkFileSize2}
               showUploadList={showUploadList2}
+              accept="image/png, image/jpeg"
             >
               <div>
                 <PlusOutlined />

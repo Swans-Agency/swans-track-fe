@@ -159,7 +159,7 @@ export default function index() {
 
     return (
         <div className='py-5'>
-            <div className='fixed top-5 left-5 h-[100vh]'>
+            <div className='fixed top-5 left-5 h-[100vh] phone:hidden laptop:block'>
                 <Steps
                     current={current}
                     direction="vertical"
@@ -168,7 +168,7 @@ export default function index() {
                 />
             </div>
 
-            <div className='pt-10 max-w-[600px] mx-auto text-center'>
+            <div className='pt-10 max-w-[600px] mx-auto text-center phone:px-4'>
                 <Form
                     onFinish={onFinish}
                     layout="vertical"
@@ -323,6 +323,7 @@ export default function index() {
                                     maxCount={1}
                                     defaultFileList={[]}
                                     showUploadList={showUploadList}
+                                    accept="image/png, image/jpeg"
                                     onChange={(e) => {
 
                                         if (e.fileList.length > 0) {
@@ -359,6 +360,7 @@ export default function index() {
                                     listType="picture-card"
                                     defaultFileList={[]}
                                     showUploadList={showUploadList2}
+                                    accept="image/png, image/jpeg"
                                     maxCount={1}
                                     className=''
                                     onChange={(e) => {
