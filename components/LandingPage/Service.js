@@ -6,7 +6,7 @@ export default function Service({ }) {
     { img: "/Writing.svg", text: "Writing" },
     { img: "/Photography.svg", text: "Photography" },
     { img: "/Marketing.svg", text: "Marketing" },
-    { img: "/Coaching.svg", text: "Coaching Design" },
+    { img: "/Coaching.svg", text: "Coaching" },
     { img: "/Florist.svg", text: "Florist" },
     { img: "/Design.svg", text: "Design" },
     { img: "/Videography.svg", text: "Videography" },
