@@ -9,8 +9,8 @@ export default function HeroPhone() {
       <h1 className="laptop:text-[3.5rem] phone:text-[2rem] font-black text-[#0191E7] text-center">
         Create. Manage. Succeed Effortlessly
       </h1>
-      <p className="text-white text-[1.563rem] laptop:block phone:hidden ">
-        Simplify Freelance Project Management Effortlessly organize, track, and collaborate on your projects.
+      <p className="text-white text-[1.563rem] tablet:block phone:hidden ">
+        Manage your projects, and client-based workflows.
       </p>
       <SignupButton text="Join for free" style="py-4 px-6 mt-4 hover:bg-[#282828] border border-[#282828] hover:text-white" />
 

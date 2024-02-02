@@ -5,13 +5,16 @@ import FormButtons from "@/components/ANTD/FormButtons"
 import dynamic from 'next/dynamic';
 import Loading from '../Loading/Loading';
 import { useRouter } from 'next/router';
+import SortableTable from './SortableTable';
+import { ArrowLeftOutlined } from '@ant-design/icons';
 const ManageColumnsForm = dynamic(() => import("./ManageColumnsForm"), {
   loading: () => <Loading />,
 });
-export default function ManageColumns({ handleNotifyTeam, columnsObj }) {
+export default function ManageColumns({ handleNotifyTeam }) {
   const [columns, setColumns] = useState([]);
   const [statuses, setStatuses] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [showTable, setShowTable] = useState(true);
   const [columnForm] = Form.useForm();
   const router = useRouter()
   useEffect(() => {
@@ -46,7 +49,7 @@ export default function ManageColumns({ handleNotifyTeam, columnsObj }) {
   
   return (
     <>
-      {
+      {/* {
         columns?.map((column) => {
           return (
             <>
@@ -54,24 +57,26 @@ export default function ManageColumns({ handleNotifyTeam, columnsObj }) {
             </>
           )
         }) 
-      }
-      <Form
+      } */}
+      {showTable && <SortableTable columnsData={columns} handleNotifyTeam={handleNotifyTeam} setShowTable={setShowTable} statuses={statuses} />}
+      {!showTable  && <Form
         form={columnForm}
         layout="vertical"
-        className="border rounded-lg border-[#282828] mb-3 p-3"
+        // className="border rounded-lg border-[#282828] mb-3 p-3"
         onFinish={onFinish}
       >
+        <div onClick={() => setShowTable(true)} className='hover:cursor-pointer py-2 px-4 bg-[#282828] rounded-lg flex justify-center items-center gap-x-3 mb-3'><ArrowLeftOutlined />Go back</div>
         <Form.Item label="Column name" name="columnName">
           <Input size="large" placeholder='Column name i.e. QA Testing' />
         </Form.Item>
-        <Form.Item label="Column index" name="index">
+        {/* <Form.Item label="Column index" name="index">
           <InputNumber className="w-full" size="large" min={0} placeholder='0' />
-        </Form.Item>
+        </Form.Item> */}
         <div className="flex justify-end items-center gap-3">
           
           <FormButtons content={"Add column"} isLoading={isLoading} />
         </div>
-      </Form>
+      </Form>}
     </>
   )
 }

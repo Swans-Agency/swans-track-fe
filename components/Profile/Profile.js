@@ -9,6 +9,7 @@ import { getAxios, patchAxios, postAxios } from "@/functions/ApiCalls";
 import FormButtons from "../ANTD/FormButtons";
 import FloatButtonJS from "../ANTD/FloatButton";
 import { NotificationError } from "@/functions/Notifications";
+import Share from "../Icons/Share";
 
 
 export default function Profile() {
@@ -118,7 +119,7 @@ export default function Profile() {
         style={{
           alignContent: "center",
         }}
-        className="desktop:max-w-[600px]"
+        className=""
         form={form}
         initialValues={userData}
       >
@@ -212,7 +213,7 @@ export default function Profile() {
         style={{
           alignContent: "center",
         }}
-        className="desktop:max-w-[600px]"
+        className=""
         form={passwordForm}
         requiredMark={true}
       >
@@ -222,7 +223,7 @@ export default function Profile() {
               required: true
             }
           ]}>
-          <Input required size="large" type="password" className="rounded-lg" />
+          <Input.Password required size="large" type="password" className="rounded-lg" />
         </Form.Item>
         <Form.Item label="Confirm password" name="password2" className="w-full" required
           rules={[
@@ -230,7 +231,7 @@ export default function Profile() {
               required: true
             }
           ]}>
-          <Input size="large" type="password" className="rounded-lg" />
+          <Input.Password size="large" type="password" className="rounded-lg" />
         </Form.Item>
         <Divider />
         <div className="laptop:flex gap-x-5 w-full justify-end">
@@ -241,8 +242,12 @@ export default function Profile() {
       </Form>
       <FloatButton
         type="primary"
-        icon={<QuestionOutlined />}
-        style={{ bottom: 20 }}
+        icon={
+          <div className='flex justify-center items-center'>
+            <Share />
+          </div>
+        }
+        // style={{ bottom: 20 }}
         onClick={() => {
           return (
             notification.info({

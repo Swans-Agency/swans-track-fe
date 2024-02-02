@@ -1,6 +1,6 @@
-import React from "react";
-import { InfoCircleOutlined } from "@ant-design/icons";
-import { ConfigProvider, Form, Input, theme } from "antd";
+import React, { useState } from "react";
+import { InfoCircleOutlined, LoadingOutlined } from "@ant-design/icons";
+import { ConfigProvider, Form, Input, Spin, theme } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { signup } from "@/functions/GeneralFunctions";
@@ -10,12 +10,25 @@ import CompanyIcon from "./CompanyIcon";
 
 export default function index() {
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const antIcon = (
+    <LoadingOutlined
+      style={{
+        fontSize: 20,
+      }}
+      spin
+    />
+  );
   const onFinish = async (values) => {
+    setIsLoading(true);
     values["email"] = values["email"]?.toLowerCase();
     let signedUp = await signup(values);
     if (signedUp) {
+      setIsLoading(false);
       router.push("/login");
     }
+    setIsLoading(false);
   };
 
   return (
@@ -104,7 +117,12 @@ export default function index() {
                       htmlType="submit"
                       className="bg-gradient-to-br from-[#024380] to-[#0293EA] hover:shadow hover:shadow-gray-400 text-white font-bold py-[3%] px-[10%] rounded-full my-3"
                     >
-                      SIGN UP
+                      
+                      {!isLoading ? "SIGN UP" :
+                        <div className="flex justify-center items-center gap-2">
+                          <Spin indicator={antIcon} style={{ color: "white" }} />
+                        </div>
+                      }
                     </button>
                   </div>
                   <div className="flex gap-1 justify-center text-white">

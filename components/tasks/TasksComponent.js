@@ -243,22 +243,6 @@ export default function TasksComponent({ companyTasks, initialData, columns, pro
     handleNotifyTeam()
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   const handleopenNewTask = () => {
     setSelectedItem(null)
     setOpen(true)
@@ -406,7 +390,7 @@ export default function TasksComponent({ companyTasks, initialData, columns, pro
         title={"Manage columns"}
         onClose={handleCloseColumns}
         open={openColumns}
-        children={<ManageColumns handleNotifyTeam={handleNotifyTeam} columnsObj={columns} />}
+        children={<ManageColumns handleNotifyTeam={handleNotifyTeam} />}
       />
 
       {selectedItem && <ModalANTD

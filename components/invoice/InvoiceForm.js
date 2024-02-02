@@ -138,15 +138,15 @@ export default function InvoiceForm({ setReload, onClose, getAllInvoices = () =>
     <>
       {open1 ? (
         <div>
-          <button
+          <div
             onClick={() => {
               setOpen1(false);
             }}
-            className="flex gap-3 items-center mb-5 bg-foreignBackground hover:bg-mainBackground hover:dark:bg-[#141414] dark:bg-[#282828] text-white px-4 py-2 rounded-lg"
+            className="hover:cursor-pointer py-2 px-4 bg-[#282828] text-white rounded-lg flex justify-center items-center gap-x-3 mb-3"
           >
             <ArrowLeftOutlined />
             Back To Invoice Form
-          </button>
+          </div>
           <ProposalForm
             setReload={setReload}
             onClose={() => {

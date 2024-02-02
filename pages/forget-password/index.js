@@ -1,25 +1,40 @@
 import { postAxios } from "@/functions/ApiCalls";
 import { NotificationSuccess } from "@/functions/Notifications";
-import { ConfigProvider, Form, Input, theme } from "antd";
+import { ConfigProvider, Form, Input, Spin, theme } from "antd";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useState } from "react";
 import UsernameIcon from "../login/UsernameIcon";
 import Link from "next/link";
+import { LoadingOutlined } from "@ant-design/icons";
 
 export default function index() {
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const antIcon = (
+    <LoadingOutlined
+      style={{
+        fontSize: 20,
+      }}
+      spin
+    />
+  );
+
   const onFinish = async (values) => {
+    setIsLoading(true);
     values["username"] = values["username"].toLowerCase();
     const url = `${process.env.DIGITALOCEAN}/account/forget-password/`;
     const response = await postAxios(url, values, true, false, () => {});
     if (response == "password updated") {
+      setIsLoading(false);
       NotificationSuccess({
         description:
           "Your password have been reseted successfully. Kindly check your email for new password.",
       });
       router.push("/login");
     }
+    setIsLoading(false);
   };
   return (
     <section className="w-full h-screen desktop:grid desktop:grid-cols-12 text-white">
@@ -81,7 +96,12 @@ export default function index() {
                     htmlType="submit"
                     className="bg-gradient-to-br from-[#024380] to-[#0293EA] hover:shadow hover:shadow-gray-400 text-white font-bold py-[1rem] px-[2rem] rounded-full my-3"
                   >
-                    Reset Password
+                    
+                      {!isLoading ? "Reset Password" :
+                        <div className="flex justify-center items-center gap-2">
+                          <Spin indicator={antIcon} style={{ color: "white" }} />
+                        </div>
+                      }
                   </button>
                   <div className="text-white">Do not have an account? <Link className="w-full text-[#0191E7]" href="/signup">Signup</Link></div>
                 </div>

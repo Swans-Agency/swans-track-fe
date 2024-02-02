@@ -556,7 +556,7 @@ li {
 }
 
 .ant-drawer-close:hover {
-  background-color: rgb(229, 228, 228) !important;
+  background-color: #1f1f1f !important;
 }
 
 .element:hover {

@@ -39,6 +39,7 @@ export default function NewNavbar() {
                 <Link className='text-white w-full text-2xl ' href="/">Home</Link>
                 <Link className='text-white w-full text-2xl ' href="#Features">Features</Link>
                 <Link className='text-white w-full text-2xl ' href="#User">User</Link>
+                <Link className='text-white w-full text-2xl underline' href="/login">LOGIN</Link>
 
             </div>}
         </>
