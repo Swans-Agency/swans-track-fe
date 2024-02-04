@@ -9,9 +9,6 @@ import React from 'react';
 export default function ClientInfo({ projectObj, projectId }) {
     const copyToClipboard = async() => {
         const inviteLink = document.getElementById('inviteLink');
-        // const inviteUrl = inviteLink.getAttribute('href');
-
-        // Create a temporary textarea element to hold the URL
         const textarea = document.createElement('textarea');
 
         const crypto = new NextCrypto(`${process.env.ENCRYPTION_KEY}`);
@@ -21,14 +18,11 @@ export default function ClientInfo({ projectObj, projectId }) {
         textarea.value = `http://swanstrack.com/client-portal/${encodedValue}/`;
         document.body.appendChild(textarea);
 
-        // Select and copy the URL from the textarea
         textarea.select();
         document.execCommand('copy');
 
-        // Clean up: remove the textarea
         document.body.removeChild(textarea);
 
-        // Optionally provide feedback to the user (e.g., a tooltip)
         inviteLink.setAttribute('data-tooltip', 'Copied to clipboard');
         alert('Copied to clipboard');
     }

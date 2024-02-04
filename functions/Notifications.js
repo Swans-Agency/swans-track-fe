@@ -59,7 +59,6 @@ const NotificationError = (err) => {
     } else {
         textErr = "Sorry were are unable to process your request."
     }
-    // textErr = "lll"
     Swal.fire({
         title: "Error",
         text: `${textErr}`,

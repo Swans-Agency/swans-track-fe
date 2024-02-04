@@ -60,9 +60,7 @@ export default function ClientView() {
       dataIndex: "referralSource",
       key: "referralSource",
       ...getColumnSearchProps("referralSource", searchInput, searchedColumn, searchText, handleSearch, handleReset, setSearchText, setSearchedColumn),
-      // render: (_, item) => {
-      //   return referralDources[item.referralSource]
-      // },
+
     },
     {
       title: <div className="text-center">Edit</div>,

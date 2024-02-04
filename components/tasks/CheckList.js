@@ -13,7 +13,7 @@ import {
 import { useRouter } from 'next/router';
 
 
-export default function CheckList({ item, handleDeleteChecklist, handleNotifyTeam }) {
+export default function CheckList({ item, handleDeleteChecklist, handleNotifyTeam, projectId }) {
     const [showInput, setShowInput] = useState(false);
     const [checkListName, setCheckListName] = useState(item?.checklistName)
     const [showLists, setShowLists] = useState(false)
@@ -48,7 +48,7 @@ export default function CheckList({ item, handleDeleteChecklist, handleNotifyTea
     }
 
     const getAllCompanyTasks = async () => {
-        const url = `${process.env.DIGITALOCEAN}/tasks/list-tasks/`
+        const url = `${process.env.DIGITALOCEAN}/tasks/list-tasks/?project=${projectId}`
         let pathname = router.pathname.startsWith("/invited-project") ? true : false
 
         if (!companyTasks) {

@@ -6,10 +6,9 @@ let state;
 let activeRequests = 0;
 const delay = 250;
 
-const excludedUrls = ['/swans-track', '/shared-profile', '/authorized/projects/details', '/client-portal', '/lead-form', '/invited-project']; // Add URLs to exclude here
+const excludedUrls = ['/swans-track', '/shared-profile', '/authorized/projects/details', '/client-portal', '/lead-form', '/invited-project']; 
 
 function shouldLoadProgress(url) {
-    // Check if the URL is in the list of excluded URLs
     return !excludedUrls.some(excludedUrl => url.startsWith(excludedUrl));
 }
 
@@ -24,7 +23,7 @@ function load() {
 
     timer = setTimeout(function () {
         NProgress.start();
-    }, delay); // Delay the progress bar display for better UX
+    }, delay); 
 }
 
 function stop() {

@@ -16,7 +16,7 @@ export default function CalendlyForm({ data, selectedDay, companyId, dataTimeZon
   const [form] = useForm();
 
   const handleReset = () => {
-    form.resetFields(); // Reset all form fields to their initial values
+    form.resetFields(); 
   };
 
   const onFinish = async (values) => {

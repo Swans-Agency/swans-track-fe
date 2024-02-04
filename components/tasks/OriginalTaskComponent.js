@@ -30,33 +30,8 @@ export default function TasksComponent({ companyTasks, initialData, columns, pro
   const [message, setMessage] = useState(null)
   const [dontShowSwitch, setDontShowSwitch] = useState(false)
   const [openColumns, setOpenColumns] = useState(false)
-  const [selectedValue, setSelectedValue] = useState('Board'); // Set 'Board' as the default value
+  const [selectedValue, setSelectedValue] = useState('Board'); 
   const router = useRouter()
-  // const [columns, setColumns] = useState(columnsObj)
-  // let columns = {
-  //   "To Do": {
-  //     id: "To Do",
-  //     title: "Backlog",
-  //     taskIds: [],
-  //   },
-  //   "In Progress": {
-  //     id: "In Progress",
-  //     title: "In Progress",
-  //     taskIds: [],
-  //   },
-  //   "Completed": {
-  //     id: "Completed",
-  //     title: "Completed",
-  //     taskIds: [],
-  //   },
-  //   "Idle": {
-  //     id: "Idle",
-  //     title: "Idle",
-  //     taskIds: [],
-  //   },
-  // }
-
-
 
   useEffect(() => {
     getAllEmployees()
@@ -125,7 +100,6 @@ export default function TasksComponent({ companyTasks, initialData, columns, pro
     onValue(dbRef.current, (snapshot) => {
       const dataNot = snapshot.val();
       if (dataNot === true) {
-        // getAllTasksNew(projectId)
         set(dbRef.current, false)
         setSelectedItem(null)
 

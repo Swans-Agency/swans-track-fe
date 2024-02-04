@@ -17,7 +17,6 @@ export default function ManageColumnsForm({ handleNotifyTeam, column, statuses }
         let url = `${process.env.DIGITALOCEAN}/tasks/tasks-columns/${column?.id}/?moveTo=${moveToColumn}`
         await deleteAxios(url, true, true, () => { }, false)
         setIsLoading(false)
-        // router.reload()
     }
 
     return (
@@ -33,7 +32,6 @@ export default function ManageColumnsForm({ handleNotifyTeam, column, statuses }
                     <>
                         <Form
                             layout="vertical"
-                            // className="border rounded-lg border-[#282828] mb-3 p-3"
                             onFinish={handleDeleteColumn}
                         >
                             <Form.Item label="Task status" name="taskStatus">

@@ -1,5 +1,3 @@
-// components/PaymentForm.js
-
 import React, { useState } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 
@@ -18,7 +16,6 @@ const PaymentForm = ({ onPaymentMethodCreated }) => {
         setLoading(true);
 
         try {
-            // Create the Payment Method using the Card Element
             const { error, paymentMethod } = await stripe.createPaymentMethod({
                 type: 'card',
                 card: elements.getElement(CardElement),

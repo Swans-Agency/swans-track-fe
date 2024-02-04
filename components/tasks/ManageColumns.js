@@ -28,7 +28,7 @@ export default function ManageColumns({ handleNotifyTeam }) {
     let data = await getAxios(url, false, false, (data) => { setColumns(data) }, false)
     let status = data?.map((item) => {
       return (
-        {label: item?.columnName, value: item?.columnName}
+        { label: item?.columnName, value: item?.columnName }
       )
     })
     setStatuses(status)
@@ -39,41 +39,24 @@ export default function ManageColumns({ handleNotifyTeam }) {
     let url = `${process.env.DIGITALOCEAN}/tasks/tasks-columns/`
     await postAxios(url, values, true, true, () => { }, true)
     handleNotifyTeam()
-    // getColumns()
-    // columnForm.resetFields()
-    
     setIsLoading(false)
     router.reload()
   }
-  
-  
+
+
   return (
     <>
-      {/* {
-        columns?.map((column) => {
-          return (
-            <>
-              <ManageColumnsForm column={column} statuses={statuses} />
-            </>
-          )
-        }) 
-      } */}
       {showTable && <SortableTable columnsData={columns} handleNotifyTeam={handleNotifyTeam} setShowTable={setShowTable} statuses={statuses} />}
-      {!showTable  && <Form
+      {!showTable && <Form
         form={columnForm}
         layout="vertical"
-        // className="border rounded-lg border-[#282828] mb-3 p-3"
         onFinish={onFinish}
       >
         <div onClick={() => setShowTable(true)} className='hover:cursor-pointer py-2 px-4 bg-[#282828] rounded-lg flex justify-center items-center gap-x-3 mb-3'><ArrowLeftOutlined />Go back</div>
         <Form.Item label="Column name" name="columnName">
           <Input size="large" placeholder='Column name i.e. QA Testing' />
         </Form.Item>
-        {/* <Form.Item label="Column index" name="index">
-          <InputNumber className="w-full" size="large" min={0} placeholder='0' />
-        </Form.Item> */}
         <div className="flex justify-end items-center gap-3">
-          
           <FormButtons content={"Add column"} isLoading={isLoading} />
         </div>
       </Form>}

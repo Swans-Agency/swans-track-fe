@@ -34,30 +34,6 @@ export default function EventModal({ selectedEvent, handleDeleteEvent, setIsModa
         window.open(url, '_blank')
     }
 
-    // const addToAppleCalendar = () => {
-    //     const title = selectedEvent?.title;
-    //     const description = selectedEvent?.description;
-    //     const location = selectedEvent?.location;
-    //     const startTime = dayjs(selectedEvent?.start).format('YYYYMMDDTHHmmss[Z]')
-    //     const endTime = dayjs(selectedEvent?.end).format('YYYYMMDDTHHmmss[Z]')
-
-    //     const url = `data:text/calendar;charset=utf-8,BEGIN:VCALENDAR
-    //                 VERSION:2.0
-    //                 BEGIN:VEVENT
-    //                 SUMMARY:${title}
-    //                 DESCRIPTION:${description}
-    //                 LOCATION:${location}
-    //                 DTSTART:${startTime}
-    //                 DTEND:${endTime}
-    //                 END:VEVENT
-    //                 END:VCALENDAR`;
-
-    //     const blob = new Blob([url], { type: 'text/calendar' });
-    //     const data = URL.createObjectURL(blob);
-
-    //     window.open(data, '_blank');
-    // };
-
     const addToAppleCalendar = () => {
         const title = selectedEvent?.title;
         const description = selectedEvent?.description;
@@ -79,7 +55,6 @@ export default function EventModal({ selectedEvent, handleDeleteEvent, setIsModa
         const blob = new Blob([calendarData], { type: 'text/calendar;charset=utf-8' });
         const data = URL.createObjectURL(blob);
 
-        // Create a temporary anchor element and trigger a click to download the file
         const downloadLink = document.createElement('a');
         downloadLink.href = data;
         downloadLink.download = 'event.ics';
@@ -183,7 +158,6 @@ export default function EventModal({ selectedEvent, handleDeleteEvent, setIsModa
 
                     </span>
                     <div
-                        // className="border rounded-lg p-2 hover:cursor-pointer hover:border-blue-400"
                         dangerouslySetInnerHTML={{ __html: selectedEvent?.discription }}
                     />
                 </div>

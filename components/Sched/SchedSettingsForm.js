@@ -55,10 +55,6 @@ export default function SchedSettingsForm() {
         },
     ]
     const breakDuration = [
-        // {
-        //     value: 0.0,
-        //     label: "No breaks",
-        // },
         {
             value: 0.15,
             label: "15 min",
@@ -114,7 +110,6 @@ export default function SchedSettingsForm() {
     }, [initialData]);
 
     const getInitialData = async () => {
-        // const url = `${process.env.DIGITALOCEAN}/calendy/sched/`
         const url = `${process.env.DIGITALOCEAN}/calendy/sched/settings/`
         let res = await getAxios(url, false, false)
         setInitialData(res?.settings)
@@ -133,11 +128,11 @@ export default function SchedSettingsForm() {
                             const previousSchedule = daySchedule[i - 1][day];
                             const currentSchedule = daySchedule[i][day];
 
-                            const previousEnd = parseFloat(previousSchedule.end); // smallest
-                            const previousStart = parseFloat(previousSchedule.start); // bigger
+                            const previousEnd = parseFloat(previousSchedule.end); 
+                            const previousStart = parseFloat(previousSchedule.start); 
 
-                            const currentStart = parseFloat(currentSchedule.start); // biggest
-                            const currentEnd = parseFloat(currentSchedule.end); // the biggest one
+                            const currentStart = parseFloat(currentSchedule.start); 
+                            const currentEnd = parseFloat(currentSchedule.end); 
 
                             if (previousEnd < previousStart || currentEnd < currentStart || previousEnd > currentStart) {
                                 return false;
@@ -157,12 +152,8 @@ export default function SchedSettingsForm() {
         if (!isValed) {
             NotificationError("Invalid schedule")
         } else {
-            // const url = `${process.env.DIGITALOCEAN}/calendy/sched/`
             const url = `${process.env.DIGITALOCEAN}/calendy/sched/settings/`
             let res = await postAxios(url, data, true, true, () => { }, true, "", false, "It may take a few minutes to take effect")
-            // if (res) {
-            //     getInitialData()
-            // }
         }
         setIsLoading(false)
     };

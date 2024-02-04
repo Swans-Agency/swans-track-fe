@@ -31,37 +31,31 @@ export default function index() {
         {
             title: <p className='font-semibold'>Company Details</p>,
             description: 'Building the Foundation',
-            // status: 'process',
             content: ""
         },
         {
             title: <p className='font-semibold'>Global Settings</p>,
             description: 'Setting the Pace',
-            // status: 'process',
             content: ""
         },
         {
             title: <p className='font-semibold'>Banking & Payments</p>,
             description: "Securing Financials",
-            // status: 'process',
             content: ""
         },
         {
             title: <p className='font-semibold'>Brand Identity</p>,
             description: "Putting a Face to Your Name",
-            // status: 'process',
             content: ""
         },
         {
             title: <p className='font-semibold'>Personal Touch</p>,
             description: "Sealing the Deal",
-            // status: 'process',
             content: ""
         },
         {
             title: <p className='font-semibold'>Legal Agreements</p>,
             description: "Defining the Rules",
-            // status: 'process',
             content: ""
         }
     ]
@@ -133,28 +127,26 @@ export default function index() {
     };
 
     const checkFileSize = (file) => {
-        const maxSize = 1024 * 1024 * 5; // 1MB in bytes
+        const maxSize = 1024 * 1024 * 5; 
         if (file.size > maxSize) {
             NotificationError("File size must be less than 5MB");
-            // message.error('File size must be less than 5MB');
             setShowUploadList(false);
             form.setFieldValue("logo", []);
-            return false; // Prevent upload
+            return false; 
         }
         setShowUploadList(true);
-        return true; // Allow upload
+        return true; 
     };
     const checkFileSize2 = (file) => {
-        const maxSize = 1024 * 1024 * 5; // 5MB in bytes
+        const maxSize = 1024 * 1024 * 5; 
         if (file.size > maxSize) {
             NotificationError("File size must be less than 5MB");
-            // message.error('File size must be less than 5MB');
             setShowUploadList2(false);
             form.setFieldValue("signature", []);
-            return false; // Prevent upload
+            return false; 
         }
         setShowUploadList2(true);
-        return true; // Allow upload
+        return true; 
     };
 
     return (
@@ -188,7 +180,6 @@ export default function index() {
                                 className="w-full"
                             >
                                 <Input size='large' placeholder='Company name' onChange={(e) => {
-                                    // form.setFieldValue("companyName", e.target.value);
                                     handleChange(e.target.value, setCompanyName)
                                 }} />
                             </Form.Item>
@@ -197,7 +188,6 @@ export default function index() {
                                 className="w-full"
                             >
                                 <Input size='large' placeholder='Company address' onChange={(e) => {
-                                    // form.setFieldValue("companyLocation", e.target.value); 
                                     handleChange(e.target.value, setCompanyAddress)
                                 }} />
                             </Form.Item>
@@ -208,7 +198,6 @@ export default function index() {
                                 className="w-full"
                             >
                                 <Input size='large' placeholder='Company email' onChange={(e) => {
-                                    // form.setFieldValue("companyEmail", e.target.value); 
                                     handleChange(e.target.value, setCompanyEmail)
                                 }} />
                             </Form.Item>
@@ -217,7 +206,6 @@ export default function index() {
                                 className="w-full"
                             >
                                 <Input size='large' placeholder="Company number" onChange={(e) => {
-                                    // form.setFieldValue("companyNumber", e.target.value); 
                                     handleChange(e.target.value, setCompanyNumber)
                                 }} />
                             </Form.Item>
@@ -240,8 +228,7 @@ export default function index() {
                                         width: "100%",
                                     }}
                                     onChange={(e) => {
-                                        ;
-                                        // form.setFieldValue("currency", e);
+                                        
                                         handleChange(e, setCurrency)
                                     }}
                                     filterOption={(input, option) =>
@@ -264,8 +251,6 @@ export default function index() {
                                         width: "100%",
                                     }}
                                     onChange={(e) => {
-                                        ;
-                                        // form.setFieldValue("timeZone", e);
                                         handleChange(e, setTimeZone)
                                     }}
                                     filterOption={(input, option) =>
@@ -294,8 +279,6 @@ export default function index() {
                                         width: "100%",
                                     }}
                                     onChange={(e) => {
-                                        ;
-                                        // form.setFieldValue("bankIban", e.target.value);
                                         handleChange(e.target.value, setIban)
                                     }}
                                     filterOption={(input, option) =>

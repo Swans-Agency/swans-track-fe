@@ -88,7 +88,7 @@ export default function SortableTable({ columnsData, handleNotifyTeam, setShowTa
             dataIndex: 'delete',
             render: (_,item) => {return (
                 <div
-                    onClick={() => { setShowModal(true); setSelectedColumn(item);console.log({ item }) }}
+                    onClick={() => { setShowModal(true); setSelectedColumn(item) }}
                 >
                     <DeleteRowOutlined className='text-red-700 hover:cursor-pointer'/>
                 </div>
@@ -97,8 +97,6 @@ export default function SortableTable({ columnsData, handleNotifyTeam, setShowTa
     ];
 
     useEffect(() => {
-        console.log({ dataSource })
-        console.log({ statuses })
         let modifiedData = columnsData?.map((item, index) => {
             return (
                 {
@@ -112,19 +110,12 @@ export default function SortableTable({ columnsData, handleNotifyTeam, setShowTa
     }, [columnsData]);
 
     useEffect(() => {
-        console.log({ selectedColumn })
     }, [selectedColumn]);
 
     const onFinish = async (values) => {
-        // setIsLoading(true)
         let url = `${process.env.DIGITALOCEAN}/tasks/sort-columns/`
         await postAxios(url, values, false, false, () => { }, false)
         handleNotifyTeam()
-        // getColumns()
-        // columnForm.resetFields()
-
-        // setIsLoading(false)
-        // router.reload()
     }
 
     const handleDeleteColumn = async () => {
@@ -132,17 +123,14 @@ export default function SortableTable({ columnsData, handleNotifyTeam, setShowTa
         let url = `${process.env.DIGITALOCEAN}/tasks/tasks-columns/${selectedColumn?.id}/?moveTo=${moveToColumn}`
         await deleteAxios(url, true, true, () => { }, false)
         setIsLoading(false)
-        // router.reload()
     }
 
     const onDragEnd = ({ active, over }) => {
-        console.log({ active, over })
         if (active.id !== over?.id) {
             setDataSource((previous) => {
                 const activeIndex = previous.findIndex((i) => i.key === active.id);
                 const overIndex = previous.findIndex((i) => i.key === over?.id);
                 let newArr = arrayMove(previous, activeIndex, overIndex);
-                console.log({ newArr })
                 let modifiedIndex = newArr?.map((item, index) => {
                     return (
                         {
@@ -151,7 +139,6 @@ export default function SortableTable({ columnsData, handleNotifyTeam, setShowTa
                         }
                     )
                 })
-                console.log({ modifiedIndex })
                 onFinish({ "columns": modifiedIndex })
                 return newArr;
             });
@@ -173,7 +160,6 @@ export default function SortableTable({ columnsData, handleNotifyTeam, setShowTa
             </div>
             <DndContext modifiers={[restrictToVerticalAxis]} onDragEnd={onDragEnd}>
                 <SortableContext
-                    // rowKey array
                     items={dataSource?.map((i) => i.key)}
                     strategy={verticalListSortingStrategy}
                 >
@@ -202,7 +188,6 @@ export default function SortableTable({ columnsData, handleNotifyTeam, setShowTa
                     <>
                         <Form
                             layout="vertical"
-                            // className="border rounded-lg border-[#282828] mb-3 p-3"
                             onFinish={handleDeleteColumn}
                         >
                             <Form.Item label="Task status" name="taskStatus">

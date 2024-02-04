@@ -36,16 +36,15 @@ export default function SharedDocsForm({ projectId, getProjectSharedDocs, handle
     };
 
     const checkFileSize = (file) => {
-        const maxSize = 1024 * 1024 * 20; // 1MB in bytes
+        const maxSize = 1024 * 1024 * 20;
         if (file.size > maxSize) {
             NotificationError("File size must be less than 20MB");
             setShowUploadList(false);
             form.setFieldValue("doc", null);
-            // message.error('File size must be less than 1MB');
-            return false; // Prevent upload
+            return false; 
         }
         setShowUploadList(true);
-        return true; // Allow upload
+        return true; 
     };
 
     return (

@@ -284,7 +284,6 @@ export default function Navbar({ userPermission, plan }) {
           <div className={`bg-navbar h-[100vh] ease-in ${collapsed ? "w-[20px]  hidden" : "w-[256px] dark:border-r-[#282828]  dark:border-r"} dark:bg-[#141414] dark:text-white fixed overflow-hidden text-white font-extralight px-2`}>
             <div className=" flex justify-center w-[256px] items-center gap-x-4 h-[4rem]  sticky top-0 inset-0 ">
               <Image src="/logoNew.svg" width={45} height={45} />
-              {/* <p className="text-md font-semibold">Swans Track</p> */}
             </div>
 
             <div className="h-[80vh] overflow-y-scroll pr-2">

@@ -10,7 +10,6 @@ const stripePromise = loadStripe(process.env.STRIPE_PUBLISHABLE_KEY);
 export default function index() {
     const router = useRouter()
     const handlePaymentMethodCreated = async (paymentMethodId) => {
-        // Send the Payment Method ID to your backend for attachment
         try {
             const response = await postAxios(`${process.env.DIGITALOCEAN}/company/attach-payment/`, { paymentMethod: paymentMethodId }, true, true, () => { })
 

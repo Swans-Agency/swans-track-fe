@@ -17,7 +17,7 @@ export default function SharedDocuments({ projectId, getProjectSharedDocs, proje
                 <p className='font-semibold text-md py-2 px-2'>Shared Documents</p>
                 {add && <div onClick={() => setIsModalOpen(true)}><AddIcon /></div>}
             </div>
-            <div className={`pb-2 grid ${classes} gap-2 max-h-[275px] overflow-hidden hover:overflow-y-auto px-2`}>
+            <div className={`pb-2 grid ${classes} gap-2 max-h-[275px] overflow-y-auto px-2`}>
                 {projectSharedDocs?.map((item, index) => {
                     return (
                         <div className="relative w-full h-0 hover:cursor-pointer" style={{ paddingTop: "100%" }} onClick={() => window.open(item?.doc?.split("?")[0])}>
@@ -25,10 +25,9 @@ export default function SharedDocuments({ projectId, getProjectSharedDocs, proje
                                 src={item?.doc?.split("?")[0] || "/docs.png"}
                                 className="absolute top-0 left-0 w-full h-full object-cover border dark:border-[#282828] rounded-lg shadow"
                                 onError={(e) => {
-                                    e.target.onerror = null; // Prevent infinite loop
-                                    e.target.src = "/docs.png"; // Replace with a fallback image or set a default
+                                    e.target.onerror = null; 
+                                    e.target.src = "/docs.png"; 
                                     e.target.classList.add("p-5")
-                                    // You can also handle other actions, like showing an error message, here.
                                 }}
                             />
                             <div style={{ backdropFilter: "blur(10px)", }} className='absolute text-xs text-black top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full py-1 text-center overflow-x-hidden'>
@@ -48,7 +47,6 @@ export default function SharedDocuments({ projectId, getProjectSharedDocs, proje
                 renderComponent={<SharedDocsForm projectId={projectId} getProjectSharedDocs={getProjectSharedDocs} handleCloseModal={handleCloseModal} />}
                 style={{
                     top: 20,
-                    // left: 50
                 }}
             />
         </div>

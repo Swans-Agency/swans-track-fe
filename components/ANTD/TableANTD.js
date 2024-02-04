@@ -98,7 +98,6 @@ export default function TableANTD({
     onChange: onSelectChange,
     getCheckboxProps: (record) => ({
       disabled: record?.permission === 'Admin',
-      // Column configuration not to be checked
       name: record?.permission,
     }),
   };

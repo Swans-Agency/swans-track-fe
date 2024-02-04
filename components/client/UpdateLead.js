@@ -25,9 +25,7 @@ export default function UpdateModal({
 
     const onFinish = async (data) => {
         setIsLoading(true);
-        // data["createdAt"] = moment(new Date(data["createdAt"])).format(
-            // "YYYY-MM-DD"
-        // );
+
         const url = `${process.env.DIGITALOCEAN}/client/edit-lead/${clientId}/`;
         let res = await patchAxios(url, data, true, true);
         setReload(res);
@@ -79,7 +77,6 @@ export default function UpdateModal({
                 name="description"
                 className="w-full"
             >
-                {/* <CustomEditor form={form} fieldName="description" /> */}
                 <SunEditorComponent
                     form={form}
                     fieldName="description"

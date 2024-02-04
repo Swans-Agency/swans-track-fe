@@ -32,7 +32,6 @@ export default function SupportForm() {
   return (
     <>
       <div className="text-3xl font-light tracking-tight mb-4 dark:text-white">
-        {/* <h1>Help Us Grow</h1> */}
         Get in touch👋
       </div>
 
@@ -40,9 +39,6 @@ export default function SupportForm() {
         layout="vertical"
         name="nest-messages"
         onFinish={onFinish}
-        // style={{
-        //   maxWidth: 600,
-        // }}
         validateMessages={validateMessages}
       >
         <div className="flex gap-x-5 w-full ">

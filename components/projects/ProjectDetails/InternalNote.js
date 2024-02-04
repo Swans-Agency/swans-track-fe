@@ -17,7 +17,7 @@ export default function InternalNote({ internalJobNotes, getInternalNotes, proje
                 <p className='font-semibold text-md py-2 px-2'>Internal Notes</p>
                 <div onClick={() => setIsModalOpen(true)}><AddIcon /></div>
             </div>
-            <div className='pb-2 px-2  max-h-[275px] overflow-hidden hover:overflow-y-auto '>
+            <div className='pb-2 px-2  max-h-[275px] overflow-y-auto '>
                 {internalJobNotes?.map((item, index) => {
                     return (
                         <>
@@ -37,7 +37,6 @@ export default function InternalNote({ internalJobNotes, getInternalNotes, proje
                 renderComponent={<InternalNoteForm getInternalNotes={getInternalNotes} projectId={projectId} handleCloseModal={handleCloseModal} />}
                 style={{
                     top: 20,
-                    // left: 50
                 }}
             />
         </div>

@@ -11,14 +11,9 @@ export default function DynamicPage() {
   useEffect(() => {
 
     setUserName(router.query.username)
-    // if (router.query.username) {
-    //   handleGetData(router.query.username)
-    // }
   }, [router.query.username])
 
   useEffect(() => {
-    //      
-    // setUserName(router.query.username)
     if (userName) {
       handleGetData(userName)
     }

@@ -65,7 +65,7 @@ export default function LineChart({ expenseAlltime, incomeAlltime }) {
       },
       layout: {
         padding: {
-          bottom: 10, // Add bottom padding for the legend
+          bottom: 10, 
         },
       },
     },

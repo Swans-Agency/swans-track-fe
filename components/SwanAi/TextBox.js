@@ -37,7 +37,6 @@ export default function TextBox() {
 
             const sanitizedText = DOMPurify.sanitize(res?.data?.content);
             const formattedText = sanitizedText.replace(/\n/g, '<br/>');
-            // const formattedText2 = formattedText.replace(/([^]+)/g, '<code>$1</code>');
             res.data.content = formattedText;
             let response = [...conversation, text, res?.data]
             setConversation(response)

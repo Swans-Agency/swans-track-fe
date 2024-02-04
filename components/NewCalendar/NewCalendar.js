@@ -73,7 +73,6 @@ export default function NewCalendar({ calendarEvents, getEvents }) {
         open={isModalOpenNew}
         footer={null}
         onClose={handleClose}
-        // handleOk={handleClose}
         children={<NewEventForm getEvents={getEvents} handleClose={handleClose} instance={selectedEvent} setSelectedEvent={setSelectedEvent} clickedDate={clickedDate} />}
       />}
 

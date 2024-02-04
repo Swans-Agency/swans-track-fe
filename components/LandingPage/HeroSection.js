@@ -11,29 +11,6 @@ export default function HeroSection() {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  // useEffect(() => {
-  //   if (window !== undefined) {
-  //     const ul = document.querySelector("ul");
-  //     const nav = document.querySelector("nav");
-  //     const menuButton = document.getElementById("menu-button");
-
-  //     window.addEventListener("scroll", () => {
-  //       if (window.scrollY > 750) {
-  //         ul.classList.add("scrolled");
-  //         nav.classList.add("scrolled-border");
-  //         menuButton.classList.add("text-black");
-  //         menuButton.classList.remove("text-white");
-  //       } else {
-  //         ul.classList.remove("scrolled");
-  //         nav.classList.remove("scrolled-border");
-  //         menuButton.classList.remove("text-black");
-  //         menuButton.classList.add("text-white");
-  //       }
-  //     });
-  //   }
-
-  // },[])
-
   return (
     <section
       id="hero-section"

@@ -7,7 +7,6 @@ export default function Terms() {
       <Navbar content="Join the swans" />
       <div className="desktop:px-[20rem] tablet:px-[10rem] phone:px-5 text-left pt-10 pb-24 text-balck dark:text-white">
         <h1 className="text-[2rem] font-black">Terms of Service</h1>
-        {/* <p className="text-sm">Effective Date: June 19, 2023</p> */}
         <p className="pt-4">
           These Terms of Service govern your use of the website located at&nbsp;
           <a href="https://swanstrack.com">https://swanstrack.com</a>&nbsp;and

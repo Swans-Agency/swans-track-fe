@@ -200,7 +200,6 @@ export default function Invitedproject() {
       if (invitedProjectId != decrypted) {
         NotificationError("Sorry, you do not have access to view this project")
         setTimeout(() => {
-          // router.push("/")
         }, 2000)
       }
     }
@@ -222,7 +221,6 @@ export default function Invitedproject() {
     getColumns()
   }, [tasksData]);
 
-  // let columns;
 
   const getColumns = async () => {
     let url = `${process.env.DIGITALOCEAN}/tasks/tasks-columns/`
@@ -234,7 +232,6 @@ export default function Invitedproject() {
     })
 
     let columnObj = {}
-    console.log({ data })
     data?.forEach((item) => {
       return (
         columnObj[item?.columnName] = {
@@ -245,7 +242,6 @@ export default function Invitedproject() {
       )
     })
     setColumns(columnObj)
-    // columns = columnObj
   }
 
   useEffect(() => {

@@ -78,16 +78,15 @@ export default function IncomeForm({ setReload, onClose }) {
   };
 
   const checkFileSize = (file) => {
-    const maxSize = 1024 * 1024 * 5; // 1MB in bytes
+    const maxSize = 1024 * 1024 * 5; 
     if (file.size > maxSize) {
       NotificationError("File size must be less than 5MB");
       setShowUploadList(false);
       form.setFieldValue("attachment", []);
-      // message.error('File size must be less than 1MB');
-      return false; // Prevent upload
+      return false; 
     }
     setShowUploadList(true);
-    return true; // Allow upload
+    return true; 
   };
 
   const normfile = (e) => {

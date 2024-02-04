@@ -34,7 +34,6 @@ export default function Profile() {
     for (const key in data) {
       if (data.hasOwnProperty(key)) {
         if (typeof data[key] === 'string' && data[key].toLowerCase() === 'null') {
-          // If the value is a string "null", convert it to null
           data[key] = null;
         }
       }
@@ -98,21 +97,19 @@ export default function Profile() {
   };
 
   const checkFileSize = (file) => {
-    const maxSize = 1024 * 1024 * 5; // 1MB in bytes
+    const maxSize = 1024 * 1024 * 5; 
     if (file.size > maxSize) {
       NotificationError("File size must be less than 5MB");
-      // message.error('File size must be less than 1MB');
       setShowUploadList(false);
       form.setFieldValue("pfp", []);
-      return false; // Prevent upload
+      return false; 
     }
     setShowUploadList(true);
-    return true; // Allow upload
+    return true; 
   };
 
   return (
     <div className="text-black">
-      {/* <h1 className="text-3xl font-light tracking-tight text-black">Profile</h1> */}
       <Form
         onFinish={onFinish}
         layout="vertical"
@@ -247,7 +244,6 @@ export default function Profile() {
             <Share />
           </div>
         }
-        // style={{ bottom: 20 }}
         onClick={() => {
           return (
             notification.info({

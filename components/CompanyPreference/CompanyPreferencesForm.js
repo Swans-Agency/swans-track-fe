@@ -37,7 +37,6 @@ export default function CompanyPreferencesForm() {
   const CalculateStorage = () => {
     let storage = secureLocalStorage.getItem("storage")
     let maxStorage = secureLocalStorage.getItem("maxStorage")
-    console.log("storage", storage, "maxStorage", maxStorage)
     let percent = ((storage / maxStorage) * 100).toFixed(2)
     setTitleStorage(`${(storage / 1000000000).toFixed(2)} used of ${(maxStorage / 1000000000).toFixed(2)} GB`)
     setStoragePercent(percent)
@@ -116,7 +115,6 @@ export default function CompanyPreferencesForm() {
     formData.append("CLIQ", data?.CLIQ);
 
     if (data?.logo && data?.logo?.file) {
-      console.log("data.logo.file", data)
       formData.append("logo", data?.logo?.file?.originFileObj);
     }
     if (data?.signature && data?.signature?.file) {
@@ -130,29 +128,27 @@ export default function CompanyPreferencesForm() {
   };
 
   const checkFileSize = (file) => {
-    const maxSize = 1024 * 1024 * 5; // 1MB in bytes
+    const maxSize = 1024 * 1024 * 5; 
     if (file.size > maxSize) {
       NotificationError("File size must be less than 5MB");
       setShowUploadList(false);
       form.setFieldValue("logo", []);
-      // message.error('File size must be less than 5MB');
-      return false; // Prevent upload
+      return false; 
     }
     setShowUploadList(true);
-    return true; // Allow upload
+    return true; 
   };
 
   const checkFileSize2 = (file) => {
-    const maxSize = 1024 * 1024 * 5; // 5MB in bytes
+    const maxSize = 1024 * 1024 * 5; 
     if (file.size > maxSize) {
       NotificationError("File size must be less than 5MB");
       setShowUploadList2(false);
       form.setFieldValue("signature", []);
-      // message.error('File size must be less than 5MB');
-      return false; // Prevent upload
+      return false; 
     }
     setShowUploadList2(true);
-    return true; // Allow upload
+    return true; 
   };
 
 
@@ -184,7 +180,6 @@ export default function CompanyPreferencesForm() {
               listType="picture-card"
               maxCount={1}
               defaultFileList={logoPicList}
-              // fileList={logoPicList}
               beforeUpload={checkFileSize}
               accept="image/png, image/jpeg"
               showUploadList={showUploadList}

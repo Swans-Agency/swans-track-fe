@@ -67,7 +67,6 @@ export default function LeadForm({ setReload, onClose }) {
                 name="description"
                 className="w-full"
             >
-                {/* <CustomEditor form={form} fieldName="description" /> */}
                 <SunEditorComponent
                     form={form}
                     fieldName="description"

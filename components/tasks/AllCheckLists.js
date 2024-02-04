@@ -6,7 +6,7 @@ import { deleteAxios, patchAxios, postAxios } from '@/functions/ApiCalls';
 import { useRouter } from 'next/router';
 
 
-export default function AllCheckLists({ item, handleInitialValues, handleNotifyTeam }) {
+export default function AllCheckLists({ item, handleInitialValues, handleNotifyTeam, projectId, getAllTasksNew }) {
     const [showInputTask, setShowInputTask] = useState(false);
     const router = useRouter()
 
@@ -57,15 +57,18 @@ export default function AllCheckLists({ item, handleInitialValues, handleNotifyT
                 item={item}
                 handleDeleteChecklist={handleDeleteChecklist}
                 handleNotifyTeam={handleNotifyTeam}
+                projectId={projectId}
             />
             {item?.checkListItems?.map((itemTask) => {
                 return (
                     <SubTask
                         itemTask={itemTask}
+                        item={item}
                         handleCheckTask={handleCheckTask}
                         handleDeleteTask={handleDeleteTask}
                         handleNotifyTeam={handleNotifyTeam}
-
+                        projectId={projectId}
+                        getAllTasksNew={getAllTasksNew}
                     />
                 )
             })}

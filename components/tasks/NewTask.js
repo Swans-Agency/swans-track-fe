@@ -363,6 +363,8 @@ export default function TaskForm({
                         item={item}
                         handleInitialValues={handleInitialValues}
                         handleNotifyTeam={handleNotifyTeam}
+                        projectId={projectId}
+                        getAllTasksNew={getAllTasksNew}
                       />
                     );
                   })

@@ -47,16 +47,15 @@ export default function ExoenseForm({ setReload, onClose }) {
   };
 
   const checkFileSize = (file) => {
-    const maxSize = 1024 * 1024 * 5; // 1MB in bytes
+    const maxSize = 1024 * 1024 * 5; 
     if (file.size > maxSize) {
       NotificationError("File size must be less than 5MB");
       setShowUploadList(false);
-      // message.error('File size must be less than 1MB');
       form.setFieldValue("attachement", null);
-      return false; // Prevent upload
+      return false; 
     }
     setShowUploadList(true);
-    return true; // Allow upload
+    return true; 
   };
 
   return (

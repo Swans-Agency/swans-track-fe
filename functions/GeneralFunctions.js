@@ -1172,16 +1172,16 @@ const paymentTypes = [
 ]
 
 const paymentColors = {
-  "Cash": "rgba(46, 204, 113, 1)",           // Green
-  "Cheque": "rgba(52, 152, 219, 1)",         // Blue
-  "Bank Transfer": "rgba(155, 89, 182, 1)",  // Purple
-  "Money Transfer": "rgba(241, 196, 15, 1)", // Yellow
-  "CLIQ": "rgba(231, 76, 60, 1)",           // Red
-  "Paypal": "rgba(44, 62, 80, 1)",          // Dark Gray
-  "Stripe": "rgba(127, 140, 141, 1)",       // Light Gray
-  "Crypto Currency": "rgba(22, 160, 133, 1)", // Turquoise
-  "Bitcoin": "rgba(243, 156, 18, 1)",       // Orange
-  "Ethereum": "rgba(169, 50, 38, 1)"        // Maroon
+  "Cash": "rgba(46, 204, 113, 1)",           
+  "Cheque": "rgba(52, 152, 219, 1)",         
+  "Bank Transfer": "rgba(155, 89, 182, 1)",  
+  "Money Transfer": "rgba(241, 196, 15, 1)", 
+  "CLIQ": "rgba(231, 76, 60, 1)",           
+  "Paypal": "rgba(44, 62, 80, 1)",          
+  "Stripe": "rgba(127, 140, 141, 1)",       
+  "Crypto Currency": "rgba(22, 160, 133, 1)", 
+  "Bitcoin": "rgba(243, 156, 18, 1)",       
+  "Ethereum": "rgba(169, 50, 38, 1)"        
 };
 
 const categoryColors = {
@@ -1343,9 +1343,7 @@ const signup = async (data) => {
   }
 };
 
-const logout = async () => {
-  //clear all the cookies, localstorage and session storage
-  
+const logout = async () => {  
   clearStorageCookies()
   redirect("/");
 };

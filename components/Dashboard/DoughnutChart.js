@@ -76,7 +76,7 @@ export default function DoughnutChart({ expensesCategory }) {
       },
       layout: {
         padding: {
-          bottom: 20, // Add bottom padding for the legend
+          bottom: 20,
         },
       },
     },

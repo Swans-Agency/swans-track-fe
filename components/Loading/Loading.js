@@ -16,11 +16,9 @@ export default function Loading() {
   return (
     <div className="w-full flex flex-col items-center justify-center align-middle mt-[15rem]">
       <h1 className="text-3xl font-light mb-10">
-        {/* Content Loading */}
         <Image src="/logoNew.svg" width={100} height={100} />
 
       </h1>
-      {/* <Spin indicator={antIcon} style={{ color: "white" }} /> */}
       <div className="loader h-fit  "></div>
     </div>
 

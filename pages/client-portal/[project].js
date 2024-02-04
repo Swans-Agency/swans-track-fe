@@ -42,11 +42,6 @@ export default function ClientProtal() {
         setProjectInfo(projectData?.data);
         getProjectSharedDocs()
     };
-    // const getClientNotes = async () => {
-    //     const url = `${process.env.DIGITALOCEAN}/project/client-notes-project/${router.query.project}/`;
-    //     const projectData = await axios.get(url, false, false, () => { });
-    //     setClientJobNotes(projectData);
-    // };
 
     const downloadPdf = async (id) => {
         NotificationLoading();
@@ -73,7 +68,6 @@ export default function ClientProtal() {
     };
     const getProjectSharedDocs = async () => {
         const url2 = `${process.env.DIGITALOCEAN}/project/shared-docs-project-client/${projectId}/`;
-        // const projectData2 = await getAxios(url2, false, false, () => { });
         const projectData2 = await axios.get(url2);
         setProjectSharedDocs(projectData2?.data);
     };
@@ -118,7 +112,6 @@ export default function ClientProtal() {
                 <SharedDocuments
                     projectId={projectId}
                     getProjectSharedDocs={getProjectSharedDocs}
-                    // projectSharedDocs={projectInfo?.projectSharedDocs}
                     projectSharedDocs={projectSharedDocs}
                     add={true}
                     classes={'grid-cols-6'}

@@ -32,31 +32,8 @@ export default function TasksComponent({ companyTasks, initialData, columns, pro
   const [message, setMessage] = useState(null)
   const [dontShowSwitch, setDontShowSwitch] = useState(false)
   const [openColumns, setOpenColumns] = useState(false)
-  const [selectedValue, setSelectedValue] = useState('Board'); // Set 'Board' as the default value
+  const [selectedValue, setSelectedValue] = useState('Board'); 
   const router = useRouter()
-  // const [columns, setColumns] = useState(columnsObj)
-  // let columns = {
-  //   "To Do": {
-  //     id: "To Do",
-  //     title: "Backlog",
-  //     taskIds: [],
-  //   },
-  //   "In Progress": {
-  //     id: "In Progress",
-  //     title: "In Progress",
-  //     taskIds: [],
-  //   },
-  //   "Completed": {
-  //     id: "Completed",
-  //     title: "Completed",
-  //     taskIds: [],
-  //   },
-  //   "Idle": {
-  //     id: "Idle",
-  //     title: "Idle",
-  //     taskIds: [],
-  //   },
-  // }
 
   useEffect(() => {
     getAllEmployees();
@@ -71,8 +48,6 @@ export default function TasksComponent({ companyTasks, initialData, columns, pro
 
   useEffect(() => {
     if (allData?.length > 0) {
-
-      // setData(null)
       let newData = {};
 
       allData?.forEach((value) => {
@@ -92,14 +67,6 @@ export default function TasksComponent({ companyTasks, initialData, columns, pro
         };
       });
 
-      // setData((data) => ({
-      //   ...data,
-      //   tasks: newData
-      // }));
-
-      // data.tasks = newData
-      console.log({ newData })
-      console.log({ data })
       setData((prevState) => ({
         ...prevState,
         tasks: newData
@@ -111,6 +78,9 @@ export default function TasksComponent({ companyTasks, initialData, columns, pro
         return task.startDate && task.dueDate
       })
       if (filterGant?.length > 0) {
+        filterGant.sort((a, b) => {
+          return new Date(a.startDate) - new Date(b.startDate);
+        });
         setDontShowSwitch(false)
         setGanttData(filterGant)
       } else {
@@ -152,7 +122,6 @@ export default function TasksComponent({ companyTasks, initialData, columns, pro
   };
 
   const handleNotifyTeam = async (message) => {
-    // set(dbRef.current, true);
     setIsModalOpen(false);
     setOpen(false)
     setMessage(message)
@@ -314,7 +283,6 @@ export default function TasksComponent({ companyTasks, initialData, columns, pro
             defaultValue={selectedValue}
             onChange={handleSegmentChange}
           />}
-          {/* <Input size="large" className="max-w-[450px]" placeholder="Search by assignee or task name" onChange={(e) => setSearch(e.target.value)} /> */}
           <button
             onClick={() => handleopenNewTask()}
             className="flex justify-center items-center gap-x-2 bg-mainBackground dark:bg-[#282828]  text-white rounded py-[0.5rem] px-3"

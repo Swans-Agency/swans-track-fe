@@ -72,16 +72,15 @@ export default function TeamForm({ updateItem, setUpdateItem, setReload }) {
   };
 
   const checkFileSize = (file) => {
-    const maxSize = 1024 * 1024 * 5; // 1MB in bytes
+    const maxSize = 1024 * 1024 * 5; 
     if (file.size > maxSize) {
       NotificationError("File size must be less than 5MB");
-      // message.error('File size must be less than 1MB');
       setShowUploadList(false);
       form.setFieldValue("pfp", null);
-      return false; // Prevent upload
+      return false; 
     }
     setShowUploadList(true);
-    return true; // Allow upload
+    return true; 
   };
 
   return (

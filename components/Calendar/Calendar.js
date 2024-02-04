@@ -37,7 +37,6 @@ export default function Calendar({ isConnected }) {
     if (res?.redirectUrl) {
 
       const newTab = window.open(res?.redirectUrl, "_blank");
-      // newTab.focus();
     } else {
       setMonthEvents(res);
     }

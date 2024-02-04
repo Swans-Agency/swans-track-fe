@@ -90,7 +90,6 @@ export default function BarChart({ clientsCategory }) {
     data: data,
     options: {
       responsive: true,
-      // radius: '100%',
       plugins: {
         legend: {
           display: false,

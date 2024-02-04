@@ -8,8 +8,6 @@ export default function Quote({ quotes }) {
       hoverable={false}
       className="grid rounded-2xl col-span-3 items-center text-center bg-gray-200 dark:text-white dark:bg-[#282828] relative text-black   "
     >
-      {/* <img className="!z-0 absolute rounded-r-2xl top-0 right-0 h-[100%]" src={"https://demo.bootstrapdash.com/purple-admin-free/assets/images/dashboard/circle.svg"} />
-      <img className="!z-0 absolute rounded-r-2xl top-0 left-0 h-[100%] rotate-180" src={"https://demo.bootstrapdash.com/purple-admin-free/assets/images/dashboard/circle.svg"} /> */}
       <div className="w-[100%] py-4 px-3 ">
         <svg
           aria-hidden="true"

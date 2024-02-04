@@ -32,9 +32,7 @@ export default function index() {
                         <Share />
                     </div>
                 }
-                // description="Share your calendar"
-                // shape="square"
-                // style={{ bottom: 20, "width":100 }}
+
                 onClick={() => {
                     return (
                         notification.info({

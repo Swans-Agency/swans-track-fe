@@ -41,14 +41,6 @@ export default function ProjectTodoForm({ projectId, getProjectTodos, handleClos
             </Form.Item>
 
             <div className="flex gap-x-5 w-full justify-end mt-0">
-                {/* <Form.Item
-                    rules={[
-                        {
-                            required: true
-                        }
-                    ]}>
-                    <FormButtons content="Save" />
-                </Form.Item> */}
                 <Form.Item>
                     <FormButtons content="Save" isLoading={isLoading} />
                 </Form.Item> 

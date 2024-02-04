@@ -25,7 +25,6 @@ export default function AuthWrapper({ children }) {
   const checkCompanyPreferences = async () => {
 
     const companyPreferences = cookie.load("companyPreferences", { path: "/" });
-    // const companyPreferences1 = getObjectsFromLocalStorage("companyPreferences");
 
     if (router.pathname != "/authorized/company-settings" && router.pathname.includes("authorized")) {
       if (!companyPreferences) {
@@ -42,16 +41,13 @@ export default function AuthWrapper({ children }) {
       if (response?.subscribed === false) {
         const currentPath = window.location.pathname;
 
-        // Define the allowed paths
         const allowedPaths = [
           '/authorized/settings',
           '/authorized/settings/checkout',
           '/authorized/support',
         ];
 
-        // Check if the current path is not in the allowed paths
         if (!allowedPaths.includes(currentPath)) {
-          // Redirect the user to /authorized/settings
           window.location.href = '/authorized/settings';
         }
       }

@@ -37,16 +37,15 @@ export default function AdditionalDocsForm({ projectId, getProjectAdditionalDocs
         setIsLoading(false)
     };
     const checkFileSize = (file) => {
-        const maxSize = 1024 * 1024 * 20; // 1MB in bytes
+        const maxSize = 1024 * 1024 * 20;
         if (file.size > maxSize) {
             NotificationError("File size must be less than 20MB");
             setShowUploadList(false);
-            // message.error('File size must be less than 1MB');
             form.setFieldValue("doc", null);
-            return false; // Prevent upload
+            return false; 
         }
         setShowUploadList(true);
-        return true; // Allow upload
+        return true; 
     };
 
     return (

@@ -187,7 +187,6 @@ export default function ProjectsView() {
                 handleCancel={() => setSummaryModal({ summary: "", visible: false })}
                 renderComponent={
                     <div
-                        // className="border rounded-lg p-2 hover:cursor-pointer hover:border-blue-400"
                         dangerouslySetInnerHTML={{ __html: summaryModal?.summary }}
                     />
                 }

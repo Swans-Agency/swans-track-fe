@@ -80,8 +80,6 @@ export default function ProjectForm({ setReload, onClose }) {
                         required: true
                     }
                 ]} label="Project Summary" name="summary" className="w-full">
-                {/* <Input.TextArea maxLength={255} className="rounded-lg" rows={4} /> */}
-                {/* <CustomEditor form={form} fieldName="summary" />  */}
                 <SunEditorComponent form={form} fieldName="summary" />
             </Form.Item>
             <div className="flex gap-x-5 w-full">

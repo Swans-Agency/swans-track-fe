@@ -19,7 +19,7 @@ export default function ClientNotes({ clientJobNotes, add = false, getProjectInf
                     <p className='font-semibold text-md py-2 px-2'>Client Notes</p>
                     {add && <div onClick={() => setIsModalOpen(true)}><AddIcon /></div>}
                 </div>
-                <div className='pb-2 px-2 max-h-[275px] overflow-hidden hover:overflow-y-auto'>
+                <div className='pb-2 px-2 max-h-[275px] overflow-y-auto'>
                     {clientJobNotes?.map((item, index) => {
                         return (
                             <>
@@ -40,7 +40,6 @@ export default function ClientNotes({ clientJobNotes, add = false, getProjectInf
                 renderComponent={<InternalNoteForm getInternalNotes={getProjectInfo} projectId={projectId} handleCloseModal={handleCloseModal} path="client-notes-project" />}
                 style={{
                     top: 20,
-                    // left: 50
                 }}
             />
         </>

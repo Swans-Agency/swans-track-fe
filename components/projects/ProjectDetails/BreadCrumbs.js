@@ -17,7 +17,6 @@ export default function BreadCrumbs({ router, projectObj, obj = null, handleHide
                     title: <div className='flex justify-center items-center gap-x-1 '><ProjectIcons width="w-4" height="h-4" /> <p>Projects</p></div>,
                 },
                 {
-                    // href: `/authorized/projects/details/${router.query.project}`,
                     title: <div onClick={() => handleHideBoard()} className=' hover:bg-gray-100 px-[0.15rem] hover:dark:bg-[#414040] hover:dark:text-white  rounded hover:cursor-pointer hover:text-black '><p>{projectObj?.projectName}</p></div>,
                 },
                   obj

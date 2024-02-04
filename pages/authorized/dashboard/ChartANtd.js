@@ -19,10 +19,6 @@ export default function ChartANtd({ expenseAlltime, incomeAlltime }) {
         "Dec",
     ]
 
-    // useEffect(() => {
-    //     asyncFetch();
-    // }, []);
-
     useEffect(() => {
         if (expenseAlltime && incomeAlltime) {
             let newData = []
@@ -53,7 +49,6 @@ export default function ChartANtd({ expenseAlltime, incomeAlltime }) {
             position: 'bottom',
         },
         smooth: true,
-        // @TODO 后续会换一种动画方式
         animation: {
             appear: {
                 animation: 'path-in',

@@ -49,10 +49,10 @@ export default function ProjectDetails() {
         const crypto = new NextCrypto(`${process.env.ENCRYPTION_KEY}`);
         const decodedValue = decodeURIComponent(router.query.project);
 
-        // Decode the base64 string to a buffer
+
         const encryptedBuffer = Buffer.from(decodedValue, 'base64');
 
-        // Now you can decrypt the buffer using your decryption logic
+
         const decryptedId = await crypto.decrypt(decodedValue);
         const url = `${process.env.DIGITALOCEAN}/project/client-notes-project/${decryptedId}/`;
         const projectData = await getAxios(url, false, false, () => { });
@@ -63,10 +63,10 @@ export default function ProjectDetails() {
         const crypto = new NextCrypto(`${process.env.ENCRYPTION_KEY}`);
         const decodedValue = decodeURIComponent(router.query.project);
 
-        // Decode the base64 string to a buffer
+
         const encryptedBuffer = Buffer.from(decodedValue, 'base64');
 
-        // Now you can decrypt the buffer using your decryption logic
+
         const decryptedId = await crypto.decrypt(decodedValue);
         const url2 = `${process.env.DIGITALOCEAN}/project/internal-notes-project/${decryptedId}/`;
         const projectData2 = await getAxios(url2, false, false, () => { });
@@ -77,10 +77,10 @@ export default function ProjectDetails() {
         const crypto = new NextCrypto(`${process.env.ENCRYPTION_KEY}`);
         const decodedValue = decodeURIComponent(router.query.project);
 
-        // Decode the base64 string to a buffer
+
         const encryptedBuffer = Buffer.from(decodedValue, 'base64');
 
-        // Now you can decrypt the buffer using your decryption logic
+
         const decryptedId = await crypto.decrypt(decodedValue);
         const url2 = `${process.env.DIGITALOCEAN}/project/todo-project/${decryptedId}/`;
         const projectData2 = await getAxios(url2, false, false, () => { });
@@ -91,10 +91,10 @@ export default function ProjectDetails() {
         const crypto = new NextCrypto(`${process.env.ENCRYPTION_KEY}`);
         const decodedValue = decodeURIComponent(router.query.project);
 
-        // Decode the base64 string to a buffer
+
         const encryptedBuffer = Buffer.from(decodedValue, 'base64');
 
-        // Now you can decrypt the buffer using your decryption logic
+
         const decryptedId = await crypto.decrypt(decodedValue);
         const url2 = `${process.env.DIGITALOCEAN}/project/additional-docs-project/${decryptedId}/`;
         let pathname = router.pathname.startsWith("/invited-project") ? true : false
@@ -107,10 +107,10 @@ export default function ProjectDetails() {
         const crypto = new NextCrypto(`${process.env.ENCRYPTION_KEY}`);
         const decodedValue = decodeURIComponent(router.query.project);
 
-        // Decode the base64 string to a buffer
+
         const encryptedBuffer = Buffer.from(decodedValue, 'base64');
 
-        // Now you can decrypt the buffer using your decryption logic
+
         const decryptedId = await crypto.decrypt(decodedValue);
         const url2 = `${process.env.DIGITALOCEAN}/project/shared-docs-project/${decryptedId}/`;
         const projectData2 = await getAxios(url2, false, false, () => { });
@@ -121,10 +121,10 @@ export default function ProjectDetails() {
         const crypto = new NextCrypto(`${process.env.ENCRYPTION_KEY}`);
         const decodedValue = decodeURIComponent(router.query.project);
 
-        // Decode the base64 string to a buffer
+
         const encryptedBuffer = Buffer.from(decodedValue, 'base64');
 
-        // Now you can decrypt the buffer using your decryption logic
+
         const decryptedId = await crypto.decrypt(decodedValue);
         const url2 = `${process.env.DIGITALOCEAN}/project/details-project/${decryptedId}/`;
         const projectData2 = await getAxios(url2, false, false, () => { });
@@ -135,10 +135,10 @@ export default function ProjectDetails() {
         const crypto = new NextCrypto(`${process.env.ENCRYPTION_KEY}`);
         const decodedValue = decodeURIComponent(router.query.project);
 
-        // Decode the base64 string to a buffer
+
         const encryptedBuffer = Buffer.from(decodedValue, 'base64');
 
-        // Now you can decrypt the buffer using your decryption logic
+
         const decryptedId = await crypto.decrypt(decodedValue);
         const url2 = `${process.env.DIGITALOCEAN}/project/proposal-project/${decryptedId}/`;
         const projectData2 = await getAxios(url2, false, false, () => { });
@@ -149,10 +149,10 @@ export default function ProjectDetails() {
         const crypto = new NextCrypto(`${process.env.ENCRYPTION_KEY}`);
         const decodedValue = decodeURIComponent(router.query.project);
 
-        // Decode the base64 string to a buffer
+
         const encryptedBuffer = Buffer.from(decodedValue, 'base64');
 
-        // Now you can decrypt the buffer using your decryption logic
+
         const decryptedId = await crypto.decrypt(decodedValue);
         const url2 = `${process.env.DIGITALOCEAN}/project/invoice-project/${decryptedId}/`;
         const projectData2 = await getAxios(url2, false, false, () => { });
@@ -172,7 +172,6 @@ export default function ProjectDetails() {
         const decodedValue = decodeURIComponent(router.query.project);
         const decryptedId = await crypto.decrypt(decodedValue);
     
-        // if (decryptedId) {
         let projectObj = getObjectsFromLocalStorage("project")
         setProjectId(decryptedId)
         if (typeof window !== 'undefined') {
@@ -249,7 +248,6 @@ export default function ProjectDetails() {
         })
 
         let columnObj = {}
-        console.log({ data })
         let dataLoop = data?.forEach((item) => {
             return (
                 columnObj[item?.columnName] = {
@@ -259,9 +257,7 @@ export default function ProjectDetails() {
                 }
             )
         })
-        // setColumns(columnObj)
         columns.current = columnObj
-        console.log({ columnObj })
     }
 
     const [form] = Form.useForm();
@@ -383,53 +379,6 @@ export default function ProjectDetails() {
                             />
                         </div>
                     </div>
-
-                    <ModalANTD
-                        title="Invite a user to this project"
-                        footer={null}
-                        isModalOpen={showInviteModal}
-                        handleOk={() => { setShowInviteModal(false) }}
-                        handleCancel={() => { setShowInviteModal(false) }}
-                        renderComponent={
-                            <div>
-                                <Form
-                                    layout="vertical"
-                                    form={form}
-                                    onFinish={inviteToProject}
-                                >
-                                    <div className="flex gap-x-1 w-full justify-start">
-                                        <Form.Item
-                                            name="email"
-                                            rules={[
-                                                {
-                                                    required: true,
-                                                    message: 'Please input an email!',
-                                                },
-                                            ]}
-                                            className='w-full m-0'
-                                        >
-                                            <Input type="email" name="email" id="email" size='large' placeholder='Enter an E-mail address to invite' />
-                                        </Form.Item>
-                                        <Form.Item>
-                                            <FormButtons content="Invite" isLoading={isLoading} />
-                                        </Form.Item>
-                                    </div>
-                                </Form>
-                                <p className='text-xs font-light text-gray-400'>By inviting a user, you are granting him access to your project tasks, checklist, additional documents, shared documents, client notes, and internal notes.</p>
-                            </div>
-                        }
-                    />
-                    <FloatButton
-                        icon={<UserAddOutlined />}
-                        type="primary"
-                        title="Invite a user to this project"
-                        style={{
-                            right: 24,
-                            bottom: 24,
-                        }}
-                        onClick={() => { setShowInviteModal(true) }}
-                    />
-
                 </> :
                 <>
                     {initialData && <TasksComponent companyTasks={tasksData} initialData={initialData} projectId={projectId} columns={columns.current} />}

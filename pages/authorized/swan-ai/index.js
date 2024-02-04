@@ -8,7 +8,6 @@ import { Watermark } from 'antd';
 export default function index() {
     return (
         <div className='overflow-hidden'>
-            {/* <HeaderAI /> */}
             <TextBox />
         </div>
     );

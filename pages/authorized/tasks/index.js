@@ -30,7 +30,6 @@ export default function index() {
     })
 
     let columnObj = {}
-    console.log({ data })
     let dataLoop = data?.forEach((item) => {
       return (
         columnObj[item?.columnName] = {
@@ -67,7 +66,6 @@ export const getServerSideProps = async (ctx) => {
   let companyTasks = [];
   try {
     if (accessToken) {
-      // companyTasks = await getAxiosServer(`${process.env.DIGITALOCEAN}/tasks/active-tasks/`, accessToken, false)
 
     } else {
       return {

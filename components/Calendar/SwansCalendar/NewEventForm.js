@@ -91,11 +91,9 @@ export default function NewEventForm({ getEvents, handleClose, instance, setSele
                 name="discription"
                 className="w-full"
             >
-                {/* <CustomEditor form={form} fieldName={"discription"} /> */}
                 <SunEditorComponent
                     form={form}
                     fieldName="discription"
-                    // defaultValue={form.getFieldValue("discription")}
                 />
             </Form.Item>
 
