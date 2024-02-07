@@ -1,0 +1,31 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: SSH into server and deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: 158.220.125.113
+          username: yazan
+          password: ${{ secrets.SERVER_YAZAN_PASSWORD }}
+          port: 55666
+          script: |
+            cd code/swans-track-fe && \
+            git pull && \
+            if sudo docker ps --filter "ancestor=swan-track-fe" --quiet; then
+              sudo docker stop $(sudo docker ps --filter "ancestor=swan-track-fe" --quiet)
+            fi && \
+            sudo docker build -t swan-track-fe .  && \
+            sudo docker run -p 3000:3000 swan-track-fe
+
