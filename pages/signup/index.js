@@ -23,7 +23,7 @@ export default function index() {
   const onFinish = async (values) => {
     setIsLoading(true);
     values["email"] = values["email"]?.toLowerCase();
-    let signedUp = await signup(values);
+    let signedUp = await signup(values, setIsLoading);
     if (signedUp) {
       setIsLoading(false);
       router.push("/login");

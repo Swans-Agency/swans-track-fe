@@ -1172,16 +1172,16 @@ const paymentTypes = [
 ]
 
 const paymentColors = {
-  "Cash": "rgba(46, 204, 113, 1)",           
-  "Cheque": "rgba(52, 152, 219, 1)",         
-  "Bank Transfer": "rgba(155, 89, 182, 1)",  
-  "Money Transfer": "rgba(241, 196, 15, 1)", 
-  "CLIQ": "rgba(231, 76, 60, 1)",           
-  "Paypal": "rgba(44, 62, 80, 1)",          
-  "Stripe": "rgba(127, 140, 141, 1)",       
-  "Crypto Currency": "rgba(22, 160, 133, 1)", 
-  "Bitcoin": "rgba(243, 156, 18, 1)",       
-  "Ethereum": "rgba(169, 50, 38, 1)"        
+  "Cash": "rgba(46, 204, 113, 1)",
+  "Cheque": "rgba(52, 152, 219, 1)",
+  "Bank Transfer": "rgba(155, 89, 182, 1)",
+  "Money Transfer": "rgba(241, 196, 15, 1)",
+  "CLIQ": "rgba(231, 76, 60, 1)",
+  "Paypal": "rgba(44, 62, 80, 1)",
+  "Stripe": "rgba(127, 140, 141, 1)",
+  "Crypto Currency": "rgba(22, 160, 133, 1)",
+  "Bitcoin": "rgba(243, 156, 18, 1)",
+  "Ethereum": "rgba(169, 50, 38, 1)"
 };
 
 const categoryColors = {
@@ -1276,12 +1276,14 @@ const redirect = (url) => {
 };
 import secureLocalStorage from "react-secure-storage";
 import NextCrypto from "next-crypto";
-const login = async (data) => {
+const login = async (data, setLoading) => {
+  setLoading(true)
   NotificationLoading();
   const URL = `${process.env.DIGITALOCEAN}/api/token/`;
   axios
     .post(URL, data)
-    .then(async(res) => {
+    .then(async (res) => {
+      setLoading(false)
 
       clearStorageCookies()
       cookie.save("AccessTokenSBS", res?.data?.access, {
@@ -1308,12 +1310,13 @@ const login = async (data) => {
       cookie.save("userId", res?.data?.id, {
         path: "/",
       });
-      
+
       secureLocalStorage.setItem("plan", res?.data?.plan);
       secureLocalStorage.setItem("storage", res?.data?.storage);
       secureLocalStorage.setItem("maxStorage", res?.data?.maxStorage);
 
       if (!res?.data?.companyPreferences || !res?.data?.companyCurrency) {
+        setLoading(false)
         redirect("/authorized/new-company");
       } else {
         cookie.save("companyPreferences", res?.data?.companyPreferences, {
@@ -1323,17 +1326,21 @@ const login = async (data) => {
         cookie.save("companyCurrency", res?.data?.companyCurrency, {
           path: "/",
         });
+        setLoading(false)
         redirect("/authorized/dashboard");
       }
+      setLoading(false)
       NotificationSuccess();
     })
     .catch((err) => {
+      setLoading(false)
       handleError(err)
     });
 };
 
-const signup = async (data) => {
+const signup = async (data, setIsLoading) => {
   try {
+    setIsLoading(true);
     NotificationLoading();
     let res = await axios.post(`${process.env.DIGITALOCEAN}/company/`, data);
     NotificationSuccess(res.data.success);
@@ -1341,9 +1348,11 @@ const signup = async (data) => {
   } catch (err) {
     handleError(err);
   }
+  setIsLoading(false);
+
 };
 
-const logout = async () => {  
+const logout = async () => {
   clearStorageCookies()
   redirect("/");
 };

@@ -205,7 +205,7 @@ export default function Navbar({ userPermission, plan }) {
   const AI = [
     {
       key: "swan-ai",
-      label: "ChatGPT",
+      label: "Swan AI",
       icon: <Gpt />,
       plan: ['Solo']
     },

@@ -23,14 +23,11 @@ export default function index() {
   );
 
   const onFinish = async (values) => {
-    setIsLoading(true);
     values["username"] = values["username"]?.toLowerCase();
-    let loggedIn = await login(values);
+    let loggedIn = await login(values, setIsLoading);
     if (loggedIn) {
-      setIsLoading(false);
       router.push("/authorized/dashboard");
     }
-    setIsLoading(false);
   };
 
   return (
@@ -124,7 +121,7 @@ export default function index() {
                       htmlType="submit"
                       className="bg-gradient-to-br from-[#024380] to-[#0293EA] hover:shadow hover:shadow-gray-400 text-white font-bold py-[3%] px-[10%] rounded-full my-3"
                     >
-                      {!isLoading ? "SIGN IN" : 
+                      {!isLoading ? "SIGN IN" :
                         <div className="flex justify-center items-center gap-2">
                           <Spin indicator={antIcon} style={{ color: "white" }} />
                         </div>
