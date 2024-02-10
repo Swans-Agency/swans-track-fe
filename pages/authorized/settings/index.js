@@ -149,6 +149,15 @@ export const getServerSideProps = async (ctx) => {
   let paymentId = false;
   try {
     if (accessToken) {
+      let allowedPermissions = ["Admin"]
+      if (userPermission && !allowedPermissions.includes(userPermission)) {
+        return {
+          redirect: {
+            destination: "/authorized/dashboard",
+            permanent: false,
+          },
+        };
+      }
       plans = await getAxiosServer(
         `${process.env.DIGITALOCEAN}/company/subscription-plans/`,
         accessToken

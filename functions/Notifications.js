@@ -32,7 +32,7 @@ const NotificationPermission = () => {
     })
 }
 
-const NotificationSuccess = (res, custom=false) => {
+const NotificationSuccess = (res, custom = false) => {
     Swal.fire({
         title: "Success",
         text: `${!custom ? "Your request has been processed" : res} `,
@@ -52,6 +52,8 @@ const NotificationError = (err) => {
 
     if (typeof (err) == "string") {
         textErr = err
+    } else if (err?.detail) {
+        textErr = err?.detail
     } else if (err?.response?.data?.detail) {
         textErr = err?.response?.data?.detail
     } else if (typeof (err?.response?.data) !== "object" && err?.response?.data) {
@@ -65,7 +67,7 @@ const NotificationError = (err) => {
         icon: "error",
         allowOutsideClick: true,
         showConfirmButton: false,
-        timer: 3000,
+        timer: 5000,
         customClass: {
             container: "custom-swal-container",
             popup: "custom-swal-popup",

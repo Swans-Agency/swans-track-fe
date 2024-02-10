@@ -53,11 +53,11 @@ const postAxios = async (url, data, loading, success, callBack = () => { }, fail
     callBack(res?.data);
     return res?.data;
   } catch (err) {
-
     if (fail) {
       if (failMessage.length > 0) {
         handleError(failMessage)
       } else {
+        console.log({ err })
         handleError(err)
       }
     }

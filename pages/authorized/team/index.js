@@ -16,6 +16,15 @@ export const getServerSideProps = async (ctx) => {
   let userPermission = ctx.req.cookies["userPermission"];
   try {
     if (accessToken) {
+      let allowedPermissions = ["Admin", "Supervisor"]
+      if (userPermission && !allowedPermissions.includes(userPermission)) {
+        return {
+          redirect: {
+            destination: "/authorized/dashboard",
+            permanent: false,
+          },
+        };
+      }
     } else {
       return {
         redirect: {

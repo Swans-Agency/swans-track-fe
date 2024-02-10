@@ -47,11 +47,11 @@ export default function MenuItem({ item, index, userPermission, plan, toggleColl
       setHide("");
     }
 
-    if (item?.plan && item?.plan?.includes(plan)) {
-      setHide("hidden");
-    } else {
-      setHide("");
-    }
+    // if (item?.plan && item?.plan?.includes(plan)) {
+    //   setHide("hidden");
+    // } else {
+    //   setHide("");
+    // }
 
   }, [userPermission]);
 

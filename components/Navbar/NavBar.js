@@ -94,7 +94,7 @@ export default function Navbar({ userPermission, plan }) {
       key: "reports",
       label: "Reports",
       icon: <Chart />,
-      plan: ['Solo']
+      // plan: ['Solo']
     },
     {
       label: "Props & Invs",
@@ -121,7 +121,8 @@ export default function Navbar({ userPermission, plan }) {
       key: "team",
       label: "Team Members",
       icon: <TeamMembers />,
-      plan: ['Solo']
+      // plan: ['Solo'],
+      permissions: ["Admin", "Supervisor"],
     },
     {
       key: "company-settings",
@@ -207,34 +208,10 @@ export default function Navbar({ userPermission, plan }) {
       key: "swan-ai",
       label: "Swan AI",
       icon: <Gpt />,
-      plan: ['Solo']
+      // plan: ['Solo']
     },
   ]
 
-  const hoverItems = [
-    {
-      key: "company-settings",
-      label: "Company Settings",
-      icon: <GearIcon />,
-      permissions: ["Admin", "Supervisor"],
-    },
-    {
-      key: "support",
-      label: "Help Center",
-      icon: <Support />,
-    },
-    {
-      key: "settings",
-      label: "Billing & Plans",
-      icon: <Money />,
-      permissions: ["Admin"],
-    },
-    {
-      key: "profile",
-      label: "Profile",
-      icon: <User />,
-    },
-  ];
 
   function toTitleCase(str) {
     if (str == "projects/details/[project]") {
@@ -269,7 +246,7 @@ export default function Navbar({ userPermission, plan }) {
 
 
       <div className="sticky top-0 left-0 !z-[500]">
-        <div className="absolute !z-[500]        ">
+        <div className="absolute !z-[500]">
           <div
             className={`ease-in ${!collapsed ? "hidden" : "left-0 h-[100vh] top-0 w-[30px] dark:bg-[#141414] dark:text-white"} dark:border-r-[#282828] dark:border-r  text-white p-1 bg-navbar flex items-center hover:cursor-pointer`}
             onClick={toggleCollapsed}
@@ -302,6 +279,7 @@ export default function Navbar({ userPermission, plan }) {
                   );
                 })}
               </div>
+
               <div className="py-1">
                 <div className="flex justify-between items-center mb-1 hover:cursor-pointer" onClick={() => setShowManagement(!showManagement)}>
                   <p className="text-sm text-gray-400">Management</p>
@@ -389,6 +367,7 @@ export default function Navbar({ userPermission, plan }) {
                   })}
                 </div>}
               </div>
+
               <div className="absolute bottom-0 left-0 w-full  border-t dark:border-t-[#282828]">
                 <div
                   className={`flex py-4 px-4 font-extralight justify-between gap-x-3 items-center text-[1rem] element2 hover:cursor-pointer`}
