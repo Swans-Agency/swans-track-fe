@@ -6,9 +6,9 @@ export default function ProjectsChart({ projectsAlltime }) {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        if (projectsAlltime && projectsAlltime.monthly_counts) {
+        if (projectsAlltime) {
 
-            setData(projectsAlltime?.monthly_counts);
+            setData(projectsAlltime);
         }
     }, [projectsAlltime]);
 
