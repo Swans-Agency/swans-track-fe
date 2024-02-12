@@ -20,6 +20,7 @@ jobs:
           username: yazan
           password: ${{ secrets.SERVER_YAZAN_PASSWORD }}
           port: 55666
+          command_timeout: 200m
           script: |
             cd code/swans-track-fe && \
             git pull && \
