@@ -48,7 +48,7 @@ export default function CheckList({ item, handleDeleteChecklist, handleNotifyTea
     }
 
     const getAllCompanyTasks = async () => {
-        const url = `${process.env.DIGITALOCEAN}/tasks/list-tasks/?project=${projectId}`
+        const url = projectId ? `${process.env.DIGITALOCEAN}/tasks/list-tasks/?project=${projectId}` : `${process.env.DIGITALOCEAN}/tasks/list-tasks/`
         let pathname = router.pathname.startsWith("/invited-project") ? true : false
 
         if (!companyTasks) {

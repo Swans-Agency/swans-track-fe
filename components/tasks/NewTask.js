@@ -361,6 +361,7 @@ export default function TaskForm({
                     return (
                       <AllCheckLists
                         item={item}
+                        selectedItem={selectedItem}
                         handleInitialValues={handleInitialValues}
                         handleNotifyTeam={handleNotifyTeam}
                         projectId={projectId}

@@ -5,9 +5,8 @@ import { postAxios } from '@/functions/ApiCalls';
 import { useRouter } from 'next/router';
 
 
-export default function SubTask({ itemTask, handleCheckTask, handleDeleteTask, handleNotifyTeam, projectId, getAllTasksNew, item }) {
+export default function SubTask({ itemTask, handleCheckTask, handleDeleteTask, handleNotifyTeam, projectId, getAllTasksNew, item, selectedItem }) {
     const [mouseOver, setMouseOver] = useState(false)
-    const [lineThrough, setLineThrough] = useState(false)
     const [isModalOpen, setIsModalOpen] = useState(false)
     const router = useRouter()
     const handleClose = () => {
@@ -17,14 +16,18 @@ export default function SubTask({ itemTask, handleCheckTask, handleDeleteTask, h
     const convertToCard = async () => {
         const formData = new FormData();
         formData.append("taskName", itemTask?.itemName)
-        formData.append("taskStatus", item?.task)
+        formData.append("taskStatus", selectedItem?.taskStatus)
         formData.append("status", true)
-        formData.append("project", projectId)
+        if (projectId) {
+            formData.append("project", projectId)
+        } else {
+            formData.delete("project")
+        }
 
         let url = `${process.env.DIGITALOCEAN}/tasks/create-task/`
         let pathname = router.pathname.startsWith("/invited-project") ? true : false
 
-        await postAxios(url, formData, true, true, () => { }, false, "", pathname)
+        await postAxios(url, formData, true, true, () => { }, true, "", pathname)
         handleNotifyTeam()
         getAllTasksNew(projectId)
         handleClose()
