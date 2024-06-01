@@ -7,6 +7,7 @@ import { signup } from "@/functions/GeneralFunctions";
 import Image from "next/image";
 import UsernameIcon from "../login/UsernameIcon";
 import CompanyIcon from "./CompanyIcon";
+import * as fbq from "@/lib/fpixel";
 
 export default function index() {
   const router = useRouter();
@@ -25,6 +26,7 @@ export default function index() {
     values["email"] = values["email"]?.toLowerCase();
     let signedUp = await signup(values, setIsLoading);
     if (signedUp) {
+      fbq.event("Signup", {email: values["email"]});
       setIsLoading(false);
       router.push("/login");
     }

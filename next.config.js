@@ -7,6 +7,8 @@ const nextConfig = {
     STRIPE_PUBLISHABLE_KEY: process.env.STRIPE_PUBLISHABLE_KEY,
     CALENDY_CLIENT_ID: process.env.CALENDY_CLIENT_ID,
     REDIRECT_CALENDY_URL: process.env.REDIRECT_CALENDY_URL,
+    ENV_TYPE: process.env.ENV_TYPE,
+    NEXT_PUBLIC_FACEBOOK_PIXEL_ID: process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID,
   },
   images: {
     domains: ['swansagencymain.fra1.digitaloceanspaces.com', 'img.freepik.com', 'images.unsplash.com', 'xsgames.co', 'eu2.contabostorage.com'],
