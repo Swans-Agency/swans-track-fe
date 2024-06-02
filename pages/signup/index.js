@@ -26,7 +26,8 @@ export default function index() {
     values["email"] = values["email"]?.toLowerCase();
     let signedUp = await signup(values, setIsLoading);
     if (signedUp) {
-      fbq.event("Signup", {email: values["email"]});
+      // fbq.event("Purchase", {email: values["email"]});
+      fbq.event("Purchase", { currency: "USD", value: 0 });
       setIsLoading(false);
       router.push("/login");
     }
