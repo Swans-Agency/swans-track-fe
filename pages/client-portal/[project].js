@@ -113,7 +113,7 @@ export default function ClientProtal() {
                     projectId={projectId}
                     getProjectSharedDocs={getProjectSharedDocs}
                     projectSharedDocs={projectSharedDocs}
-                    add={true}
+                    add={false}
                     classes={'grid-cols-6'}
                 />
                 <ClientNotes
