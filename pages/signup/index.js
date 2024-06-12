@@ -103,13 +103,13 @@ export default function index() {
                   required
                   tooltip={{
                     title:
-                      "Your company name, i.e. swansagency. Note that it should be all in small letters, any spaces will be replaced with an underscore.",
+                      "Your username name, i.e. swanstrack. Note that it should be all in small letters, any spaces will be replaced with an underscore.",
                     icon: <InfoCircleOutlined />,
                   }}
                 >
                   <Input
                     className="bg-[#E6F4FD] border-none loginInput py-3 tablet:w-[663px] desktop:w-full text-black"
-                    placeholder=" Company"
+                    placeholder=" Username"
                     size="large"
                     prefix={<CompanyIcon />}
                   />
